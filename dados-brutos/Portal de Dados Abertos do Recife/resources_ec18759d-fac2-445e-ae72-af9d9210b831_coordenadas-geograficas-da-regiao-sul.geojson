@@ -1,0 +1,806 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 0, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 46", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950349, "Latitude": -8.128689 }, "geometry": { "type": "Point", "coordinates": [ -34.950348533397573, -8.128689138812916 ] } }
+,
+{ "type": "Feature", "id": 1, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 76", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950666, "Latitude": -8.128733 }, "geometry": { "type": "Point", "coordinates": [ -34.950666273697472, -8.128732816278323 ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 86", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950784, "Latitude": -8.128687 }, "geometry": { "type": "Point", "coordinates": [ -34.950783991921611, -8.128687049182556 ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 56", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Deslizamento", "Longitude": -34.950476, "Latitude": -8.128698 }, "geometry": { "type": "Point", "coordinates": [ -34.950475585830951, -8.128697569608193 ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 95", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950856, "Latitude": -8.128669 }, "geometry": { "type": "Point", "coordinates": [ -34.950856480943656, -8.128668620424282 ] } }
+,
+{ "type": "Feature", "id": 5, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 106", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.950947, "Latitude": -8.12865 }, "geometry": { "type": "Point", "coordinates": [ -34.950947114055623, -8.128650104570511 ] } }
+,
+{ "type": "Feature", "id": 6, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 126A", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951119, "Latitude": -8.128613 }, "geometry": { "type": "Point", "coordinates": [ -34.951119308192872, -8.128613116354158 ] } }
+,
+{ "type": "Feature", "id": 7, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma,126B", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951174, "Latitude": -8.128604 }, "geometry": { "type": "Point", "coordinates": [ -34.951173696778945, -8.128603814856142 ] } }
+,
+{ "type": "Feature", "id": 8, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 60", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951426, "Latitude": -8.128322 }, "geometry": { "type": "Point", "coordinates": [ -34.951426359222268, -8.128322348712171 ] } }
+,
+{ "type": "Feature", "id": 9, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 61", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951417, "Latitude": -8.128313 }, "geometry": { "type": "Point", "coordinates": [ -34.951417243478261, -8.128313352045526 ] } }
+,
+{ "type": "Feature", "id": 10, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 129", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.9514, "Latitude": -8.128603 }, "geometry": { "type": "Point", "coordinates": [ -34.951400497948079, -8.128602726116228 ] } }
+,
+{ "type": "Feature", "id": 11, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 136", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951455, "Latitude": -8.128666 }, "geometry": { "type": "Point", "coordinates": [ -34.951455236171974, -8.128665746321714 ] } }
+,
+{ "type": "Feature", "id": 12, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 140", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9515, "Latitude": -8.12862 }, "geometry": { "type": "Point", "coordinates": [ -34.95150037786803, -8.128620327464985 ] } }
+,
+{ "type": "Feature", "id": 13, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 146", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951546, "Latitude": -8.128584 }, "geometry": { "type": "Point", "coordinates": [ -34.951545563262528, -8.128583948822492 ] } }
+,
+{ "type": "Feature", "id": 14, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 142", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9516, "Latitude": -8.128629 }, "geometry": { "type": "Point", "coordinates": [ -34.951600214080941, -8.12862888857048 ] } }
+,
+{ "type": "Feature", "id": 15, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 145", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951636, "Latitude": -8.128565 }, "geometry": { "type": "Point", "coordinates": [ -34.951636196288128, -8.128565432826871 ] } }
+,
+{ "type": "Feature", "id": 16, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 147", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.9517, "Latitude": -8.128637 }, "geometry": { "type": "Point", "coordinates": [ -34.951700050292281, -8.128637449650432 ] } }
+,
+{ "type": "Feature", "id": 17, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 149", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Deslizamento", "Longitude": -34.951745, "Latitude": -8.128583 }, "geometry": { "type": "Point", "coordinates": [ -34.951745148238786, -8.128582990557844 ] } }
+,
+{ "type": "Feature", "id": 18, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 150A", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951782, "Latitude": -8.128601 }, "geometry": { "type": "Point", "coordinates": [ -34.951781523841539, -8.128600896748722 ] } }
+,
+{ "type": "Feature", "id": 19, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 150B", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951863, "Latitude": -8.128591 }, "geometry": { "type": "Point", "coordinates": [ -34.95186312851996, -8.128591464479783 ] } }
+,
+{ "type": "Feature", "id": 20, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 154", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.951972, "Latitude": -8.128546 }, "geometry": { "type": "Point", "coordinates": [ -34.951971774446484, -8.128545740643396 ] } }
+,
+{ "type": "Feature", "id": 21, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 155", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.952063, "Latitude": -8.128636 }, "geometry": { "type": "Point", "coordinates": [ -34.952062932063718, -8.128635707129043 ] } }
+,
+{ "type": "Feature", "id": 22, "properties": { "Regional": "Sul", "Endereço": "Rua Doutor Cézar Montezuma, 157", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.952144, "Latitude": -8.128617 }, "geometry": { "type": "Point", "coordinates": [ -34.95214449300672, -8.128617234589788 ] } }
+,
+{ "type": "Feature", "id": 23, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 50", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9511, "Latitude": -8.128315 }, "geometry": { "type": "Point", "coordinates": [ -34.951099722063411, -8.128314876205229 ] } }
+,
+{ "type": "Feature", "id": 24, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 53", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950846, "Latitude": -8.128352 }, "geometry": { "type": "Point", "coordinates": [ -34.950845879653542, -8.128352256238044 ] } }
+,
+{ "type": "Feature", "id": 25, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 79", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950674, "Latitude": -8.128362 }, "geometry": { "type": "Point", "coordinates": [ -34.950673554505428, -8.128362123653259 ] } }
+,
+{ "type": "Feature", "id": 26, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 80", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.950628, "Latitude": -8.12838 }, "geometry": { "type": "Point", "coordinates": [ -34.950628281655234, -8.128380421767862 ] } }
+,
+{ "type": "Feature", "id": 27, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 150", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951217, "Latitude": -8.128188 }, "geometry": { "type": "Point", "coordinates": [ -34.951217046803905, -8.12818774705355 ] } }
+,
+{ "type": "Feature", "id": 28, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 155", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.951017, "Latitude": -8.128153 }, "geometry": { "type": "Point", "coordinates": [ -34.951017287181806, -8.128152544132812 ] } }
+,
+{ "type": "Feature", "id": 29, "properties": { "Regional": "Sul", "Endereço": "1º Travessa Doutor Cézar Montezuma, 65", "Bairro": "Ibura", "Localidade": "Lagoa Encantada", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95089, "Latitude": -8.128126 }, "geometry": { "type": "Point", "coordinates": [ -34.950890147568892, -8.128126033027465 ] } }
+,
+{ "type": "Feature", "id": 30, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 15B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939501, "Latitude": -8.136769 }, "geometry": { "type": "Point", "coordinates": [ -34.939500626218596, -8.136768996980084 ] } }
+,
+{ "type": "Feature", "id": 31, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 16B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939492, "Latitude": -8.136778 }, "geometry": { "type": "Point", "coordinates": [ -34.939491597407532, -8.136778080588131 ] } }
+,
+{ "type": "Feature", "id": 32, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 16", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939429, "Latitude": -8.136968 }, "geometry": { "type": "Point", "coordinates": [ -34.939429004472188, -8.136968229742017 ] } }
+,
+{ "type": "Feature", "id": 33, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 89", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939356, "Latitude": -8.136969 }, "geometry": { "type": "Point", "coordinates": [ -34.939356426078653, -8.136968576369691 ] } }
+,
+{ "type": "Feature", "id": 34, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 20C", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.93932, "Latitude": -8.136969 }, "geometry": { "type": "Point", "coordinates": [ -34.939320136880688, -8.136968749678669 ] } }
+,
+{ "type": "Feature", "id": 35, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 11B,C,D e E", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939284, "Latitude": -8.136951 }, "geometry": { "type": "Point", "coordinates": [ -34.939283760723043, -8.136950842425671 ] } }
+,
+{ "type": "Feature", "id": 36, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 09", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939237, "Latitude": -8.136662 }, "geometry": { "type": "Point", "coordinates": [ -34.939237007943063, -8.136661770102881 ] } }
+,
+{ "type": "Feature", "id": 37, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 85", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939048, "Latitude": -8.13697 }, "geometry": { "type": "Point", "coordinates": [ -34.939047967870486, -8.136970049392795 ] } }
+,
+{ "type": "Feature", "id": 38, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 84", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938975, "Latitude": -8.136961 }, "geometry": { "type": "Point", "coordinates": [ -34.938975345987615, -8.13696135567144 ] } }
+,
+{ "type": "Feature", "id": 39, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 83", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.93893, "Latitude": -8.136943 }, "geometry": { "type": "Point", "coordinates": [ -34.938929897537633, -8.136943491701867 ] } }
+,
+{ "type": "Feature", "id": 40, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 82", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938857, "Latitude": -8.136926 }, "geometry": { "type": "Point", "coordinates": [ -34.938857232187516, -8.136925757675972 ] } }
+,
+{ "type": "Feature", "id": 41, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 81A,B e C", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938785, "Latitude": -8.136917 }, "geometry": { "type": "Point", "coordinates": [ -34.938784610308893, -8.136917063917624 ] } }
+,
+{ "type": "Feature", "id": 42, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº S\/N Em Const.", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938694, "Latitude": -8.136936 }, "geometry": { "type": "Point", "coordinates": [ -34.938693974225295, -8.136935577618685 ] } }
+,
+{ "type": "Feature", "id": 43, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 24", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940573, "Latitude": -8.137098 }, "geometry": { "type": "Point", "coordinates": [ -34.940572766379276, -8.137098372733776 ] } }
+,
+{ "type": "Feature", "id": 44, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 24A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940564, "Latitude": -8.137098 }, "geometry": { "type": "Point", "coordinates": [ -34.940563694083501, -8.137098416089176 ] } }
+,
+{ "type": "Feature", "id": 45, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 25A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9405, "Latitude": -8.137081 }, "geometry": { "type": "Point", "coordinates": [ -34.940500100996907, -8.137080639025767 ] } }
+,
+{ "type": "Feature", "id": 46, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 127", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940418, "Latitude": -8.137072 }, "geometry": { "type": "Point", "coordinates": [ -34.940418406827739, -8.137071988928406 ] } }
+,
+{ "type": "Feature", "id": 47, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 23C", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940328, "Latitude": -8.137072 }, "geometry": { "type": "Point", "coordinates": [ -34.940327683865391, -8.137072422437424 ] } }
+,
+{ "type": "Feature", "id": 48, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 22A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940182, "Latitude": -8.137046 }, "geometry": { "type": "Point", "coordinates": [ -34.940182396614887, -8.137045995186279 ] } }
+,
+{ "type": "Feature", "id": 49, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº Entre 22A e 22B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94011, "Latitude": -8.137046 }, "geometry": { "type": "Point", "coordinates": [ -34.94010981823989, -8.137046341951844 ] } }
+,
+{ "type": "Feature", "id": 50, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 21B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940074, "Latitude": -8.137047 }, "geometry": { "type": "Point", "coordinates": [ -34.94007352905119, -8.137046515329772 ] } }
+,
+{ "type": "Feature", "id": 51, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 21", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939121, "Latitude": -8.137051 }, "geometry": { "type": "Point", "coordinates": [ -34.93912093756213, -8.137051065342181 ] } }
+,
+{ "type": "Feature", "id": 52, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 21A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939992, "Latitude": -8.137056 }, "geometry": { "type": "Point", "coordinates": [ -34.939991921869513, -8.137055945693787 ] } }
+,
+{ "type": "Feature", "id": 53, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 20D", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939874, "Latitude": -8.137057 }, "geometry": { "type": "Point", "coordinates": [ -34.93987398199225, -8.137056509126635 ] } }
+,
+{ "type": "Feature", "id": 54, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 19A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939846, "Latitude": -8.136984 }, "geometry": { "type": "Point", "coordinates": [ -34.939846417157241, -8.136984316934219 ] } }
+,
+{ "type": "Feature", "id": 55, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 14A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939583, "Latitude": -8.137013 }, "geometry": { "type": "Point", "coordinates": [ -34.93958345097942, -8.137012694503934 ] } }
+,
+{ "type": "Feature", "id": 56, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 15A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939529, "Latitude": -8.136995 }, "geometry": { "type": "Point", "coordinates": [ -34.939528930213221, -8.136994873941944 ] } }
+,
+{ "type": "Feature", "id": 57, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1080", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944714, "Latitude": -8.13801 }, "geometry": { "type": "Point", "coordinates": [ -34.944714219280328, -8.138009727321917 ] } }
+,
+{ "type": "Feature", "id": 58, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1080A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944705, "Latitude": -8.137992 }, "geometry": { "type": "Point", "coordinates": [ -34.944705059773256, -8.137991690275207 ] } }
+,
+{ "type": "Feature", "id": 59, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1076", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944678, "Latitude": -8.137974 }, "geometry": { "type": "Point", "coordinates": [ -34.944677755680758, -8.137973740132127 ] } }
+,
+{ "type": "Feature", "id": 60, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1074", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94466, "Latitude": -8.137965 }, "geometry": { "type": "Point", "coordinates": [ -34.944659567488763, -8.137964786785386 ] } }
+,
+{ "type": "Feature", "id": 61, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1072", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944523, "Latitude": -8.137893 }, "geometry": { "type": "Point", "coordinates": [ -34.944523134268955, -8.137893116527264 ] } }
+,
+{ "type": "Feature", "id": 62, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1070", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944459, "Latitude": -8.137848 }, "geometry": { "type": "Point", "coordinates": [ -34.944459410219928, -8.137848219402384 ] } }
+,
+{ "type": "Feature", "id": 63, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1068", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944432, "Latitude": -8.137794 }, "geometry": { "type": "Point", "coordinates": [ -34.9444319317479, -8.137794108232697 ] } }
+,
+{ "type": "Feature", "id": 64, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1066", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944377, "Latitude": -8.137731 }, "geometry": { "type": "Point", "coordinates": [ -34.944377192818102, -8.137731087140191 ] } }
+,
+{ "type": "Feature", "id": 65, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1040", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944304, "Latitude": -8.137659 }, "geometry": { "type": "Point", "coordinates": [ -34.944304265733557, -8.137659112668176 ] } }
+,
+{ "type": "Feature", "id": 66, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1040A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944304, "Latitude": -8.137641 }, "geometry": { "type": "Point", "coordinates": [ -34.944304178542147, -8.137641032164112 ] } }
+,
+{ "type": "Feature", "id": 67, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1054", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944259, "Latitude": -8.137578 }, "geometry": { "type": "Point", "coordinates": [ -34.944258511941364, -8.137577967604063 ] } }
+,
+{ "type": "Feature", "id": 68, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1050", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944158, "Latitude": -8.137524 }, "geometry": { "type": "Point", "coordinates": [ -34.944158455234181, -8.137524203918572 ] } }
+,
+{ "type": "Feature", "id": 69, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1050A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944149, "Latitude": -8.137515 }, "geometry": { "type": "Point", "coordinates": [ -34.944149339356692, -8.137515207103384 ] } }
+,
+{ "type": "Feature", "id": 70, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1071", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94414, "Latitude": -8.137524 }, "geometry": { "type": "Point", "coordinates": [ -34.944140310662199, -8.137524290793841 ] } }
+,
+{ "type": "Feature", "id": 71, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1069A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944131, "Latitude": -8.137524 }, "geometry": { "type": "Point", "coordinates": [ -34.94413123837613, -8.137524334231173 ] } }
+,
+{ "type": "Feature", "id": 72, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1069", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.944049, "Latitude": -8.137498 }, "geometry": { "type": "Point", "coordinates": [ -34.944049457031539, -8.137497604397646 ] } }
+,
+{ "type": "Feature", "id": 73, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1069AB", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943986, "Latitude": -8.137462 }, "geometry": { "type": "Point", "coordinates": [ -34.94398577667819, -8.137461747424222 ] } }
+,
+{ "type": "Feature", "id": 74, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 1069B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943931, "Latitude": -8.137444 }, "geometry": { "type": "Point", "coordinates": [ -34.943931255791902, -8.137443927514218 ] } }
+,
+{ "type": "Feature", "id": 75, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 106916026", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940745, "Latitude": -8.137079 }, "geometry": { "type": "Point", "coordinates": [ -34.940745052963628, -8.137079468399833 ] } }
+,
+{ "type": "Feature", "id": 76, "properties": { "Regional": "SUL", "Endereço": "Rua Bonerges Pereira, nº 25-Q-2A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940673, "Latitude": -8.137107 }, "geometry": { "type": "Point", "coordinates": [ -34.940672605140783, -8.137106936082862 ] } }
+,
+{ "type": "Feature", "id": 77, "properties": { "Regional": "SUL", "Endereço": "Rua Dezessete, nº 15", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943867, "Latitude": -8.137191 }, "geometry": { "type": "Point", "coordinates": [ -34.94386652943821, -8.137191104408606 ] } }
+,
+{ "type": "Feature", "id": 78, "properties": { "Regional": "SUL", "Endereço": "Rua Dezessete, nº 25", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943876, "Latitude": -8.137191 }, "geometry": { "type": "Point", "coordinates": [ -34.943875601718219, -8.137191060978953 ] } }
+,
+{ "type": "Feature", "id": 79, "properties": { "Regional": "SUL", "Endereço": "Rua Dezessete, nº 35", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943866, "Latitude": -8.13711 }, "geometry": { "type": "Point", "coordinates": [ -34.943866137189616, -8.137109742117076 ] } }
+,
+{ "type": "Feature", "id": 80, "properties": { "Regional": "SUL", "Endereço": "Rua Dezessete, nº 45", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943875, "Latitude": -8.137046 }, "geometry": { "type": "Point", "coordinates": [ -34.943874904386931, -8.13704641690566 ] } }
+,
+{ "type": "Feature", "id": 81, "properties": { "Regional": "SUL", "Endereço": "Rua Dezessete, nº 55", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.943884, "Latitude": -8.136983 }, "geometry": { "type": "Point", "coordinates": [ -34.943883671583805, -8.136983091694521 ] } }
+,
+{ "type": "Feature", "id": 82, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,613", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.938514, "Latitude": -8.122101 }, "geometry": { "type": "Point", "coordinates": [ -34.938513849941316, -8.122100987017868 ] } }
+,
+{ "type": "Feature", "id": 83, "properties": { "Regional": "Sul", "Endereço": "Rua Rio Espera,76", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938722, "Latitude": -8.121982 }, "geometry": { "type": "Point", "coordinates": [ -34.938721941215711, -8.121982468911368 ] } }
+,
+{ "type": "Feature", "id": 84, "properties": { "Regional": "SUL", "Endereço": "segunda travessa cândido mendes,600", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938731, "Latitude": -8.12191 }, "geometry": { "type": "Point", "coordinates": [ -34.938730666095594, -8.121910103365007 ] } }
+,
+{ "type": "Feature", "id": 85, "properties": { "Regional": "SUL", "Endereço": "Rua cândido Mendes,20", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938976, "Latitude": -8.121963 }, "geometry": { "type": "Point", "coordinates": [ -34.938975869463519, -8.121963177697138 ] } }
+,
+{ "type": "Feature", "id": 86, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,619", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939003, "Latitude": -8.121945 }, "geometry": { "type": "Point", "coordinates": [ -34.939002998572313, -8.121944967401664 ] } }
+,
+{ "type": "Feature", "id": 87, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,21", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938966, "Latitude": -8.121855 }, "geometry": { "type": "Point", "coordinates": [ -34.938966276809133, -8.121854737483904 ] } }
+,
+{ "type": "Feature", "id": 88, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,13", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938948, "Latitude": -8.121801 }, "geometry": { "type": "Point", "coordinates": [ -34.93894787254532, -8.121800582234295 ] } }
+,
+{ "type": "Feature", "id": 89, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,12", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939029, "Latitude": -8.121746 }, "geometry": { "type": "Point", "coordinates": [ -34.939029259841213, -8.121745951356145 ] } }
+,
+{ "type": "Feature", "id": 90, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,s\\n", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938929, "Latitude": -8.12162 }, "geometry": { "type": "Point", "coordinates": [ -34.938928860845024, -8.121619862949878 ] } }
+,
+{ "type": "Feature", "id": 91, "properties": { "Regional": "SUL", "Endereço": "Rua Francisco Beltrão,s\\n", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.938855, "Latitude": -8.121421 }, "geometry": { "type": "Point", "coordinates": [ -34.938855330691077, -8.121421322491864 ] } }
+,
+{ "type": "Feature", "id": 92, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,10", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939001, "Latitude": -8.121565 }, "geometry": { "type": "Point", "coordinates": [ -34.93900117615857, -8.121565275321441 ] } }
+,
+{ "type": "Feature", "id": 93, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,11", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939046, "Latitude": -8.121457 }, "geometry": { "type": "Point", "coordinates": [ -34.939046015248344, -8.121456575677506 ] } }
+,
+{ "type": "Feature", "id": 94, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,10", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939037, "Latitude": -8.121502 }, "geometry": { "type": "Point", "coordinates": [ -34.939037160246251, -8.121501820353915 ] } }
+,
+{ "type": "Feature", "id": 95, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,s\\n", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939181, "Latitude": -8.121275 }, "geometry": { "type": "Point", "coordinates": [ -34.939181226676368, -8.121275121337357 ] } }
+,
+{ "type": "Feature", "id": 96, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,145", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939109, "Latitude": -8.121275 }, "geometry": { "type": "Point", "coordinates": [ -34.939108651092994, -8.121275467257085 ] } }
+,
+{ "type": "Feature", "id": 97, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,137", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939109, "Latitude": -8.121275 }, "geometry": { "type": "Point", "coordinates": [ -34.939108651092994, -8.121275467257085 ] } }
+,
+{ "type": "Feature", "id": 98, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,12", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939118, "Latitude": -8.121275 }, "geometry": { "type": "Point", "coordinates": [ -34.939117723041093, -8.121275424017826 ] } }
+,
+{ "type": "Feature", "id": 99, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,s\\n", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939227, "Latitude": -8.121329 }, "geometry": { "type": "Point", "coordinates": [ -34.939226846774602, -8.121329146850666 ] } }
+,
+{ "type": "Feature", "id": 100, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,15", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939235, "Latitude": -8.121121 }, "geometry": { "type": "Point", "coordinates": [ -34.93923492068074, -8.121121177016583 ] } }
+,
+{ "type": "Feature", "id": 101, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,11", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.940031, "Latitude": -8.122492 }, "geometry": { "type": "Point", "coordinates": [ -34.940030778546983, -8.122491537148916 ] } }
+,
+{ "type": "Feature", "id": 102, "properties": { "Regional": "SUL", "Endereço": "Rua Viscode de Azuara,12", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939959, "Latitude": -8.122564 }, "geometry": { "type": "Point", "coordinates": [ -34.939958550112898, -8.122564205528724 ] } }
+,
+{ "type": "Feature", "id": 103, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,48", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939968, "Latitude": -8.122564 }, "geometry": { "type": "Point", "coordinates": [ -34.939967622085341, -8.122564162263704 ] } }
+,
+{ "type": "Feature", "id": 104, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,46", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939895, "Latitude": -8.122519 }, "geometry": { "type": "Point", "coordinates": [ -34.939894829229232, -8.122519306965829 ] } }
+,
+{ "type": "Feature", "id": 105, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,04", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939886, "Latitude": -8.122592 }, "geometry": { "type": "Point", "coordinates": [ -34.939886104576694, -8.122591672489124 ] } }
+,
+{ "type": "Feature", "id": 106, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,06", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939831, "Latitude": -8.122538 }, "geometry": { "type": "Point", "coordinates": [ -34.939831412252502, -8.122537690369345 ] } }
+,
+{ "type": "Feature", "id": 107, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,06", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939787, "Latitude": -8.122674 }, "geometry": { "type": "Point", "coordinates": [ -34.939786703583422, -8.122673510921992 ] } }
+,
+{ "type": "Feature", "id": 108, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,136", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939805, "Latitude": -8.122646 }, "geometry": { "type": "Point", "coordinates": [ -34.939804717294031, -8.122646303549534 ] } }
+,
+{ "type": "Feature", "id": 109, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,04", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939597, "Latitude": -8.122864 }, "geometry": { "type": "Point", "coordinates": [ -34.939597103681173, -8.122864265335956 ] } }
+,
+{ "type": "Feature", "id": 110, "properties": { "Regional": "SUL", "Endereço": "Rua Duque Bacelar,203", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939788, "Latitude": -8.122936 }, "geometry": { "type": "Point", "coordinates": [ -34.93978796259097, -8.12293567912716 ] } }
+,
+{ "type": "Feature", "id": 111, "properties": { "Regional": "SUL", "Endereço": "Rua Visconde de Azuara,s\\n", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939416, "Latitude": -8.122874 }, "geometry": { "type": "Point", "coordinates": [ -34.939415707454252, -8.122874170749396 ] } }
+,
+{ "type": "Feature", "id": 112, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,409", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939062, "Latitude": -8.122993 }, "geometry": { "type": "Point", "coordinates": [ -34.939062464285463, -8.122993381247635 ] } }
+,
+{ "type": "Feature", "id": 113, "properties": { "Regional": "SUL", "Endereço": "Travessa Rio Espera,04", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939125, "Latitude": -8.122885 }, "geometry": { "type": "Point", "coordinates": [ -34.939125447393053, -8.122884595074993 ] } }
+,
+{ "type": "Feature", "id": 114, "properties": { "Regional": "SUL", "Endereço": "Travessa Rio Espera,110", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939134, "Latitude": -8.122866 }, "geometry": { "type": "Point", "coordinates": [ -34.939134432577518, -8.122866471254017 ] } }
+,
+{ "type": "Feature", "id": 115, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,128", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939126, "Latitude": -8.123083 }, "geometry": { "type": "Point", "coordinates": [ -34.939126402198063, -8.123083481376101 ] } }
+,
+{ "type": "Feature", "id": 116, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,124", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939016, "Latitude": -8.122867 }, "geometry": { "type": "Point", "coordinates": [ -34.939016496785229, -8.122867033462812 ] } }
+,
+{ "type": "Feature", "id": 117, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,640-A", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Ponto de Colocação de Lona", "Longitude": -34.939007, "Latitude": -8.122831 }, "geometry": { "type": "Point", "coordinates": [ -34.939007251213482, -8.122830915559785 ] } }
+,
+{ "type": "Feature", "id": 118, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,638", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938961, "Latitude": -8.122696 }, "geometry": { "type": "Point", "coordinates": [ -34.938961240364598, -8.122695527471926 ] } }
+,
+{ "type": "Feature", "id": 119, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,633-a,b", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938852, "Latitude": -8.122569 }, "geometry": { "type": "Point", "coordinates": [ -34.938851769100687, -8.122569482345337 ] } }
+,
+{ "type": "Feature", "id": 120, "properties": { "Regional": "SUL", "Endereço": "Rua Rio Espera,617", "Bairro": "Ibura", "Localidade": "Ibura de Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938596, "Latitude": -8.122227 }, "geometry": { "type": "Point", "coordinates": [ -34.938596105043018, -8.122227161992106 ] } }
+,
+{ "type": "Feature", "id": 121, "properties": { "Regional": "SUL", "Endereço": "Rua Cândido Mendes,16", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939199, "Latitude": -8.121167 }, "geometry": { "type": "Point", "coordinates": [ -34.939198849863899, -8.121166551413786 ] } }
+,
+{ "type": "Feature", "id": 122, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº38", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953663, "Latitude": -8.131105 }, "geometry": { "type": "Point", "coordinates": [ -34.953662529892867, -8.131105095949716 ] } }
+,
+{ "type": "Feature", "id": 123, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA NºS\/N", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953599, "Latitude": -8.131123 }, "geometry": { "type": "Point", "coordinates": [ -34.95359911279786, -8.131123481665584 ] } }
+,
+{ "type": "Feature", "id": 124, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº42", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953544, "Latitude": -8.130889 }, "geometry": { "type": "Point", "coordinates": [ -34.953543542321292, -8.130888698018271 ] } }
+,
+{ "type": "Feature", "id": 125, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº60 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953498, "Latitude": -8.130889 }, "geometry": { "type": "Point", "coordinates": [ -34.953498181891355, -8.130888916076287 ] } }
+,
+{ "type": "Feature", "id": 126, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº70 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953479, "Latitude": -8.130744 }, "geometry": { "type": "Point", "coordinates": [ -34.95347933749364, -8.130744360010368 ] } }
+,
+{ "type": "Feature", "id": 127, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº88", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953406, "Latitude": -8.130564 }, "geometry": { "type": "Point", "coordinates": [ -34.953405885597142, -8.130563904764133 ] } }
+,
+{ "type": "Feature", "id": 128, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº 90", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953415, "Latitude": -8.130528 }, "geometry": { "type": "Point", "coordinates": [ -34.953414782631796, -8.130527700332911 ] } }
+,
+{ "type": "Feature", "id": 129, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº90 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953252, "Latitude": -8.130538 }, "geometry": { "type": "Point", "coordinates": [ -34.953251528969005, -8.130537525438632 ] } }
+,
+{ "type": "Feature", "id": 130, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº 23", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953233, "Latitude": -8.13052 }, "geometry": { "type": "Point", "coordinates": [ -34.953233297295789, -8.130519532231785 ] } }
+,
+{ "type": "Feature", "id": 131, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº90 B", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953369, "Latitude": -8.130447 }, "geometry": { "type": "Point", "coordinates": [ -34.95336902840058, -8.130446556510913 ] } }
+,
+{ "type": "Feature", "id": 132, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº101 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953377, "Latitude": -8.130302 }, "geometry": { "type": "Point", "coordinates": [ -34.953377400327192, -8.130301869605267 ] } }
+,
+{ "type": "Feature", "id": 133, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº 140C", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953295, "Latitude": -8.130085 }, "geometry": { "type": "Point", "coordinates": [ -34.953294701505563, -8.130085297082394 ] } }
+,
+{ "type": "Feature", "id": 134, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº 103 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953176, "Latitude": -8.129995 }, "geometry": { "type": "Point", "coordinates": [ -34.953176327071589, -8.12999546182024 ] } }
+,
+{ "type": "Feature", "id": 135, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº140D", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95314, "Latitude": -8.129959 }, "geometry": { "type": "Point", "coordinates": [ -34.953139863792437, -8.12995947538448 ] } }
+,
+{ "type": "Feature", "id": 136, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº140A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.952968, "Latitude": -8.129996 }, "geometry": { "type": "Point", "coordinates": [ -34.952967669499238, -8.129996464547391 ] } }
+,
+{ "type": "Feature", "id": 137, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº25", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.952977, "Latitude": -8.130096 }, "geometry": { "type": "Point", "coordinates": [ -34.95297722280305, -8.130095863246792 ] } }
+,
+{ "type": "Feature", "id": 138, "properties": { "Regional": "SUL", "Endereço": "FLOR DE MARIA Nº23", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.953041, "Latitude": -8.130195 }, "geometry": { "type": "Point", "coordinates": [ -34.953041208556279, -8.1301950003648 ] } }
+,
+{ "type": "Feature", "id": 139, "properties": { "Regional": "SUL", "Endereço": "PERSEGUEIROS Nº240", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954024, "Latitude": -8.130778 }, "geometry": { "type": "Point", "coordinates": [ -34.954023837484975, -8.130777903862166 ] } }
+,
+{ "type": "Feature", "id": 140, "properties": { "Regional": "SUL", "Endereço": "PERSEGUEIROS Nº43", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954334, "Latitude": -8.131129 }, "geometry": { "type": "Point", "coordinates": [ -34.954333995775485, -8.131128988420342 ] } }
+,
+{ "type": "Feature", "id": 141, "properties": { "Regional": "SUL", "Endereço": "CANDIDO MENDES Nº16", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 4", "Longitude": -34.93929, "Latitude": -8.121166 }, "geometry": { "type": "Point", "coordinates": [ -34.939289569313289, -8.121166118997756 ] } }
+,
+{ "type": "Feature", "id": 142, "properties": { "Regional": "SUL", "Endereço": "CANDIDO MENDES Nº11", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938992, "Latitude": -8.121583 }, "geometry": { "type": "Point", "coordinates": [ -34.938992190982546, -8.121583399135149 ] } }
+,
+{ "type": "Feature", "id": 143, "properties": { "Regional": "SUL", "Endereço": "AFONSO CUNHA Nº51", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 4", "Longitude": -34.943047, "Latitude": -8.123472 }, "geometry": { "type": "Point", "coordinates": [ -34.943047453644517, -8.123471590841314 ] } }
+,
+{ "type": "Feature", "id": 144, "properties": { "Regional": "SUL", "Endereço": "RIO ESPERA Nº127", "Bairro": "Ibura", "Localidade": "Alto da bela vista", "Descrição": "Área de Risco Nível 4", "Longitude": -34.939053, "Latitude": -8.123002 }, "geometry": { "type": "Point", "coordinates": [ -34.939053435697183, -8.123002464781543 ] } }
+,
+{ "type": "Feature", "id": 145, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 84", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938559, "Latitude": -8.1353 }, "geometry": { "type": "Point", "coordinates": [ -34.93855909595932, -8.13529989264158 ] } }
+,
+{ "type": "Feature", "id": 146, "properties": { "Regional": "Sul", "Endereço": "RUA SÃO JOSÉ DO EGITO, Q-Z-Nº19", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938551, "Latitude": -8.135417 }, "geometry": { "type": "Point", "coordinates": [ -34.938550588599476, -8.135417459634803 ] } }
+,
+{ "type": "Feature", "id": 147, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº18", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938524, "Latitude": -8.135472 }, "geometry": { "type": "Point", "coordinates": [ -34.938523632517871, -8.135471831243031 ] } }
+,
+{ "type": "Feature", "id": 148, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 17", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938524, "Latitude": -8.135544 }, "geometry": { "type": "Point", "coordinates": [ -34.938523980154251, -8.135544153515825 ] } }
+,
+{ "type": "Feature", "id": 149, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 16", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938515, "Latitude": -8.135607 }, "geometry": { "type": "Point", "coordinates": [ -34.938515212065411, -8.135607478806069 ] } }
+,
+{ "type": "Feature", "id": 150, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 15", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938525, "Latitude": -8.135689 }, "geometry": { "type": "Point", "coordinates": [ -34.938524675436597, -8.135688798060597 ] } }
+,
+{ "type": "Feature", "id": 151, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO,Q-Z-24 Nº 14", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938525, "Latitude": -8.135716 }, "geometry": { "type": "Point", "coordinates": [ -34.938524805803461, -8.13571591891262 ] } }
+,
+{ "type": "Feature", "id": 152, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 13", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938489, "Latitude": -8.135834 }, "geometry": { "type": "Point", "coordinates": [ -34.938489081617938, -8.135833615815027 ] } }
+,
+{ "type": "Feature", "id": 153, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 12", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938498, "Latitude": -8.13587 }, "geometry": { "type": "Point", "coordinates": [ -34.938498327719806, -8.135869733648979 ] } }
+,
+{ "type": "Feature", "id": 154, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 11", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938454, "Latitude": -8.135987 }, "geometry": { "type": "Point", "coordinates": [ -34.93845353124081, -8.135987473855639 ] } }
+,
+{ "type": "Feature", "id": 155, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 10", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938481, "Latitude": -8.136051 }, "geometry": { "type": "Point", "coordinates": [ -34.938481052281645, -8.136050625936544 ] } }
+,
+{ "type": "Feature", "id": 156, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 09", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938463, "Latitude": -8.136132 }, "geometry": { "type": "Point", "coordinates": [ -34.938463298821716, -8.136132075100141 ] } }
+,
+{ "type": "Feature", "id": 157, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO,Q-24 Nº 08", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9385, "Latitude": -8.136186 }, "geometry": { "type": "Point", "coordinates": [ -34.938499848708091, -8.136186143589029 ] } }
+,
+{ "type": "Feature", "id": 158, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO,Q-24 Nº 07", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938491, "Latitude": -8.136277 }, "geometry": { "type": "Point", "coordinates": [ -34.93849121099894, -8.136276589732857 ] } }
+,
+{ "type": "Feature", "id": 159, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 06", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938473, "Latitude": -8.13634 }, "geometry": { "type": "Point", "coordinates": [ -34.93847337062607, -8.136339958329904 ] } }
+,
+{ "type": "Feature", "id": 160, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 05", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938483, "Latitude": -8.136421 }, "geometry": { "type": "Point", "coordinates": [ -34.938482834041203, -8.136421277580595 ] } }
+,
+{ "type": "Feature", "id": 161, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 04", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938429, "Latitude": -8.136476 }, "geometry": { "type": "Point", "coordinates": [ -34.938428661034557, -8.136475779113601 ] } }
+,
+{ "type": "Feature", "id": 162, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 03", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938447, "Latitude": -8.136548 }, "geometry": { "type": "Point", "coordinates": [ -34.938447153287171, -8.136548014777079 ] } }
+,
+{ "type": "Feature", "id": 163, "properties": { "Regional": "SUL", "Endereço": "RUA SÃO JOSÉ DO EGITO, Nº 02", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938429, "Latitude": -8.136611 }, "geometry": { "type": "Point", "coordinates": [ -34.938429312904994, -8.136611383375842 ] } }
+,
+{ "type": "Feature", "id": 165, "properties": { "Regional": "SUL", "Endereço": "RUA CAFARNAUM, Nº 152", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929287, "Latitude": -8.131538 }, "geometry": { "type": "Point", "coordinates": [ -34.929287155921664, -8.131537973605408 ] } }
+,
+{ "type": "Feature", "id": 166, "properties": { "Regional": "SUL", "Endereço": "RUA CAFARNAUM, POR TRÁS DO  Nº 152", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929359, "Latitude": -8.131303 }, "geometry": { "type": "Point", "coordinates": [ -34.929358609865723, -8.131302580293795 ] } }
+,
+{ "type": "Feature", "id": 167, "properties": { "Regional": "SUL", "Endereço": "2ª TRAVESSA BONERGES PEREIRA, M537", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940914, "Latitude": -8.136392 }, "geometry": { "type": "Point", "coordinates": [ -34.940914119423397, -8.13639158396515 ] } }
+,
+{ "type": "Feature", "id": 168, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 12", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946356, "Latitude": -8.134205 }, "geometry": { "type": "Point", "coordinates": [ -34.946356122149965, -8.134204870593216 ] } }
+,
+{ "type": "Feature", "id": 169, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 13", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946401, "Latitude": -8.134141 }, "geometry": { "type": "Point", "coordinates": [ -34.946401177779677, -8.134141371548296 ] } }
+,
+{ "type": "Feature", "id": 170, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 14", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946437, "Latitude": -8.134105 }, "geometry": { "type": "Point", "coordinates": [ -34.946437292072808, -8.134105036698403 ] } }
+,
+{ "type": "Feature", "id": 171, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 15", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946482, "Latitude": -8.134051 }, "geometry": { "type": "Point", "coordinates": [ -34.946482391305103, -8.134050577891713 ] } }
+,
+{ "type": "Feature", "id": 172, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 16", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946537, "Latitude": -8.134014 }, "geometry": { "type": "Point", "coordinates": [ -34.946536649971378, -8.134014156093841 ] } }
+,
+{ "type": "Feature", "id": 173, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada,Q.X12 Nº 16", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946473, "Latitude": -8.133951 }, "geometry": { "type": "Point", "coordinates": [ -34.946472839240514, -8.133951178701441 ] } }
+,
+{ "type": "Feature", "id": 174, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 17", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.9465, "Latitude": -8.133888 }, "geometry": { "type": "Point", "coordinates": [ -34.946499750447003, -8.133887766595917 ] } }
+,
+{ "type": "Feature", "id": 175, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 19", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946508, "Latitude": -8.133734 }, "geometry": { "type": "Point", "coordinates": [ -34.946508081026359, -8.1337340390136 ] } }
+,
+{ "type": "Feature", "id": 176, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 20", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94649, "Latitude": -8.133689 }, "geometry": { "type": "Point", "coordinates": [ -34.946489718533847, -8.133688924743646 ] } }
+,
+{ "type": "Feature", "id": 177, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº 137", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946444, "Latitude": -8.133626 }, "geometry": { "type": "Point", "coordinates": [ -34.946444052244047, -8.13362586039306 ] } }
+,
+{ "type": "Feature", "id": 178, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº ao lado do 137", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946407, "Latitude": -8.133527 }, "geometry": { "type": "Point", "coordinates": [ -34.946407283672237, -8.133526591596795 ] } }
+,
+{ "type": "Feature", "id": 179, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946334, "Latitude": -8.133418 }, "geometry": { "type": "Point", "coordinates": [ -34.946334182777555, -8.133418456409913 ] } }
+,
+{ "type": "Feature", "id": 180, "properties": { "Regional": "SUL", "Endereço": "Rua Serra Talhada, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.946297, "Latitude": -8.133301 }, "geometry": { "type": "Point", "coordinates": [ -34.946297327027921, -8.133301107105485 ] } }
+,
+{ "type": "Feature", "id": 181, "properties": { "Regional": "SUL", "Endereço": "PARAÍSO Nº 420", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.954794, "Latitude": -8.130602 }, "geometry": { "type": "Point", "coordinates": [ -34.954794132104091, -8.130602431471626 ] } }
+,
+{ "type": "Feature", "id": 182, "properties": { "Regional": "SUL", "Endereço": "PARAÍSO Nº 410", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.954812, "Latitude": -8.130494 }, "geometry": { "type": "Point", "coordinates": [ -34.954811750739758, -8.130493861813653 ] } }
+,
+{ "type": "Feature", "id": 183, "properties": { "Regional": "SUL", "Endereço": "PARAÍSO Nº325", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954499, "Latitude": -8.129519 }, "geometry": { "type": "Point", "coordinates": [ -34.954498571813311, -8.129519003765948 ] } }
+,
+{ "type": "Feature", "id": 184, "properties": { "Regional": "SUL", "Endereço": "PARAÍSO Nº 306", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 4", "Longitude": -34.954435, "Latitude": -8.129565 }, "geometry": { "type": "Point", "coordinates": [ -34.954435286355483, -8.129564510148208 ] } }
+,
+{ "type": "Feature", "id": 185, "properties": { "Regional": "SUL", "Endereço": "PARAÍSO Nº 300", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95438, "Latitude": -8.129393 }, "geometry": { "type": "Point", "coordinates": [ -34.954380022284845, -8.12939300807159 ] } }
+,
+{ "type": "Feature", "id": 186, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 170", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955116, "Latitude": -8.129543 }, "geometry": { "type": "Point", "coordinates": [ -34.955115602470542, -8.129543157313657 ] } }
+,
+{ "type": "Feature", "id": 187, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 160", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955116, "Latitude": -8.129543 }, "geometry": { "type": "Point", "coordinates": [ -34.955115602470542, -8.129543157313657 ] } }
+,
+{ "type": "Feature", "id": 188, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 158", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955143, "Latitude": -8.129534 }, "geometry": { "type": "Point", "coordinates": [ -34.95514277481719, -8.12953398619565 ] } }
+,
+{ "type": "Feature", "id": 189, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 357", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955116, "Latitude": -8.129615 }, "geometry": { "type": "Point", "coordinates": [ -34.955115952822311, -8.129615478890976 ] } }
+,
+{ "type": "Feature", "id": 190, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 236", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.955126, "Latitude": -8.129733 }, "geometry": { "type": "Point", "coordinates": [ -34.955125594202123, -8.12973295781239 ] } }
+,
+{ "type": "Feature", "id": 191, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 125", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955235, "Latitude": -8.129823 }, "geometry": { "type": "Point", "coordinates": [ -34.955234896791097, -8.129822836067104 ] } }
+,
+{ "type": "Feature", "id": 192, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 120", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.955208, "Latitude": -8.129823 }, "geometry": { "type": "Point", "coordinates": [ -34.955207680632732, -8.129822966998713 ] } }
+,
+{ "type": "Feature", "id": 193, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 45", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.955437, "Latitude": -8.130328 }, "geometry": { "type": "Point", "coordinates": [ -34.955436934953681, -8.130328126778187 ] } }
+,
+{ "type": "Feature", "id": 194, "properties": { "Regional": "SUL", "Endereço": "CANADÁ Nº 55", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955446, "Latitude": -8.1304 }, "geometry": { "type": "Point", "coordinates": [ -34.955446357461859, -8.130400404686917 ] } }
+,
+{ "type": "Feature", "id": 195, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 290", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.956376, "Latitude": -8.131273 }, "geometry": { "type": "Point", "coordinates": [ -34.956375959195704, -8.131272849543434 ] } }
+,
+{ "type": "Feature", "id": 196, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 105", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956431, "Latitude": -8.131481 }, "geometry": { "type": "Point", "coordinates": [ -34.956431399833754, -8.131480511828034 ] } }
+,
+{ "type": "Feature", "id": 197, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº S\/N", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956659, "Latitude": -8.131742 }, "geometry": { "type": "Point", "coordinates": [ -34.956659473253318, -8.13174158522105 ] } }
+,
+{ "type": "Feature", "id": 198, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 05", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956531, "Latitude": -8.131363 }, "geometry": { "type": "Point", "coordinates": [ -34.95653062288433, -8.131362508886214 ] } }
+,
+{ "type": "Feature", "id": 199, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 25", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 4", "Longitude": -34.956103, "Latitude": -8.131102 }, "geometry": { "type": "Point", "coordinates": [ -34.956102964127815, -8.131102396142586 ] } }
+,
+{ "type": "Feature", "id": 200, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 30", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 4", "Longitude": -34.956076, "Latitude": -8.131139 }, "geometry": { "type": "Point", "coordinates": [ -34.956075923192905, -8.131138687917872 ] } }
+,
+{ "type": "Feature", "id": 201, "properties": { "Regional": "SUL", "Endereço": "TRV. BOM DESTINO Nº 35", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 4", "Longitude": -34.956086, "Latitude": -8.131256 }, "geometry": { "type": "Point", "coordinates": [ -34.956085564989309, -8.131256166733296 ] } }
+,
+{ "type": "Feature", "id": 202, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 335 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 4", "Longitude": -34.956109, "Latitude": -8.130497 }, "geometry": { "type": "Point", "coordinates": [ -34.956109100069547, -8.130496659659716 ] } }
+,
+{ "type": "Feature", "id": 203, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 28", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956017, "Latitude": -8.130307 }, "geometry": { "type": "Point", "coordinates": [ -34.956017459244094, -8.130307252292242 ] } }
+,
+{ "type": "Feature", "id": 204, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 390", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956198, "Latitude": -8.130207 }, "geometry": { "type": "Point", "coordinates": [ -34.956198418379707, -8.130206936866546 ] } }
+,
+{ "type": "Feature", "id": 205, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 409", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.955781, "Latitude": -8.130236 }, "geometry": { "type": "Point", "coordinates": [ -34.955781235182982, -8.130236065947541 ] } }
+,
+{ "type": "Feature", "id": 206, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº A. 409", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955836, "Latitude": -8.130326 }, "geometry": { "type": "Point", "coordinates": [ -34.955836105675502, -8.130326205922 ] } }
+,
+{ "type": "Feature", "id": 207, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº B. 409", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.955799, "Latitude": -8.130182 }, "geometry": { "type": "Point", "coordinates": [ -34.955799116424664, -8.130181737470926 ] } }
+,
+{ "type": "Feature", "id": 208, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 50", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.956164, "Latitude": -8.130596 }, "geometry": { "type": "Point", "coordinates": [ -34.956164014497119, -8.130595839754038 ] } }
+,
+{ "type": "Feature", "id": 209, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 320", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.956211, "Latitude": -8.130858 }, "geometry": { "type": "Point", "coordinates": [ -34.956210645739063, -8.130857786937339 ] } }
+,
+{ "type": "Feature", "id": 210, "properties": { "Regional": "SUL", "Endereço": "BOM DESTINO Nº 80", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.956338, "Latitude": -8.130984 }, "geometry": { "type": "Point", "coordinates": [ -34.95633826832465, -8.130983738176234 ] } }
+,
+{ "type": "Feature", "id": 211, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 576", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940161, "Latitude": -8.136404 }, "geometry": { "type": "Point", "coordinates": [ -34.940161163672926, -8.136404222371899 ] } }
+,
+{ "type": "Feature", "id": 212, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 576 Em frente", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940161, "Latitude": -8.136404 }, "geometry": { "type": "Point", "coordinates": [ -34.940161163672926, -8.136404222371899 ] } }
+,
+{ "type": "Feature", "id": 213, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 577", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940153, "Latitude": -8.136531 }, "geometry": { "type": "Point", "coordinates": [ -34.940152700337897, -8.136530829563261 ] } }
+,
+{ "type": "Feature", "id": 214, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940153, "Latitude": -8.136558 }, "geometry": { "type": "Point", "coordinates": [ -34.940152830827891, -8.1365579503879 ] } }
+,
+{ "type": "Feature", "id": 215, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 583", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940162, "Latitude": -8.136612 }, "geometry": { "type": "Point", "coordinates": [ -34.940162164096272, -8.136612148693407 ] } }
+,
+{ "type": "Feature", "id": 216, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 581", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940162, "Latitude": -8.136621 }, "geometry": { "type": "Point", "coordinates": [ -34.940162207593538, -8.136621188968205 ] } }
+,
+{ "type": "Feature", "id": 217, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940162, "Latitude": -8.136675 }, "geometry": { "type": "Point", "coordinates": [ -34.940162468578187, -8.136675430616899 ] } }
+,
+{ "type": "Feature", "id": 218, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 589A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940009, "Latitude": -8.136748 }, "geometry": { "type": "Point", "coordinates": [ -34.940008587622081, -8.136748489642017 ] } }
+,
+{ "type": "Feature", "id": 219, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 589", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940127, "Latitude": -8.136748 }, "geometry": { "type": "Point", "coordinates": [ -34.940126527399833, -8.136747926191264 ] } }
+,
+{ "type": "Feature", "id": 220, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940127, "Latitude": -8.136748 }, "geometry": { "type": "Point", "coordinates": [ -34.940126527399833, -8.136747926191264 ] } }
+,
+{ "type": "Feature", "id": 221, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº 597", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940136, "Latitude": -8.136865 }, "geometry": { "type": "Point", "coordinates": [ -34.940136165160268, -8.13686540642059 ] } }
+,
+{ "type": "Feature", "id": 222, "properties": { "Regional": "SUL", "Endereço": "Rua 5ª Travessa Irakitan, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940145, "Latitude": -8.13682 }, "geometry": { "type": "Point", "coordinates": [ -34.940145019962557, -8.136820161702028 ] } }
+,
+{ "type": "Feature", "id": 223, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 42", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.954853, "Latitude": -8.133323 }, "geometry": { "type": "Point", "coordinates": [ -34.95485267655026, -8.133323312745235 ] } }
+,
+{ "type": "Feature", "id": 224, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 10", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954925, "Latitude": -8.133359 }, "geometry": { "type": "Point", "coordinates": [ -34.954925428857351, -8.133359124290493 ] } }
+,
+{ "type": "Feature", "id": 225, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 30", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955016, "Latitude": -8.133377 }, "geometry": { "type": "Point", "coordinates": [ -34.955016237818441, -8.133376768111305 ] } }
+,
+{ "type": "Feature", "id": 226, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 25", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955116, "Latitude": -8.133367 }, "geometry": { "type": "Point", "coordinates": [ -34.955115987472283, -8.133367247663006 ] } }
+,
+{ "type": "Feature", "id": 227, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 26", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955125, "Latitude": -8.133403 }, "geometry": { "type": "Point", "coordinates": [ -34.955125234865115, -8.133403364784202 ] } }
+,
+{ "type": "Feature", "id": 228, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 162", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95509, "Latitude": -8.133557 }, "geometry": { "type": "Point", "coordinates": [ -34.955089691179055, -8.133557222750657 ] } }
+,
+{ "type": "Feature", "id": 229, "properties": { "Regional": "SUL", "Endereço": "DOIS LEÕES Nº 190", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.955108, "Latitude": -8.13362 }, "geometry": { "type": "Point", "coordinates": [ -34.955108142163624, -8.133620416796585 ] } }
+,
+{ "type": "Feature", "id": 230, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 41", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954616, "Latitude": -8.133107 }, "geometry": { "type": "Point", "coordinates": [ -34.954615749799871, -8.133107482930376 ] } }
+,
+{ "type": "Feature", "id": 231, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 04", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954734, "Latitude": -8.133134 }, "geometry": { "type": "Point", "coordinates": [ -34.954733818898596, -8.133134036084112 ] } }
+,
+{ "type": "Feature", "id": 232, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 40", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 2", "Longitude": -34.954725, "Latitude": -8.133143 }, "geometry": { "type": "Point", "coordinates": [ -34.954724790573358, -8.133143119932353 ] } }
+,
+{ "type": "Feature", "id": 233, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 04", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954099, "Latitude": -8.133146 }, "geometry": { "type": "Point", "coordinates": [ -34.954098813475866, -8.133146131334163 ] } }
+,
+{ "type": "Feature", "id": 234, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 09", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954114, "Latitude": -8.132531 }, "geometry": { "type": "Point", "coordinates": [ -34.954113980066623, -8.132531310383119 ] } }
+,
+{ "type": "Feature", "id": 235, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 192", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954295, "Latitude": -8.13253 }, "geometry": { "type": "Point", "coordinates": [ -34.954295422450159, -8.13253043767088 ] } }
+,
+{ "type": "Feature", "id": 236, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 406", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954286, "Latitude": -8.132476 }, "geometry": { "type": "Point", "coordinates": [ -34.954286087583341, -8.132476240106227 ] } }
+,
+{ "type": "Feature", "id": 237, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 405", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954395, "Latitude": -8.132503 }, "geometry": { "type": "Point", "coordinates": [ -34.954395084370944, -8.132502837045355 ] } }
+,
+{ "type": "Feature", "id": 238, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 404", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954395, "Latitude": -8.132431 }, "geometry": { "type": "Point", "coordinates": [ -34.954394734022245, -8.132430515447023 ] } }
+,
+{ "type": "Feature", "id": 239, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 384 B", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954422, "Latitude": -8.132476 }, "geometry": { "type": "Point", "coordinates": [ -34.954422169340283, -8.132475585526409 ] } }
+,
+{ "type": "Feature", "id": 240, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 384 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954495, "Latitude": -8.132484 }, "geometry": { "type": "Point", "coordinates": [ -34.954494790068587, -8.132484276597811 ] } }
+,
+{ "type": "Feature", "id": 241, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 87 A", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954622, "Latitude": -8.132484 }, "geometry": { "type": "Point", "coordinates": [ -34.954621799695389, -8.132483665592249 ] } }
+,
+{ "type": "Feature", "id": 242, "properties": { "Regional": "SUL", "Endereço": "2º TRV. RABILO Nº 87 B", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.957271, "Latitude": -8.13257 }, "geometry": { "type": "Point", "coordinates": [ -34.957271337817993, -8.132570354751639 ] } }
+,
+{ "type": "Feature", "id": 243, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 384", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954712, "Latitude": -8.132393 }, "geometry": { "type": "Point", "coordinates": [ -34.954712082845944, -8.132392827154591 ] } }
+,
+{ "type": "Feature", "id": 244, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 382", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954767, "Latitude": -8.132429 }, "geometry": { "type": "Point", "coordinates": [ -34.954766690731354, -8.13242872606495 ] } }
+,
+{ "type": "Feature", "id": 245, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 345", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954821, "Latitude": -8.132401 }, "geometry": { "type": "Point", "coordinates": [ -34.954820992004848, -8.132401343583124 ] } }
+,
+{ "type": "Feature", "id": 246, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 381", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95483, "Latitude": -8.132483 }, "geometry": { "type": "Point", "coordinates": [ -34.954830458346571, -8.132482661711338 ] } }
+,
+{ "type": "Feature", "id": 247, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 344", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954912, "Latitude": -8.132482 }, "geometry": { "type": "Point", "coordinates": [ -34.954912107376742, -8.132482268859246 ] } }
+,
+{ "type": "Feature", "id": 248, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 402", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954603, "Latitude": -8.132267 }, "geometry": { "type": "Point", "coordinates": [ -34.954602604317536, -8.132266788112291 ] } }
+,
+{ "type": "Feature", "id": 249, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 461", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954603, "Latitude": -8.132267 }, "geometry": { "type": "Point", "coordinates": [ -34.954602604317536, -8.132266788112291 ] } }
+,
+{ "type": "Feature", "id": 250, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 410", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954266, "Latitude": -8.132106 }, "geometry": { "type": "Point", "coordinates": [ -34.954266147967893, -8.132105679157029 ] } }
+,
+{ "type": "Feature", "id": 251, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 408", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954285, "Latitude": -8.132241 }, "geometry": { "type": "Point", "coordinates": [ -34.954284949029109, -8.132241194894979 ] } }
+,
+{ "type": "Feature", "id": 252, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 460", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.95413, "Latitude": -8.132142 }, "geometry": { "type": "Point", "coordinates": [ -34.95413024146611, -8.13214249446056 ] } }
+,
+{ "type": "Feature", "id": 253, "properties": { "Regional": "SUL", "Endereço": "RABILO Nº 471", "Bairro": "Ibura", "Localidade": "UR-05", "Descrição": "Área de Risco Nível 3", "Longitude": -34.954129, "Latitude": -8.131826 }, "geometry": { "type": "Point", "coordinates": [ -34.95412870899078, -8.131826087410021 ] } }
+,
+{ "type": "Feature", "id": 254, "properties": { "Regional": "SUL", "Endereço": "Rua Césio Regueiro Costa, Nº 25", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934989, "Latitude": -8.132487 }, "geometry": { "type": "Point", "coordinates": [ -34.934989189975447, -8.132487236021158 ] } }
+,
+{ "type": "Feature", "id": 255, "properties": { "Regional": "SUL", "Endereço": "Rua Césio Regueiro Costa, Nº 35", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934953, "Latitude": -8.132469 }, "geometry": { "type": "Point", "coordinates": [ -34.93495281437005, -8.13246932823621 ] } }
+,
+{ "type": "Feature", "id": 256, "properties": { "Regional": "SUL", "Endereço": "Rua Césio Regueiro Costa, Nº 45", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934925, "Latitude": -8.132433 }, "geometry": { "type": "Point", "coordinates": [ -34.934925424274326, -8.132433296632902 ] } }
+,
+{ "type": "Feature", "id": 257, "properties": { "Regional": "SUL", "Endereço": "Rua Césio Regueiro Costa, Nº 36", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.935017, "Latitude": -8.132532 }, "geometry": { "type": "Point", "coordinates": [ -34.935016623440511, -8.132532307922132 ] } }
+,
+{ "type": "Feature", "id": 258, "properties": { "Regional": "SUL", "Endereço": "Rua Professor Manoel A. Morais , Nº 05", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934898, "Latitude": -8.132452 }, "geometry": { "type": "Point", "coordinates": [ -34.934898294323688, -8.132451506856157 ] } }
+,
+{ "type": "Feature", "id": 259, "properties": { "Regional": "SUL", "Endereço": "Rua Professor Manoel A. Morais , Nº 1112", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934754, "Latitude": -8.132534 }, "geometry": { "type": "Point", "coordinates": [ -34.934753528951568, -8.132533560849577 ] } }
+,
+{ "type": "Feature", "id": 260, "properties": { "Regional": "SUL", "Endereço": "Rua Professor Manoel A. Morais , Nº S\/N", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934672, "Latitude": -8.132597 }, "geometry": { "type": "Point", "coordinates": [ -34.93467218239563, -8.132597231797151 ] } }
+,
+{ "type": "Feature", "id": 261, "properties": { "Regional": "SUL", "Endereço": "Rua Consul Joseph Noujain , Nº 64", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934355, "Latitude": -8.132743 }, "geometry": { "type": "Point", "coordinates": [ -34.934355347975888, -8.132743388596474 ] } }
+,
+{ "type": "Feature", "id": 262, "properties": { "Regional": "SUL", "Endereço": "Rua Consul Joseph Noujain , Nº 23", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.93431, "Latitude": -8.13268 }, "geometry": { "type": "Point", "coordinates": [ -34.934309683403441, -8.132680322406594 ] } }
+,
+{ "type": "Feature", "id": 263, "properties": { "Regional": "SUL", "Endereço": "Rua Consul Joseph Noujain , Nº 64", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934391, "Latitude": -8.13268 }, "geometry": { "type": "Point", "coordinates": [ -34.934391333472924, -8.132679933667445 ] } }
+,
+{ "type": "Feature", "id": 264, "properties": { "Regional": "SUL", "Endereço": "Rua Maripousa, Nº 10", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934408, "Latitude": -8.1323 }, "geometry": { "type": "Point", "coordinates": [ -34.934407657398928, -8.132300154362325 ] } }
+,
+{ "type": "Feature", "id": 265, "properties": { "Regional": "SUL", "Endereço": "Rua Maripousa, Nº 10A", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934353, "Latitude": -8.132337 }, "geometry": { "type": "Point", "coordinates": [ -34.934353397446934, -8.132336574745372 ] } }
+,
+{ "type": "Feature", "id": 266, "properties": { "Regional": "SUL", "Endereço": "Rua Maripousa, Nº 10 -ao lado", "Bairro": "Jordão", "Localidade": "Costa Porto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.934272, "Latitude": -8.132373 }, "geometry": { "type": "Point", "coordinates": [ -34.934271920814034, -8.132373124693915 ] } }
+,
+{ "type": "Feature", "id": 267, "properties": { "Regional": "SUL", "Endereço": "Rua Colônia, Nº 143A", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Não Informado", "Longitude": -34.942532, "Latitude": -8.108657 }, "geometry": { "type": "Point", "coordinates": [ -34.942531729093595, -8.108656710089965 ] } }
+,
+{ "type": "Feature", "id": 268, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 30", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Não Informado", "Longitude": -34.942649, "Latitude": -8.108611 }, "geometry": { "type": "Point", "coordinates": [ -34.942649443489259, -8.10861094647168 ] } }
+,
+{ "type": "Feature", "id": 269, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 555", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942595, "Latitude": -8.108656 }, "geometry": { "type": "Point", "coordinates": [ -34.942595230618686, -8.108656407344594 ] } }
+,
+{ "type": "Feature", "id": 270, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 10", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942623, "Latitude": -8.108701 }, "geometry": { "type": "Point", "coordinates": [ -34.94262266256159, -8.108701478963193 ] } }
+,
+{ "type": "Feature", "id": 271, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94265, "Latitude": -8.108765 }, "geometry": { "type": "Point", "coordinates": [ -34.942650181315159, -8.108764631125899 ] } }
+,
+{ "type": "Feature", "id": 272, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942722, "Latitude": -8.10852 }, "geometry": { "type": "Point", "coordinates": [ -34.942721582622632, -8.108520197722704 ] } }
+,
+{ "type": "Feature", "id": 273, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942749, "Latitude": -8.108601 }, "geometry": { "type": "Point", "coordinates": [ -34.942749188177437, -8.108601430425088 ] } }
+,
+{ "type": "Feature", "id": 274, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 92", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942795, "Latitude": -8.10861 }, "geometry": { "type": "Point", "coordinates": [ -34.942794589802133, -8.108610254429701 ] } }
+,
+{ "type": "Feature", "id": 275, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942803, "Latitude": -8.108574 }, "geometry": { "type": "Point", "coordinates": [ -34.942803487828506, -8.108574050083394 ] } }
+,
+{ "type": "Feature", "id": 276, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942749, "Latitude": -8.108601 }, "geometry": { "type": "Point", "coordinates": [ -34.942749188177437, -8.108601430425088 ] } }
+,
+{ "type": "Feature", "id": 277, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 82", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942804, "Latitude": -8.108692 }, "geometry": { "type": "Point", "coordinates": [ -34.94280405208913, -8.10869157363204 ] } }
+,
+{ "type": "Feature", "id": 278, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 82A", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.942804, "Latitude": -8.108701 }, "geometry": { "type": "Point", "coordinates": [ -34.942804095494139, -8.108700613904983 ] } }
+,
+{ "type": "Feature", "id": 279, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 83", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94295, "Latitude": -8.10879 }, "geometry": { "type": "Point", "coordinates": [ -34.942949675911045, -8.108790324521713 ] } }
+,
+{ "type": "Feature", "id": 280, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº S\/N", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Não Informado", "Longitude": -34.942622, "Latitude": -8.108611 }, "geometry": { "type": "Point", "coordinates": [ -34.942622228554178, -8.108611076223802 ] } }
+,
+{ "type": "Feature", "id": 281, "properties": { "Regional": "SUL", "Endereço": "Rua Monsenhor João Olimpio dos Santos, nº 93", "Bairro": "Ibura", "Localidade": "Vila do Sesi", "Descrição": "Não Informado", "Longitude": -34.942595, "Latitude": -8.10862 }, "geometry": { "type": "Point", "coordinates": [ -34.942595057018544, -8.108620246248218 ] } }
+,
+{ "type": "Feature", "id": 282, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 533", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940734, "Latitude": -8.136664 }, "geometry": { "type": "Point", "coordinates": [ -34.940733979140887, -8.136663659265272 ] } }
+,
+{ "type": "Feature", "id": 283, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 531", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940725, "Latitude": -8.136682 }, "geometry": { "type": "Point", "coordinates": [ -34.940724993876131, -8.136681783165463 ] } }
+,
+{ "type": "Feature", "id": 284, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 09", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940743, "Latitude": -8.136573 }, "geometry": { "type": "Point", "coordinates": [ -34.940742616323071, -8.136573213191646 ] } }
+,
+{ "type": "Feature", "id": 285, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 10", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940752, "Latitude": -8.136582 }, "geometry": { "type": "Point", "coordinates": [ -34.940751732116333, -8.136582210106672 ] } }
+,
+{ "type": "Feature", "id": 286, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 539A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940689, "Latitude": -8.136682 }, "geometry": { "type": "Point", "coordinates": [ -34.940688704733525, -8.136681956590627 ] } }
+,
+{ "type": "Feature", "id": 287, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 535A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.94058, "Latitude": -8.136664 }, "geometry": { "type": "Point", "coordinates": [ -34.940579750287021, -8.136664396301645 ] } }
+,
+{ "type": "Feature", "id": 288, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 532", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940544, "Latitude": -8.136692 }, "geometry": { "type": "Point", "coordinates": [ -34.940543591661275, -8.136691690531627 ] } }
+,
+{ "type": "Feature", "id": 289, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 525", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940507, "Latitude": -8.136592 }, "geometry": { "type": "Point", "coordinates": [ -34.940506823957378, -8.136592420938563 ] } }
+,
+{ "type": "Feature", "id": 290, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 521", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940372, "Latitude": -8.136783 }, "geometry": { "type": "Point", "coordinates": [ -34.940371653230024, -8.13678291693253 ] } }
+,
+{ "type": "Feature", "id": 291, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 535B", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940581, "Latitude": -8.13689 }, "geometry": { "type": "Point", "coordinates": [ -34.940580837974721, -8.13689040311356 ] } }
+,
+{ "type": "Feature", "id": 292, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 520", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940381, "Latitude": -8.136756 }, "geometry": { "type": "Point", "coordinates": [ -34.940380595010765, -8.136755752762426 ] } }
+,
+{ "type": "Feature", "id": 293, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº 513", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940435, "Latitude": -8.136755 }, "geometry": { "type": "Point", "coordinates": [ -34.940435028744325, -8.136755492662404 ] } }
+,
+{ "type": "Feature", "id": 294, "properties": { "Regional": "SUL", "Endereço": "Rua 4ª TRAV. IRAKITAN,Nº EM FRENTE A 539", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940263, "Latitude": -8.136847 }, "geometry": { "type": "Point", "coordinates": [ -34.940263090253801, -8.136846719029213 ] } }
+,
+{ "type": "Feature", "id": 295, "properties": { "Regional": "SUL", "Endereço": "Rua 2ª TRAV. BONERGES PEREIRA,Nº 539 EM FRENTE", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940751, "Latitude": -8.136329 }, "geometry": { "type": "Point", "coordinates": [ -34.940750513847725, -8.136329082499072 ] } }
+,
+{ "type": "Feature", "id": 296, "properties": { "Regional": "SUL", "Endereço": "Rua 2ª TRAV. BONERGES PEREIRA,Nº 539", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940805, "Latitude": -8.136347 }, "geometry": { "type": "Point", "coordinates": [ -34.940805034532048, -8.136346902905954 ] } }
+,
+{ "type": "Feature", "id": 297, "properties": { "Regional": "SUL", "Endereço": "Rua 2ª TRAV. BONERGES PEREIRA,Nº 539 457", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940814, "Latitude": -8.136356 }, "geometry": { "type": "Point", "coordinates": [ -34.940814150320051, -8.136355899820547 ] } }
+,
+{ "type": "Feature", "id": 298, "properties": { "Regional": "SUL", "Endereço": "Rua 2ª TRAV. BONERGES PEREIRA,Nº 539 541", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.940869, "Latitude": -8.136374 }, "geometry": { "type": "Point", "coordinates": [ -34.940868671009078, -8.136373720217344 ] } }
+,
+{ "type": "Feature", "id": 299, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 685 AB", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938904, "Latitude": -8.135425 }, "geometry": { "type": "Point", "coordinates": [ -34.938904450509483, -8.135424811006239 ] } }
+,
+{ "type": "Feature", "id": 300, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 686", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938914, "Latitude": -8.135479 }, "geometry": { "type": "Point", "coordinates": [ -34.938913783554455, -8.135479009388913 ] } }
+,
+{ "type": "Feature", "id": 301, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 687", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938887, "Latitude": -8.135506 }, "geometry": { "type": "Point", "coordinates": [ -34.938886697137171, -8.13550626016414 ] } }
+,
+{ "type": "Feature", "id": 302, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 688", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938887, "Latitude": -8.135651 }, "geometry": { "type": "Point", "coordinates": [ -34.938887392546285, -8.135650904677984 ] } }
+,
+{ "type": "Feature", "id": 303, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 689", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938896, "Latitude": -8.135579 }, "geometry": { "type": "Point", "coordinates": [ -34.938896117110765, -8.135578539111277 ] } }
+,
+{ "type": "Feature", "id": 304, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 683", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938901, "Latitude": -8.134756 }, "geometry": { "type": "Point", "coordinates": [ -34.938901234411773, -8.134755830119968 ] } }
+,
+{ "type": "Feature", "id": 305, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938997, "Latitude": -8.135723 }, "geometry": { "type": "Point", "coordinates": [ -34.938996607538989, -8.135722707192731 ] } }
+,
+{ "type": "Feature", "id": 306, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 681", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939015, "Latitude": -8.13584 }, "geometry": { "type": "Point", "coordinates": [ -34.939015317156972, -8.13584014422365 ] } }
+,
+{ "type": "Feature", "id": 307, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939007, "Latitude": -8.135913 }, "geometry": { "type": "Point", "coordinates": [ -34.939006592619954, -8.13591250978835 ] } }
+,
+{ "type": "Feature", "id": 308, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 681A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939007, "Latitude": -8.135994 }, "geometry": { "type": "Point", "coordinates": [ -34.939006983829977, -8.135993872320094 ] } }
+,
+{ "type": "Feature", "id": 309, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 687", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938998, "Latitude": -8.136093 }, "geometry": { "type": "Point", "coordinates": [ -34.938998389699449, -8.136093358729118 ] } }
+,
+{ "type": "Feature", "id": 310, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 691", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939017, "Latitude": -8.136148 }, "geometry": { "type": "Point", "coordinates": [ -34.939016795076071, -8.136147513785723 ] } }
+,
+{ "type": "Feature", "id": 311, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 695B", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939044, "Latitude": -8.136193 }, "geometry": { "type": "Point", "coordinates": [ -34.93904422927308, -8.136192585242684 ] } }
+,
+{ "type": "Feature", "id": 312, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 692", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939108, "Latitude": -8.136292 }, "geometry": { "type": "Point", "coordinates": [ -34.939108213444953, -8.136291725108661 ] } }
+,
+{ "type": "Feature", "id": 313, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939, "Latitude": -8.136328 }, "geometry": { "type": "Point", "coordinates": [ -34.938999519893464, -8.136328406041175 ] } }
+,
+{ "type": "Feature", "id": 314, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 697", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939018, "Latitude": -8.136374 }, "geometry": { "type": "Point", "coordinates": [ -34.93901788181811, -8.13637352081353 ] } }
+,
+{ "type": "Feature", "id": 315, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938963, "Latitude": -8.136356 }, "geometry": { "type": "Point", "coordinates": [ -34.938963361152119, -8.136355700148839 ] } }
+,
+{ "type": "Feature", "id": 316, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 701", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938954, "Latitude": -8.136374 }, "geometry": { "type": "Point", "coordinates": [ -34.938954375802041, -8.136373824027178 ] } }
+,
+{ "type": "Feature", "id": 317, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938936, "Latitude": -8.136383 }, "geometry": { "type": "Point", "coordinates": [ -34.938936274694072, -8.136382950939323 ] } }
+,
+{ "type": "Feature", "id": 318, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 705", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938873, "Latitude": -8.136483 }, "geometry": { "type": "Point", "coordinates": [ -34.938873246814623, -8.136482697240488 ] } }
+,
+{ "type": "Feature", "id": 319, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 705A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136438 }, "geometry": { "type": "Point", "coordinates": [ -34.938764161992715, -8.136438015585483 ] } }
+,
+{ "type": "Feature", "id": 320, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 710", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938765, "Latitude": -8.13651 }, "geometry": { "type": "Point", "coordinates": [ -34.938764509714062, -8.136510337844504 ] } }
+,
+{ "type": "Feature", "id": 321, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136402 }, "geometry": { "type": "Point", "coordinates": [ -34.938763988133246, -8.136401854455871 ] } }
+,
+{ "type": "Feature", "id": 322, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 60", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136348 }, "geometry": { "type": "Point", "coordinates": [ -34.938763727345524, -8.136347612761327 ] } }
+,
+{ "type": "Feature", "id": 323, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 70", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938772, "Latitude": -8.136275 }, "geometry": { "type": "Point", "coordinates": [ -34.938772451918339, -8.136275247190852 ] } }
+,
+{ "type": "Feature", "id": 324, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.93879, "Latitude": -8.136221 }, "geometry": { "type": "Point", "coordinates": [ -34.938790335704958, -8.136220918874535 ] } }
+,
+{ "type": "Feature", "id": 325, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 23", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939232, "Latitude": -8.135559 }, "geometry": { "type": "Point", "coordinates": [ -34.939231704147836, -8.135558855941412 ] } }
+,
+{ "type": "Feature", "id": 326, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 25", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939213, "Latitude": -8.135487 }, "geometry": { "type": "Point", "coordinates": [ -34.93921321185038, -8.135486620332745 ] } }
+,
+{ "type": "Feature", "id": 327, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 20B", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939159, "Latitude": -8.135469 }, "geometry": { "type": "Point", "coordinates": [ -34.939158691311242, -8.135468799667407 ] } }
+,
+{ "type": "Feature", "id": 328, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 350", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939122, "Latitude": -8.135424 }, "geometry": { "type": "Point", "coordinates": [ -34.939122184905798, -8.135423771522465 ] } }
+,
+{ "type": "Feature", "id": 329, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 201", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939113, "Latitude": -8.135406 }, "geometry": { "type": "Point", "coordinates": [ -34.93911302570536, -8.13540573427467 ] } }
+,
+{ "type": "Feature", "id": 330, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 06", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939004, "Latitude": -8.135334 }, "geometry": { "type": "Point", "coordinates": [ -34.939003810798589, -8.135333931774895 ] } }
+,
+{ "type": "Feature", "id": 331, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 02", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938931, "Latitude": -8.13528 }, "geometry": { "type": "Point", "coordinates": [ -34.938930971905215, -8.135280036565499 ] } }
+,
+{ "type": "Feature", "id": 332, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 8A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938913, "Latitude": -8.135235 }, "geometry": { "type": "Point", "coordinates": [ -34.938912610068151, -8.135234921772945 ] } }
+,
+{ "type": "Feature", "id": 333, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 8F", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938822, "Latitude": -8.135199 }, "geometry": { "type": "Point", "coordinates": [ -34.938821713599069, -8.135199193718064 ] } }
+,
+{ "type": "Feature", "id": 334, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 685 AB", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938904, "Latitude": -8.135425 }, "geometry": { "type": "Point", "coordinates": [ -34.938904450509483, -8.135424811006239 ] } }
+,
+{ "type": "Feature", "id": 335, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 686", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938914, "Latitude": -8.135479 }, "geometry": { "type": "Point", "coordinates": [ -34.938913783554455, -8.135479009388913 ] } }
+,
+{ "type": "Feature", "id": 336, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 687", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938887, "Latitude": -8.135506 }, "geometry": { "type": "Point", "coordinates": [ -34.938886697137171, -8.13550626016414 ] } }
+,
+{ "type": "Feature", "id": 337, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 688", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938887, "Latitude": -8.135651 }, "geometry": { "type": "Point", "coordinates": [ -34.938887392546285, -8.135650904677984 ] } }
+,
+{ "type": "Feature", "id": 338, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 689", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938896, "Latitude": -8.135579 }, "geometry": { "type": "Point", "coordinates": [ -34.938896117110765, -8.135578539111277 ] } }
+,
+{ "type": "Feature", "id": 339, "properties": { "Regional": "SUL", "Endereço": "AV. DONA CARENTINA, Nº 683", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938901, "Latitude": -8.134756 }, "geometry": { "type": "Point", "coordinates": [ -34.938901234411773, -8.134755830119968 ] } }
+,
+{ "type": "Feature", "id": 340, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938997, "Latitude": -8.135723 }, "geometry": { "type": "Point", "coordinates": [ -34.938996607538989, -8.135722707192731 ] } }
+,
+{ "type": "Feature", "id": 341, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 681", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939015, "Latitude": -8.13584 }, "geometry": { "type": "Point", "coordinates": [ -34.939015317156972, -8.13584014422365 ] } }
+,
+{ "type": "Feature", "id": 342, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939007, "Latitude": -8.135913 }, "geometry": { "type": "Point", "coordinates": [ -34.939006592619954, -8.13591250978835 ] } }
+,
+{ "type": "Feature", "id": 343, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 681A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939007, "Latitude": -8.135994 }, "geometry": { "type": "Point", "coordinates": [ -34.939006983829977, -8.135993872320094 ] } }
+,
+{ "type": "Feature", "id": 344, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 687", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938998, "Latitude": -8.136093 }, "geometry": { "type": "Point", "coordinates": [ -34.938998389699449, -8.136093358729118 ] } }
+,
+{ "type": "Feature", "id": 345, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 691", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939017, "Latitude": -8.136148 }, "geometry": { "type": "Point", "coordinates": [ -34.939016795076071, -8.136147513785723 ] } }
+,
+{ "type": "Feature", "id": 346, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 695B", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939044, "Latitude": -8.136193 }, "geometry": { "type": "Point", "coordinates": [ -34.93904422927308, -8.136192585242684 ] } }
+,
+{ "type": "Feature", "id": 347, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 692", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939108, "Latitude": -8.136292 }, "geometry": { "type": "Point", "coordinates": [ -34.939108213444953, -8.136291725108661 ] } }
+,
+{ "type": "Feature", "id": 348, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939, "Latitude": -8.136328 }, "geometry": { "type": "Point", "coordinates": [ -34.938999519893464, -8.136328406041175 ] } }
+,
+{ "type": "Feature", "id": 349, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 697", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939018, "Latitude": -8.136374 }, "geometry": { "type": "Point", "coordinates": [ -34.93901788181811, -8.13637352081353 ] } }
+,
+{ "type": "Feature", "id": 350, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938963, "Latitude": -8.136356 }, "geometry": { "type": "Point", "coordinates": [ -34.938963361152119, -8.136355700148839 ] } }
+,
+{ "type": "Feature", "id": 351, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 701", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938954, "Latitude": -8.136374 }, "geometry": { "type": "Point", "coordinates": [ -34.938954375802041, -8.136373824027178 ] } }
+,
+{ "type": "Feature", "id": 352, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938936, "Latitude": -8.136383 }, "geometry": { "type": "Point", "coordinates": [ -34.938936274694072, -8.136382950939323 ] } }
+,
+{ "type": "Feature", "id": 353, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 705", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938873, "Latitude": -8.136483 }, "geometry": { "type": "Point", "coordinates": [ -34.938873246814623, -8.136482697240488 ] } }
+,
+{ "type": "Feature", "id": 354, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 705A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136438 }, "geometry": { "type": "Point", "coordinates": [ -34.938764161992715, -8.136438015585483 ] } }
+,
+{ "type": "Feature", "id": 355, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 710", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938765, "Latitude": -8.13651 }, "geometry": { "type": "Point", "coordinates": [ -34.938764509714062, -8.136510337844504 ] } }
+,
+{ "type": "Feature", "id": 356, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136402 }, "geometry": { "type": "Point", "coordinates": [ -34.938763988133246, -8.136401854455871 ] } }
+,
+{ "type": "Feature", "id": 357, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 60", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938764, "Latitude": -8.136348 }, "geometry": { "type": "Point", "coordinates": [ -34.938763727345524, -8.136347612761327 ] } }
+,
+{ "type": "Feature", "id": 358, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 70", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938772, "Latitude": -8.136275 }, "geometry": { "type": "Point", "coordinates": [ -34.938772451918339, -8.136275247190852 ] } }
+,
+{ "type": "Feature", "id": 359, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº S\/N", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.93879, "Latitude": -8.136221 }, "geometry": { "type": "Point", "coordinates": [ -34.938790335704958, -8.136220918874535 ] } }
+,
+{ "type": "Feature", "id": 360, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 23", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939232, "Latitude": -8.135559 }, "geometry": { "type": "Point", "coordinates": [ -34.939231704147836, -8.135558855941412 ] } }
+,
+{ "type": "Feature", "id": 361, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 25", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939213, "Latitude": -8.135487 }, "geometry": { "type": "Point", "coordinates": [ -34.93921321185038, -8.135486620332745 ] } }
+,
+{ "type": "Feature", "id": 362, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 20B", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939159, "Latitude": -8.135469 }, "geometry": { "type": "Point", "coordinates": [ -34.939158691311242, -8.135468799667407 ] } }
+,
+{ "type": "Feature", "id": 363, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 350", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939122, "Latitude": -8.135424 }, "geometry": { "type": "Point", "coordinates": [ -34.939122184905798, -8.135423771522465 ] } }
+,
+{ "type": "Feature", "id": 364, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 201", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939113, "Latitude": -8.135406 }, "geometry": { "type": "Point", "coordinates": [ -34.93911302570536, -8.13540573427467 ] } }
+,
+{ "type": "Feature", "id": 365, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 06", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.939004, "Latitude": -8.135334 }, "geometry": { "type": "Point", "coordinates": [ -34.939003810798589, -8.135333931774895 ] } }
+,
+{ "type": "Feature", "id": 366, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 02", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938931, "Latitude": -8.13528 }, "geometry": { "type": "Point", "coordinates": [ -34.938930971905215, -8.135280036565499 ] } }
+,
+{ "type": "Feature", "id": 367, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 8A", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938913, "Latitude": -8.135235 }, "geometry": { "type": "Point", "coordinates": [ -34.938912610068151, -8.135234921772945 ] } }
+,
+{ "type": "Feature", "id": 368, "properties": { "Regional": "SUL", "Endereço": "2ª TRAV. DONA CARENTINA, Nº 8F", "Bairro": "Jordão", "Localidade": "Jordão Alto", "Descrição": "Área de Risco Nível 3", "Longitude": -34.938822, "Latitude": -8.135199 }, "geometry": { "type": "Point", "coordinates": [ -34.938821713599069, -8.135199193718064 ] } }
+,
+{ "type": "Feature", "id": 369, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 167", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929411, "Latitude": -8.138517 }, "geometry": { "type": "Point", "coordinates": [ -34.929411265218626, -8.138516680134959 ] } }
+,
+{ "type": "Feature", "id": 370, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 03", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929466, "Latitude": -8.138507 }, "geometry": { "type": "Point", "coordinates": [ -34.929465656276442, -8.138507381117851 ] } }
+,
+{ "type": "Feature", "id": 371, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 167 B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929502, "Latitude": -8.138471 }, "geometry": { "type": "Point", "coordinates": [ -34.92950177275123, -8.138471047332191 ] } }
+,
+{ "type": "Feature", "id": 372, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº  205", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929502, "Latitude": -8.138471 }, "geometry": { "type": "Point", "coordinates": [ -34.92950177275123, -8.138471047332191 ] } }
+,
+{ "type": "Feature", "id": 373, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 207", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929511, "Latitude": -8.138453 }, "geometry": { "type": "Point", "coordinates": [ -34.929510758600429, -8.138452923554381 ] } }
+,
+{ "type": "Feature", "id": 374, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 68", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929519, "Latitude": -8.138381 }, "geometry": { "type": "Point", "coordinates": [ -34.929519484838544, -8.138380557789956 ] } }
+,
+{ "type": "Feature", "id": 375, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº  217", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929528, "Latitude": -8.138344 }, "geometry": { "type": "Point", "coordinates": [ -34.929528384149172, -8.138344353350187 ] } }
+,
+{ "type": "Feature", "id": 376, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 38", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929518, "Latitude": -8.137992 }, "geometry": { "type": "Point", "coordinates": [ -34.929517624349437, -8.137991823548287 ] } }
+,
+{ "type": "Feature", "id": 377, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 108", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929499, "Latitude": -8.137992 }, "geometry": { "type": "Point", "coordinates": [ -34.929499479598604, -8.137991909774488 ] } }
+,
+{ "type": "Feature", "id": 378, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 72", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929519, "Latitude": -8.138272 }, "geometry": { "type": "Point", "coordinates": [ -34.929518965623039, -8.138272073816328 ] } }
+,
+{ "type": "Feature", "id": 379, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 229", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.92951, "Latitude": -8.138245 }, "geometry": { "type": "Point", "coordinates": [ -34.929509763439206, -8.138244995937383 ] } }
+,
+{ "type": "Feature", "id": 380, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 74", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929509, "Latitude": -8.138182 }, "geometry": { "type": "Point", "coordinates": [ -34.929509460569264, -8.138181713618719 ] } }
+,
+{ "type": "Feature", "id": 381, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 232", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929509, "Latitude": -8.138173 }, "geometry": { "type": "Point", "coordinates": [ -34.929509417302334, -8.138172673287468 ] } }
+,
+{ "type": "Feature", "id": 382, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 76", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929509, "Latitude": -8.138127 }, "geometry": { "type": "Point", "coordinates": [ -34.929509200968397, -8.138127471631133 ] } }
+,
+{ "type": "Feature", "id": 383, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 82", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929509, "Latitude": -8.138073 }, "geometry": { "type": "Point", "coordinates": [ -34.929508941369313, -8.138073229643387 ] } }
+,
+{ "type": "Feature", "id": 384, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 233", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929518, "Latitude": -8.138055 }, "geometry": { "type": "Point", "coordinates": [ -34.929517927213503, -8.138055105867233 ] } }
+,
+{ "type": "Feature", "id": 385, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 235", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929527, "Latitude": -8.138001 }, "geometry": { "type": "Point", "coordinates": [ -34.929526739991125, -8.138000820766127 ] } }
+,
+{ "type": "Feature", "id": 386, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 235 A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929527, "Latitude": -8.138001 }, "geometry": { "type": "Point", "coordinates": [ -34.929526739991125, -8.138000820766127 ] } }
+,
+{ "type": "Feature", "id": 387, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 235 B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929527, "Latitude": -8.138001 }, "geometry": { "type": "Point", "coordinates": [ -34.929526739991125, -8.138000820766127 ] } }
+,
+{ "type": "Feature", "id": 388, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 237", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929499, "Latitude": -8.137874 }, "geometry": { "type": "Point", "coordinates": [ -34.929498917148521, -8.137874385466057 ] } }
+,
+{ "type": "Feature", "id": 389, "properties": { "Regional": "SUL", "Endereço": "Rua Cafarnaum, nº 110", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929517, "Latitude": -8.137856 }, "geometry": { "type": "Point", "coordinates": [ -34.929516975363221, -8.137856218578415 ] } }
+,
+{ "type": "Feature", "id": 390, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 104", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929372, "Latitude": -8.137956 }, "geometry": { "type": "Point", "coordinates": [ -34.929372293286136, -8.137956352006905 ] } }
+,
+{ "type": "Feature", "id": 391, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 102", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929309, "Latitude": -8.138056 }, "geometry": { "type": "Point", "coordinates": [ -34.929309262534233, -8.138056097427459 ] } }
+,
+{ "type": "Feature", "id": 392, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 102A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929309, "Latitude": -8.138056 }, "geometry": { "type": "Point", "coordinates": [ -34.929309262534233, -8.138056097427459 ] } }
+,
+{ "type": "Feature", "id": 393, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 102 B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929309, "Latitude": -8.138056 }, "geometry": { "type": "Point", "coordinates": [ -34.929309262534233, -8.138056097427459 ] } }
+,
+{ "type": "Feature", "id": 394, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 101", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929264, "Latitude": -8.138092 }, "geometry": { "type": "Point", "coordinates": [ -34.929264073687477, -8.138092474300311 ] } }
+,
+{ "type": "Feature", "id": 395, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 04", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929246, "Latitude": -8.138129 }, "geometry": { "type": "Point", "coordinates": [ -34.929246101972083, -8.138128721847018 ] } }
+,
+{ "type": "Feature", "id": 396, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 104 A", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929201, "Latitude": -8.138156 }, "geometry": { "type": "Point", "coordinates": [ -34.929200869851442, -8.138156058383036 ] } }
+,
+{ "type": "Feature", "id": 397, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 85", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929183, "Latitude": -8.138174 }, "geometry": { "type": "Point", "coordinates": [ -34.929182811608911, -8.13817422526283 ] } }
+,
+{ "type": "Feature", "id": 398, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº  93B", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.92911, "Latitude": -8.138229 }, "geometry": { "type": "Point", "coordinates": [ -34.929110492105927, -8.138228812110889 ] } }
+,
+{ "type": "Feature", "id": 399, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 93", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929074, "Latitude": -8.138256 }, "geometry": { "type": "Point", "coordinates": [ -34.929074332346588, -8.138256105531749 ] } }
+,
+{ "type": "Feature", "id": 400, "properties": { "Regional": "SUL", "Endereço": "Rua 22 de Agosto nº 90", "Bairro": "Jordão", "Localidade": "Jordão Baixo", "Descrição": "Área de Risco Nível 3", "Longitude": -34.929193, "Latitude": -8.138382 }, "geometry": { "type": "Point", "coordinates": [ -34.929192878978725, -8.138382109812776 ] } }
+
+]
+}

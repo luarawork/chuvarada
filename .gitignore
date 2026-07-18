@@ -48,8 +48,9 @@ next-env.d.ts
 /dados-brutos/ana/geoft_bho_curso_dagua.gpkg
 /dados-brutos/ana/hydro_nordeste_clipped.geojson
 
-# zips do IBGE já descompactados (redundantes com os .shp/.dbf/.shx versionados)
+# zips do IBGE e do S2ID já descompactados (redundantes com os arquivos versionados)
 /dados-brutos/ibge/*/*.zip
+/dados-brutos/S2ID/*.zip
 
 # cache de bytecode Python
 __pycache__/
