@@ -54,16 +54,6 @@ function predictSlotScore(
   );
 }
 
-function ConditionsRow({ slot }: { slot: ForecastSlot }) {
-  return (
-    <span className="flex items-center gap-1 text-[9.5px] leading-none text-brand-gray-urban/55">
-      <span>💨{Math.round(slot.wind_speed)}</span>
-      <span>💧{Math.round(slot.humidity)}%</span>
-      <span>📉{Math.round(slot.pressure)}</span>
-    </span>
-  );
-}
-
 interface ForecastStripProps {
   forecast: ForecastResult | null;
   loading: boolean;
@@ -88,19 +78,16 @@ export function ForecastStrip({ forecast, loading, neighborhood, currentScore }:
       )}
 
       {forecast && (
-        <div className="flex gap-1.5 overflow-x-auto pb-1">
-          <div className="flex w-[92px] shrink-0 flex-col items-center gap-1 rounded-xl bg-brand-blue-mid/10 px-2 py-2">
-            <span className="text-[10px] font-semibold uppercase tracking-wide text-brand-blue-mid">
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex min-w-[76px] flex-col items-center gap-1 rounded-xl bg-brand-blue-mid/10 px-3 py-2.5">
+            <span className="text-[11px] font-semibold uppercase tracking-wide text-brand-blue-mid">
               Agora
             </span>
-            <span className="flex items-center gap-1">
-              <span className="text-base">{emojiForIcon(forecast.current.icon)}</span>
-              <span className="text-sm font-semibold text-brand-gray-urban">{forecast.current.temp}°</span>
-            </span>
+            <span className="text-xl">{emojiForIcon(forecast.current.icon)}</span>
+            <span className="text-sm font-semibold text-brand-gray-urban">{forecast.current.temp}°</span>
             {forecast.current.rain > 0 && (
               <span className="text-[10px] text-brand-gray-urban/60">{forecast.current.rain.toFixed(1)}mm</span>
             )}
-            <ConditionsRow slot={forecast.current} />
           </div>
 
           {forecast.next12h.map((slot) => {
@@ -112,31 +99,27 @@ export function ForecastStrip({ forecast, loading, neighborhood, currentScore }:
             return (
               <div
                 key={slot.time}
-                className="flex w-[92px] shrink-0 flex-col items-center gap-1 rounded-xl bg-brand-gray-light px-2 py-2"
+                className="flex min-w-[68px] flex-col items-center gap-1 rounded-xl bg-brand-gray-light px-3 py-2.5"
               >
-                <span className="text-[10px] text-brand-gray-urban/60">{formatHour(slot.time)}</span>
-                <span className="flex items-center gap-1">
-                  <span className="text-base">{emojiForIcon(slot.icon)}</span>
-                  <span className="text-sm font-semibold text-brand-gray-urban">{slot.temp}°</span>
-                </span>
-                <span className="flex items-center gap-1.5 text-[10px]">
-                  {slot.pop > 0 && <span className="text-brand-blue-mid">{Math.round(slot.pop * 100)}%</span>}
-                  {predicted && (
-                    <span className="text-brand-gray-urban/70">
-                      {LEVEL_EMOJI[predicted.level]} {predicted.score.toFixed(2)}
-                    </span>
-                  )}
-                </span>
-                <ConditionsRow slot={slot} />
+                <span className="text-[11px] text-brand-gray-urban/60">{formatHour(slot.time)}</span>
+                <span className="text-xl">{emojiForIcon(slot.icon)}</span>
+                <span className="text-sm font-semibold text-brand-gray-urban">{slot.temp}°</span>
+                {slot.pop > 0 && (
+                  <span className="text-[10px] text-brand-blue-mid">{Math.round(slot.pop * 100)}% chuva</span>
+                )}
+                {predicted && (
+                  <span className="mt-0.5 flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] text-brand-gray-urban/70">
+                    {LEVEL_EMOJI[predicted.level]} {predicted.score.toFixed(2)}
+                  </span>
+                )}
               </div>
             );
           })}
         </div>
       )}
       <p className="mt-1.5 text-[10px] text-brand-gray-urban/45">
-        💨 vento (km/h) · 💧 umidade (%) · 📉 pressão (hPa) previstos pra cada horário. "%" é a chance de
-        chover. O selo colorido é uma estimativa do risco com base na previsão — o score principal do
-        bairro usa dado observado, não previsto.
+        "% chuva" é a chance de chover no período. O selo colorido é uma estimativa do risco com base na
+        previsão — o score principal do bairro usa dado observado, não previsto.
       </p>
     </div>
   );

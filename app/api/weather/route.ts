@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getWeatherForCity } from "@/lib/openweathermap";
+import { getWeatherForPoint } from "@/lib/openweathermap";
 
 export async function GET(req: NextRequest) {
   const cityId = req.nextUrl.searchParams.get("cityId");
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const weather = await getWeatherForCity(cityId, parseFloat(lat), parseFloat(lng));
+    const weather = await getWeatherForPoint(cityId, parseFloat(lat), parseFloat(lng));
     return NextResponse.json(weather);
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });

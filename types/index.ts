@@ -78,6 +78,8 @@ export interface TideCache {
 export interface WeatherCache {
   id: string;
   city_id: string;
+  lat: number;
+  lng: number;
   rain_1h: number;
   rain_72h: number;
   rain_intensity: number;

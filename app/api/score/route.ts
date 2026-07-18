@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import * as turf from "@turf/turf";
 import { getServerSupabase } from "@/lib/supabase";
 import { calculateScore } from "@/lib/score";
-import { getWeatherForCity } from "@/lib/openweathermap";
+import { getWeatherForPoint } from "@/lib/openweathermap";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import type { City, Neighborhood } from "@/types";
 
@@ -27,7 +28,9 @@ export async function GET(req: NextRequest) {
   const n = neighborhood as Neighborhood;
 
   try {
-    const weather = await getWeatherForCity(city.id, city.lat, city.lng);
+    const centroid = turf.centroid(n.geometry as GeoJSON.Geometry);
+    const [centroidLng, centroidLat] = centroid.geometry.coordinates;
+    const weather = await getWeatherForPoint(city.id, centroidLat, centroidLng);
     const tide = await getCurrentTideLevel(city.id, city.tide_code);
     const result = calculateScore(n, weather, tide.level);
     return NextResponse.json(result);

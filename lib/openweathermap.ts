@@ -1,4 +1,5 @@
 import { getDb } from "./db";
+import { gridCell } from "./grid";
 import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, WeatherCache } from "@/types";
 
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY as string;
@@ -170,12 +171,18 @@ function pressureTrend(current: number, previous: number | null): PressureTrend 
   return "stable";
 }
 
-export async function getWeatherForCity(
+// Busca o clima pra um ponto específico (não pra cidade inteira). Bairros
+// próximos caem na mesma célula de ~5km (lib/grid.ts) e reaproveitam o
+// mesmo fetch/cache — cidades grandes como Salvador acabam com várias
+// células distintas, capturando a variação real de chuva dentro da cidade
+// em vez de um único valor pra cidade toda.
+export async function getWeatherForPoint(
   cityId: string,
   lat: number,
   lng: number
 ): Promise<NormalizedWeather> {
-  const cached = await getCachedWeather(cityId);
+  const cell = gridCell(lat, lng);
+  const cached = await getCachedWeather(cityId, cell.lat, cell.lng);
   if (cached) {
     const ageMinutes = (Date.now() - new Date(cached.fetched_at).getTime()) / 60000;
     if (ageMinutes < CACHE_TTL_MINUTES) {
@@ -194,8 +201,8 @@ export async function getWeatherForCity(
   }
 
   const [current, rain72h] = await Promise.all([
-    fetchCurrentWeather(lat, lng),
-    fetchRain72h(lat, lng),
+    fetchCurrentWeather(cell.lat, cell.lng),
+    fetchRain72h(cell.lat, cell.lng),
   ]);
 
   const rain1h = current.rain?.["1h"] ?? 0;
@@ -214,17 +221,24 @@ export async function getWeatherForCity(
     pressure_trend: pressureTrend(current.main?.pressure ?? 1013, cached?.pressure ?? null),
   };
 
-  await saveWeatherCache(cityId, normalized);
+  await saveWeatherCache(cityId, cell.lat, cell.lng, normalized);
   return normalized;
 }
 
-export async function saveWeatherCache(cityId: string, data: NormalizedWeather): Promise<void> {
+export async function saveWeatherCache(
+  cityId: string,
+  lat: number,
+  lng: number,
+  data: NormalizedWeather
+): Promise<void> {
   const db = getDb();
   await db.query(
-    `insert into weather_cache (city_id, rain_1h, rain_72h, rain_intensity, wind_speed, wind_direction, humidity, pressure)
-     values ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, wind_speed, wind_direction, humidity, pressure)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
     [
       cityId,
+      lat,
+      lng,
       data.rain_1h,
       data.rain_72h,
       data.rain_intensity,
@@ -236,11 +250,11 @@ export async function saveWeatherCache(cityId: string, data: NormalizedWeather):
   );
 }
 
-async function getCachedWeather(cityId: string): Promise<WeatherCache | null> {
+async function getCachedWeather(cityId: string, lat: number, lng: number): Promise<WeatherCache | null> {
   const db = getDb();
   const { rows } = await db.query(
-    `select * from weather_cache where city_id = $1 order by fetched_at desc limit 1`,
-    [cityId]
+    `select * from weather_cache where city_id = $1 and lat = $2 and lng = $3 order by fetched_at desc limit 1`,
+    [cityId, lat, lng]
   );
   return rows[0] ?? null;
 }
