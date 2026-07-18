@@ -36,6 +36,12 @@ CITY_BOUNDS = {
     "salvador": (-38.62, -13.05, -38.35, -12.75),
     "recife": (-35.02, -8.20, -34.80, -7.90),
     "natal": (-35.35, -5.95, -35.10, -5.65),
+    "fortaleza": (-38.7, -3.9, -38.3, -3.6),
+    "maceio": (-35.9, -9.8, -35.6, -9.5),
+    "aracaju": (-37.2, -11.1, -37.0, -10.8),
+    "joaopessoa": (-35.0, -7.3, -34.7, -6.9),
+    "saoluis": (-44.4, -2.7, -44.1, -2.4),
+    "teresina": (-42.9, -5.2, -42.7, -4.9),
 }
 
 SLOPE_MAX_DEGREES = 15.0  # acima disso, consideramos declividade máxima (terreno mais seguro)

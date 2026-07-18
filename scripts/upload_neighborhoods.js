@@ -11,6 +11,11 @@ const CITY_FILES = {
   Salvador: "neighborhoods_salvador.geojson",
   Recife: "neighborhoods_recife.geojson",
   Natal: "neighborhoods_natal.geojson",
+  Fortaleza: "neighborhoods_fortaleza.geojson",
+  "Maceió": "neighborhoods_maceió.geojson",
+  Aracaju: "neighborhoods_aracaju.geojson",
+  "João Pessoa": "neighborhoods_joão_pessoa.geojson",
+  Teresina: "neighborhoods_teresina.geojson",
 };
 
 async function main() {
