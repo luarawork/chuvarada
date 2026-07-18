@@ -1,0 +1,37 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSupabase } from "@/lib/supabase";
+import { calculateScore } from "@/lib/score";
+import { getWeatherForCity } from "@/lib/openweathermap";
+import { getCurrentTideLevel } from "@/lib/cptec";
+import type { City, Neighborhood } from "@/types";
+
+export async function GET(req: NextRequest) {
+  const neighborhoodId = req.nextUrl.searchParams.get("neighborhoodId");
+  if (!neighborhoodId) {
+    return NextResponse.json({ error: "Parâmetro neighborhoodId é obrigatório" }, { status: 400 });
+  }
+
+  const db = getServerSupabase();
+
+  const { data: neighborhood, error: nError } = await db
+    .from("neighborhoods")
+    .select("*, cities(*)")
+    .eq("id", neighborhoodId)
+    .single();
+
+  if (nError || !neighborhood) {
+    return NextResponse.json({ error: "Bairro não encontrado" }, { status: 404 });
+  }
+
+  const city = neighborhood.cities as City;
+  const n = neighborhood as Neighborhood;
+
+  try {
+    const weather = await getWeatherForCity(city.id, city.lat, city.lng);
+    const tide = await getCurrentTideLevel(city.id, city.tide_code);
+    const result = calculateScore(n, weather, tide.level);
+    return NextResponse.json(result);
+  } catch (err) {
+    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  }
+}

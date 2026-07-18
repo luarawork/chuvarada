@@ -1,0 +1,171 @@
+import * as cheerio from "cheerio";
+import { getServerSupabase } from "./supabase";
+import type { TideCacheData, TideDay, TideResult } from "@/types";
+
+const TIDE_CODES: Record<string, string> = {
+  Salvador: "40140",
+  Recife: "30645",
+  Natal: "30461",
+  Fortaleza: "30340",
+  Maceió: "30725",
+  Aracaju: "30825",
+  "João Pessoa": "30540",
+  "São Luís": "30120",
+};
+
+function buildUrl(tideCode: string, month: number, year: number): string {
+  return `http://ondas.cptec.inpe.br/~rondas/mares/index.php?cod=${tideCode}&mes=${month}&ano=${year}`;
+}
+
+// O CPTEC publica a tábua de marés em uma tabela HTML por dia/horário/altura.
+// A estrutura exata do markup pode mudar; este parser assume uma tabela com
+// colunas "Dia", "Hora" e "Altura (m)" repetidas para cada evento de maré do dia.
+export async function fetchTideTable(
+  cityId: string,
+  tideCode: string,
+  month: number,
+  year: number
+): Promise<TideCacheData> {
+  const url = buildUrl(tideCode, month, year);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`CPTEC falhou: ${res.status}`);
+  const html = await res.text();
+  const $ = cheerio.load(html);
+
+  const days: TideDay[] = [];
+  let min = Infinity;
+  let max = -Infinity;
+
+  $("table tr").each((_, row) => {
+    const cells = $(row)
+      .find("td")
+      .map((__, cell) => $(cell).text().trim())
+      .get();
+
+    if (cells.length < 3) return;
+
+    const [date, hour, heightRaw] = cells;
+    const height = parseFloat(heightRaw.replace(",", "."));
+    if (!date || !hour || Number.isNaN(height)) return;
+
+    min = Math.min(min, height);
+    max = Math.max(max, height);
+
+    let dayEntry = days.find((d) => d.date === date);
+    if (!dayEntry) {
+      dayEntry = { date, tides: [] };
+      days.push(dayEntry);
+    }
+    dayEntry.tides.push({ hour, level: height });
+  });
+
+  const tideData: TideCacheData = {
+    days,
+    max_level: Number.isFinite(max) ? max : 1,
+    min_level: Number.isFinite(min) ? min : 0,
+  };
+
+  await saveTideCache(cityId, month, year, tideData);
+  return tideData;
+}
+
+async function saveTideCache(
+  cityId: string,
+  month: number,
+  year: number,
+  data: TideCacheData
+): Promise<void> {
+  const db = getServerSupabase();
+  const { error } = await db
+    .from("tide_cache")
+    .upsert(
+      { city_id: cityId, month, year, data, cached_at: new Date().toISOString() },
+      { onConflict: "city_id,month,year" }
+    );
+  if (error) throw error;
+}
+
+export async function getCachedTide(cityId: string): Promise<TideCacheData | null> {
+  const now = new Date();
+  const db = getServerSupabase();
+  const { data, error } = await db
+    .from("tide_cache")
+    .select("*")
+    .eq("city_id", cityId)
+    .eq("month", now.getMonth() + 1)
+    .eq("year", now.getFullYear())
+    .maybeSingle();
+  if (error) throw error;
+  return data?.data ?? null;
+}
+
+// Retorna o nível de maré atual normalizado (0.0 a 1.0) comparando a hora atual
+// com a curva de máximos/mínimos do mês em cache.
+export async function getCurrentTideLevel(
+  cityId: string,
+  tideCode: string | null
+): Promise<TideResult> {
+  if (!tideCode) {
+    return { level: 0.5, estimated: true, note: "sem dado de maré" };
+  }
+
+  let cache = await getCachedTide(cityId);
+
+  if (!cache) {
+    try {
+      const now = new Date();
+      cache = await fetchTideTable(cityId, tideCode, now.getMonth() + 1, now.getFullYear());
+    } catch {
+      return { level: 0.5, estimated: true, note: "sem dado de maré" };
+    }
+  }
+
+  if (!cache || cache.days.length === 0) {
+    return { level: 0.5, estimated: true, note: "sem dado de maré" };
+  }
+
+  const now = new Date();
+  const todayStr = formatDate(now);
+  const today = cache.days.find((d) => d.date === todayStr) ?? cache.days[cache.days.length - 1];
+
+  const closest = closestTide(today, now);
+  if (!closest) {
+    return { level: 0.5, estimated: true, note: "dado estimado" };
+  }
+
+  const range = cache.max_level - cache.min_level || 1;
+  const normalized = (closest.level - cache.min_level) / range;
+  return { level: clamp01(normalized), estimated: false };
+}
+
+function formatDate(date: Date): string {
+  const dd = String(date.getDate()).padStart(2, "0");
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const yy = String(date.getFullYear()).slice(-2);
+  return `${dd}/${mm}/${yy}`;
+}
+
+function closestTide(day: TideDay, now: Date) {
+  if (!day.tides.length) return null;
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  return day.tides.reduce((closest, t) => {
+    const [h, m] = t.hour.split(":").map(Number);
+    const diff = Math.abs(h * 60 + m - nowMinutes);
+    const closestDiff = closest
+      ? Math.abs(
+          Number(closest.hour.split(":")[0]) * 60 +
+            Number(closest.hour.split(":")[1]) -
+            nowMinutes
+        )
+      : Infinity;
+    return diff < closestDiff ? t : closest;
+  }, day.tides[0]);
+}
+
+function clamp01(n: number): number {
+  return Math.min(1, Math.max(0, n));
+}
+
+export function getTideCodeByCityName(name: string): string | undefined {
+  return TIDE_CODES[name];
+}
