@@ -40,8 +40,16 @@ next-env.d.ts
 /public/workbox-*.js
 /public/fallback-*.js
 
-# dados geoespaciais brutos (grandes, baixados sob demanda pelos scripts)
-/dados-brutos
+# dados geoespaciais brutos: versionamos o que cabe no limite de 100MB do
+# GitHub (ver scripts/ para os comandos de download originais). Fora disso:
+# - geopackage nacional da BHO (2.7GB) — baixar via scripts/process_bho.py
+# - hydro_nordeste_clipped.geojson (141MB) — cache intermediário, regenerado
+#   automaticamente ao rodar process_bho.py/process_hydro_recife.py
+/dados-brutos/ana/geoft_bho_curso_dagua.gpkg
+/dados-brutos/ana/hydro_nordeste_clipped.geojson
+
+# zips do IBGE já descompactados (redundantes com os .shp/.dbf/.shx versionados)
+/dados-brutos/ibge/*/*.zip
 
 # cache de bytecode Python
 __pycache__/
