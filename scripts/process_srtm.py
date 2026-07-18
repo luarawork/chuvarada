@@ -1,7 +1,9 @@
 """
 process_srtm.py
 
-Input: arquivos .tif do SRTM (altimetria) para BA, PE e RN
+Input: dados-brutos/srtm/srtm_{salvador,recife,natal}.tif — GeoTIFFs SRTMGL1
+       baixados da API do OpenTopography (portal.opentopography.org),
+       um por cidade, já cobrindo a bounding box de CITY_BOUNDS abaixo.
 Output: /public/geojson/slope_salvador.geojson
         /public/geojson/slope_recife.geojson
         /public/geojson/slope_natal.geojson
@@ -16,7 +18,7 @@ Processo:
 
 Dependências: gdal, numpy, geopandas, rasterio
 
-Uso: python scripts/process_srtm.py --input path/to/srtm.tif --city salvador
+Uso: python scripts/process_srtm.py --input dados-brutos/srtm/srtm_salvador.tif --city salvador
 """
 
 import argparse

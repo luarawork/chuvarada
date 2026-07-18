@@ -1,31 +1,43 @@
 """
 process_neighborhoods.py
 
-Input: shapefiles de bairros IBGE para Salvador, Recife e Natal
+Input: shapefile de SETORES CENSITÁRIOS do IBGE (Censo 2022), por estado —
+       ex: BA_setores_CD2022.shp, PE_setores_CD2022.shp, RN_setores_CD2022.shp
+       (baixados de https://geoftp.ibge.gov.br/.../censo_2022/setores/shp/UF/).
+       Cada estado tem todos os municípios juntos e cada bairro é fragmentado
+       em vários setores censitários — por isso este script filtra pelo
+       município alvo (campo NM_MUN) e faz dissolve por bairro (NM_BAIRRO)
+       para virar um polígono por bairro.
 Output: /public/geojson/neighborhoods_salvador.geojson
         /public/geojson/neighborhoods_recife.geojson
         /public/geojson/neighborhoods_natal.geojson
 
 Processo:
-1. Abrir shapefile com geopandas
-2. Simplificar geometria dos polígonos (para performance no Leaflet)
-3. Adicionar propriedades: name, city, terrain_slope (do process_srtm),
-   hydro_proximity (do process_bho / process_hydro_recife)
-4. Marcar bairros costeiros (is_coastal = true se dentro de 2km do mar)
-5. Exportar como GeoJSON
-6. Fazer upload para Supabase (tabela neighborhoods + Storage)
+1. Abrir shapefile de setores censitários com geopandas
+2. Filtrar pelo município alvo (NM_MUN) e descartar setores sem bairro (NM_BAIRRO vazio)
+3. Dissolve: unir os setores de cada bairro em um único polígono
+4. Simplificar a geometria resultante (para performance no Leaflet)
+5. Marcar bairros costeiros (is_coastal = true se dentro de 2km do mar)
+6. Exportar como GeoJSON com terrain_slope/hydro_proximity placeholder (0.5/0.0)
+7. Opcionalmente fazer upload para Supabase (tabela neighborhoods)
 
-Este é o último script da cadeia — depende dos GeoJSONs gerados por:
-  1. process_srtm.py            (terrain_slope)
-  2. process_bho.py              (hydro_proximity regional)
-  3. process_hydro_recife.py     (hydro_proximity local, Recife)
+IMPORTANTE — ordem real de execução (diferente da ordem original do plano):
+este script roda PRIMEIRO, pois é ele que cria o polígono por bairro.
+process_srtm.py e process_bho.py/process_hydro_recife.py rodam DEPOIS,
+apontando --neighborhoods para o arquivo gerado aqui, e o atualizam in-place
+preenchendo terrain_slope e hydro_proximity de verdade:
+  1. process_neighborhoods.py     (cria os polígonos por bairro)
+  2. process_srtm.py              (preenche terrain_slope)
+  3. process_bho.py               (preenche hydro_proximity regional)
+  4. process_hydro_recife.py      (refina hydro_proximity local, só Recife)
 
 Dependências: geopandas, shapely, supabase (pip install supabase)
 
 Uso:
   python scripts/process_neighborhoods.py \
-    --input path/to/bairros_salvador.shp --city-name Salvador --city-id <uuid> \
-    --coastline path/to/linha_costa.shp \
+    --input dados-brutos/ibge/ba/BA_setores_CD2022.shp \
+    --municipality Salvador --city-name Salvador --city-id <uuid> \
+    --coastline dados-brutos/ana/geoft_bho_linha_costa.gpkg \
     --simplify-tolerance 0.0005
 """
 
@@ -37,6 +49,29 @@ import geopandas as gpd
 
 SIMPLIFY_TOLERANCE_DEFAULT = 0.0005
 COASTAL_DISTANCE_KM = 2.0
+
+
+def filter_and_dissolve(
+    gdf: gpd.GeoDataFrame,
+    municipality: str,
+    municipality_column: str,
+    name_column: str,
+) -> gpd.GeoDataFrame:
+    """Filtra os setores censitários do município alvo e une (dissolve) os
+    setores de cada bairro em um único polígono."""
+    mask = gdf[municipality_column].astype(str).str.strip().str.upper() == municipality.strip().upper()
+    city_gdf = gdf[mask].copy()
+
+    if city_gdf.empty:
+        available = sorted(gdf[municipality_column].dropna().unique().tolist())
+        raise SystemExit(
+            f'Nenhum setor encontrado para município "{municipality}" na coluna '
+            f'{municipality_column}. Municípios disponíveis (amostra): {available[:20]}'
+        )
+
+    city_gdf = city_gdf[city_gdf[name_column].astype(str).str.strip() != ""]
+    dissolved = city_gdf.dissolve(by=name_column, as_index=False)
+    return dissolved
 
 
 def simplify_geometries(gdf: gpd.GeoDataFrame, tolerance: float) -> gpd.GeoDataFrame:
@@ -110,27 +145,30 @@ def upload_to_supabase(gdf: gpd.GeoDataFrame, city_id: str) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Processa bairros IBGE em GeoJSON final")
-    parser.add_argument("--input", required=True, help="Shapefile de bairros IBGE")
-    parser.add_argument("--city-name", required=True)
+    parser = argparse.ArgumentParser(description="Processa setores censitários IBGE em bairros (GeoJSON)")
+    parser.add_argument("--input", required=True, help="Shapefile de setores censitários IBGE (por estado)")
+    parser.add_argument("--municipality", required=True, help='Nome do município a filtrar, ex: "Salvador"')
+    parser.add_argument("--city-name", required=True, help="Nome da cidade para a propriedade `city` no GeoJSON")
     parser.add_argument("--city-id", help="UUID da cidade em `cities` (necessário para upload)")
+    parser.add_argument("--municipality-column", default="NM_MUN", help="Coluna com o nome do município no shapefile")
     parser.add_argument("--name-column", default="NM_BAIRRO", help="Coluna com o nome do bairro no shapefile")
-    parser.add_argument("--coastline", help="Shapefile de linha de costa para marcar is_coastal")
+    parser.add_argument("--coastline", help="Camada de linha de costa (shp/gpkg) para marcar is_coastal")
     parser.add_argument("--simplify-tolerance", type=float, default=SIMPLIFY_TOLERANCE_DEFAULT)
     parser.add_argument("--output-dir", default="public/geojson")
     parser.add_argument("--upload", action="store_true", help="Envia os bairros processados para o Supabase")
     args = parser.parse_args()
 
     gdf = gpd.read_file(args.input)
-    gdf = simplify_geometries(gdf, args.simplify_tolerance)
-    gdf = mark_coastal(gdf, args.coastline)
-    output = build_output_gdf(gdf, args.city_name, args.name_column)
+    dissolved = filter_and_dissolve(gdf, args.municipality, args.municipality_column, args.name_column)
+    dissolved = simplify_geometries(dissolved, args.simplify_tolerance)
+    dissolved = mark_coastal(dissolved, args.coastline)
+    output = build_output_gdf(dissolved, args.city_name, args.name_column)
 
     os.makedirs(args.output_dir, exist_ok=True)
     slug = args.city_name.lower().replace(" ", "_")
     out_path = os.path.join(args.output_dir, f"neighborhoods_{slug}.geojson")
     output.to_file(out_path, driver="GeoJSON")
-    print(f"Bairros de {args.city_name} processados -> {out_path}")
+    print(f"{len(output)} bairros de {args.city_name} processados -> {out_path}")
 
     if args.upload:
         if not args.city_id:

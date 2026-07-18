@@ -1,8 +1,13 @@
 """
 process_hydro_recife.py
 
-Input: shapefile de hidrografia municipal do Recife
-       (dados.recife.pe.gov.br — rios, canais, açudes, alagados)
+Input: dados-brutos/recife/faixas-marginais-dos-recursos-hidricos.geojson
+       (portal de dados abertos do Recife — Secretaria de Meio Ambiente).
+       São polígonos de faixa marginal (buffer de proteção) ao redor dos
+       rios/canais do Recife, não só as linhas de centro — o dataset
+       original citado no plano (recursos_hidricos.geojson) não existe mais
+       nesse portal; este foi encontrado via busca na API do CKAN e tem
+       atributos "nome" (nome do rio) e "bacia".
 Output: /public/geojson/hydro_recife_local.geojson
 
 Processo similar ao process_bho.py mas com dado local mais preciso.
@@ -12,7 +17,8 @@ onde houver hidrografia municipal, ela tem prioridade sobre a BHO regional
 
 Dependências: geopandas, shapely
 
-Uso: python scripts/process_hydro_recife.py --input path/to/hidrografia_recife.shp \
+Uso: python scripts/process_hydro_recife.py \
+       --input dados-brutos/recife/faixas-marginais-dos-recursos-hidricos.geojson \
        --bho public/geojson/hydro_nordeste.geojson \
        --neighborhoods public/geojson/neighborhoods_recife.geojson
 """
@@ -66,7 +72,11 @@ def compute_hydro_proximity(neighborhoods_path: str, hydro_gdf: gpd.GeoDataFrame
 
 def main():
     parser = argparse.ArgumentParser(description="Processa hidrografia municipal do Recife")
-    parser.add_argument("--input", required=True, help="Shapefile de hidrografia municipal do Recife")
+    parser.add_argument(
+        "--input",
+        required=True,
+        help="GeoJSON de faixas marginais dos recursos hídricos do Recife (portal de dados abertos)",
+    )
     parser.add_argument("--bho", required=True, help="hydro_nordeste.geojson gerado por process_bho.py")
     parser.add_argument("--neighborhoods", help="neighborhoods_recife.geojson para recalcular hydro_proximity")
     parser.add_argument("--output-dir", default="public/geojson")
