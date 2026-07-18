@@ -113,6 +113,9 @@ export interface ForecastSlot {
   pop: number;
   description: string;
   icon: string;
+  wind_speed: number;
+  humidity: number;
+  pressure: number;
 }
 
 export interface ForecastResult {

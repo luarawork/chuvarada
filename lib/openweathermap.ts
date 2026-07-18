@@ -18,8 +18,9 @@ interface OwmCurrentResponse {
 
 interface OwmForecastEntry {
   dt: number;
-  main?: { temp?: number };
+  main?: { temp?: number; humidity?: number; pressure?: number };
   weather?: OwmWeatherDesc[];
+  wind?: { speed?: number };
   rain?: { "3h"?: number };
   pop?: number;
 }
@@ -62,6 +63,9 @@ interface ForecastPoint {
   pop: number;
   icon: string;
   description: string;
+  wind_speed: number;
+  humidity: number;
+  pressure: number;
 }
 
 // A API gratuita do OpenWeatherMap só dá passos de 3 em 3 horas. Pra mostrar
@@ -93,6 +97,9 @@ function interpolateHourly(points: ForecastPoint[], nowSeconds: number): Forecas
       pop: b.pop,
       description: b.description,
       icon: b.icon,
+      wind_speed: Math.round(b.wind_speed),
+      humidity: Math.round(b.humidity),
+      pressure: Math.round(b.pressure),
     });
   }
 
@@ -114,6 +121,9 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
     pop: 0,
     description: current.weather?.[0]?.description ?? "",
     icon: current.weather?.[0]?.icon ?? "01d",
+    wind_speed: Math.round(msToKmh(current.wind?.speed ?? 0)),
+    humidity: Math.round(current.main?.humidity ?? 0),
+    pressure: Math.round(current.main?.pressure ?? 0),
   };
 
   const nowSeconds = Date.now() / 1000;
@@ -127,10 +137,23 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
       pop: entry.pop ?? 0,
       icon: entry.weather?.[0]?.icon ?? "01d",
       description: entry.weather?.[0]?.description ?? "",
+      wind_speed: msToKmh(entry.wind?.speed ?? 0),
+      humidity: entry.main?.humidity ?? currentSlot.humidity,
+      pressure: entry.main?.pressure ?? currentSlot.pressure,
     }));
 
   const points: ForecastPoint[] = [
-    { dt: nowSeconds, temp: currentSlot.temp, rain3h: 0, pop: 0, icon: currentSlot.icon, description: currentSlot.description },
+    {
+      dt: nowSeconds,
+      temp: currentSlot.temp,
+      rain3h: 0,
+      pop: 0,
+      icon: currentSlot.icon,
+      description: currentSlot.description,
+      wind_speed: currentSlot.wind_speed,
+      humidity: currentSlot.humidity,
+      pressure: currentSlot.pressure,
+    },
     ...futurePoints,
   ];
 

@@ -3,7 +3,6 @@
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { ScoreBreakdown } from "./ScoreBreakdown";
-import { TrendIndicators } from "./TrendIndicators";
 import { HistoryChart } from "./HistoryChart";
 import { ForecastStrip } from "./ForecastStrip";
 import { useForecast } from "@/hooks/useForecast";
@@ -67,7 +66,7 @@ export function DetailPanel({
         <motion.div
           key={neighborhood.id}
           {...motionProps}
-          className="pointer-events-auto absolute inset-x-0 bottom-0 z-[1100] max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white px-5 pb-8 pt-3 shadow-2xl md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-lg md:rounded-3xl md:px-7 md:pb-7"
+          className="pointer-events-auto absolute inset-x-0 bottom-0 z-[1100] max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white px-5 pb-8 pt-3 shadow-2xl md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-2xl md:rounded-3xl md:px-7 md:pb-7"
         >
           <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-gray-light md:hidden" />
 
@@ -108,21 +107,13 @@ export function DetailPanel({
                 />
               </div>
 
-              <div className="mt-5 md:grid md:grid-cols-2 md:gap-x-8">
-                <div>
-                  <ScoreBreakdown score={current} />
-                </div>
+              <div className="mt-5">
+                <ScoreBreakdown score={current} />
+              </div>
 
-                <div>
-                  <div className="mt-5 md:mt-0">
-                    <TrendIndicators score={current} />
-                  </div>
-
-                  <div className="mt-5">
-                    <h3 className="mb-2 text-sm font-medium text-brand-gray-urban/70">Últimas 6 horas</h3>
-                    <HistoryChart history={history} />
-                  </div>
-                </div>
+              <div className="mt-5">
+                <h3 className="mb-2 text-sm font-medium text-brand-gray-urban/70">Últimas 6 horas</h3>
+                <HistoryChart history={history} />
               </div>
             </>
           )}
