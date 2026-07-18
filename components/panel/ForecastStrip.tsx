@@ -1,6 +1,7 @@
 import { InfoButton } from "@/components/ui/InfoButton";
 import { METRIC_INFO } from "@/lib/metricInfo";
-import type { ForecastResult } from "@/types";
+import { calculateScore } from "@/lib/score";
+import type { ForecastResult, ForecastSlot, Neighborhood, RiskScore } from "@/types";
 
 const ICON_EMOJI: Record<string, string> = {
   "01": "☀️",
@@ -14,6 +15,8 @@ const ICON_EMOJI: Record<string, string> = {
   "50": "🌫",
 };
 
+const LEVEL_EMOJI = { normal: "🟢", attention: "🟡", critical: "🔴" };
+
 function emojiForIcon(icon: string): string {
   return ICON_EMOJI[icon.slice(0, 2)] ?? "🌡";
 }
@@ -22,12 +25,45 @@ function formatHour(iso: string): string {
   return new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit" }).replace(":00", "h");
 }
 
+// Estima o score de risco pra um horário futuro usando a chuva prevista pra
+// aquele intervalo (a API só dá passos de 3 em 3 horas, então rain_intensity
+// e rain_1h viram uma média por hora dentro do passo). Maré usa o nível
+// atual como aproximação, já que não temos previsão de maré. É uma
+// estimativa, não o dado observado que o score "oficial" do bairro usa.
+function predictSlotScore(
+  neighborhood: Pick<Neighborhood, "terrain_slope" | "hydro_proximity" | "is_coastal">,
+  currentScore: RiskScore,
+  slot: ForecastSlot,
+  rain72hSoFar: number
+) {
+  const rainIntensity = slot.rain / 3;
+  return calculateScore(
+    neighborhood,
+    {
+      rain_1h: rainIntensity,
+      rain_3h: slot.rain,
+      rain_72h: rain72hSoFar,
+      rain_intensity: rainIntensity,
+      wind_speed: 0,
+      wind_direction: 0,
+      humidity: 0,
+      pressure: 1013,
+      pressure_trend: "stable",
+    },
+    currentScore.tide_level
+  );
+}
+
 interface ForecastStripProps {
   forecast: ForecastResult | null;
   loading: boolean;
+  neighborhood: Neighborhood;
+  currentScore: RiskScore | null;
 }
 
-export function ForecastStrip({ forecast, loading }: ForecastStripProps) {
+export function ForecastStrip({ forecast, loading, neighborhood, currentScore }: ForecastStripProps) {
+  let cumulativeRain = currentScore?.rain_72h ?? 0;
+
   return (
     <div>
       <div className="mb-2 flex items-center gap-1.5">
@@ -54,21 +90,37 @@ export function ForecastStrip({ forecast, loading }: ForecastStripProps) {
             )}
           </div>
 
-          {forecast.next12h.map((slot) => (
-            <div
-              key={slot.time}
-              className="flex min-w-[68px] flex-col items-center gap-1 rounded-xl bg-brand-gray-light px-3 py-2.5"
-            >
-              <span className="text-[11px] text-brand-gray-urban/60">{formatHour(slot.time)}</span>
-              <span className="text-xl">{emojiForIcon(slot.icon)}</span>
-              <span className="text-sm font-semibold text-brand-gray-urban">{slot.temp}°</span>
-              {slot.pop > 0 && (
-                <span className="text-[10px] text-brand-blue-mid">{Math.round(slot.pop * 100)}%</span>
-              )}
-            </div>
-          ))}
+          {forecast.next12h.map((slot) => {
+            cumulativeRain += slot.rain;
+            const predicted = currentScore
+              ? predictSlotScore(neighborhood, currentScore, slot, cumulativeRain)
+              : null;
+
+            return (
+              <div
+                key={slot.time}
+                className="flex min-w-[80px] flex-col items-center gap-1 rounded-xl bg-brand-gray-light px-3 py-2.5"
+              >
+                <span className="text-[11px] text-brand-gray-urban/60">{formatHour(slot.time)}</span>
+                <span className="text-xl">{emojiForIcon(slot.icon)}</span>
+                <span className="text-sm font-semibold text-brand-gray-urban">{slot.temp}°</span>
+                {slot.pop > 0 && (
+                  <span className="text-[10px] text-brand-blue-mid">{Math.round(slot.pop * 100)}% chuva</span>
+                )}
+                {predicted && (
+                  <span className="mt-0.5 flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] text-brand-gray-urban/70">
+                    {LEVEL_EMOJI[predicted.level]} {predicted.score.toFixed(2)}
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
+      <p className="mt-1.5 text-[10px] text-brand-gray-urban/45">
+        "% chuva" é a chance de chover no período. O risco abaixo do horário é uma estimativa com base
+        na previsão — o score principal do bairro usa dado observado, não previsto.
+      </p>
     </div>
   );
 }

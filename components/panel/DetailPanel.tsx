@@ -81,7 +81,12 @@ export function DetailPanel({
               )}
 
               <div className="mt-5">
-                <ForecastStrip forecast={forecast} loading={forecastLoading} />
+                <ForecastStrip
+                  forecast={forecast}
+                  loading={forecastLoading}
+                  neighborhood={neighborhood}
+                  currentScore={current}
+                />
               </div>
 
               <div className="mt-5">
