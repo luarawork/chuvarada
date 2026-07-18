@@ -10,6 +10,7 @@ import { EmptyStateLayer } from "@/components/map/EmptyStateLayer";
 import { LoadingMap } from "@/components/ui/LoadingMap";
 import { CityHeader } from "@/components/ui/CityHeader";
 import { AlertCard } from "@/components/ui/AlertCard";
+import { ProfileButton } from "@/components/ui/ProfileButton";
 import { DetailPanel } from "@/components/panel/DetailPanel";
 import { useMap } from "@/hooks/useMap";
 import { useLocation } from "@/hooks/useLocation";
@@ -124,6 +125,8 @@ export default function HomePage() {
         <EmptyStateLayer map={map} cities={cities} />
       </MapContainer>
 
+      <ProfileButton />
+
       <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
 
       <LocationButton onClick={handleLocationRequest} loading={location.status === "requesting"} />
@@ -155,7 +158,7 @@ export default function HomePage() {
 
       <Link
         href="/como-funciona"
-        className="pointer-events-auto absolute bottom-4 right-4 z-[1000] rounded-full bg-brand-blue-deep/80 px-3 py-1.5 text-xs text-brand-blue-light shadow backdrop-blur-sm hover:bg-brand-blue-deep"
+        className="pointer-events-auto absolute right-4 top-4 z-[1000] rounded-full bg-brand-blue-deep/80 px-3 py-1.5 text-xs text-brand-blue-light shadow backdrop-blur-sm hover:bg-brand-blue-deep"
       >
         Como funciona
       </Link>
@@ -166,7 +169,7 @@ export default function HomePage() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="pointer-events-auto absolute bottom-24 left-4 right-4 z-[1050] flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-xl md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
+            className="pointer-events-auto absolute bottom-36 left-4 right-4 z-[1050] flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-xl md:bottom-20 md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
           >
             <span className="text-sm text-brand-gray-urban">Ver risco na minha localização</span>
             <div className="flex gap-2">
@@ -190,6 +193,8 @@ export default function HomePage() {
       <DetailPanel
         neighborhood={selected}
         cityName={selectedCity?.name ?? ""}
+        cityLat={selectedCity?.lat ?? null}
+        cityLng={selectedCity?.lng ?? null}
         current={selectedCurrent}
         history={selectedHistory}
         onClose={() => setSelected(null)}

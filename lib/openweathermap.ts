@@ -1,18 +1,27 @@
 import { getDb } from "./db";
-import type { NormalizedWeather, PressureTrend, WeatherCache } from "@/types";
+import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, WeatherCache } from "@/types";
 
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY as string;
 const CACHE_TTL_MINUTES = 20;
 
+interface OwmWeatherDesc {
+  description: string;
+  icon: string;
+}
+
 interface OwmCurrentResponse {
   rain?: { "1h"?: number; "3h"?: number };
   wind?: { speed?: number; deg?: number };
-  main?: { humidity?: number; pressure?: number };
+  main?: { humidity?: number; pressure?: number; temp?: number };
+  weather?: OwmWeatherDesc[];
 }
 
 interface OwmForecastEntry {
   dt: number;
+  main?: { temp?: number };
+  weather?: OwmWeatherDesc[];
   rain?: { "3h"?: number };
+  pop?: number;
 }
 
 interface OwmForecastResponse {
@@ -30,16 +39,54 @@ export async function fetchCurrentWeather(lat: number, lng: number): Promise<Owm
   return res.json();
 }
 
-export async function fetchRain72h(lat: number, lng: number): Promise<number> {
+async function fetchForecastRaw(lat: number, lng: number): Promise<OwmForecastResponse> {
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`OpenWeatherMap forecast falhou: ${res.status}`);
-  const data: OwmForecastResponse = await res.json();
+  return res.json();
+}
+
+export async function fetchRain72h(lat: number, lng: number): Promise<number> {
+  const data = await fetchForecastRaw(lat, lng);
 
   const cutoff = Date.now() / 1000 - 72 * 3600;
   return data.list
     .filter((entry) => entry.dt >= cutoff)
     .reduce((sum, entry) => sum + (entry.rain?.["3h"] ?? 0), 0);
+}
+
+// Previsão pra exibir no painel do bairro: condição atual + próximas ~12h
+// (a API gratuita do OpenWeatherMap só dá passos de 3 em 3 horas, então
+// "próximas 12h" vira 4 pontos: +3h, +6h, +9h, +12h).
+export async function fetchForecastDisplay(lat: number, lng: number): Promise<ForecastResult> {
+  const [current, forecast] = await Promise.all([
+    fetchCurrentWeather(lat, lng),
+    fetchForecastRaw(lat, lng),
+  ]);
+
+  const currentSlot: ForecastSlot = {
+    time: new Date().toISOString(),
+    temp: Math.round(current.main?.temp ?? 0),
+    rain: current.rain?.["1h"] ?? current.rain?.["3h"] ?? 0,
+    pop: 0,
+    description: current.weather?.[0]?.description ?? "",
+    icon: current.weather?.[0]?.icon ?? "01d",
+  };
+
+  const nowSeconds = Date.now() / 1000;
+  const next12h: ForecastSlot[] = forecast.list
+    .filter((entry) => entry.dt >= nowSeconds)
+    .slice(0, 4)
+    .map((entry) => ({
+      time: new Date(entry.dt * 1000).toISOString(),
+      temp: Math.round(entry.main?.temp ?? 0),
+      rain: entry.rain?.["3h"] ?? 0,
+      pop: entry.pop ?? 0,
+      description: entry.weather?.[0]?.description ?? "",
+      icon: entry.weather?.[0]?.icon ?? "01d",
+    }));
+
+  return { current: currentSlot, next12h };
 }
 
 function pressureTrend(current: number, previous: number | null): PressureTrend {

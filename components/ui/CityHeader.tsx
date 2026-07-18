@@ -22,7 +22,7 @@ function timeAgo(iso: string | null): string {
 
 export function CityHeader({ cityName, level, updatedAt }: CityHeaderProps) {
   return (
-    <div className="pointer-events-auto absolute left-4 top-4 z-[1000] rounded-2xl bg-brand-blue-deep/90 px-4 py-3 shadow-lg backdrop-blur-sm">
+    <div className="pointer-events-auto absolute left-20 top-4 z-[1000] rounded-2xl bg-brand-blue-deep/90 px-4 py-3 shadow-lg backdrop-blur-sm">
       <div className="flex items-center gap-2">
         <h1 className="font-heading text-lg font-bold text-white">
           {cityName ?? "Nordeste"}

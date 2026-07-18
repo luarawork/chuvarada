@@ -25,7 +25,7 @@ export function AlertCard({ level, weather, tideLevel, onClick }: AlertCardProps
       initial={{ y: 80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", damping: 20, stiffness: 200 }}
-      className="pointer-events-auto absolute bottom-4 left-4 right-4 z-[1000] rounded-2xl bg-white px-5 py-4 text-left shadow-xl md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
+      className="pointer-events-auto absolute bottom-20 left-4 right-4 z-[1000] rounded-2xl bg-white px-5 py-4 text-left shadow-xl md:bottom-4 md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
     >
       <div className="flex items-center gap-2">
         <span className="text-xl">{message.emoji}</span>

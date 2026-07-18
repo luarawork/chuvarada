@@ -1,3 +1,5 @@
+import { InfoButton } from "@/components/ui/InfoButton";
+import { METRIC_INFO, type MetricInfoKey } from "@/lib/metricInfo";
 import type { RiskScore } from "@/types";
 
 interface Row {
@@ -5,6 +7,7 @@ interface Row {
   label: string;
   valueLabel: string;
   normalized: number;
+  infoKey: MetricInfoKey;
 }
 
 function terrainLabel(slope: number): string {
@@ -28,36 +31,42 @@ export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
       label: "Intensidade da chuva",
       valueLabel: `${score.rain_intensity.toFixed(1)}mm/h`,
       normalized: rainIntensityNorm,
+      infoKey: "rainIntensity",
     },
     {
       emoji: "🌧",
       label: "Chuva última hora",
       valueLabel: `${score.rain_1h.toFixed(1)}mm`,
       normalized: rain1hNorm,
+      infoKey: "rain1h",
     },
     {
       emoji: "🌧",
       label: "Chuva 72h",
       valueLabel: `${score.rain_72h.toFixed(1)}mm`,
       normalized: rain72hNorm,
+      infoKey: "rain72h",
     },
     {
       emoji: "⛰",
       label: `Terreno (${terrainLabel(score.terrain_slope)})`,
       valueLabel: "",
       normalized: score.terrain_slope,
+      infoKey: "terrain",
     },
     {
       emoji: "🏞",
       label: "Proximidade hídrica",
       valueLabel: "",
       normalized: score.hydro_proximity,
+      infoKey: "hydroProximity",
     },
     {
       emoji: "🌊",
       label: "Maré",
       valueLabel: `${(score.tide_level * 100).toFixed(0)}%`,
       normalized: score.tide_level,
+      infoKey: "tide",
     },
   ];
 
@@ -66,9 +75,13 @@ export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
       {rows.map((row) => (
         <div key={row.label}>
           <div className="flex items-center justify-between text-sm text-brand-gray-urban">
-            <span>
+            <span className="flex items-center gap-1.5">
               {row.emoji} {row.label}
-              {row.valueLabel && <span className="ml-1 text-brand-gray-urban/60">{row.valueLabel}</span>}
+              {row.valueLabel && <span className="text-brand-gray-urban/60">{row.valueLabel}</span>}
+              <InfoButton
+                title={METRIC_INFO[row.infoKey].title}
+                description={METRIC_INFO[row.infoKey].description}
+              />
             </span>
             <span className="text-xs text-brand-gray-urban/60">{row.normalized.toFixed(2)}</span>
           </div>

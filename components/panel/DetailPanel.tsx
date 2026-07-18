@@ -5,17 +5,34 @@ import { RiskBadge } from "@/components/ui/RiskBadge";
 import { ScoreBreakdown } from "./ScoreBreakdown";
 import { TrendIndicators } from "./TrendIndicators";
 import { HistoryChart } from "./HistoryChart";
+import { ForecastStrip } from "./ForecastStrip";
+import { useForecast } from "@/hooks/useForecast";
 import type { Neighborhood, RiskScore } from "@/types";
 
 interface DetailPanelProps {
   neighborhood: Neighborhood | null;
   cityName: string;
+  cityLat: number | null;
+  cityLng: number | null;
   current: RiskScore | null;
   history: RiskScore[];
   onClose: () => void;
 }
 
-export function DetailPanel({ neighborhood, cityName, current, history, onClose }: DetailPanelProps) {
+export function DetailPanel({
+  neighborhood,
+  cityName,
+  cityLat,
+  cityLng,
+  current,
+  history,
+  onClose,
+}: DetailPanelProps) {
+  const { forecast, loading: forecastLoading } = useForecast(
+    neighborhood ? cityLat : null,
+    neighborhood ? cityLng : null
+  );
+
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
   }
@@ -62,6 +79,10 @@ export function DetailPanel({ neighborhood, cityName, current, history, onClose 
                   ⚠️ {current.auto_critical_reason}
                 </div>
               )}
+
+              <div className="mt-5">
+                <ForecastStrip forecast={forecast} loading={forecastLoading} />
+              </div>
 
               <div className="mt-5">
                 <ScoreBreakdown score={current} />

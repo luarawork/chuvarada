@@ -106,6 +106,20 @@ export interface TideResult {
   note?: string;
 }
 
+export interface ForecastSlot {
+  time: string;
+  temp: number;
+  rain: number;
+  pop: number;
+  description: string;
+  icon: string;
+}
+
+export interface ForecastResult {
+  current: ForecastSlot;
+  next12h: ForecastSlot[];
+}
+
 export interface ScoreBreakdown {
   rain_intensity: number;
   rain_1h: number;

@@ -10,7 +10,7 @@ export function LocationButton({ onClick, loading }: LocationButtonProps) {
     <button
       onClick={onClick}
       aria-label="Ver minha localização"
-      className="pointer-events-auto absolute right-4 top-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-blue-mid shadow-lg transition hover:bg-brand-gray-light disabled:opacity-60"
+      className="pointer-events-auto absolute bottom-4 left-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-blue-mid shadow-lg transition hover:bg-brand-gray-light disabled:opacity-60"
       disabled={loading}
     >
       {loading ? (
