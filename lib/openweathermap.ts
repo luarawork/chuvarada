@@ -1,4 +1,4 @@
-import { getServerSupabase } from "./supabase";
+import { getDb } from "./db";
 import type { NormalizedWeather, PressureTrend, WeatherCache } from "@/types";
 
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY as string;
@@ -99,29 +99,28 @@ export async function getWeatherForCity(
 }
 
 export async function saveWeatherCache(cityId: string, data: NormalizedWeather): Promise<void> {
-  const db = getServerSupabase();
-  const { error } = await db.from("weather_cache").insert({
-    city_id: cityId,
-    rain_1h: data.rain_1h,
-    rain_72h: data.rain_72h,
-    rain_intensity: data.rain_intensity,
-    wind_speed: data.wind_speed,
-    wind_direction: data.wind_direction,
-    humidity: data.humidity,
-    pressure: data.pressure,
-  });
-  if (error) throw error;
+  const db = getDb();
+  await db.query(
+    `insert into weather_cache (city_id, rain_1h, rain_72h, rain_intensity, wind_speed, wind_direction, humidity, pressure)
+     values ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    [
+      cityId,
+      data.rain_1h,
+      data.rain_72h,
+      data.rain_intensity,
+      data.wind_speed,
+      data.wind_direction,
+      data.humidity,
+      data.pressure,
+    ]
+  );
 }
 
 async function getCachedWeather(cityId: string): Promise<WeatherCache | null> {
-  const db = getServerSupabase();
-  const { data, error } = await db
-    .from("weather_cache")
-    .select("*")
-    .eq("city_id", cityId)
-    .order("fetched_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-  if (error) throw error;
-  return data;
+  const db = getDb();
+  const { rows } = await db.query(
+    `select * from weather_cache where city_id = $1 order by fetched_at desc limit 1`,
+    [cityId]
+  );
+  return rows[0] ?? null;
 }

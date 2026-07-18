@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { getServerSupabase } from "./supabase";
+import { getDb } from "./db";
 import type { TideCacheData, TideDay, TideResult } from "@/types";
 
 const TIDE_CODES: Record<string, string> = {
@@ -14,7 +14,11 @@ const TIDE_CODES: Record<string, string> = {
 };
 
 function buildUrl(tideCode: string, month: number, year: number): string {
-  return `http://ondas.cptec.inpe.br/~rondas/mares/index.php?cod=${tideCode}&mes=${month}&ano=${year}`;
+  // O site do CPTEC espera o ano com 2 dígitos (ex: 26, não 2026) — mandar
+  // 4 dígitos faz o template deles concatenar errado ("20" + "2026") e
+  // sempre cair no fallback de mês vazio.
+  const shortYear = String(year).slice(-2);
+  return `http://ondas.cptec.inpe.br/~rondas/mares/index.php?cod=${tideCode}&mes=${month}&ano=${shortYear}`;
 }
 
 // O CPTEC publica a tábua de marés em uma tabela HTML por dia/horário/altura.
@@ -75,28 +79,24 @@ async function saveTideCache(
   year: number,
   data: TideCacheData
 ): Promise<void> {
-  const db = getServerSupabase();
-  const { error } = await db
-    .from("tide_cache")
-    .upsert(
-      { city_id: cityId, month, year, data, cached_at: new Date().toISOString() },
-      { onConflict: "city_id,month,year" }
-    );
-  if (error) throw error;
+  const db = getDb();
+  await db.query(
+    `insert into tide_cache (city_id, month, year, data, cached_at)
+     values ($1, $2, $3, $4, now())
+     on conflict (city_id, month, year)
+     do update set data = excluded.data, cached_at = excluded.cached_at`,
+    [cityId, month, year, JSON.stringify(data)]
+  );
 }
 
 export async function getCachedTide(cityId: string): Promise<TideCacheData | null> {
   const now = new Date();
-  const db = getServerSupabase();
-  const { data, error } = await db
-    .from("tide_cache")
-    .select("*")
-    .eq("city_id", cityId)
-    .eq("month", now.getMonth() + 1)
-    .eq("year", now.getFullYear())
-    .maybeSingle();
-  if (error) throw error;
-  return data?.data ?? null;
+  const db = getDb();
+  const { rows } = await db.query(
+    `select data from tide_cache where city_id = $1 and month = $2 and year = $3`,
+    [cityId, now.getMonth() + 1, now.getFullYear()]
+  );
+  return rows[0]?.data ?? null;
 }
 
 // Retorna o nível de maré atual normalizado (0.0 a 1.0) comparando a hora atual
@@ -111,7 +111,11 @@ export async function getCurrentTideLevel(
 
   let cache = await getCachedTide(cityId);
 
-  if (!cache) {
+  // Uma linha de cache com 0 dias significa que a última tentativa não
+  // encontrou tábua publicada para o mês (ex: mês futuro que o CPTEC ainda
+  // não divulgou) — trata como cache miss e tenta buscar de novo, em vez de
+  // ficar preso nesse estado até o mês virar.
+  if (!cache || cache.days.length === 0) {
     try {
       const now = new Date();
       cache = await fetchTideTable(cityId, tideCode, now.getMonth() + 1, now.getFullYear());
