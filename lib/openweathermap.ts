@@ -55,9 +55,52 @@ export async function fetchRain72h(lat: number, lng: number): Promise<number> {
     .reduce((sum, entry) => sum + (entry.rain?.["3h"] ?? 0), 0);
 }
 
-// Previsão pra exibir no painel do bairro: condição atual + próximas ~12h
-// (a API gratuita do OpenWeatherMap só dá passos de 3 em 3 horas, então
-// "próximas 12h" vira 4 pontos: +3h, +6h, +9h, +12h).
+interface ForecastPoint {
+  dt: number;
+  temp: number;
+  rain3h: number;
+  pop: number;
+  icon: string;
+  description: string;
+}
+
+// A API gratuita do OpenWeatherMap só dá passos de 3 em 3 horas. Pra mostrar
+// 12 cards de hora em hora, interpola entre "agora" e os passos de 3h
+// seguintes: temperatura interpolada linearmente, chuva do passo de 3h
+// dividida igualmente pelas 3 horas que ele cobre, e chance de chuva/ícone
+// herdados do passo de 3h em que a hora cai (não dá pra interpolar
+// probabilidade de forma que faça sentido). É uma estimativa, não dado
+// horário real — deixamos isso explícito na UI.
+function interpolateHourly(points: ForecastPoint[], nowSeconds: number): ForecastSlot[] {
+  const hourly: ForecastSlot[] = [];
+
+  for (let h = 1; h <= 12; h++) {
+    const targetTime = nowSeconds + h * 3600;
+
+    let i = 0;
+    while (i < points.length - 2 && points[i + 1].dt < targetTime) i++;
+    const a = points[i];
+    const b = points[Math.min(i + 1, points.length - 1)];
+
+    const span = b.dt - a.dt || 1;
+    const t = Math.min(1, Math.max(0, (targetTime - a.dt) / span));
+    const temp = a.temp + (b.temp - a.temp) * t;
+
+    hourly.push({
+      time: new Date(targetTime * 1000).toISOString(),
+      temp: Math.round(temp),
+      rain: Math.round((b.rain3h / 3) * 10) / 10,
+      pop: b.pop,
+      description: b.description,
+      icon: b.icon,
+    });
+  }
+
+  return hourly;
+}
+
+// Previsão pra exibir no painel do bairro: condição atual + próximas 12h,
+// uma card por hora (interpoladas — ver interpolateHourly acima).
 export async function fetchForecastDisplay(lat: number, lng: number): Promise<ForecastResult> {
   const [current, forecast] = await Promise.all([
     fetchCurrentWeather(lat, lng),
@@ -74,17 +117,24 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
   };
 
   const nowSeconds = Date.now() / 1000;
-  const next12h: ForecastSlot[] = forecast.list
+  const futurePoints: ForecastPoint[] = forecast.list
     .filter((entry) => entry.dt >= nowSeconds)
-    .slice(0, 4)
+    .slice(0, 5)
     .map((entry) => ({
-      time: new Date(entry.dt * 1000).toISOString(),
-      temp: Math.round(entry.main?.temp ?? 0),
-      rain: entry.rain?.["3h"] ?? 0,
+      dt: entry.dt,
+      temp: entry.main?.temp ?? currentSlot.temp,
+      rain3h: entry.rain?.["3h"] ?? 0,
       pop: entry.pop ?? 0,
-      description: entry.weather?.[0]?.description ?? "",
       icon: entry.weather?.[0]?.icon ?? "01d",
+      description: entry.weather?.[0]?.description ?? "",
     }));
+
+  const points: ForecastPoint[] = [
+    { dt: nowSeconds, temp: currentSlot.temp, rain3h: 0, pop: 0, icon: currentSlot.icon, description: currentSlot.description },
+    ...futurePoints,
+  ];
+
+  const next12h = interpolateHourly(points, nowSeconds);
 
   return { current: currentSlot, next12h };
 }

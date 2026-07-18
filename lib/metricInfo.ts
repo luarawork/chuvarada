@@ -47,7 +47,7 @@ export const METRIC_INFO = {
   forecast: {
     title: "Previsão do tempo",
     description:
-      "Condição atual e previsão pras próximas 12 horas, direto do OpenWeatherMap. A porcentagem é a chance de chover naquele horário. O selo colorido embaixo do horário (🟢🟡🔴) é uma estimativa do risco de alagamento SE a previsão se confirmar — diferente do índice principal do bairro, que usa dado já observado, não previsto.",
+      "Condição atual e previsão hora a hora pras próximas 12 horas. A OpenWeatherMap só dá dado gratuito de 3 em 3 horas — as horas entre um passo e outro são interpoladas (temperatura estimada por interpolação, chuva dividida igualmente pelas 3 horas do passo), não é medição real hora a hora. A porcentagem é a chance de chover naquele horário. O selo colorido embaixo do horário (🟢🟡🔴) é uma estimativa do risco de alagamento SE a previsão se confirmar — diferente do índice principal do bairro, que usa dado já observado, não previsto.",
   },
 } as const;
 
