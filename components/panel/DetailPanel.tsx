@@ -7,6 +7,7 @@ import { TrendIndicators } from "./TrendIndicators";
 import { HistoryChart } from "./HistoryChart";
 import { ForecastStrip } from "./ForecastStrip";
 import { useForecast } from "@/hooks/useForecast";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 import type { Neighborhood, RiskScore } from "@/types";
 
 interface DetailPanelProps {
@@ -32,27 +33,43 @@ export function DetailPanel({
     neighborhood ? cityLat : null,
     neighborhood ? cityLng : null
   );
+  const isDesktop = useIsDesktop();
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
   }
+
+  // No mobile é um bottom-sheet que desliza de baixo (com gesto de swipe
+  // pra fechar). No desktop vira um painel lateral, deslizando da direita
+  // — um bottom-sheet ocupando a tela toda fica estranho quando tem tanto
+  // espaço horizontal sobrando.
+  const motionProps = isDesktop
+    ? {
+        initial: { x: 40, opacity: 0 },
+        animate: { x: 0, opacity: 1 },
+        exit: { x: 40, opacity: 0 },
+        transition: { type: "spring" as const, damping: 30, stiffness: 300 },
+      }
+    : {
+        initial: { y: "100%" },
+        animate: { y: 0 },
+        exit: { y: "100%" },
+        transition: { type: "spring" as const, damping: 28, stiffness: 260 },
+        drag: "y" as const,
+        dragConstraints: { top: 0, bottom: 0 },
+        dragElastic: { top: 0, bottom: 0.5 },
+        onDragEnd: handleDragEnd,
+      };
 
   return (
     <AnimatePresence>
       {neighborhood && (
         <motion.div
           key={neighborhood.id}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "100%" }}
-          transition={{ type: "spring", damping: 28, stiffness: 260 }}
-          drag="y"
-          dragConstraints={{ top: 0, bottom: 0 }}
-          dragElastic={{ top: 0, bottom: 0.5 }}
-          onDragEnd={handleDragEnd}
-          className="pointer-events-auto absolute inset-x-0 bottom-0 z-[1100] max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white px-5 pb-8 pt-3 shadow-2xl"
+          {...motionProps}
+          className="pointer-events-auto absolute inset-x-0 bottom-0 z-[1100] max-h-[80vh] overflow-y-auto rounded-t-3xl bg-white px-5 pb-8 pt-3 shadow-2xl md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-lg md:rounded-3xl md:px-7 md:pb-7"
         >
-          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-gray-light" />
+          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-gray-light md:hidden" />
 
           <div className="flex items-start justify-between">
             <div>
@@ -72,7 +89,9 @@ export function DetailPanel({
 
           {current && (
             <>
-              <RiskBadge level={current.level} score={current.score} className="mt-3" />
+              <div className="mt-3 flex items-center gap-3">
+                <RiskBadge level={current.level} score={current.score} />
+              </div>
 
               {current.auto_critical && current.auto_critical_reason && (
                 <div className="mt-3 rounded-xl bg-brand-red-alert/10 px-4 py-3 text-sm text-brand-red-alert">
@@ -89,17 +108,21 @@ export function DetailPanel({
                 />
               </div>
 
-              <div className="mt-5">
-                <ScoreBreakdown score={current} />
-              </div>
+              <div className="mt-5 md:grid md:grid-cols-2 md:gap-x-8">
+                <div>
+                  <ScoreBreakdown score={current} />
+                </div>
 
-              <div className="mt-5">
-                <TrendIndicators score={current} />
-              </div>
+                <div>
+                  <div className="mt-5 md:mt-0">
+                    <TrendIndicators score={current} />
+                  </div>
 
-              <div className="mt-5">
-                <h3 className="mb-2 text-sm font-medium text-brand-gray-urban/70">Últimas 6 horas</h3>
-                <HistoryChart history={history} />
+                  <div className="mt-5">
+                    <h3 className="mb-2 text-sm font-medium text-brand-gray-urban/70">Últimas 6 horas</h3>
+                    <HistoryChart history={history} />
+                  </div>
+                </div>
               </div>
             </>
           )}

@@ -11,7 +11,7 @@ export function ProfileButton() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Perfil e login"
-        className="pointer-events-auto absolute left-4 top-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-blue-mid shadow-lg transition hover:bg-brand-gray-light"
+        className="pointer-events-auto absolute right-4 top-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-blue-mid shadow-lg transition hover:bg-brand-gray-light"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="12" cy="8" r="4" />

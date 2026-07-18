@@ -2,30 +2,28 @@
 
 import { useEffect, useRef } from "react";
 import type { Map as LeafletMap, LayerGroup } from "leaflet";
-import type { City, DataLevel } from "@/types";
-
-const BADGE_TEXT: Record<Exclude<DataLevel, "full">, { label: string; tooltip: string }> = {
-  partial: {
-    label: "Cobertura parcial",
-    tooltip: "Dados parciais — modelo baseado em hidrografia regional",
-  },
-  minimal: {
-    label: "Em expansão",
-    tooltip: "Modelo baseado apenas em clima e terreno — expandindo cobertura",
-  },
-};
+import type { City, Neighborhood } from "@/types";
 
 interface EmptyStateLayerProps {
   map: LeafletMap | null;
   cities: City[];
+  neighborhoods: Neighborhood[];
 }
 
-export function EmptyStateLayer({ map, cities }: EmptyStateLayerProps) {
+// Só marca cidades que ainda não têm NENHUM bairro processado (hoje: São
+// Luís). Cidades com cobertura parcial (Fortaleza, Maceió, Aracaju, João
+// Pessoa) já têm bairros de verdade coloridos no mapa — um ponto amarelo
+// solto por cima deles só confundia, sem explicar nada (daí a legenda em
+// components/ui/MapLegend.tsx).
+export function EmptyStateLayer({ map, cities, neighborhoods }: EmptyStateLayerProps) {
   const groupRef = useRef<LayerGroup | null>(null);
 
   useEffect(() => {
     if (!map) return;
     let cancelled = false;
+
+    const citiesWithNeighborhoods = new Set(neighborhoods.map((n) => n.city_id));
+    const emptyCities = cities.filter((c) => !citiesWithNeighborhoods.has(c.id));
 
     import("leaflet").then((L) => {
       if (cancelled) return;
@@ -33,28 +31,23 @@ export function EmptyStateLayer({ map, cities }: EmptyStateLayerProps) {
 
       const group = L.layerGroup();
 
-      cities
-        .filter((c) => c.data_level !== "full")
-        .forEach((city) => {
-          const isTeresina = city.name === "Teresina";
-          const tooltip = isTeresina
-            ? "Dado de maré não aplicável — cidade não costeira"
-            : BADGE_TEXT[city.data_level as "partial" | "minimal"].tooltip;
-          const label = isTeresina ? "Em expansão" : BADGE_TEXT[city.data_level as "partial" | "minimal"].label;
+      emptyCities.forEach((city) => {
+        const isCoastal = city.tide_code !== null;
+        const tooltip = isCoastal
+          ? "Ainda sem bairros processados — em expansão"
+          : "Ainda sem bairros processados — cidade não costeira, sem dado de maré";
 
-          const color = city.data_level === "partial" ? "#f0a500" : "#4a5568";
+        const marker = L.circleMarker([city.lat, city.lng], {
+          radius: 7,
+          color: "#4a5568",
+          fillColor: "#4a5568",
+          fillOpacity: 0.5,
+          weight: 1.5,
+          dashArray: "3,3",
+        }).bindTooltip(`${city.name}: ${tooltip}`);
 
-          const marker = L.circleMarker([city.lat, city.lng], {
-            radius: 6,
-            color,
-            fillColor: color,
-            fillOpacity: 0.6,
-            weight: 1,
-            dashArray: "2,2",
-          }).bindTooltip(`${label}: ${tooltip}`);
-
-          marker.addTo(group);
-        });
+        marker.addTo(group);
+      });
 
       group.addTo(map);
       groupRef.current = group;
@@ -64,7 +57,7 @@ export function EmptyStateLayer({ map, cities }: EmptyStateLayerProps) {
       cancelled = true;
       groupRef.current?.remove();
     };
-  }, [map, cities]);
+  }, [map, cities, neighborhoods]);
 
   return null;
 }
