@@ -1,6 +1,13 @@
 // Faz upload dos GeoJSONs processados em public/geojson/neighborhoods_*.geojson
 // para a tabela `neighborhoods` do Supabase, usando a conexão direta ao
 // Postgres (bypassa RLS, igual scripts/run_migrations.js).
+//
+// Upsert por (city_id, name) em vez de delete+insert: preserva o id de
+// bairros que já existem, para não derrubar (via on delete cascade) o
+// risk_scores/risk_events já calculado pra eles a cada rodada. Só remove
+// do banco os bairros que realmente saíram do GeoJSON (ex: reprocessamento
+// com limites diferentes).
+//
 // Uso: node scripts/upload_neighborhoods.js
 require("dotenv").config({ path: ".env.local" });
 const fs = require("fs");
@@ -36,19 +43,33 @@ async function main() {
       const filePath = path.join(__dirname, "..", "public", "geojson", filename);
       const geojson = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-      await client.query("delete from neighborhoods where city_id = $1", [cityId]);
-
-      let inserted = 0;
+      let upserted = 0;
+      const namesInFile = [];
       for (const feature of geojson.features) {
         const { name, terrain_slope, hydro_proximity, is_coastal } = feature.properties;
+        namesInFile.push(name);
         await client.query(
           `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal)
-           values ($1, $2, $3, $4, $5, $6)`,
+           values ($1, $2, $3, $4, $5, $6)
+           on conflict (city_id, name) do update set
+             geometry = excluded.geometry,
+             terrain_slope = excluded.terrain_slope,
+             hydro_proximity = excluded.hydro_proximity,
+             is_coastal = excluded.is_coastal`,
           [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal]
         );
-        inserted++;
+        upserted++;
       }
-      console.log(`${cityName}: ${inserted} bairros inseridos`);
+
+      const { rowCount: removed } = await client.query(
+        `delete from neighborhoods where city_id = $1 and not (name = any($2::text[]))`,
+        [cityId, namesInFile]
+      );
+
+      console.log(
+        `${cityName}: ${upserted} bairros atualizados/inseridos` +
+          (removed ? `, ${removed} removidos (não estão mais no GeoJSON)` : "")
+      );
     }
   } finally {
     await client.end();

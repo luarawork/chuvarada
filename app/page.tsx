@@ -59,15 +59,18 @@ export default function HomePage() {
   useEffect(() => {
     async function loadLatestScores() {
       if (neighborhoodIds.length === 0) return;
-      const { data } = await supabase
-        .from("risk_scores")
-        .select("*")
-        .in("neighborhood_id", neighborhoodIds)
-        .order("calculated_at", { ascending: false });
+      // Usa a view latest_risk_scores (1 linha por bairro) em vez de um
+      // .in("neighborhood_id", [...706 ids]) — essa lista gera uma URL
+      // grande demais pro PostgREST e falhava silenciosamente.
+      const { data, error } = await supabase.from("latest_risk_scores").select("*");
+      if (error) {
+        console.error("Erro ao buscar latest_risk_scores:", error);
+        return;
+      }
 
       const byNeighborhood: Record<string, RiskScore> = {};
       for (const row of (data as RiskScore[]) ?? []) {
-        if (!byNeighborhood[row.neighborhood_id]) byNeighborhood[row.neighborhood_id] = row;
+        byNeighborhood[row.neighborhood_id] = row;
       }
       setLatestScores(byNeighborhood);
     }
