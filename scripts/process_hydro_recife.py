@@ -8,7 +8,7 @@ Input: dados-brutos/recife/faixas-marginais-dos-recursos-hidricos.geojson
        original citado no plano (recursos_hidricos.geojson) não existe mais
        nesse portal; este foi encontrado via busca na API do CKAN e tem
        atributos "nome" (nome do rio) e "bacia".
-Output: /public/geojson/hydro_recife_local.geojson
+Output: dados-brutos/recife/hydro_recife_local.geojson (artefato intermediário, não vai para public/)
 
 Processo similar ao process_bho.py mas com dado local mais preciso.
 Mescla com a camada BHO (process_bho.py) para Recife ter a camada mais rica possível:
@@ -19,15 +19,17 @@ Dependências: geopandas, shapely
 
 Uso: python scripts/process_hydro_recife.py \
        --input dados-brutos/recife/faixas-marginais-dos-recursos-hidricos.geojson \
-       --bho public/geojson/hydro_nordeste.geojson \
+       --bho dados-brutos/ana/hydro_nordeste_clipped.geojson \
        --neighborhoods public/geojson/neighborhoods_recife.geojson
 """
 
 import argparse
 import os
+import sys
 
 import geopandas as gpd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from process_bho import (
     SIMPLIFY_TOLERANCE_DEG,
     normalize_proximity,
@@ -43,10 +45,19 @@ def load_local_hydro(shapefile_path: str) -> gpd.GeoDataFrame:
 
 def merge_with_bho(local_gdf: gpd.GeoDataFrame, bho_geojson_path: str) -> gpd.GeoDataFrame:
     """Combina a camada municipal (mais precisa) com a BHO regional como complemento
-    fora da área coberta pelo dado municipal."""
-    bho_gdf = gpd.read_file(bho_geojson_path)
+    fora da área coberta pelo dado municipal.
+
+    O complemento da BHO é restrito a uma vizinhança (~0.1 grau, ~11km) do
+    dado municipal: sem isso, "fora da área coberta pelo dado municipal"
+    incluiria os ~240 mil trechos de rio do Nordeste inteiro (a BHO já vem
+    recortada só pelo Nordeste em hydro_nordeste_clipped.geojson), gerando
+    um arquivo de ~150MB para uma cidade só.
+    """
+    bho_gdf = gpd.read_file(bho_geojson_path).to_crs(local_gdf.crs)
     local_union = local_gdf.geometry.unary_union
-    bho_outside = bho_gdf[~bho_gdf.geometry.intersects(local_union.buffer(0.001))]
+    local_neighborhood = gpd.GeoSeries([local_union], crs=local_gdf.crs).buffer(0.1).union_all()
+    bho_nearby = bho_gdf[bho_gdf.geometry.intersects(local_neighborhood)]
+    bho_outside = bho_nearby[~bho_nearby.geometry.intersects(local_union.buffer(0.001))]
     combined = gpd.GeoDataFrame(
         gpd.pd.concat([local_gdf, bho_outside], ignore_index=True), crs=local_gdf.crs
     )
@@ -79,15 +90,19 @@ def main():
     )
     parser.add_argument("--bho", required=True, help="hydro_nordeste.geojson gerado por process_bho.py")
     parser.add_argument("--neighborhoods", help="neighborhoods_recife.geojson para recalcular hydro_proximity")
-    parser.add_argument("--output-dir", default="public/geojson")
+    parser.add_argument(
+        "--cache-dir",
+        default="dados-brutos/recife",
+        help="Onde salvar a hidrografia mesclada (artefato intermediário, NÃO vai para public/)",
+    )
     args = parser.parse_args()
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(args.cache_dir, exist_ok=True)
 
     local_gdf = load_local_hydro(args.input)
     combined = merge_with_bho(local_gdf, args.bho)
 
-    out_path = os.path.join(args.output_dir, "hydro_recife_local.geojson")
+    out_path = os.path.join(args.cache_dir, "hydro_recife_local.geojson")
     combined.to_file(out_path, driver="GeoJSON")
     print(f"Hidrografia municipal do Recife mesclada com BHO -> {out_path}")
 

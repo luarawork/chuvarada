@@ -100,13 +100,17 @@ def main():
         default=list(NORDESTE_BBOX),
         help="Bounding box para recortar o GeoPackage nacional (default: Nordeste inteiro)",
     )
-    parser.add_argument("--output-dir", default="public/geojson")
+    parser.add_argument(
+        "--cache-dir",
+        default="dados-brutos/ana",
+        help="Onde salvar a hidrografia recortada/simplificada (artefato intermediário, NÃO vai para public/)",
+    )
     args = parser.parse_args()
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    os.makedirs(args.cache_dir, exist_ok=True)
     hydro_gdf = load_and_filter_hydro(args.input, tuple(args.bbox))
 
-    hydro_out = os.path.join(args.output_dir, "hydro_nordeste.geojson")
+    hydro_out = os.path.join(args.cache_dir, "hydro_nordeste_clipped.geojson")
     hydro_gdf.to_file(hydro_out, driver="GeoJSON")
     print(f"Hidrografia simplificada ({len(hydro_gdf)} trechos) -> {hydro_out}")
 

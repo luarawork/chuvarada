@@ -117,16 +117,19 @@ def main():
     slope_deg, transform, profile = compute_slope(args.input, bounds)
 
     os.makedirs(args.output_dir, exist_ok=True)
-    out_path = os.path.join(args.output_dir, f"slope_{args.city}.geojson")
 
     if args.neighborhoods:
+        # Atualiza terrain_slope in-place no mesmo GeoJSON de bairros usado
+        # por process_neighborhoods.py/process_bho.py (mesma convenção dos
+        # outros scripts do pipeline).
         gdf = aggregate_by_neighborhood(args.neighborhoods, slope_deg, transform, profile["crs"])
-        gdf.to_file(out_path, driver="GeoJSON")
+        gdf.to_file(args.neighborhoods, driver="GeoJSON")
+        print(f"terrain_slope atualizado em -> {args.neighborhoods}")
     else:
         # Sem bairros ainda: salva só o raster normalizado como referência (não é o formato final).
-        np.save(out_path.replace(".geojson", ".npy"), normalize_slope(slope_deg))
-
-    print(f"Declividade processada para {args.city} -> {out_path}")
+        out_path = os.path.join(args.output_dir, f"slope_{args.city}.npy")
+        np.save(out_path, normalize_slope(slope_deg))
+        print(f"Declividade normalizada (raster bruto) -> {out_path}")
 
 
 if __name__ == "__main__":

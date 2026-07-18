@@ -39,3 +39,10 @@ next-env.d.ts
 /public/sw.js
 /public/workbox-*.js
 /public/fallback-*.js
+
+# dados geoespaciais brutos (grandes, baixados sob demanda pelos scripts)
+/dados-brutos
+
+# cache de bytecode Python
+__pycache__/
+*.pyc
