@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import * as turf from "@turf/turf";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapContainer } from "@/components/map/MapContainer";
 import { NeighborhoodLayer } from "@/components/map/NeighborhoodLayer";
@@ -17,6 +18,8 @@ import { useMap } from "@/hooks/useMap";
 import { useLocation } from "@/hooks/useLocation";
 import { useRealtime } from "@/hooks/useRealtime";
 import { useRisk } from "@/hooks/useRisk";
+import { useAuth } from "@/hooks/useAuth";
+import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/lib/supabase";
 import { findNeighborhoodAtPoint } from "@/lib/geojson";
 import type { City, Neighborhood, RiskLevel, RiskScore } from "@/types";
@@ -24,6 +27,9 @@ import type { City, Neighborhood, RiskLevel, RiskScore } from "@/types";
 export default function HomePage() {
   const { map, handleMapReady, flyTo } = useMap();
   const location = useLocation();
+  const { user } = useAuth();
+  const { orderedIds: favoriteIds, loading: favoritesLoading } = useFavorites();
+  const autoOpenedRef = useRef(false);
 
   const [cities, setCities] = useState<City[]>([]);
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
@@ -96,6 +102,40 @@ export default function HomePage() {
     const nearby = findNeighborhoodAtPoint(neighborhoods, location.lat, location.lng);
     if (nearby) setSelected(nearby);
   }, [location.status, location.lat, location.lng, neighborhoods, flyTo]);
+
+  // Abre direto num bairro específico ao chegar via link da página de
+  // favoritos (?bairro=<id>), ou — se o usuário está logado e tem
+  // favoritos — no bairro favoritado mais recentemente. Só tenta uma vez
+  // por carregamento, pra não reabrir o painel depois que o usuário fechar.
+  useEffect(() => {
+    if (autoOpenedRef.current || neighborhoods.length === 0) return;
+
+    // Lê a query string direto do window em vez de usar useSearchParams —
+    // esse hook exige envolver a página inteira num <Suspense>, o que
+    // causava divergência entre o HTML renderizado no servidor e no
+    // cliente (a página já é 100% client-side, não precisa desse boundary).
+    const bairroParam = new URLSearchParams(window.location.search).get("bairro");
+    let target: Neighborhood | undefined;
+
+    if (bairroParam) {
+      target = neighborhoods.find((n) => n.id === bairroParam);
+    } else if (user && !favoritesLoading && favoriteIds.length > 0) {
+      target = neighborhoods.find((n) => n.id === favoriteIds[0]);
+    } else if (!bairroParam && (!user || favoritesLoading)) {
+      return; // ainda esperando saber se tem usuário/favoritos
+    }
+
+    if (!target) {
+      if (bairroParam || (user && !favoritesLoading)) autoOpenedRef.current = true;
+      return;
+    }
+
+    autoOpenedRef.current = true;
+    setSelected(target);
+    const centroid = turf.centroid(target.geometry as GeoJSON.Geometry);
+    const [lng, lat] = centroid.geometry.coordinates;
+    flyTo(lat, lng, 14);
+  }, [neighborhoods, user, favoritesLoading, favoriteIds, flyTo]);
 
   const selectedCity = selected ? cities.find((c) => c.id === selected.city_id) : null;
 

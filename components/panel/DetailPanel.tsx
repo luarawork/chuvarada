@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import * as turf from "@turf/turf";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { RiskBadge } from "@/components/ui/RiskBadge";
@@ -9,6 +10,8 @@ import { HistoryChart } from "./HistoryChart";
 import { ForecastStrip } from "./ForecastStrip";
 import { useForecast } from "@/hooks/useForecast";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
+import { useAuth } from "@/hooks/useAuth";
+import { useFavorites } from "@/hooks/useFavorites";
 import type { Neighborhood, RiskScore } from "@/types";
 
 interface DetailPanelProps {
@@ -41,6 +44,10 @@ export function DetailPanel({
     forecastCoords?.lng ?? null
   );
   const isDesktop = useIsDesktop();
+  const router = useRouter();
+  const { user } = useAuth();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorited = neighborhood ? isFavorite(neighborhood.id) : false;
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
@@ -85,13 +92,46 @@ export function DetailPanel({
               </h2>
               <p className="text-sm text-brand-gray-urban/60">{cityName}</p>
             </div>
-            <button
-              onClick={onClose}
-              aria-label="Fechar"
-              className="rounded-full p-2 text-brand-gray-urban/50 hover:bg-brand-gray-light"
-            >
-              ✕
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => {
+                  if (!user) {
+                    router.push("/auth");
+                    return;
+                  }
+                  if (neighborhood) toggleFavorite(neighborhood.id);
+                }}
+                aria-label={
+                  !user ? "Entre para salvar bairros" : favorited ? "Remover dos favoritos" : "Salvar bairro"
+                }
+                title={!user ? "Entre para salvar bairros" : undefined}
+                className={`rounded-full p-2 ${
+                  user ? "text-brand-red-alert hover:bg-brand-gray-light" : "text-brand-gray-urban/30 hover:bg-brand-gray-light"
+                }`}
+              >
+                <motion.svg
+                  key={favorited ? "on" : "off"}
+                  initial={{ scale: 0.7 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill={favorited ? "currentColor" : "none"}
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4.5 5.5 4 8 3.6 10 5 12 7.5 14 5 16 3.6 18.5 4 22 4.5 23.5 8 22 11.7 19.5 16.4 12 21 12 21Z" />
+                </motion.svg>
+              </button>
+              <button
+                onClick={onClose}
+                aria-label="Fechar"
+                className="rounded-full p-2 text-brand-gray-urban/50 hover:bg-brand-gray-light"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           {current && (
