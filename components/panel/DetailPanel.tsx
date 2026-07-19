@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+import * as turf from "@turf/turf";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { ScoreBreakdown } from "./ScoreBreakdown";
@@ -12,8 +14,6 @@ import type { Neighborhood, RiskScore } from "@/types";
 interface DetailPanelProps {
   neighborhood: Neighborhood | null;
   cityName: string;
-  cityLat: number | null;
-  cityLng: number | null;
   current: RiskScore | null;
   history: RiskScore[];
   onClose: () => void;
@@ -22,15 +22,23 @@ interface DetailPanelProps {
 export function DetailPanel({
   neighborhood,
   cityName,
-  cityLat,
-  cityLng,
   current,
   history,
   onClose,
 }: DetailPanelProps) {
+  // Previsão precisa ser do centroide do PRÓPRIO bairro, não do centro da
+  // cidade — senão todo bairro de uma mesma cidade mostra a mesma previsão
+  // e o mesmo índice de risco previsto (mesmo bug já corrigido no cron/score).
+  const forecastCoords = useMemo(() => {
+    if (!neighborhood) return null;
+    const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
+    const [lng, lat] = centroid.geometry.coordinates;
+    return { lat, lng };
+  }, [neighborhood]);
+
   const { forecast, loading: forecastLoading } = useForecast(
-    neighborhood ? cityLat : null,
-    neighborhood ? cityLng : null
+    forecastCoords?.lat ?? null,
+    forecastCoords?.lng ?? null
   );
   const isDesktop = useIsDesktop();
 

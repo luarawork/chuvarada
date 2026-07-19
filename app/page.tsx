@@ -112,6 +112,13 @@ export default function HomePage() {
     return dates.sort().reverse()[0];
   }, [latestScores]);
 
+  // O AlertCard só aparece quando nenhum bairro está selecionado, então usar
+  // selectedCurrent (que depende de `selected`) pra ele fazia a previsão de
+  // clima nunca aparecer — sempre vinha null. Usa o mesmo bairro que o
+  // onClick do card abre, pra ficar consistente com o que o usuário vê ao clicar.
+  const previewNeighborhood = neighborhoods[0] ?? null;
+  const previewScore = previewNeighborhood ? latestScores[previewNeighborhood.id] ?? null : null;
+
   return (
     <main className="relative h-dvh w-screen overflow-hidden">
       {loading && <LoadingMap />}
@@ -136,23 +143,23 @@ export default function HomePage() {
         <AlertCard
           level={overallLevel}
           weather={
-            selectedCurrent
+            previewScore
               ? {
-                  rain_1h: selectedCurrent.rain_1h,
-                  rain_3h: selectedCurrent.rain_1h,
-                  rain_72h: selectedCurrent.rain_72h,
-                  rain_intensity: selectedCurrent.rain_intensity,
-                  wind_speed: selectedCurrent.wind_speed,
-                  wind_direction: selectedCurrent.wind_direction,
-                  humidity: selectedCurrent.humidity,
-                  pressure: selectedCurrent.pressure,
+                  rain_1h: previewScore.rain_1h,
+                  rain_3h: previewScore.rain_1h,
+                  rain_72h: previewScore.rain_72h,
+                  rain_intensity: previewScore.rain_intensity,
+                  wind_speed: previewScore.wind_speed,
+                  wind_direction: previewScore.wind_direction,
+                  humidity: previewScore.humidity,
+                  pressure: previewScore.pressure,
                   pressure_trend: "stable",
                 }
               : null
           }
-          tideLevel={selectedCurrent?.tide_level ?? null}
+          tideLevel={previewScore?.tide_level ?? null}
           onClick={() => {
-            if (neighborhoods.length > 0) setSelected(neighborhoods[0]);
+            if (previewNeighborhood) setSelected(previewNeighborhood);
           }}
         />
       )}
@@ -196,8 +203,6 @@ export default function HomePage() {
       <DetailPanel
         neighborhood={selected}
         cityName={selectedCity?.name ?? ""}
-        cityLat={selectedCity?.lat ?? null}
-        cityLng={selectedCity?.lng ?? null}
         current={selectedCurrent}
         history={selectedHistory}
         onClose={() => setSelected(null)}
