@@ -39,7 +39,15 @@ FAR_THRESHOLD_KM = 5.0
 # Bounding box aproximada do Nordeste (min_lon, min_lat, max_lon, max_lat),
 # usada para recortar o GeoPackage nacional no próprio read_file (bbox
 # pushdown), evitando carregar o Brasil inteiro em memória.
-NORDESTE_BBOX = (-45.0, -15.0, -35.0, -1.0)
+#
+# Ampliado em 2026-07-19 (diagnóstico de lacunas): o bbox anterior
+# (-45,-15,-35,-1) cortava os 4 lados da extensão real dos 9 estados —
+# oeste do Maranhão, extremo-sul da Bahia, e a borda leste (Fernando de
+# Noronha e o litoral da própria capital João Pessoa, que fica a -34,8°,
+# além do limite antigo de -35,0°). O geopackage fonte cobre o Brasil
+# inteiro, então não há custo de qualidade em alargar — só um pouco mais
+# de tempo de leitura.
+NORDESTE_BBOX = (-49.5, -19.0, -31.5, -1.5)
 
 # Classes de corpo d'água consideradas relevantes, caso a camada tenha uma
 # coluna de classificação (normalmente não tem — "curso_dagua" já é o filtro).
