@@ -2,8 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON, Layer } from "leaflet";
-import { RISK_COLORS } from "@/lib/geojson";
+import { NEIGHBORHOOD_STYLES, NEIGHBORHOOD_HOVER_STYLE } from "@/lib/geojson";
 import type { Neighborhood, RiskLevel } from "@/types";
+
+const LEVEL_LABELS: Record<RiskLevel, string> = {
+  normal: "normal",
+  attention: "atenção",
+  critical: "crítico",
+};
 
 interface NeighborhoodLayerProps {
   map: LeafletMap | null;
@@ -41,30 +47,25 @@ export function NeighborhoodLayer({
         {
           style: (feature) => {
             const level = levelsById[feature?.properties?.id] ?? "normal";
-            return {
-              color: RISK_COLORS[level],
-              weight: 1,
-              fillColor: RISK_COLORS[level],
-              fillOpacity: 0.4,
-            };
+            return NEIGHBORHOOD_STYLES[level];
           },
           onEachFeature: (feature, layerInstance) => {
             const neighborhood = neighborhoods.find((n) => n.id === feature.properties.id);
             if (!neighborhood) return;
 
-            layerInstance.bindTooltip(
-              `${feature.properties.name} — ${levelsById[feature.properties.id] ?? "normal"}`
-            );
+            const level = levelsById[feature.properties.id] ?? "normal";
+            layerInstance.bindTooltip(`${feature.properties.name} — ${LEVEL_LABELS[level]}`);
 
             layerInstance.on("mouseover", () => {
-              (layerInstance as Layer & { setStyle: (s: object) => void }).setStyle({
-                fillOpacity: 0.7,
-              });
+              (layerInstance as Layer & { setStyle: (s: object) => void }).setStyle(
+                NEIGHBORHOOD_HOVER_STYLE
+              );
             });
             layerInstance.on("mouseout", () => {
-              (layerInstance as Layer & { setStyle: (s: object) => void }).setStyle({
-                fillOpacity: 0.4,
-              });
+              const currentLevel = levelsById[feature.properties.id] ?? "normal";
+              (layerInstance as Layer & { setStyle: (s: object) => void }).setStyle(
+                NEIGHBORHOOD_STYLES[currentLevel]
+              );
             });
             layerInstance.on("click", () => onSelect(neighborhood));
           },

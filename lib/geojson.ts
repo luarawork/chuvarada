@@ -7,6 +7,23 @@ export const RISK_COLORS: Record<RiskLevel, string> = {
   critical: "#d64045",
 };
 
+// Bordas mais claras que o fill separam visualmente bairros vizinhos do
+// mesmo nível de risco — um problema visível na Bahia, onde vários bairros
+// adjacentes ficam no mesmo nível e o polígono antigo (fill=stroke, mesma
+// opacidade) os fundia numa mancha só. Cores e opacidades separadas (em vez
+// de rgba() já compostas) evitam a opacidade dobrar quando o hover soma seu
+// próprio fillOpacity por cima.
+export const NEIGHBORHOOD_STYLES: Record<
+  RiskLevel,
+  { fillColor: string; fillOpacity: number; color: string; opacity: number; weight: number }
+> = {
+  normal: { fillColor: "#2a9d72", fillOpacity: 0.35, color: "#2a9d72", opacity: 0.7, weight: 0.8 },
+  attention: { fillColor: "#f0a500", fillOpacity: 0.4, color: "#f0a500", opacity: 0.75, weight: 0.8 },
+  critical: { fillColor: "#d64045", fillOpacity: 0.45, color: "#d64045", opacity: 0.8, weight: 0.8 },
+};
+
+export const NEIGHBORHOOD_HOVER_STYLE = { fillOpacity: 0.65, weight: 1.5 };
+
 export function neighborhoodToFeature(
   neighborhood: Neighborhood,
   level: RiskLevel | null
