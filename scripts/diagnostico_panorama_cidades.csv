@@ -1,0 +1,1795 @@
+state,cidade,data_level,tide_code,active,total_bairros,slope_nao_placeholder,slope_placeholder,com_hidro_real,costeiros,com_score_calculado
+AL,"Maceió",partial,30725,true,50,50,0,50,21,50
+AL,"Arapiraca",minimal,,true,42,42,0,42,0,42
+AL,"Palmeira dos Índios",minimal,,true,19,19,0,19,0,19
+AL,"Barra de São Miguel",partial,,true,10,10,0,10,10,10
+AL,"Penedo",minimal,,true,9,9,0,9,0,9
+AL,"Maragogi",minimal,,true,2,2,0,2,2,2
+AL,"Piranhas",minimal,,true,2,2,0,2,0,2
+AL,"Coruripe",minimal,,true,2,2,0,2,2,2
+AL,"Porto de Pedras",minimal,,true,2,2,0,2,2,2
+AL,"Pão de Açúcar",minimal,,true,2,2,0,2,0,2
+AL,"Olho d'Água das Flores",minimal,,true,2,2,0,2,0,2
+AL,"União dos Palmares",minimal,,true,2,2,0,2,0,2
+AL,"Atalaia",minimal,,true,2,2,0,2,0,2
+AL,"Viçosa",minimal,,true,2,2,0,2,0,2
+AL,"Capela",minimal,,true,2,2,0,2,0,2
+AL,"Santana do Mundaú",minimal,,true,2,2,0,2,0,2
+AL,"Piaçabuçu",minimal,,true,2,2,0,2,2,2
+AL,"Major Isidoro",minimal,,true,2,2,0,2,0,2
+AL,"Girau do Ponciano",minimal,,true,1,1,0,1,0,1
+AL,"Ibateguara",minimal,,true,1,1,0,1,0,1
+AL,"Igaci",minimal,,true,1,1,0,1,0,1
+AL,"Igreja Nova",minimal,,true,1,1,0,1,0,1
+AL,"Inhapi",minimal,,true,1,1,0,1,0,1
+AL,"Jacaré dos Homens",minimal,,true,1,1,0,1,0,1
+AL,"Jacuípe",minimal,,true,1,1,0,1,0,1
+AL,"Japaratinga",minimal,,true,1,1,0,1,1,1
+AL,"Jaramataia",minimal,,true,1,1,0,1,0,1
+AL,"Jequiá da Praia",minimal,,true,1,1,0,1,1,1
+AL,"Joaquim Gomes",minimal,,true,1,1,0,1,0,1
+AL,"Jundiá",minimal,,true,1,1,0,1,0,1
+AL,"Junqueiro",minimal,,true,1,1,0,1,0,1
+AL,"Lagoa da Canoa",minimal,,true,1,1,0,1,0,1
+AL,"Limoeiro de Anadia",minimal,,true,1,1,0,1,0,1
+AL,"Mar Vermelho",minimal,,true,1,1,0,1,0,1
+AL,"Maravilha",minimal,,true,1,1,0,1,0,1
+AL,"Marechal Deodoro",minimal,,true,1,1,0,1,1,1
+AL,"Maribondo",minimal,,true,1,1,0,1,0,1
+AL,"Mata Grande",minimal,,true,1,1,0,1,0,1
+AL,"Matriz de Camaragibe",minimal,,true,1,1,0,1,0,1
+AL,"Messias",minimal,,true,1,1,0,1,0,1
+AL,"Minador do Negrão",minimal,,true,1,1,0,1,0,1
+AL,"Monteirópolis",minimal,,true,1,1,0,1,0,1
+AL,"Murici",minimal,,true,1,1,0,1,0,1
+AL,"Novo Lino",minimal,,true,1,1,0,1,0,1
+AL,"Olho d'Água do Casado",minimal,,true,1,1,0,1,0,1
+AL,"Olho d'Água Grande",minimal,,true,1,1,0,1,0,1
+AL,"Olivença",minimal,,true,1,1,0,1,0,1
+AL,"Água Branca",minimal,,true,1,1,0,1,0,1
+AL,"Ouro Branco",minimal,,true,1,1,0,1,0,1
+AL,"Anadia",minimal,,true,1,1,0,1,0,1
+AL,"Barra de Santo Antônio",minimal,,true,1,1,0,1,1,1
+AL,"Batalha",minimal,,true,1,1,0,1,0,1
+AL,"Belém",minimal,,true,1,1,0,1,0,1
+AL,"Belo Monte",minimal,,true,1,1,0,1,0,1
+AL,"Boca da Mata",minimal,,true,1,1,0,1,0,1
+AL,"Branquinha",minimal,,true,1,1,0,1,0,1
+AL,"Cacimbinhas",minimal,,true,1,1,0,1,0,1
+AL,"Palestina",minimal,,true,1,1,0,1,0,1
+AL,"Pariconha",minimal,,true,1,1,0,1,0,1
+AL,"Paripueira",minimal,,true,1,1,0,1,1,1
+AL,"Passo de Camaragibe",minimal,,true,1,1,0,1,1,1
+AL,"Paulo Jacinto",minimal,,true,1,1,0,1,0,1
+AL,"Pilar",minimal,,true,1,1,0,1,0,1
+AL,"Pindoba",minimal,,true,1,1,0,1,0,1
+AL,"Poço das Trincheiras",minimal,,true,1,1,0,1,0,1
+AL,"Porto Calvo",minimal,,true,1,1,0,1,1,1
+AL,"Porto Real do Colégio",minimal,,true,1,1,0,1,0,1
+AL,"Quebrangulo",minimal,,true,1,1,0,1,0,1
+AL,"Rio Largo",minimal,,true,1,1,0,1,0,1
+AL,"Roteiro",minimal,,true,1,1,0,1,1,1
+AL,"Santa Luzia do Norte",minimal,,true,1,1,0,1,0,1
+AL,"Santana do Ipanema",minimal,,true,1,1,0,1,0,1
+AL,"São Brás",minimal,,true,1,1,0,1,0,1
+AL,"São José da Laje",minimal,,true,1,1,0,1,0,1
+AL,"São Luís do Quitunde",minimal,,true,1,1,0,1,0,1
+AL,"São Miguel dos Campos",minimal,,true,1,1,0,1,0,1
+AL,"São Miguel dos Milagres",minimal,,true,1,1,0,1,1,1
+AL,"São Sebastião",minimal,,true,1,1,0,1,0,1
+AL,"Satuba",minimal,,true,1,1,0,1,0,1
+AL,"Senador Rui Palmeira",minimal,,true,1,1,0,1,0,1
+AL,"Tanque d'Arca",minimal,,true,1,1,0,1,0,1
+AL,"Taquarana",minimal,,true,1,1,0,1,0,1
+AL,"Teotônio Vilela",minimal,,true,1,1,0,1,0,1
+AL,"Traipu",minimal,,true,1,1,0,1,0,1
+AL,"São José da Tapera",minimal,,true,1,1,0,1,0,1
+AL,"Cajueiro",minimal,,true,1,1,0,1,0,1
+AL,"Campestre",minimal,,true,1,1,0,1,0,1
+AL,"Campo Alegre",minimal,,true,1,1,0,1,0,1
+AL,"Campo Grande",minimal,,true,1,1,0,1,0,1
+AL,"Canapi",minimal,,true,1,1,0,1,0,1
+AL,"Carneiros",minimal,,true,1,1,0,1,0,1
+AL,"Chã Preta",minimal,,true,1,1,0,1,0,1
+AL,"Coité do Nóia",minimal,,true,1,1,0,1,0,1
+AL,"Colônia Leopoldina",minimal,,true,1,1,0,1,0,1
+AL,"Coqueiro Seco",minimal,,true,1,1,0,1,0,1
+AL,"Craíbas",minimal,,true,1,1,0,1,0,1
+AL,"Delmiro Gouveia",minimal,,true,1,1,0,1,0,1
+AL,"Dois Riachos",minimal,,true,1,1,0,1,0,1
+AL,"Estrela de Alagoas",minimal,,true,1,1,0,1,0,1
+AL,"Feira Grande",minimal,,true,1,1,0,1,0,1
+AL,"Feliz Deserto",minimal,,true,1,1,0,1,1,1
+AL,"Flexeiras",minimal,,true,1,1,0,1,0,1
+BA,"Salvador",full,40140,true,170,168,2,168,94,170
+BA,"Juazeiro",minimal,,true,62,62,0,62,0,62
+BA,"Feira de Santana",minimal,,true,59,59,0,59,0,59
+BA,"Itabuna",minimal,,true,56,56,0,56,0,56
+BA,"Ilhéus",partial,40145,true,38,38,0,38,29,38
+BA,"Vitória da Conquista",minimal,,true,36,36,0,31,0,36
+BA,"Santo Antônio de Jesus",minimal,,true,25,25,0,25,0,25
+BA,"Lauro de Freitas",partial,,true,19,19,0,19,7,19
+BA,"Ruy Barbosa",minimal,,true,18,18,0,18,0,18
+BA,"Euclides da Cunha",minimal,,true,13,13,0,13,0,13
+BA,"Uruçuca",partial,,true,10,10,0,10,1,10
+BA,"Jequié",minimal,,true,8,8,0,8,0,8
+BA,"Morro do Chapéu",minimal,,true,7,7,0,7,0,7
+BA,"Sento Sé",minimal,,true,7,7,0,7,0,7
+BA,"Candeias",minimal,40135,true,7,7,0,7,5,7
+BA,"Conceição do Coité",minimal,,true,6,6,0,6,0,6
+BA,"Gentio do Ouro",minimal,,true,6,6,0,6,0,6
+BA,"Maragogipe",minimal,,true,6,6,0,6,1,6
+BA,"Valença",minimal,,true,5,5,0,5,3,5
+BA,"Jacobina",minimal,,true,5,5,0,5,0,5
+BA,"Unas",minimal,,true,5,5,0,0,2,5
+BA,"Casa Nova",minimal,,true,5,5,0,5,0,5
+BA,"Jaguaripe",minimal,,true,5,5,0,5,4,5
+BA,"Caetité",minimal,,true,5,5,0,5,0,5
+BA,"Porto Seguro",minimal,,true,5,5,0,0,4,5
+BA,"Curaçá",minimal,,true,5,5,0,5,0,5
+BA,"Livramento de Nossa Senhora",minimal,,true,4,4,0,4,0,4
+BA,"Jandaíra",minimal,,true,4,4,0,4,2,4
+BA,"Mucuri",minimal,,true,4,4,0,0,1,4
+BA,"São Sebastião do Passé",minimal,,true,4,4,0,4,0,4
+BA,"Amargosa",minimal,,true,4,4,0,4,0,4
+BA,"Caravelas",minimal,,true,4,4,0,0,1,4
+BA,"Ibipeba",minimal,,true,4,4,0,4,0,4
+BA,"Palmas de Monte Alto",minimal,,true,4,4,0,4,0,4
+BA,"Mirangaba",minimal,,true,4,4,0,4,0,4
+BA,"Vera Cruz",minimal,,true,4,4,0,4,4,4
+BA,"Guanambi",minimal,,true,4,4,0,4,0,4
+BA,"Pilão Arcado",minimal,,true,4,4,0,4,0,4
+BA,"Pindobaçu",minimal,,true,4,4,0,4,0,4
+BA,"Piritiba",minimal,,true,4,4,0,4,0,4
+BA,"Irecê",minimal,,true,4,4,0,4,0,4
+BA,"Brumado",minimal,,true,4,4,0,4,0,4
+BA,"Rafael Jambeiro",minimal,,true,4,4,0,4,0,4
+BA,"Antônio Cardoso",minimal,,true,4,4,0,4,0,4
+BA,"Mascote",minimal,,true,4,4,0,1,0,4
+BA,"Cairu",minimal,,true,4,4,0,4,4,4
+BA,"América Dourada",minimal,,true,4,4,0,4,0,4
+BA,"Castro Alves",minimal,,true,4,4,0,4,0,4
+BA,"Senhor do Bonfim",minimal,,true,4,4,0,4,0,4
+BA,"Nova Viçosa",minimal,,true,4,4,0,0,1,4
+BA,"Mundo Novo",minimal,,true,4,4,0,4,0,4
+BA,"Amélia Rodrigues",minimal,,true,3,3,0,3,0,3
+BA,"Coaraci",minimal,,true,3,3,0,3,0,3
+BA,"Mucugê",minimal,,true,3,3,0,3,0,3
+BA,"Conceição do Almeida",minimal,,true,3,3,0,3,0,3
+BA,"Miguel Calmon",minimal,,true,3,3,0,3,0,3
+BA,"Brotas de Macaúbas",minimal,,true,3,3,0,3,0,3
+BA,"Cachoeira",minimal,,true,3,3,0,3,0,3
+BA,"Coração de Maria",minimal,,true,3,3,0,3,0,3
+BA,"Medeiros Neto",minimal,,true,3,3,0,0,0,3
+BA,"Aurelino Leal",minimal,,true,3,3,0,3,0,3
+BA,"Mata de São João",minimal,,true,3,3,0,3,1,3
+BA,"Correntina",minimal,,true,3,3,0,2,0,3
+BA,"Cotegipe",minimal,,true,3,3,0,3,0,3
+BA,"Caetanos",minimal,,true,3,3,0,3,0,3
+BA,"Maraú",minimal,,true,3,3,0,3,1,3
+BA,"Malhada",minimal,,true,3,3,0,3,0,3
+BA,"Macajuba",minimal,,true,3,3,0,3,0,3
+BA,"Macaúbas",minimal,,true,3,3,0,3,0,3
+BA,"Andaraí",minimal,,true,3,3,0,3,0,3
+BA,"Andorinha",minimal,,true,3,3,0,3,0,3
+BA,"Entre Rios",minimal,,true,3,3,0,3,1,3
+BA,"Lençóis",minimal,,true,3,3,0,3,0,3
+BA,"Esplanada",minimal,,true,3,3,0,3,1,3
+BA,"Laje",minimal,,true,3,3,0,3,0,3
+BA,"Barra",minimal,,true,3,3,0,3,0,3
+BA,"Jussara",minimal,,true,3,3,0,3,0,3
+BA,"Xique-Xique",minimal,,true,3,3,0,3,0,3
+BA,"Jaguarari",minimal,,true,3,3,0,3,0,3
+BA,"Jacaraci",minimal,,true,3,3,0,3,0,3
+BA,"Itororó",minimal,,true,3,3,0,3,0,3
+BA,"Iaçu",minimal,,true,3,3,0,3,0,3
+BA,"Itapicuru",minimal,,true,3,3,0,3,0,3
+BA,"Itanhém",minimal,,true,3,3,0,0,0,3
+BA,"Valente",minimal,,true,3,3,0,3,0,3
+BA,"Ibicuí",minimal,,true,3,3,0,3,0,3
+BA,"Itambé",minimal,,true,3,3,0,1,0,3
+BA,"Ipirá",minimal,,true,3,3,0,3,0,3
+BA,"Ibitiara",minimal,,true,3,3,0,3,0,3
+BA,"Ibititá",minimal,,true,3,3,0,2,0,3
+BA,"Ubaitaba",minimal,,true,3,3,0,3,0,3
+BA,"Ubaíra",minimal,,true,3,3,0,3,0,3
+BA,"Uauá",minimal,,true,3,3,0,3,0,3
+BA,"Terra Nova",minimal,,true,3,3,0,3,0,3
+BA,"Teodoro Sampaio",minimal,,true,3,3,0,3,0,3
+BA,"Souto Soares",minimal,,true,3,3,0,3,0,3
+BA,"Seabra",minimal,,true,3,3,0,3,0,3
+BA,"Saubara",minimal,,true,3,3,0,3,3,3
+BA,"São Gonçalo dos Campos",minimal,,true,3,3,0,3,0,3
+BA,"São Francisco do Conde",minimal,,true,3,3,0,3,3,3
+BA,"Santo Amaro",minimal,,true,3,3,0,3,2,3
+BA,"Santa Maria da Vitória",minimal,,true,3,3,0,3,0,3
+BA,"Rio de Contas",minimal,,true,3,3,0,3,0,3
+BA,"Riachão das Neves",minimal,,true,3,3,0,2,0,3
+BA,"Planaltino",minimal,,true,3,3,0,3,0,3
+BA,"Camaçari",minimal,,true,3,3,0,3,3,3
+BA,"Camamu",minimal,,true,3,3,0,3,1,3
+BA,"Barra do Mendes",minimal,,true,3,3,0,3,0,3
+BA,"Canavieiras",minimal,,true,3,3,0,0,3,3
+BA,"Barro Alto",minimal,,true,3,3,0,2,0,3
+BA,"Cândido Sales",minimal,,true,3,3,0,0,0,3
+BA,"Alagoinhas",minimal,,true,3,3,0,3,0,3
+BA,"Piatã",minimal,,true,3,3,0,3,0,3
+BA,"Belmonte",minimal,,true,3,3,0,0,2,3
+BA,"Oliveira dos Brejinhos",minimal,,true,3,3,0,3,0,3
+BA,"Bom Jesus da Lapa",minimal,,true,3,3,0,3,0,3
+BA,"Novo Horizonte",minimal,,true,3,3,0,3,0,3
+BA,"Catu",minimal,,true,3,3,0,3,0,3
+BA,"Mulungu do Morro",minimal,,true,3,3,0,3,0,3
+BA,"Prado",minimal,,true,2,2,0,0,2,2
+BA,"Abaíra",minimal,,true,2,2,0,2,0,2
+BA,"Barra da Estiva",minimal,,true,2,2,0,2,0,2
+BA,"Abaré",minimal,,true,2,2,0,2,0,2
+BA,"Anagé",minimal,,true,2,2,0,2,0,2
+BA,"Arataca",minimal,,true,2,2,0,0,0,2
+BA,"Aratuípe",minimal,,true,2,2,0,2,0,2
+BA,"Cabaceiras do Paraguaçu",minimal,,true,2,2,0,2,0,2
+BA,"Angical",minimal,,true,2,2,0,2,0,2
+BA,"Aporá",minimal,,true,2,2,0,2,0,2
+BA,"Boa Vista do Tupim",minimal,,true,2,2,0,2,0,2
+BA,"Barra do Choça",minimal,,true,2,2,0,2,0,2
+BA,"Bom Jesus da Serra",minimal,,true,2,2,0,2,0,2
+BA,"Boninal",minimal,,true,2,2,0,2,0,2
+BA,"Água Fria",minimal,,true,2,2,0,2,0,2
+BA,"Boquira",minimal,,true,2,2,0,2,0,2
+BA,"Alcobaça",minimal,,true,2,2,0,0,1,2
+BA,"Baianópolis",minimal,,true,2,2,0,2,0,2
+BA,"Cafarnaum",minimal,,true,2,2,0,2,0,2
+BA,"Camacan",minimal,,true,2,2,0,0,0,2
+BA,"Campo Alegre de Lourdes",minimal,,true,2,2,0,2,0,2
+BA,"Campo Formoso",minimal,,true,2,2,0,1,0,2
+BA,"Canarana",minimal,,true,2,2,0,1,0,2
+BA,"Candiba",minimal,,true,2,2,0,2,0,2
+BA,"Canudos",minimal,,true,2,2,0,2,0,2
+BA,"Caraíbas",minimal,,true,2,2,0,2,0,2
+BA,"Carinhanha",minimal,,true,2,2,0,2,0,2
+BA,"Cícero Dantas",minimal,,true,2,2,0,2,0,2
+BA,"Condeúba",minimal,,true,2,2,0,2,0,2
+BA,"Contendas do Sincorá",minimal,,true,2,2,0,2,0,2
+BA,"Coribe",minimal,,true,2,2,0,2,0,2
+BA,"Crisópolis",minimal,,true,2,2,0,2,0,2
+BA,"Elísio Medrado",minimal,,true,2,2,0,2,0,2
+BA,"Encruzilhada",minimal,,true,2,2,0,0,0,2
+BA,"Feira da Mata",minimal,,true,2,2,0,2,0,2
+BA,"Firmino Alves",minimal,,true,2,2,0,2,0,2
+BA,"Gongogi",minimal,,true,2,2,0,2,0,2
+BA,"Guaratinga",minimal,,true,2,2,0,0,0,2
+BA,"Ibicoara",minimal,,true,2,2,0,2,0,2
+BA,"Ibirataia",minimal,,true,2,2,0,2,0,2
+BA,"Ibotirama",minimal,,true,2,2,0,2,0,2
+BA,"Iguaí",minimal,,true,2,2,0,2,0,2
+BA,"Ipecaetá",minimal,,true,2,2,0,2,0,2
+BA,"Ipupiara",minimal,,true,2,2,0,2,0,2
+BA,"Iramaia",minimal,,true,2,2,0,2,0,2
+BA,"Iraquara",minimal,,true,2,2,0,2,0,2
+BA,"Irará",minimal,,true,2,2,0,2,0,2
+BA,"Itacaré",minimal,,true,2,2,0,2,1,2
+BA,"Itagibá",minimal,,true,2,2,0,2,0,2
+BA,"Itaju do Colônia",minimal,,true,2,2,0,2,0,2
+BA,"Itajuípe",minimal,,true,2,2,0,2,0,2
+BA,"Itapebi",minimal,,true,2,2,0,0,0,2
+BA,"Itapetinga",minimal,,true,2,2,0,1,0,2
+BA,"Itarantim",minimal,,true,2,2,0,0,0,2
+BA,"Ituaçu",minimal,,true,2,2,0,2,0,2
+BA,"Jaguaquara",minimal,,true,2,2,0,2,0,2
+BA,"Jeremoabo",minimal,,true,2,2,0,2,0,2
+BA,"Jussiape",minimal,,true,2,2,0,2,0,2
+BA,"Licínio de Almeida",minimal,,true,2,2,0,2,0,2
+BA,"Mairi",minimal,,true,2,2,0,2,0,2
+BA,"Manoel Vitorino",minimal,,true,2,2,0,2,0,2
+BA,"Mansidão",minimal,,true,2,2,0,2,0,2
+BA,"Marcionílio Souza",minimal,,true,2,2,0,2,0,2
+BA,"Milagres",minimal,,true,2,2,0,2,0,2
+BA,"Morpará",minimal,,true,2,2,0,2,0,2
+BA,"Muniz Ferreira",minimal,,true,2,2,0,2,0,2
+BA,"Muritiba",minimal,,true,2,2,0,2,0,2
+BA,"Nilo Peçanha",minimal,,true,2,2,0,2,1,2
+BA,"Nova Canaã",minimal,,true,2,2,0,2,0,2
+BA,"Ourolândia",minimal,,true,2,2,0,2,0,2
+BA,"Palmeiras",minimal,,true,2,2,0,2,0,2
+BA,"Paramirim",minimal,,true,2,2,0,2,0,2
+BA,"Paratinga",minimal,,true,2,2,0,2,0,2
+BA,"Paripiranga",minimal,,true,2,2,0,2,0,2
+BA,"Pindaí",minimal,,true,2,2,0,2,0,2
+BA,"Planalto",minimal,,true,2,2,0,2,0,2
+BA,"Pojuca",minimal,,true,2,2,0,2,0,2
+BA,"Potiraguá",minimal,,true,2,2,0,0,0,2
+BA,"Presidente Dutra",minimal,,true,2,2,0,2,0,2
+BA,"Queimadas",minimal,,true,2,2,0,2,0,2
+BA,"Quijingue",minimal,,true,2,2,0,2,0,2
+BA,"Remanso",minimal,,true,2,2,0,2,0,2
+BA,"Riachão do Jacuípe",minimal,,true,2,2,0,2,0,2
+BA,"Riacho de Santana",minimal,,true,2,2,0,2,0,2
+BA,"Ribeirão do Largo",minimal,,true,2,2,0,0,0,2
+BA,"Rio do Antônio",minimal,,true,2,2,0,2,0,2
+BA,"Rio do Pires",minimal,,true,2,2,0,2,0,2
+BA,"Santa Rita de Cássia",minimal,,true,2,2,0,2,0,2
+BA,"Santaluz",minimal,,true,2,2,0,2,0,2
+BA,"Santana",minimal,,true,2,2,0,2,0,2
+BA,"Santanópolis",minimal,,true,2,2,0,2,0,2
+BA,"São Desidério",minimal,,true,2,2,0,0,0,2
+BA,"São Domingos",minimal,,true,2,2,0,2,0,2
+BA,"São Felipe",minimal,,true,2,2,0,2,0,2
+BA,"São Félix",minimal,,true,2,2,0,2,0,2
+BA,"São Gabriel",minimal,,true,2,2,0,2,0,2
+BA,"São José do Jacuípe",minimal,,true,2,2,0,2,0,2
+BA,"Sapeaçu",minimal,,true,2,2,0,2,0,2
+BA,"Sebastião Laranjeiras",minimal,,true,2,2,0,2,0,2
+BA,"Sítio do Mato",minimal,,true,2,2,0,1,0,2
+BA,"Tabocas do Brejo Velho",minimal,,true,2,2,0,2,0,2
+BA,"Tanhaçu",minimal,,true,2,2,0,2,0,2
+BA,"Taperoá",minimal,,true,2,2,0,2,2,2
+BA,"Tapiramutá",minimal,,true,2,2,0,2,0,2
+BA,"Teixeira de Freitas",minimal,,true,2,2,0,0,0,2
+BA,"Tremedal",minimal,,true,2,2,0,1,0,2
+BA,"Tucano",minimal,,true,2,2,0,2,0,2
+BA,"Uibaí",minimal,,true,2,2,0,2,0,2
+BA,"Umburanas",minimal,,true,2,2,0,2,0,2
+BA,"Utinga",minimal,,true,2,2,0,2,0,2
+BA,"Varzedo",minimal,,true,2,2,0,2,0,2
+BA,"Eunápolis",minimal,,true,1,1,0,0,0,1
+BA,"Érico Cardoso",minimal,,true,1,1,0,1,0,1
+BA,"Sátiro Dias",minimal,,true,1,1,0,1,0,1
+BA,"Dom Macedo Costa",minimal,,true,1,1,0,1,0,1
+BA,"Luís Eduardo Magalhães",minimal,,true,1,1,0,0,0,1
+BA,"Dom Basílio",minimal,,true,1,1,0,1,0,1
+BA,"Macarani",minimal,,true,1,1,0,0,0,1
+BA,"Dias d'Ávila",minimal,,true,1,1,0,1,0,1
+BA,"Macururé",minimal,,true,1,1,0,1,0,1
+BA,"Madre de Deus",minimal,40118,true,1,1,0,0,1,1
+BA,"Maetinga",minimal,,true,1,1,0,1,0,1
+BA,"Maiquinique",minimal,,true,1,1,0,0,0,1
+BA,"Barreiras",minimal,,true,1,1,0,0,0,1
+BA,"Dário Meira",minimal,,true,1,1,0,1,0,1
+BA,"Malhada de Pedras",minimal,,true,1,1,0,1,0,1
+BA,"Saúde",minimal,,true,1,1,0,1,0,1
+BA,"Barra do Rocha",minimal,,true,1,1,0,1,0,1
+BA,"Maracás",minimal,,true,1,1,0,1,0,1
+BA,"Cruz das Almas",minimal,,true,1,1,0,1,0,1
+BA,"Cristópolis",minimal,,true,1,1,0,1,0,1
+BA,"Almadina",minimal,,true,1,1,0,1,0,1
+BA,"Cravolândia",minimal,,true,1,1,0,1,0,1
+BA,"Coronel João Sá",minimal,,true,1,1,0,1,0,1
+BA,"Matina",minimal,,true,1,1,0,1,0,1
+BA,"Cordeiros",minimal,,true,1,1,0,1,0,1
+BA,"Conde",minimal,,true,1,1,0,1,1,1
+BA,"Banzaê",minimal,,true,1,1,0,1,0,1
+BA,"Conceição do Jacuípe",minimal,,true,1,1,0,1,0,1
+BA,"Mirante",minimal,,true,1,1,0,1,0,1
+BA,"Monte Santo",minimal,,true,1,1,0,1,0,1
+BA,"Baixa Grande",minimal,,true,1,1,0,1,0,1
+BA,"Conceição da Feira",minimal,,true,1,1,0,1,0,1
+BA,"Mortugaba",minimal,,true,1,1,0,1,0,1
+BA,"Cocos",minimal,,true,1,1,0,1,0,1
+BA,"Cipó",minimal,,true,1,1,0,1,0,1
+BA,"Chorrochó",minimal,,true,1,1,0,1,0,1
+BA,"Central",minimal,,true,1,1,0,1,0,1
+BA,"Serra do Ramalho",minimal,,true,1,1,0,1,0,1
+BA,"Muquém do São Francisco",minimal,,true,1,1,0,1,0,1
+BA,"Serra Dourada",minimal,,true,1,1,0,1,0,1
+BA,"Mutuípe",minimal,,true,1,1,0,1,0,1
+BA,"Nazaré",minimal,,true,1,1,0,1,0,1
+BA,"Serra Preta",minimal,,true,1,1,0,1,0,1
+BA,"Nordestina",minimal,,true,1,1,0,1,0,1
+BA,"Serrinha",minimal,,true,1,1,0,1,0,1
+BA,"Nova Fátima",minimal,,true,1,1,0,1,0,1
+BA,"Nova Ibiá",minimal,,true,1,1,0,1,0,1
+BA,"Nova Itarana",minimal,,true,1,1,0,1,0,1
+BA,"Nova Redenção",minimal,,true,1,1,0,1,0,1
+BA,"Nova Soure",minimal,,true,1,1,0,1,0,1
+BA,"Caturama",minimal,,true,1,1,0,1,0,1
+BA,"Catolândia",minimal,,true,1,1,0,1,0,1
+BA,"Novo Triunfo",minimal,,true,1,1,0,1,0,1
+BA,"Olindina",minimal,,true,1,1,0,1,0,1
+BA,"Cardeal da Silva",minimal,,true,1,1,0,1,0,1
+BA,"Ouriçangas",minimal,,true,1,1,0,1,0,1
+BA,"Serrolândia",minimal,,true,1,1,0,1,0,1
+BA,"Capim Grosso",minimal,,true,1,1,0,1,0,1
+BA,"Simões Filho",minimal,,true,1,1,0,1,1,1
+BA,"Aiquara",minimal,,true,1,1,0,1,0,1
+BA,"Sítio do Quinto",minimal,,true,1,1,0,1,0,1
+BA,"Sobradinho",minimal,,true,1,1,0,1,0,1
+BA,"Pau Brasil",minimal,,true,1,1,0,0,0,1
+BA,"Paulo Afonso",minimal,,true,1,1,0,1,0,1
+BA,"Pé de Serra",minimal,,true,1,1,0,1,0,1
+BA,"Pedrão",minimal,,true,1,1,0,1,0,1
+BA,"Pedro Alexandre",minimal,,true,1,1,0,1,0,1
+BA,"Capela do Alto Alegre",minimal,,true,1,1,0,1,0,1
+BA,"Cansanção",minimal,,true,1,1,0,1,0,1
+BA,"Aramari",minimal,,true,1,1,0,1,0,1
+BA,"Candeal",minimal,,true,1,1,0,1,0,1
+BA,"Pintadas",minimal,,true,1,1,0,1,0,1
+BA,"Piraí do Norte",minimal,,true,1,1,0,1,0,1
+BA,"Piripá",minimal,,true,1,1,0,1,0,1
+BA,"Canápolis",minimal,,true,1,1,0,1,0,1
+BA,"Caldeirão Grande",minimal,,true,1,1,0,1,0,1
+BA,"Várzea da Roça",minimal,,true,1,1,0,1,0,1
+BA,"Poções",minimal,,true,1,1,0,1,0,1
+BA,"Várzea do Poço",minimal,,true,1,1,0,1,0,1
+BA,"Ponto Novo",minimal,,true,1,1,0,1,0,1
+BA,"Caém",minimal,,true,1,1,0,1,0,1
+BA,"Tanque Novo",minimal,,true,1,1,0,1,0,1
+BA,"Caculé",minimal,,true,1,1,0,1,0,1
+BA,"Tanquinho",minimal,,true,1,1,0,1,0,1
+BA,"Presidente Jânio Quadros",minimal,,true,1,1,0,1,0,1
+BA,"Presidente Tancredo Neves",minimal,,true,1,1,0,1,0,1
+BA,"Várzea Nova",minimal,,true,1,1,0,0,0,1
+BA,"Barrocas",minimal,,true,1,1,0,1,0,1
+BA,"Quixabeira",minimal,,true,1,1,0,1,0,1
+BA,"Caatiba",minimal,,true,1,1,0,1,0,1
+BA,"Adustina",minimal,,true,1,1,0,1,0,1
+BA,"Retirolândia",minimal,,true,1,1,0,1,0,1
+BA,"Buritirama",minimal,,true,1,1,0,1,0,1
+BA,"Araci",minimal,,true,1,1,0,1,0,1
+BA,"Teofilândia",minimal,,true,1,1,0,1,0,1
+BA,"Ribeira do Amparo",minimal,,true,1,1,0,1,0,1
+BA,"Ribeira do Pombal",minimal,,true,1,1,0,1,0,1
+BA,"Teolândia",minimal,,true,1,1,0,1,0,1
+BA,"Buerarema",minimal,,true,1,1,0,1,0,1
+BA,"Aracatu",minimal,,true,1,1,0,1,0,1
+BA,"Vereda",minimal,,true,1,1,0,0,0,1
+BA,"Rio Real",minimal,,true,1,1,0,1,0,1
+BA,"Rodelas",minimal,,true,1,1,0,1,0,1
+BA,"Brejolândia",minimal,,true,1,1,0,1,0,1
+BA,"Salinas da Margarida",minimal,,true,1,1,0,1,1,1
+BA,"Brejões",minimal,,true,1,1,0,1,0,1
+BA,"Santa Bárbara",minimal,,true,1,1,0,1,0,1
+BA,"Santa Brígida",minimal,,true,1,1,0,1,0,1
+BA,"Santa Cruz Cabrália",minimal,,true,1,1,0,0,1,1
+BA,"Santa Cruz da Vitória",minimal,,true,1,1,0,1,0,1
+BA,"Santa Inês",minimal,,true,1,1,0,1,0,1
+BA,"Santa Luzia",minimal,,true,1,1,0,0,0,1
+BA,"Botuporã",minimal,,true,1,1,0,1,0,1
+BA,"Acajutiba",minimal,,true,1,1,0,1,0,1
+BA,"Santa Terezinha",minimal,,true,1,1,0,1,0,1
+BA,"Araçás",minimal,,true,1,1,0,1,0,1
+BA,"Apuarema",minimal,,true,1,1,0,1,0,1
+BA,"Igaporã",minimal,,true,1,1,0,1,0,1
+BA,"Igrapiúna",minimal,,true,1,1,0,1,1,1
+BA,"Antônio Gonçalves",minimal,,true,1,1,0,1,0,1
+BA,"Ichu",minimal,,true,1,1,0,1,0,1
+BA,"Inhambupe",minimal,,true,1,1,0,1,0,1
+BA,"Bonito",minimal,,true,1,1,0,1,0,1
+BA,"Ipiaú",minimal,,true,1,1,0,1,0,1
+BA,"Ibirapuã",minimal,,true,1,1,0,0,0,1
+BA,"Boa Nova",minimal,,true,1,1,0,1,0,1
+BA,"Irajuba",minimal,,true,1,1,0,1,0,1
+BA,"Santo Estêvão",minimal,,true,1,1,0,1,0,1
+BA,"Ubatã",minimal,,true,1,1,0,1,0,1
+BA,"Wagner",minimal,,true,1,1,0,1,0,1
+BA,"Ibirapitanga",minimal,,true,1,1,0,1,0,1
+BA,"Itabela",minimal,,true,1,1,0,0,0,1
+BA,"Itaberaba",minimal,,true,1,1,0,1,0,1
+BA,"Ibiquera",minimal,,true,1,1,0,1,0,1
+BA,"Wanderley",minimal,,true,1,1,0,1,0,1
+BA,"Itaeté",minimal,,true,1,1,0,0,0,1
+BA,"Itagi",minimal,,true,1,1,0,1,0,1
+BA,"Antas",minimal,,true,1,1,0,1,0,1
+BA,"Itagimirim",minimal,,true,1,1,0,0,0,1
+BA,"Itaguaçu da Bahia",minimal,,true,1,1,0,1,0,1
+BA,"São Félix do Coribe",minimal,,true,1,1,0,1,0,1
+BA,"Biritinga",minimal,,true,1,1,0,1,0,1
+BA,"Itamaraju",minimal,,true,1,1,0,0,0,1
+BA,"Itamari",minimal,,true,1,1,0,1,0,1
+BA,"Ibipitanga",minimal,,true,1,1,0,1,0,1
+BA,"Itanagra",minimal,,true,1,1,0,1,0,1
+BA,"Ibicaraí",minimal,,true,1,1,0,1,0,1
+BA,"Itaparica",minimal,,true,1,1,0,1,1,1
+BA,"Itapé",minimal,,true,1,1,0,1,0,1
+BA,"Urandi",minimal,,true,1,1,0,1,0,1
+BA,"Belo Campo",minimal,,true,1,1,0,1,0,1
+BA,"Ibiassucê",minimal,,true,1,1,0,1,0,1
+BA,"Itapitanga",minimal,,true,1,1,0,1,0,1
+BA,"Itaquara",minimal,,true,1,1,0,1,0,1
+BA,"São José da Vitória",minimal,,true,1,1,0,1,0,1
+BA,"Itatim",minimal,,true,1,1,0,1,0,1
+BA,"Itiruçu",minimal,,true,1,1,0,1,0,1
+BA,"Itiúba",minimal,,true,1,1,0,1,0,1
+BA,"Heliópolis",minimal,,true,1,1,0,1,0,1
+BA,"Anguera",minimal,,true,1,1,0,1,0,1
+BA,"Ituberá",minimal,,true,1,1,0,1,1,1
+BA,"Iuiu",minimal,,true,1,1,0,1,0,1
+BA,"Jaborandi",minimal,,true,1,1,0,1,0,1
+BA,"Guajeru",minimal,,true,1,1,0,1,0,1
+BA,"Governador Mangabeira",minimal,,true,1,1,0,1,0,1
+BA,"São Miguel das Matas",minimal,,true,1,1,0,1,0,1
+BA,"Glória",minimal,,true,1,1,0,1,0,1
+BA,"Gavião",minimal,,true,1,1,0,1,0,1
+BA,"Gandu",minimal,,true,1,1,0,1,0,1
+BA,"Formosa do Rio Preto",minimal,,true,1,1,0,0,0,1
+BA,"Barro Preto",minimal,,true,1,1,0,1,0,1
+BA,"Jiquiriçá",minimal,,true,1,1,0,1,0,1
+BA,"Jitaúna",minimal,,true,1,1,0,1,0,1
+BA,"João Dourado",minimal,,true,1,1,0,0,0,1
+BA,"Floresta Azul",minimal,,true,1,1,0,1,0,1
+BA,"Jucuruçu",minimal,,true,1,1,0,0,0,1
+BA,"Filadélfia",minimal,,true,1,1,0,1,0,1
+BA,"Jussari",minimal,,true,1,1,0,1,0,1
+BA,"Wenceslau Guimarães",minimal,,true,1,1,0,1,0,1
+BA,"Lafaiete Coutinho",minimal,,true,1,1,0,1,0,1
+BA,"Lagoa Real",minimal,,true,1,1,0,1,0,1
+BA,"Fátima",minimal,,true,1,1,0,1,0,1
+BA,"Lajedão",minimal,,true,1,1,0,0,0,1
+BA,"Lajedinho",minimal,,true,1,1,0,1,0,1
+BA,"Lajedo do Tabocal",minimal,,true,1,1,0,1,0,1
+BA,"Lamarão",minimal,,true,1,1,0,1,0,1
+BA,"Lapão",minimal,,true,1,1,0,0,0,1
+CE,"Fortaleza",partial,30340,true,121,121,0,121,23,121
+CE,"Caucaia",partial,,true,63,63,0,63,19,63
+CE,"Sobral",minimal,,true,52,52,0,52,0,52
+CE,"Iguatu",minimal,,true,50,50,0,50,0,50
+CE,"Maracanaú",minimal,,true,46,46,0,46,0,46
+CE,"Juazeiro do Norte",minimal,,true,46,46,0,46,0,46
+CE,"Crato",minimal,,true,40,40,0,38,0,40
+CE,"Maranguape",minimal,,true,36,36,0,36,0,36
+CE,"Itapipoca",partial,,true,34,34,0,34,2,34
+CE,"Quixadá",minimal,,true,34,34,0,34,0,34
+CE,"Crateús",minimal,,true,32,32,0,32,0,32
+CE,"São Benedito",minimal,,true,31,31,0,31,0,31
+CE,"Tianguá",minimal,,true,31,31,0,31,0,31
+CE,"Russas",minimal,,true,27,27,0,27,0,27
+CE,"Canindé",minimal,,true,27,27,0,27,0,27
+CE,"Boa Viagem",minimal,,true,26,26,0,26,0,26
+CE,"Mauriti",minimal,,true,24,24,0,24,0,24
+CE,"Santa Quitéria",minimal,,true,24,24,0,24,0,24
+CE,"Morada Nova",minimal,,true,24,24,0,24,0,24
+CE,"Eusébio",partial,,true,24,24,0,24,2,24
+CE,"Várzea Alegre",minimal,,true,23,23,0,23,0,23
+CE,"Cedro",minimal,,true,22,22,0,22,0,22
+CE,"Tauá",minimal,,true,22,22,0,22,0,22
+CE,"Itaitinga",minimal,,true,22,22,0,22,0,22
+CE,"Barro",minimal,,true,22,22,0,22,0,22
+CE,"Barbalha",minimal,,true,22,22,0,22,0,22
+CE,"Tamboril",minimal,,true,21,21,0,21,0,21
+CE,"Jardim",minimal,,true,21,21,0,21,0,21
+CE,"Ipu",minimal,,true,20,20,0,20,0,20
+CE,"Mombaça",minimal,,true,20,20,0,20,0,20
+CE,"Trairi",partial,,true,20,20,0,20,5,20
+CE,"Assaré",minimal,,true,20,20,0,20,0,20
+CE,"Baturité",minimal,,true,20,20,0,20,0,20
+CE,"Massapê",minimal,,true,19,19,0,19,0,19
+CE,"Acopiara",minimal,,true,19,19,0,19,0,19
+CE,"Campos Sales",minimal,,true,19,19,0,19,0,19
+CE,"Nova Russas",minimal,,true,18,18,0,18,0,18
+CE,"Caririaçu",minimal,,true,18,18,0,18,0,18
+CE,"Limoeiro do Norte",minimal,,true,18,18,0,18,0,18
+CE,"Independência",minimal,,true,17,17,0,17,0,17
+CE,"Novo Oriente",minimal,,true,17,17,0,17,0,17
+CE,"Guaraciaba do Norte",minimal,,true,17,17,0,17,0,17
+CE,"Parambu",minimal,,true,17,17,0,17,0,17
+CE,"Brejo Santo",minimal,,true,17,17,0,17,0,17
+CE,"Aracati",partial,,true,16,16,0,16,1,16
+CE,"Tabuleiro do Norte",minimal,,true,16,16,0,16,0,16
+CE,"Missão Velha",minimal,,true,16,16,0,16,0,16
+CE,"Guaiúba",minimal,,true,15,15,0,15,0,15
+CE,"Caridade",minimal,,true,15,15,0,15,0,15
+CE,"Santana do Acaraú",minimal,,true,15,15,0,15,0,15
+CE,"Jucás",minimal,,true,15,15,0,15,0,15
+CE,"Madalena",minimal,,true,15,15,0,15,0,15
+CE,"Alto Santo",minimal,,true,14,14,0,14,0,14
+CE,"Aurora",minimal,,true,14,14,0,14,0,14
+CE,"Forquilha",minimal,,true,14,14,0,14,0,14
+CE,"Pedra Branca",minimal,,true,13,13,0,13,0,13
+CE,"Piquet Carneiro",minimal,,true,13,13,0,13,0,13
+CE,"Ipueiras",minimal,,true,13,13,0,13,0,13
+CE,"Milagres",minimal,,true,13,13,0,13,0,13
+CE,"Marco",minimal,,true,13,13,0,13,0,13
+CE,"Ipaporanga",minimal,,true,13,13,0,13,0,13
+CE,"Pacatuba",minimal,,true,12,12,0,12,0,12
+CE,"Hidrolândia",minimal,,true,11,11,0,11,0,11
+CE,"Ibiapina",minimal,,true,11,11,0,11,0,11
+CE,"Iracema",minimal,,true,11,11,0,11,0,11
+CE,"Monsenhor Tabosa",minimal,,true,11,11,0,11,0,11
+CE,"Ibaretama",minimal,,true,11,11,0,11,0,11
+CE,"Quixeramobim",minimal,,true,11,11,0,11,0,11
+CE,"Altaneira",minimal,,true,11,11,0,11,0,11
+CE,"Amontada",minimal,,true,10,10,0,10,3,10
+CE,"Abaiara",minimal,,true,10,10,0,10,0,10
+CE,"Arneiroz",minimal,,true,10,10,0,10,0,10
+CE,"Cariús",minimal,,true,10,10,0,10,0,10
+CE,"Coreaú",minimal,,true,10,10,0,10,0,10
+CE,"Croatá",minimal,,true,10,10,0,10,0,10
+CE,"Frecheirinha",minimal,,true,10,10,0,10,0,10
+CE,"Jaguaribe",minimal,,true,10,10,0,10,0,10
+CE,"Meruoca",minimal,,true,10,10,0,10,0,10
+CE,"Poranga",minimal,,true,10,10,0,10,0,10
+CE,"Uruoca",minimal,,true,9,9,0,9,0,9
+CE,"Itapajé",minimal,,true,9,9,0,9,0,9
+CE,"Porteiras",minimal,,true,9,9,0,9,0,9
+CE,"Catunda",minimal,,true,9,9,0,9,0,9
+CE,"Palmácia",minimal,,true,9,9,0,9,0,9
+CE,"Aracoiaba",minimal,,true,9,9,0,9,0,9
+CE,"Barroquinha",partial,,true,9,9,0,9,3,9
+CE,"Jati",minimal,,true,9,9,0,9,0,9
+CE,"Viçosa do Ceará",minimal,,true,8,8,0,8,0,8
+CE,"Jaguaruana",minimal,,true,8,8,0,8,0,8
+CE,"São Gonçalo do Amarante",minimal,30337,true,8,8,0,8,3,8
+CE,"Groaíras",minimal,,true,8,8,0,8,0,8
+CE,"Ararendá",minimal,,true,8,8,0,8,0,8
+CE,"Aquiraz",minimal,,true,8,8,0,8,3,8
+CE,"Ereré",minimal,,true,8,8,0,8,0,8
+CE,"Lavras da Mangabeira",minimal,,true,8,8,0,8,0,8
+CE,"Quixeré",minimal,,true,8,8,0,6,0,8
+CE,"Potengi",minimal,,true,8,8,0,8,0,8
+CE,"Granjeiro",minimal,,true,7,7,0,7,0,7
+CE,"Paramoti",minimal,,true,7,7,0,7,0,7
+CE,"Penaforte",minimal,,true,7,7,0,7,0,7
+CE,"Quiterianópolis",minimal,,true,7,7,0,7,0,7
+CE,"Farias Brito",minimal,,true,7,7,0,7,0,7
+CE,"Beberibe",minimal,,true,7,7,0,7,4,7
+CE,"Alcântaras",minimal,,true,7,7,0,7,0,7
+CE,"Senador Sá",minimal,,true,7,7,0,7,0,7
+CE,"Granja",minimal,,true,7,7,0,7,0,7
+CE,"Tarrafas",minimal,,true,7,7,0,7,0,7
+CE,"Ocara",minimal,,true,6,6,0,6,0,6
+CE,"Choró",minimal,,true,6,6,0,6,0,6
+CE,"Deputado Irapuan Pinheiro",minimal,,true,6,6,0,6,0,6
+CE,"Milhã",minimal,,true,6,6,0,6,0,6
+CE,"Palhano",minimal,,true,6,6,0,6,0,6
+CE,"Miraíma",minimal,,true,6,6,0,6,0,6
+CE,"Santana do Cariri",minimal,,true,6,6,0,6,0,6
+CE,"Saboeiro",minimal,,true,6,6,0,6,0,6
+CE,"Cascavel",minimal,,true,6,6,0,6,2,6
+CE,"Icó",minimal,,true,6,6,0,6,0,6
+CE,"Fortim",minimal,,true,6,6,0,6,4,6
+CE,"Potiretama",minimal,,true,6,6,0,6,0,6
+CE,"Itatira",minimal,,true,6,6,0,6,0,6
+CE,"Jaguaretama",minimal,,true,6,6,0,6,0,6
+CE,"Chorozinho",minimal,,true,6,6,0,6,0,6
+CE,"Senador Pompeu",minimal,,true,6,6,0,6,0,6
+CE,"São João do Jaguaribe",minimal,,true,6,6,0,6,0,6
+CE,"Orós",minimal,,true,5,5,0,5,0,5
+CE,"General Sampaio",minimal,,true,5,5,0,5,0,5
+CE,"Cariré",minimal,,true,5,5,0,5,0,5
+CE,"Araripe",minimal,,true,5,5,0,5,0,5
+CE,"Banabuiú",minimal,,true,5,5,0,5,0,5
+CE,"Pindoretama",minimal,,true,5,5,0,5,0,5
+CE,"Redenção",minimal,,true,5,5,0,5,0,5
+CE,"Uruburetama",minimal,,true,5,5,0,5,0,5
+CE,"Ibicuitinga",minimal,,true,5,5,0,5,0,5
+CE,"Tururu",minimal,,true,4,4,0,4,0,4
+CE,"Pacoti",minimal,,true,4,4,0,4,0,4
+CE,"Acaraú",minimal,,true,4,4,0,4,3,4
+CE,"Barreira",minimal,,true,4,4,0,4,0,4
+CE,"Ubajara",minimal,,true,4,4,0,4,0,4
+CE,"Pentecoste",minimal,,true,4,4,0,4,0,4
+CE,"Pacujá",minimal,,true,4,4,0,4,0,4
+CE,"Irauçuba",minimal,,true,4,4,0,4,0,4
+CE,"Itaiçaba",minimal,,true,4,4,0,4,0,4
+CE,"Pires Ferreira",minimal,,true,4,4,0,4,0,4
+CE,"Solonópole",minimal,,true,4,4,0,4,0,4
+CE,"Itapiúna",minimal,,true,4,4,0,4,0,4
+CE,"Paraipaba",minimal,,true,4,4,0,4,2,4
+CE,"Horizonte",minimal,,true,4,4,0,4,0,4
+CE,"Mucambo",minimal,,true,3,3,0,3,0,3
+CE,"Pacajus",minimal,,true,3,3,0,3,0,3
+CE,"Umari",minimal,,true,3,3,0,3,0,3
+CE,"Moraújo",minimal,,true,3,3,0,3,0,3
+CE,"Itarema",minimal,,true,3,3,0,3,2,3
+CE,"Reriutaba",minimal,,true,3,3,0,3,0,3
+CE,"Umirim",minimal,,true,3,3,0,3,0,3
+CE,"Salitre",minimal,,true,3,3,0,3,0,3
+CE,"Ipaumirim",minimal,,true,3,3,0,3,0,3
+CE,"Apuiarés",minimal,,true,3,3,0,3,0,3
+CE,"Camocim",minimal,,true,3,3,0,3,3,3
+CE,"Icapuí",minimal,,true,3,3,0,2,3,3
+CE,"Paracuru",minimal,,true,3,3,0,3,2,3
+CE,"Pereiro",minimal,,true,2,2,0,2,0,2
+CE,"Nova Olinda",minimal,,true,2,2,0,2,0,2
+CE,"Tejuçuoca",minimal,,true,2,2,0,2,0,2
+CE,"Cruz",minimal,,true,2,2,0,2,1,2
+CE,"Guaramiranga",minimal,,true,2,2,0,2,0,2
+CE,"Chaval",minimal,,true,2,2,0,2,0,2
+CE,"Quixelô",minimal,,true,2,2,0,2,0,2
+CE,"Antonina do Norte",minimal,,true,2,2,0,2,0,2
+CE,"Aratuba",minimal,,true,2,2,0,2,0,2
+CE,"Graça",minimal,,true,2,2,0,2,0,2
+CE,"Morrinhos",minimal,,true,2,2,0,2,0,2
+CE,"Bela Cruz",minimal,,true,2,2,0,2,0,2
+CE,"Aiuaba",minimal,,true,2,2,0,2,0,2
+CE,"Varjota",minimal,,true,2,2,0,2,0,2
+CE,"Mulungu",minimal,,true,1,1,0,1,0,1
+CE,"Baixio",minimal,,true,1,1,0,1,0,1
+CE,"São Luís do Curu",minimal,,true,1,1,0,1,0,1
+CE,"Catarina",minimal,,true,1,1,0,1,0,1
+CE,"Carnaubal",minimal,,true,1,1,0,1,0,1
+CE,"Jijoca de Jericoacoara",minimal,,true,1,1,0,1,1,1
+CE,"Jaguaribara",minimal,,true,1,1,0,1,0,1
+CE,"Acarape",minimal,,true,1,1,0,1,0,1
+CE,"Capistrano",minimal,,true,1,1,0,1,0,1
+CE,"Martinópole",minimal,,true,1,1,0,1,0,1
+MA,"São José de Ribamar",partial,,true,77,77,0,77,38,77
+MA,"Caxias",minimal,,true,37,37,0,37,0,37
+MA,"Timon",minimal,,true,32,32,0,32,0,32
+MA,"Davinópolis",minimal,,true,13,13,0,0,0,13
+MA,"Matões",minimal,,true,12,12,0,12,0,12
+MA,"Alto Parnaíba",minimal,,true,10,10,0,8,0,10
+MA,"Codó",minimal,,true,3,3,0,3,0,3
+MA,"São Francisco do Maranhão",minimal,,true,3,3,0,3,0,3
+MA,"Cândido Mendes",minimal,,true,3,3,0,0,2,3
+MA,"Pedreiras",minimal,,true,2,2,0,2,0,2
+MA,"Magalhães de Almeida",minimal,,true,2,2,0,2,0,2
+MA,"Mirador",minimal,,true,2,2,0,2,0,2
+MA,"Icatu",minimal,,true,2,2,0,2,2,2
+MA,"Tuntum",minimal,,true,2,2,0,2,0,2
+MA,"Santa Helena",minimal,,true,2,2,0,0,0,2
+MA,"Anajatuba",minimal,,true,2,2,0,2,0,2
+MA,"Tutóia",minimal,30140,true,2,2,0,2,1,2
+MA,"Pindaré-Mirim",minimal,,true,2,2,0,1,0,2
+MA,"Alcântara",minimal,,true,2,2,0,2,2,2
+MA,"Pinheiro",minimal,,true,2,2,0,0,0,2
+MA,"Buriti Bravo",minimal,,true,2,2,0,2,0,2
+MA,"Cajari",minimal,,true,2,2,0,2,0,2
+MA,"Arari",minimal,,true,2,2,0,2,0,2
+MA,"Pastos Bons",minimal,,true,2,2,0,2,0,2
+MA,"Parnarama",minimal,,true,2,2,0,2,0,2
+MA,"Godofredo Viana",minimal,,true,2,2,0,0,2,2
+MA,"Buriticupu",minimal,,true,1,1,0,0,0,1
+MA,"Buritirana",minimal,,true,1,1,0,0,0,1
+MA,"Cachoeira Grande",minimal,,true,1,1,0,1,0,1
+MA,"Cajapió",minimal,,true,1,1,0,1,1,1
+MA,"Campestre do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Cantanhede",minimal,,true,1,1,0,1,0,1
+MA,"Capinzal do Norte",minimal,,true,1,1,0,1,0,1
+MA,"Carolina",minimal,,true,1,1,0,0,0,1
+MA,"Carutapera",minimal,,true,1,1,0,0,1,1
+MA,"Cedral",minimal,,true,1,1,0,1,1,1
+MA,"Central do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Centro do Guilherme",minimal,,true,1,1,0,0,0,1
+MA,"Centro Novo do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Açailândia",minimal,,true,1,1,0,0,0,1
+MA,"Cidelândia",minimal,,true,1,1,0,0,0,1
+MA,"Coelho Neto",minimal,,true,1,1,0,1,0,1
+MA,"Colinas",minimal,,true,1,1,0,1,0,1
+MA,"Conceição do Lago-Açu",minimal,,true,1,1,0,1,0,1
+MA,"Coroatá",minimal,,true,1,1,0,1,0,1
+MA,"Cururupu",minimal,,true,1,1,0,1,1,1
+MA,"Chapadinha",minimal,,true,1,1,0,1,0,1
+MA,"Afonso Cunha",minimal,,true,1,1,0,1,0,1
+MA,"Água Doce do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Aldeias Altas",minimal,,true,1,1,0,1,0,1
+MA,"Altamira do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Alto Alegre do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Alto Alegre do Pindaré",minimal,,true,1,1,0,0,0,1
+MA,"Amapá do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Amarante do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Anapurus",minimal,,true,1,1,0,1,0,1
+MA,"Dom Pedro",minimal,,true,1,1,0,1,0,1
+MA,"Duque Bacelar",minimal,,true,1,1,0,1,0,1
+MA,"Esperantinópolis",minimal,,true,1,1,0,1,0,1
+MA,"Estreito",minimal,,true,1,1,0,0,0,1
+MA,"Feira Nova do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Fernando Falcão",minimal,,true,1,1,0,0,0,1
+MA,"Formosa da Serra Negra",minimal,,true,1,1,0,0,0,1
+MA,"Fortaleza dos Nogueiras",minimal,,true,1,1,0,0,0,1
+MA,"Fortuna",minimal,,true,1,1,0,1,0,1
+MA,"Gonçalves Dias",minimal,,true,1,1,0,1,0,1
+MA,"Governador Archer",minimal,,true,1,1,0,1,0,1
+MA,"Governador Edison Lobão",minimal,,true,1,1,0,0,0,1
+MA,"Governador Eugênio Barros",minimal,,true,1,1,0,1,0,1
+MA,"Governador Luiz Rocha",minimal,,true,1,1,0,1,0,1
+MA,"Governador Newton Bello",minimal,,true,1,1,0,0,0,1
+MA,"Governador Nunes Freire",minimal,,true,1,1,0,0,0,1
+MA,"Graça Aranha",minimal,,true,1,1,0,1,0,1
+MA,"Grajaú",minimal,,true,1,1,0,1,0,1
+MA,"Guimarães",minimal,,true,1,1,0,1,1,1
+MA,"Humberto de Campos",minimal,,true,1,1,0,1,1,1
+MA,"Igarapé do Meio",minimal,,true,1,1,0,1,0,1
+MA,"Igarapé Grande",minimal,,true,1,1,0,1,0,1
+MA,"Imperatriz",minimal,,true,1,1,0,0,0,1
+MA,"Itaipava do Grajaú",minimal,,true,1,1,0,0,0,1
+MA,"Itapecuru Mirim",minimal,,true,1,1,0,1,0,1
+MA,"Itinga do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Jatobá",minimal,,true,1,1,0,1,0,1
+MA,"Jenipapo dos Vieiras",minimal,,true,1,1,0,0,0,1
+MA,"João Lisboa",minimal,,true,1,1,0,0,0,1
+MA,"Joselândia",minimal,,true,1,1,0,1,0,1
+MA,"Junco do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Lago da Pedra",minimal,,true,1,1,0,0,0,1
+MA,"Lago do Junco",minimal,,true,1,1,0,1,0,1
+MA,"Lago dos Rodrigues",minimal,,true,1,1,0,1,0,1
+MA,"Lago Verde",minimal,,true,1,1,0,1,0,1
+MA,"Lagoa do Mato",minimal,,true,1,1,0,1,0,1
+MA,"Lagoa Grande do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Lajeado Novo",minimal,,true,1,1,0,0,0,1
+MA,"Lima Campos",minimal,,true,1,1,0,1,0,1
+MA,"Loreto",minimal,,true,1,1,0,0,0,1
+MA,"Luís Domingues",minimal,,true,1,1,0,0,1,1
+MA,"Maracaçumé",minimal,,true,1,1,0,0,0,1
+MA,"Marajá do Sena",minimal,,true,1,1,0,0,0,1
+MA,"Maranhãozinho",minimal,,true,1,1,0,0,0,1
+MA,"Mata Roma",minimal,,true,1,1,0,1,0,1
+MA,"Matinha",minimal,,true,1,1,0,1,0,1
+MA,"Matões do Norte",minimal,,true,1,1,0,1,0,1
+MA,"Milagres do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Miranda do Norte",minimal,,true,1,1,0,1,0,1
+MA,"Mirinzal",minimal,,true,1,1,0,1,0,1
+MA,"Monção",minimal,,true,1,1,0,0,0,1
+MA,"Montes Altos",minimal,,true,1,1,0,0,0,1
+MA,"Morros",minimal,,true,1,1,0,1,0,1
+MA,"Nina Rodrigues",minimal,,true,1,1,0,1,0,1
+MA,"Nova Colinas",minimal,,true,1,1,0,0,0,1
+MA,"Nova Iorque",minimal,,true,1,1,0,1,0,1
+MA,"Nova Olinda do Maranhão",minimal,,true,1,1,0,0,0,1
+MA,"Olho d'Água das Cunhãs",minimal,,true,1,1,0,0,0,1
+MA,"Olinda Nova do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Paço do Lumiar",minimal,,true,1,1,0,1,1,1
+MA,"Palmeirândia",minimal,,true,1,1,0,1,0,1
+MA,"Paraibano",minimal,,true,1,1,0,1,0,1
+MA,"Passagem Franca",minimal,,true,1,1,0,1,0,1
+MA,"Paulino Neves",minimal,,true,1,1,0,1,1,1
+MA,"Paulo Ramos",minimal,,true,1,1,0,0,0,1
+MA,"Pedro do Rosário",minimal,,true,1,1,0,0,0,1
+MA,"Penalva",minimal,,true,1,1,0,1,0,1
+MA,"Peri Mirim",minimal,,true,1,1,0,1,0,1
+MA,"Peritoró",minimal,,true,1,1,0,1,0,1
+MA,"Pio XII",minimal,,true,1,1,0,0,0,1
+MA,"Pirapemas",minimal,,true,1,1,0,1,0,1
+MA,"Poção de Pedras",minimal,,true,1,1,0,1,0,1
+MA,"Porto Franco",minimal,,true,1,1,0,0,0,1
+MA,"Porto Rico do Maranhão",minimal,,true,1,1,0,1,1,1
+MA,"Presidente Dutra",minimal,,true,1,1,0,1,0,1
+MA,"Presidente Juscelino",minimal,,true,1,1,0,1,0,1
+MA,"Presidente Médici",minimal,,true,1,1,0,0,0,1
+MA,"Presidente Sarney",minimal,,true,1,1,0,0,0,1
+MA,"Presidente Vargas",minimal,,true,1,1,0,1,0,1
+MA,"Primeira Cruz",minimal,,true,1,1,0,1,1,1
+MA,"Raposa",minimal,,true,1,1,0,1,1,1
+MA,"Riachão",minimal,,true,1,1,0,0,0,1
+MA,"Ribamar Fiquene",minimal,,true,1,1,0,0,0,1
+MA,"Rosário",minimal,,true,1,1,0,1,1,1
+MA,"Sambaíba",minimal,,true,1,1,0,0,0,1
+MA,"Santa Filomena do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Santa Inês",minimal,,true,1,1,0,0,0,1
+MA,"Santa Luzia",minimal,,true,1,1,0,0,0,1
+MA,"Santa Luzia do Paruá",minimal,,true,1,1,0,0,0,1
+MA,"Santa Quitéria do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Santa Rita",minimal,,true,1,1,0,1,0,1
+MA,"Santana do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Santo Amaro do Maranhão",minimal,,true,1,1,0,1,1,1
+MA,"Santo Antônio dos Lopes",minimal,,true,1,1,0,1,0,1
+MA,"São Benedito do Rio Preto",minimal,,true,1,1,0,1,0,1
+MA,"São Bento",minimal,,true,1,1,0,1,0,1
+MA,"São Bernardo",minimal,,true,1,1,0,1,0,1
+MA,"São Domingos do Azeitão",minimal,,true,1,1,0,1,0,1
+MA,"São Domingos do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"São Félix de Balsas",minimal,,true,1,1,0,1,0,1
+MA,"São Francisco do Brejão",minimal,,true,1,1,0,0,0,1
+MA,"São João Batista",minimal,,true,1,1,0,1,0,1
+MA,"São João do Carú",minimal,,true,1,1,0,0,0,1
+MA,"São João do Paraíso",minimal,,true,1,1,0,0,0,1
+MA,"São João do Soter",minimal,,true,1,1,0,1,0,1
+MA,"São João dos Patos",minimal,,true,1,1,0,1,0,1
+MA,"São José dos Basílios",minimal,,true,1,1,0,1,0,1
+MA,"São Luís Gonzaga do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"São Mateus do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"São Pedro da Água Branca",minimal,,true,1,1,0,0,0,1
+MA,"São Pedro dos Crentes",minimal,,true,1,1,0,0,0,1
+MA,"São Raimundo das Mangabeiras",minimal,,true,1,1,0,0,0,1
+MA,"São Raimundo do Doca Bezerra",minimal,,true,1,1,0,1,0,1
+MA,"São Roberto",minimal,,true,1,1,0,1,0,1
+MA,"São Vicente Ferrer",minimal,,true,1,1,0,1,0,1
+MA,"Satubinha",minimal,,true,1,1,0,0,0,1
+MA,"Senador Alexandre Costa",minimal,,true,1,1,0,1,0,1
+MA,"Senador La Rocque",minimal,,true,1,1,0,0,0,1
+MA,"Serrano do Maranhão",minimal,,true,1,1,0,1,1,1
+MA,"Sítio Novo",minimal,,true,1,1,0,0,0,1
+MA,"Sucupira do Norte",minimal,,true,1,1,0,1,0,1
+MA,"Sucupira do Riachão",minimal,,true,1,1,0,1,0,1
+MA,"Tasso Fragoso",minimal,,true,1,1,0,0,0,1
+MA,"Timbiras",minimal,,true,1,1,0,1,0,1
+MA,"Trizidela do Vale",minimal,,true,1,1,0,1,0,1
+MA,"Tufilândia",minimal,,true,1,1,0,0,0,1
+MA,"Turiaçu",minimal,,true,1,1,0,0,1,1
+MA,"Turilândia",minimal,,true,1,1,0,0,0,1
+MA,"Urbano Santos",minimal,,true,1,1,0,1,0,1
+MA,"Vargem Grande",minimal,,true,1,1,0,1,0,1
+MA,"Viana",minimal,,true,1,1,0,1,0,1
+MA,"Vila Nova dos Martírios",minimal,,true,1,1,0,0,0,1
+MA,"Vitória do Mearim",minimal,,true,1,1,0,1,0,1
+MA,"Vitorino Freire",minimal,,true,1,1,0,0,0,1
+MA,"Zé Doca",minimal,,true,1,1,0,0,0,1
+MA,"Apicum-Açu",minimal,,true,1,1,0,0,1,1
+MA,"Araguanã",minimal,,true,1,1,0,0,0,1
+MA,"Araioses",minimal,,true,1,1,0,1,1,1
+MA,"Arame",minimal,,true,1,1,0,0,0,1
+MA,"Axixá",minimal,,true,1,1,0,1,1,1
+MA,"Bacabal",minimal,,true,1,1,0,1,0,1
+MA,"Bacabeira",minimal,,true,1,1,0,1,1,1
+MA,"Bacuri",minimal,,true,1,1,0,0,1,1
+MA,"Bacurituba",minimal,,true,1,1,0,1,1,1
+MA,"Balsas",minimal,,true,1,1,0,0,0,1
+MA,"Barão de Grajaú",minimal,,true,1,1,0,1,0,1
+MA,"Barra do Corda",minimal,,true,1,1,0,1,0,1
+MA,"Barreirinhas",minimal,,true,1,1,0,1,1,1
+MA,"Bela Vista do Maranhão",minimal,,true,1,1,0,1,0,1
+MA,"Belágua",minimal,,true,1,1,0,1,0,1
+MA,"Benedito Leite",minimal,,true,1,1,0,1,0,1
+MA,"Bequimão",minimal,,true,1,1,0,1,1,1
+MA,"Bernardo do Mearim",minimal,,true,1,1,0,1,0,1
+MA,"Boa Vista do Gurupi",minimal,,true,1,1,0,0,0,1
+MA,"Bom Jardim",minimal,,true,1,1,0,0,0,1
+MA,"Bom Jesus das Selvas",minimal,,true,1,1,0,0,0,1
+MA,"Bom Lugar",minimal,,true,1,1,0,1,0,1
+MA,"Brejo",minimal,,true,1,1,0,1,0,1
+MA,"Brejo de Areia",minimal,,true,1,1,0,0,0,1
+MA,"Buriti",minimal,,true,1,1,0,1,0,1
+MA,"São Luís",minimal,30120,true,0,0,0,0,0,0
+PB,"João Pessoa",partial,30540,true,64,64,0,38,16,64
+PB,"Campina Grande",minimal,,true,63,63,0,63,0,63
+PB,"Cabedelo",partial,30540,true,25,25,0,25,25,25
+PB,"Patos",minimal,,true,25,25,0,25,0,25
+PB,"Santa Rita",partial,,true,20,20,0,20,1,20
+PB,"Itabaiana",minimal,,true,19,19,0,19,0,19
+PB,"Sumé",minimal,,true,18,18,0,18,0,18
+PB,"Bayeux",minimal,,true,15,15,0,15,0,15
+PB,"Ingá",minimal,,true,9,9,0,9,0,9
+PB,"Santa Luzia",minimal,,true,7,7,0,7,0,7
+PB,"Pombal",minimal,,true,7,7,0,7,0,7
+PB,"São Francisco",minimal,,true,5,5,0,5,0,5
+PB,"Conceição",minimal,,true,5,5,0,5,0,5
+PB,"Cachoeira dos Índios",minimal,,true,4,4,0,4,0,4
+PB,"Bananeiras",minimal,,true,4,4,0,4,0,4
+PB,"Areia",minimal,,true,4,4,0,4,0,4
+PB,"Rio Tinto",minimal,,true,3,3,0,3,2,3
+PB,"Salgado de São Félix",minimal,,true,3,3,0,3,0,3
+PB,"Serra Branca",minimal,,true,3,3,0,3,0,3
+PB,"Cajazeiras",minimal,,true,3,3,0,3,0,3
+PB,"Catolé do Rocha",minimal,,true,3,3,0,3,0,3
+PB,"Paulista",minimal,,true,3,3,0,3,0,3
+PB,"Pocinhos",minimal,,true,2,2,0,2,0,2
+PB,"Lucena",minimal,,true,2,2,0,2,2,2
+PB,"Cruz do Espírito Santo",minimal,,true,2,2,0,2,0,2
+PB,"Soledade",minimal,,true,2,2,0,2,0,2
+PB,"Cacimbas",minimal,,true,2,2,0,2,0,2
+PB,"Mamanguape",minimal,,true,2,2,0,2,0,2
+PB,"Manaíra",minimal,,true,2,2,0,2,0,2
+PB,"Marcação",minimal,,true,2,2,0,2,2,2
+PB,"Cacimba de Dentro",minimal,,true,2,2,0,2,0,2
+PB,"Aroeiras",minimal,,true,2,2,0,2,0,2
+PB,"Salgadinho",minimal,,true,2,2,0,2,0,2
+PB,"Mataraca",minimal,,true,2,2,0,2,2,2
+PB,"Bonito de Santa Fé",minimal,,true,2,2,0,2,0,2
+PB,"Umbuzeiro",minimal,,true,2,2,0,2,0,2
+PB,"Boqueirão",minimal,,true,2,2,0,2,0,2
+PB,"Ibiara",minimal,,true,2,2,0,2,0,2
+PB,"Guarabira",minimal,,true,2,2,0,2,0,2
+PB,"Mogeiro",minimal,,true,2,2,0,2,0,2
+PB,"Camalaú",minimal,,true,2,2,0,2,0,2
+PB,"Imaculada",minimal,,true,2,2,0,2,0,2
+PB,"Mulungu",minimal,,true,2,2,0,2,0,2
+PB,"Natuba",minimal,,true,2,2,0,2,0,2
+PB,"Santana dos Garrotes",minimal,,true,2,2,0,2,0,2
+PB,"Capim",minimal,,true,2,2,0,2,0,2
+PB,"Catingueira",minimal,,true,2,2,0,2,0,2
+PB,"Caaporã",minimal,,true,2,2,0,2,0,2
+PB,"Olho d'Água",minimal,,true,2,2,0,2,0,2
+PB,"Jacaraú",minimal,,true,2,2,0,2,0,2
+PB,"São João do Rio do Peixe",minimal,,true,2,2,0,2,0,2
+PB,"São João do Tigre",minimal,,true,2,2,0,2,0,2
+PB,"Cabaceiras",minimal,,true,2,2,0,2,0,2
+PB,"São José de Piranhas",minimal,,true,2,2,0,2,0,2
+PB,"Cuité",minimal,,true,2,2,0,2,0,2
+PB,"Diamante",minimal,,true,2,2,0,2,0,2
+PB,"São Vicente do Seridó",minimal,,true,2,2,0,2,0,2
+PB,"Sapé",minimal,,true,2,2,0,2,0,2
+PB,"Conde",minimal,,true,2,2,0,1,2,2
+PB,"Belém",minimal,,true,2,2,0,2,0,2
+PB,"Itaporanga",minimal,,true,1,1,0,1,0,1
+PB,"Itapororoca",minimal,,true,1,1,0,1,0,1
+PB,"Itatuba",minimal,,true,1,1,0,1,0,1
+PB,"Jericó",minimal,,true,1,1,0,1,0,1
+PB,"Joca Claudino",minimal,,true,1,1,0,1,0,1
+PB,"Juarez Távora",minimal,,true,1,1,0,1,0,1
+PB,"Juazeirinho",minimal,,true,1,1,0,1,0,1
+PB,"Junco do Seridó",minimal,,true,1,1,0,1,0,1
+PB,"Juripiranga",minimal,,true,1,1,0,1,0,1
+PB,"Juru",minimal,,true,1,1,0,1,0,1
+PB,"Lagoa",minimal,,true,1,1,0,1,0,1
+PB,"Lagoa de Dentro",minimal,,true,1,1,0,1,0,1
+PB,"Lagoa Seca",minimal,,true,1,1,0,1,0,1
+PB,"Lastro",minimal,,true,1,1,0,1,0,1
+PB,"Livramento",minimal,,true,1,1,0,1,0,1
+PB,"Logradouro",minimal,,true,1,1,0,1,0,1
+PB,"Mãe d'Água",minimal,,true,1,1,0,1,0,1
+PB,"Malta",minimal,,true,1,1,0,1,0,1
+PB,"Mari",minimal,,true,1,1,0,1,0,1
+PB,"Marizópolis",minimal,,true,1,1,0,1,0,1
+PB,"Massaranduba",minimal,,true,1,1,0,1,0,1
+PB,"Matinhas",minimal,,true,1,1,0,1,0,1
+PB,"Mato Grosso",minimal,,true,1,1,0,1,0,1
+PB,"Maturéia",minimal,,true,1,1,0,1,0,1
+PB,"Montadas",minimal,,true,1,1,0,1,0,1
+PB,"Monte Horebe",minimal,,true,1,1,0,1,0,1
+PB,"Monteiro",minimal,,true,1,1,0,1,0,1
+PB,"Nazarezinho",minimal,,true,1,1,0,1,0,1
+PB,"Nova Floresta",minimal,,true,1,1,0,1,0,1
+PB,"Nova Olinda",minimal,,true,1,1,0,1,0,1
+PB,"Nova Palmeira",minimal,,true,1,1,0,1,0,1
+PB,"Olivedos",minimal,,true,1,1,0,1,0,1
+PB,"Ouro Velho",minimal,,true,1,1,0,1,0,1
+PB,"Parari",minimal,,true,1,1,0,1,0,1
+PB,"Passagem",minimal,,true,1,1,0,1,0,1
+PB,"Pedra Branca",minimal,,true,1,1,0,1,0,1
+PB,"Pedra Lavrada",minimal,,true,1,1,0,1,0,1
+PB,"Pedras de Fogo",minimal,,true,1,1,0,1,0,1
+PB,"Pedro Régis",minimal,,true,1,1,0,1,0,1
+PB,"Piancó",minimal,,true,1,1,0,1,0,1
+PB,"Picuí",minimal,,true,1,1,0,1,0,1
+PB,"Pilar",minimal,,true,1,1,0,1,0,1
+PB,"Pilões",minimal,,true,1,1,0,1,0,1
+PB,"Pilõezinhos",minimal,,true,1,1,0,1,0,1
+PB,"Pirpirituba",minimal,,true,1,1,0,1,0,1
+PB,"Pitimbu",minimal,,true,1,1,0,1,1,1
+PB,"Poço Dantas",minimal,,true,1,1,0,1,0,1
+PB,"Poço de José de Moura",minimal,,true,1,1,0,1,0,1
+PB,"Prata",minimal,,true,1,1,0,1,0,1
+PB,"Princesa Isabel",minimal,,true,1,1,0,1,0,1
+PB,"Puxinanã",minimal,,true,1,1,0,1,0,1
+PB,"Queimadas",minimal,,true,1,1,0,1,0,1
+PB,"Quixaba",minimal,,true,1,1,0,1,0,1
+PB,"Remígio",minimal,,true,1,1,0,1,0,1
+PB,"Riachão",minimal,,true,1,1,0,1,0,1
+PB,"Riachão do Bacamarte",minimal,,true,1,1,0,1,0,1
+PB,"Riachão do Poço",minimal,,true,1,1,0,1,0,1
+PB,"Riacho de Santo Antônio",minimal,,true,1,1,0,1,0,1
+PB,"Riacho dos Cavalos",minimal,,true,1,1,0,1,0,1
+PB,"Santa Cecília",minimal,,true,1,1,0,1,0,1
+PB,"Santa Cruz",minimal,,true,1,1,0,1,0,1
+PB,"Santa Helena",minimal,,true,1,1,0,1,0,1
+PB,"Santa Inês",minimal,,true,1,1,0,1,0,1
+PB,"Santa Teresinha",minimal,,true,1,1,0,1,0,1
+PB,"Santana de Mangueira",minimal,,true,1,1,0,1,0,1
+PB,"Santo André",minimal,,true,1,1,0,1,0,1
+PB,"São Bentinho",minimal,,true,1,1,0,1,0,1
+PB,"São Bento",minimal,,true,1,1,0,1,0,1
+PB,"São Domingos",minimal,,true,1,1,0,1,0,1
+PB,"São Domingos do Cariri",minimal,,true,1,1,0,1,0,1
+PB,"São João do Cariri",minimal,,true,1,1,0,1,0,1
+PB,"São José da Lagoa Tapada",minimal,,true,1,1,0,1,0,1
+PB,"São José de Caiana",minimal,,true,1,1,0,1,0,1
+PB,"São José de Espinharas",minimal,,true,1,1,0,1,0,1
+PB,"São José de Princesa",minimal,,true,1,1,0,1,0,1
+PB,"São José do Bonfim",minimal,,true,1,1,0,1,0,1
+PB,"São José do Brejo do Cruz",minimal,,true,1,1,0,1,0,1
+PB,"São José do Sabugi",minimal,,true,1,1,0,1,0,1
+PB,"São José dos Cordeiros",minimal,,true,1,1,0,1,0,1
+PB,"São José dos Ramos",minimal,,true,1,1,0,1,0,1
+PB,"São Mamede",minimal,,true,1,1,0,1,0,1
+PB,"São Miguel de Taipu",minimal,,true,1,1,0,1,0,1
+PB,"São Sebastião de Lagoa de Roça",minimal,,true,1,1,0,1,0,1
+PB,"São Sebastião do Umbuzeiro",minimal,,true,1,1,0,1,0,1
+PB,"Serra da Raiz",minimal,,true,1,1,0,1,0,1
+PB,"Serra Grande",minimal,,true,1,1,0,1,0,1
+PB,"Serra Redonda",minimal,,true,1,1,0,1,0,1
+PB,"Serraria",minimal,,true,1,1,0,1,0,1
+PB,"Sertãozinho",minimal,,true,1,1,0,1,0,1
+PB,"Sobrado",minimal,,true,1,1,0,1,0,1
+PB,"Solânea",minimal,,true,1,1,0,1,0,1
+PB,"Sossêgo",minimal,,true,1,1,0,1,0,1
+PB,"Sousa",minimal,,true,1,1,0,1,0,1
+PB,"Tacima",minimal,,true,1,1,0,1,0,1
+PB,"Taperoá",minimal,,true,1,1,0,1,0,1
+PB,"Tavares",minimal,,true,1,1,0,1,0,1
+PB,"Teixeira",minimal,,true,1,1,0,1,0,1
+PB,"Tenório",minimal,,true,1,1,0,1,0,1
+PB,"Triunfo",minimal,,true,1,1,0,1,0,1
+PB,"Uiraúna",minimal,,true,1,1,0,1,0,1
+PB,"Várzea",minimal,,true,1,1,0,1,0,1
+PB,"Vieirópolis",minimal,,true,1,1,0,1,0,1
+PB,"Vista Serrana",minimal,,true,1,1,0,1,0,1
+PB,"Zabelê",minimal,,true,1,1,0,1,0,1
+PB,"Bernardino Batista",minimal,,true,1,1,0,1,0,1
+PB,"Boa Ventura",minimal,,true,1,1,0,1,0,1
+PB,"Boa Vista",minimal,,true,1,1,0,1,0,1
+PB,"Bom Jesus",minimal,,true,1,1,0,1,0,1
+PB,"Bom Sucesso",minimal,,true,1,1,0,1,0,1
+PB,"Borborema",minimal,,true,1,1,0,1,0,1
+PB,"Brejo do Cruz",minimal,,true,1,1,0,1,0,1
+PB,"Brejo dos Santos",minimal,,true,1,1,0,1,0,1
+PB,"Cacimba de Areia",minimal,,true,1,1,0,1,0,1
+PB,"Caiçara",minimal,,true,1,1,0,1,0,1
+PB,"Cajazeirinhas",minimal,,true,1,1,0,1,0,1
+PB,"Caldas Brandão",minimal,,true,1,1,0,1,0,1
+PB,"Caraúbas",minimal,,true,1,1,0,1,0,1
+PB,"Carrapateira",minimal,,true,1,1,0,1,0,1
+PB,"Casserengue",minimal,,true,1,1,0,1,0,1
+PB,"Caturité",minimal,,true,1,1,0,1,0,1
+PB,"Condado",minimal,,true,1,1,0,1,0,1
+PB,"Congo",minimal,,true,1,1,0,1,0,1
+PB,"Coremas",minimal,,true,1,1,0,1,0,1
+PB,"Coxixola",minimal,,true,1,1,0,1,0,1
+PB,"Água Branca",minimal,,true,1,1,0,1,0,1
+PB,"Cubati",minimal,,true,1,1,0,1,0,1
+PB,"Aguiar",minimal,,true,1,1,0,1,0,1
+PB,"Alagoa Grande",minimal,,true,1,1,0,1,0,1
+PB,"Alagoa Nova",minimal,,true,1,1,0,1,0,1
+PB,"Alagoinha",minimal,,true,1,1,0,1,0,1
+PB,"Alcantil",minimal,,true,1,1,0,1,0,1
+PB,"Algodão de Jandaíra",minimal,,true,1,1,0,1,0,1
+PB,"Alhandra",minimal,,true,1,1,0,1,0,1
+PB,"Amparo",minimal,,true,1,1,0,1,0,1
+PB,"Aparecida",minimal,,true,1,1,0,1,0,1
+PB,"Araçagi",minimal,,true,1,1,0,1,0,1
+PB,"Arara",minimal,,true,1,1,0,1,0,1
+PB,"Araruna",minimal,,true,1,1,0,1,0,1
+PB,"Areia de Baraúnas",minimal,,true,1,1,0,1,0,1
+PB,"Areial",minimal,,true,1,1,0,1,0,1
+PB,"Assunção",minimal,,true,1,1,0,1,0,1
+PB,"Baía da Traição",minimal,,true,1,1,0,1,1,1
+PB,"Baraúna",minimal,,true,1,1,0,1,0,1
+PB,"Barra de Santa Rosa",minimal,,true,1,1,0,1,0,1
+PB,"Barra de Santana",minimal,,true,1,1,0,1,0,1
+PB,"Barra de São Miguel",minimal,,true,1,1,0,1,0,1
+PB,"Belém do Brejo do Cruz",minimal,,true,1,1,0,1,0,1
+PB,"Cuité de Mamanguape",minimal,,true,1,1,0,1,0,1
+PB,"Cuitegi",minimal,,true,1,1,0,1,0,1
+PB,"Curral de Cima",minimal,,true,1,1,0,1,0,1
+PB,"Curral Velho",minimal,,true,1,1,0,1,0,1
+PB,"Damião",minimal,,true,1,1,0,1,0,1
+PB,"Desterro",minimal,,true,1,1,0,1,0,1
+PB,"Dona Inês",minimal,,true,1,1,0,1,0,1
+PB,"Duas Estradas",minimal,,true,1,1,0,1,0,1
+PB,"Emas",minimal,,true,1,1,0,1,0,1
+PB,"Esperança",minimal,,true,1,1,0,1,0,1
+PB,"Fagundes",minimal,,true,1,1,0,1,0,1
+PB,"Frei Martinho",minimal,,true,1,1,0,1,0,1
+PB,"Gado Bravo",minimal,,true,1,1,0,1,0,1
+PB,"Gurinhém",minimal,,true,1,1,0,1,0,1
+PB,"Gurjão",minimal,,true,1,1,0,1,0,1
+PB,"Igaracy",minimal,,true,1,1,0,1,0,1
+PE,"Recife",full,30645,true,94,94,0,94,9,94
+PE,"Caruaru",minimal,,true,44,44,0,44,0,44
+PE,"Petrolina",minimal,,true,43,43,0,43,0,43
+PE,"Olinda",partial,,true,32,32,0,32,21,32
+PE,"Camaragibe",minimal,,true,29,29,0,29,0,29
+PE,"Jaboatão dos Guararapes",partial,,true,28,28,0,28,7,28
+PE,"Igarassu",partial,,true,28,28,0,28,4,28
+PE,"Cabo de Santo Agostinho",partial,,true,26,26,0,26,7,26
+PE,"Vitória de Santo Antão",minimal,,true,25,25,0,25,0,25
+PE,"Paulista",partial,,true,24,24,0,24,10,24
+PE,"Pesqueira",minimal,,true,23,23,0,23,0,23
+PE,"Ipojuca",partial,30685,true,23,23,0,23,13,23
+PE,"Serra Talhada",minimal,,true,23,23,0,23,0,23
+PE,"Timbaúba",minimal,,true,21,21,0,21,0,21
+PE,"Escada",minimal,,true,20,20,0,20,0,20
+PE,"Bezerros",minimal,,true,19,19,0,19,0,19
+PE,"São Lourenço da Mata",minimal,,true,18,18,0,18,0,18
+PE,"Santa Cruz do Capibaribe",minimal,,true,18,18,0,18,0,18
+PE,"Garanhuns",minimal,,true,17,17,0,17,0,17
+PE,"Limoeiro",minimal,,true,15,15,0,15,0,15
+PE,"Arcoverde",minimal,,true,15,15,0,15,0,15
+PE,"Catende",minimal,,true,14,14,0,14,0,14
+PE,"Abreu e Lima",minimal,,true,14,14,0,14,0,14
+PE,"João Alfredo",minimal,,true,13,13,0,13,0,13
+PE,"Vertentes",minimal,,true,12,12,0,12,0,12
+PE,"Surubim",minimal,,true,12,12,0,12,0,12
+PE,"Amaraji",minimal,,true,11,11,0,11,0,11
+PE,"Jataúba",minimal,,true,11,11,0,11,0,11
+PE,"Passira",minimal,,true,10,10,0,10,0,10
+PE,"Itapissuma",partial,,true,10,10,0,10,10,10
+PE,"Afogados da Ingazeira",minimal,,true,10,10,0,10,0,10
+PE,"Brejo da Madre de Deus",minimal,,true,9,9,0,9,0,9
+PE,"Água Preta",minimal,,true,8,8,0,8,0,8
+PE,"Chã de Alegria",minimal,,true,8,8,0,8,0,8
+PE,"Glória do Goitá",minimal,,true,7,7,0,7,0,7
+PE,"Araripina",minimal,,true,7,7,0,7,0,7
+PE,"Exu",minimal,,true,5,5,0,5,0,5
+PE,"Sertânia",minimal,,true,5,5,0,5,0,5
+PE,"Quipapá",minimal,,true,5,5,0,5,0,5
+PE,"Bom Conselho",minimal,,true,5,5,0,5,0,5
+PE,"Santa Filomena",minimal,,true,5,5,0,5,0,5
+PE,"Bom Jardim",minimal,,true,5,5,0,5,0,5
+PE,"Salgueiro",minimal,,true,5,5,0,5,0,5
+PE,"Riacho das Almas",minimal,,true,5,5,0,5,0,5
+PE,"Pedra",minimal,,true,5,5,0,5,0,5
+PE,"Dormentes",minimal,,true,5,5,0,5,0,5
+PE,"Belo Jardim",minimal,,true,4,4,0,4,0,4
+PE,"Aliança",minimal,,true,4,4,0,4,0,4
+PE,"Buíque",minimal,,true,4,4,0,4,0,4
+PE,"Trindade",minimal,,true,4,4,0,4,0,4
+PE,"Lagoa dos Gatos",minimal,,true,4,4,0,4,0,4
+PE,"Granito",minimal,,true,4,4,0,4,0,4
+PE,"Ipubi",minimal,,true,4,4,0,4,0,4
+PE,"Panelas",minimal,,true,4,4,0,4,0,4
+PE,"Afrânio",minimal,,true,4,4,0,4,0,4
+PE,"Flores",minimal,,true,3,3,0,3,0,3
+PE,"Bonito",minimal,,true,3,3,0,3,0,3
+PE,"Custódia",minimal,,true,3,3,0,3,0,3
+PE,"Agrestina",minimal,,true,3,3,0,3,0,3
+PE,"Canhotinho",minimal,,true,3,3,0,3,0,3
+PE,"Araçoiaba",minimal,,true,3,3,0,3,0,3
+PE,"Belém do São Francisco",minimal,,true,3,3,0,3,0,3
+PE,"Floresta",minimal,,true,3,3,0,3,0,3
+PE,"Bodocó",minimal,,true,3,3,0,2,0,3
+PE,"Correntes",minimal,,true,3,3,0,3,0,3
+PE,"Gameleira",minimal,,true,3,3,0,3,0,3
+PE,"Goiana",minimal,,true,3,3,0,2,3,3
+PE,"Gravatá",minimal,,true,3,3,0,3,0,3
+PE,"Iguaracy",minimal,,true,3,3,0,3,0,3
+PE,"Itambé",minimal,,true,3,3,0,3,0,3
+PE,"Lagoa Grande",minimal,,true,3,3,0,3,0,3
+PE,"Orobó",minimal,,true,3,3,0,3,0,3
+PE,"Parnamirim",minimal,,true,3,3,0,3,0,3
+PE,"Pombos",minimal,,true,3,3,0,3,0,3
+PE,"Ribeirão",minimal,,true,3,3,0,3,0,3
+PE,"Sanharó",minimal,,true,3,3,0,3,0,3
+PE,"Santa Maria da Boa Vista",minimal,,true,3,3,0,3,0,3
+PE,"São Caitano",minimal,,true,3,3,0,3,0,3
+PE,"São Joaquim do Monte",minimal,,true,3,3,0,3,0,3
+PE,"São José do Belmonte",minimal,,true,3,3,0,3,0,3
+PE,"São José do Egito",minimal,,true,3,3,0,3,0,3
+PE,"Serrita",minimal,,true,3,3,0,3,0,3
+PE,"Sirinhaém",minimal,,true,3,3,0,3,2,3
+PE,"Taquaritinga do Norte",minimal,,true,3,3,0,3,0,3
+PE,"Triunfo",minimal,,true,3,3,0,3,0,3
+PE,"Petrolândia",minimal,,true,2,2,0,2,0,2
+PE,"Ouricuri",minimal,,true,2,2,0,2,0,2
+PE,"São Benedito do Sul",minimal,,true,2,2,0,2,0,2
+PE,"São Bento do Una",minimal,,true,2,2,0,2,0,2
+PE,"Tuparetama",minimal,,true,2,2,0,2,0,2
+PE,"Poção",minimal,,true,2,2,0,2,0,2
+PE,"Venturosa",minimal,,true,2,2,0,2,0,2
+PE,"Palmares",minimal,,true,2,2,0,2,0,2
+PE,"Jurema",minimal,,true,2,2,0,2,0,2
+PE,"Maraial",minimal,,true,2,2,0,2,0,2
+PE,"Betânia",minimal,,true,2,2,0,2,0,2
+PE,"São Vicente Férrer",minimal,,true,2,2,0,2,0,2
+PE,"Belém de Maria",minimal,,true,2,2,0,2,0,2
+PE,"Águas Belas",minimal,,true,2,2,0,2,0,2
+PE,"Barreiros",minimal,,true,2,2,0,2,1,2
+PE,"Vicência",minimal,,true,2,2,0,2,0,2
+PE,"Quixaba",minimal,,true,2,2,0,2,0,2
+PE,"Barra de Guabiraba",minimal,,true,2,2,0,2,0,2
+PE,"Mirandiba",minimal,,true,2,2,0,2,0,2
+PE,"Tacaimbó",minimal,,true,2,2,0,2,0,2
+PE,"Frei Miguelinho",minimal,,true,2,2,0,2,0,2
+PE,"Alagoinha",minimal,,true,2,2,0,2,0,2
+PE,"Tacaratu",minimal,,true,2,2,0,2,0,2
+PE,"Rio Formoso",minimal,,true,2,2,0,2,1,2
+PE,"Tamandaré",minimal,,true,2,2,0,2,1,2
+PE,"Moreilândia",minimal,,true,2,2,0,2,0,2
+PE,"Ibimirim",minimal,,true,2,2,0,2,0,2
+PE,"Moreno",minimal,,true,2,2,0,2,0,2
+PE,"Cupira",minimal,,true,2,2,0,2,0,2
+PE,"Cachoeirinha",minimal,,true,2,2,0,2,0,2
+PE,"Saloá",minimal,,true,2,2,0,2,0,2
+PE,"Lagoa do Ouro",minimal,,true,2,2,0,2,0,2
+PE,"Jatobá",minimal,,true,2,2,0,2,0,2
+PE,"Altinho",minimal,,true,2,2,0,2,0,2
+PE,"Cumaru",minimal,,true,2,2,0,2,0,2
+PE,"Carnaíba",minimal,,true,2,2,0,2,0,2
+PE,"Itaíba",minimal,,true,2,2,0,2,0,2
+PE,"Terra Nova",minimal,,true,2,2,0,2,0,2
+PE,"Itapetim",minimal,,true,2,2,0,2,0,2
+PE,"Tupanatinga",minimal,,true,1,1,0,1,0,1
+PE,"Santa Maria do Cambucá",minimal,,true,1,1,0,1,0,1
+PE,"Brejinho",minimal,,true,1,1,0,1,0,1
+PE,"São João",minimal,,true,1,1,0,1,0,1
+PE,"São José da Coroa Grande",minimal,,true,1,1,0,1,1,1
+PE,"Verdejante",minimal,,true,1,1,0,1,0,1
+PE,"Vertente do Lério",minimal,,true,1,1,0,1,0,1
+PE,"Solidão",minimal,,true,1,1,0,1,0,1
+PE,"Tabira",minimal,,true,1,1,0,1,0,1
+PE,"Carpina",minimal,,true,1,1,0,1,0,1
+PE,"Carnaubeira da Penha",minimal,,true,1,1,0,1,0,1
+PE,"Ferreiros",minimal,,true,1,1,0,1,0,1
+PE,"Iati",minimal,,true,1,1,0,1,0,1
+PE,"Ibirajuba",minimal,,true,1,1,0,1,0,1
+PE,"Capoeiras",minimal,,true,1,1,0,1,0,1
+PE,"Ilha de Itamaracá",minimal,,true,1,1,0,0,1,1
+PE,"Inajá",minimal,,true,1,1,0,1,0,1
+PE,"Ingazeira",minimal,,true,1,1,0,1,0,1
+PE,"Fernando de Noronha",minimal,,true,1,0,1,0,0,1
+PE,"Feira Nova",minimal,,true,1,1,0,1,0,1
+PE,"Itacuruba",minimal,,true,1,1,0,1,0,1
+PE,"Terezinha",minimal,,true,1,1,0,1,0,1
+PE,"Santa Terezinha",minimal,,true,1,1,0,1,0,1
+PE,"Itaquitinga",minimal,,true,1,1,0,1,0,1
+PE,"Buenos Aires",minimal,,true,1,1,0,1,0,1
+PE,"Jaqueira",minimal,,true,1,1,0,1,0,1
+PE,"Cabrobó",minimal,,true,1,1,0,1,0,1
+PE,"Caetés",minimal,,true,1,1,0,1,0,1
+PE,"Joaquim Nabuco",minimal,,true,1,1,0,1,0,1
+PE,"Jucati",minimal,,true,1,1,0,1,0,1
+PE,"Jupi",minimal,,true,1,1,0,1,0,1
+PE,"Lagoa de Itaenga",minimal,,true,1,1,0,1,0,1
+PE,"Lagoa do Carro",minimal,,true,1,1,0,1,0,1
+PE,"Angelim",minimal,,true,1,1,0,1,0,1
+PE,"Lajedo",minimal,,true,1,1,0,1,0,1
+PE,"Brejão",minimal,,true,1,1,0,1,0,1
+PE,"Macaparana",minimal,,true,1,1,0,1,0,1
+PE,"Machados",minimal,,true,1,1,0,1,0,1
+PE,"Manari",minimal,,true,1,1,0,1,0,1
+PE,"Nazaré da Mata",minimal,,true,1,1,0,1,0,1
+PE,"Cortês",minimal,,true,1,1,0,1,0,1
+PE,"Orocó",minimal,,true,1,1,0,1,0,1
+PE,"Palmeirina",minimal,,true,1,1,0,1,0,1
+PE,"Calçado",minimal,,true,1,1,0,1,0,1
+PE,"Paranatama",minimal,,true,1,1,0,1,0,1
+PE,"Toritama",minimal,,true,1,1,0,1,0,1
+PE,"Condado",minimal,,true,1,1,0,1,0,1
+PE,"Paudalho",minimal,,true,1,1,0,1,0,1
+PE,"Chã Grande",minimal,,true,1,1,0,1,0,1
+PE,"Calumbi",minimal,,true,1,1,0,1,0,1
+PE,"Cedro",minimal,,true,1,1,0,1,0,1
+PE,"Camocim de São Félix",minimal,,true,1,1,0,1,0,1
+PE,"Tracunhaém",minimal,,true,1,1,0,1,0,1
+PE,"Primavera",minimal,,true,1,1,0,1,0,1
+PE,"Casinhas",minimal,,true,1,1,0,1,0,1
+PE,"Camutanga",minimal,,true,1,1,0,1,0,1
+PE,"Sairé",minimal,,true,1,1,0,1,0,1
+PE,"Salgadinho",minimal,,true,1,1,0,1,0,1
+PE,"Xexéu",minimal,,true,1,1,0,1,0,1
+PE,"Santa Cruz",minimal,,true,1,1,0,1,0,1
+PE,"Santa Cruz da Baixa Verde",minimal,,true,1,1,0,1,0,1
+PI,"Teresina",minimal,,true,123,123,0,123,0,123
+PI,"Parnaíba",partial,,true,47,47,0,47,2,47
+PI,"Floriano",minimal,,true,41,41,0,41,0,41
+PI,"Piripiri",minimal,,true,31,31,0,31,0,31
+PI,"Picos",minimal,,true,28,28,0,28,0,28
+PI,"Campo Maior",minimal,,true,22,22,0,22,0,22
+PI,"Altos",minimal,,true,18,18,0,18,0,18
+PI,"Paulistana",minimal,,true,18,18,0,18,0,18
+PI,"Barras",minimal,,true,16,16,0,16,0,16
+PI,"Elesbão Veloso",minimal,,true,16,16,0,16,0,16
+PI,"Corrente",minimal,,true,16,16,0,16,0,16
+PI,"União",minimal,,true,15,15,0,15,0,15
+PI,"Luís Correia",partial,30225,true,13,13,0,12,10,13
+PI,"Piracuruca",minimal,,true,12,12,0,12,0,12
+PI,"São Félix do Piauí",minimal,,true,11,11,0,11,0,11
+PI,"Bom Jesus",minimal,,true,11,11,0,11,0,11
+PI,"Simões",minimal,,true,10,10,0,10,0,10
+PI,"Baixa Grande do Ribeiro",minimal,,true,10,10,0,10,0,10
+PI,"Água Branca",minimal,,true,10,10,0,10,0,10
+PI,"Brasileira",minimal,,true,8,8,0,8,0,8
+PI,"Cocal",minimal,,true,8,8,0,8,0,8
+PI,"Ribeiro Gonçalves",minimal,,true,6,6,0,5,0,6
+PI,"Ilha Grande",partial,,true,6,6,0,6,1,6
+PI,"Lagoa do Barro do Piauí",minimal,,true,4,4,0,4,0,4
+PI,"Simplício Mendes",minimal,,true,3,3,0,3,0,3
+PI,"Cajazeiras do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Acauã",minimal,,true,1,1,0,1,0,1
+PI,"Caldeirão Grande do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Campinas do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Campo Alegre do Fidalgo",minimal,,true,1,1,0,1,0,1
+PI,"Campo Grande do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Campo Largo do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Canavieira",minimal,,true,1,1,0,1,0,1
+PI,"Canto do Buriti",minimal,,true,1,1,0,1,0,1
+PI,"Capitão de Campos",minimal,,true,1,1,0,1,0,1
+PI,"Capitão Gervásio Oliveira",minimal,,true,1,1,0,1,0,1
+PI,"Caracol",minimal,,true,1,1,0,1,0,1
+PI,"Caraúbas do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Caridade do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Castelo do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Caxingó",minimal,,true,1,1,0,1,0,1
+PI,"Cocal de Telha",minimal,,true,1,1,0,1,0,1
+PI,"Cocal dos Alves",minimal,,true,1,1,0,1,0,1
+PI,"Coivaras",minimal,,true,1,1,0,1,0,1
+PI,"Colônia do Gurguéia",minimal,,true,1,1,0,1,0,1
+PI,"Colônia do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Conceição do Canindé",minimal,,true,1,1,0,1,0,1
+PI,"Coronel José Dias",minimal,,true,1,1,0,1,0,1
+PI,"Cajueiro da Praia",minimal,,true,1,1,0,1,1,1
+PI,"Agricolândia",minimal,,true,1,1,0,1,0,1
+PI,"Alagoinha do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Alegrete do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Alto Longá",minimal,,true,1,1,0,1,0,1
+PI,"Alvorada do Gurguéia",minimal,,true,1,1,0,1,0,1
+PI,"Amarante",minimal,,true,1,1,0,1,0,1
+PI,"Angical do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Anísio de Abreu",minimal,,true,1,1,0,1,0,1
+PI,"Cristalândia do Piauí",minimal,,true,1,1,0,0,0,1
+PI,"Cristino Castro",minimal,,true,1,1,0,1,0,1
+PI,"Curimatá",minimal,,true,1,1,0,1,0,1
+PI,"Currais",minimal,,true,1,1,0,1,0,1
+PI,"Curral Novo do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Curralinhos",minimal,,true,1,1,0,1,0,1
+PI,"Demerval Lobão",minimal,,true,1,1,0,1,0,1
+PI,"Dirceu Arcoverde",minimal,,true,1,1,0,1,0,1
+PI,"Dom Expedito Lopes",minimal,,true,1,1,0,1,0,1
+PI,"Dom Inocêncio",minimal,,true,1,1,0,1,0,1
+PI,"Domingos Mourão",minimal,,true,1,1,0,1,0,1
+PI,"Eliseu Martins",minimal,,true,1,1,0,1,0,1
+PI,"Esperantina",minimal,,true,1,1,0,1,0,1
+PI,"Fartura do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Flores do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Floresta do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Francinópolis",minimal,,true,1,1,0,1,0,1
+PI,"Francisco Ayres",minimal,,true,1,1,0,1,0,1
+PI,"Francisco Macedo",minimal,,true,1,1,0,1,0,1
+PI,"Francisco Santos",minimal,,true,1,1,0,1,0,1
+PI,"Fronteiras",minimal,,true,1,1,0,1,0,1
+PI,"Geminiano",minimal,,true,1,1,0,1,0,1
+PI,"Gilbués",minimal,,true,1,1,0,0,0,1
+PI,"Guadalupe",minimal,,true,1,1,0,1,0,1
+PI,"Guaribas",minimal,,true,1,1,0,1,0,1
+PI,"Hugo Napoleão",minimal,,true,1,1,0,1,0,1
+PI,"Inhuma",minimal,,true,1,1,0,1,0,1
+PI,"Ipiranga do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Isaías Coelho",minimal,,true,1,1,0,1,0,1
+PI,"Itainópolis",minimal,,true,1,1,0,1,0,1
+PI,"Itaueira",minimal,,true,1,1,0,1,0,1
+PI,"Jacobina do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Jaicós",minimal,,true,1,1,0,1,0,1
+PI,"Jardim do Mulato",minimal,,true,1,1,0,1,0,1
+PI,"Jatobá do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Jerumenha",minimal,,true,1,1,0,1,0,1
+PI,"João Costa",minimal,,true,1,1,0,1,0,1
+PI,"Joaquim Pires",minimal,,true,1,1,0,1,0,1
+PI,"Joca Marques",minimal,,true,1,1,0,1,0,1
+PI,"José de Freitas",minimal,,true,1,1,0,1,0,1
+PI,"Juazeiro do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Júlio Borges",minimal,,true,1,1,0,1,0,1
+PI,"Jurema",minimal,,true,1,1,0,1,0,1
+PI,"Lagoa Alegre",minimal,,true,1,1,0,1,0,1
+PI,"Lagoa de São Francisco",minimal,,true,1,1,0,1,0,1
+PI,"Lagoa do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Lagoa do Sítio",minimal,,true,1,1,0,1,0,1
+PI,"Lagoinha do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Landri Sales",minimal,,true,1,1,0,1,0,1
+PI,"Luzilândia",minimal,,true,1,1,0,1,0,1
+PI,"Madeiro",minimal,,true,1,1,0,1,0,1
+PI,"Manoel Emídio",minimal,,true,1,1,0,1,0,1
+PI,"Marcolândia",minimal,,true,1,1,0,1,0,1
+PI,"Marcos Parente",minimal,,true,1,1,0,1,0,1
+PI,"Massapê do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Matias Olímpio",minimal,,true,1,1,0,1,0,1
+PI,"Miguel Alves",minimal,,true,1,1,0,1,0,1
+PI,"Miguel Leão",minimal,,true,1,1,0,1,0,1
+PI,"Milton Brandão",minimal,,true,1,1,0,1,0,1
+PI,"Monsenhor Gil",minimal,,true,1,1,0,1,0,1
+PI,"Monsenhor Hipólito",minimal,,true,1,1,0,1,0,1
+PI,"Monte Alegre do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Morro Cabeça no Tempo",minimal,,true,1,1,0,1,0,1
+PI,"Morro do Chapéu do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Murici dos Portelas",minimal,,true,1,1,0,1,0,1
+PI,"Nazaré do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Nazária",minimal,,true,1,1,0,1,0,1
+PI,"Nossa Senhora de Nazaré",minimal,,true,1,1,0,1,0,1
+PI,"Nossa Senhora dos Remédios",minimal,,true,1,1,0,1,0,1
+PI,"Nova Santa Rita",minimal,,true,1,1,0,1,0,1
+PI,"Novo Oriente do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Novo Santo Antônio",minimal,,true,1,1,0,1,0,1
+PI,"Oeiras",minimal,,true,1,1,0,1,0,1
+PI,"Olho D'Água do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Padre Marcos",minimal,,true,1,1,0,1,0,1
+PI,"Paes Landim",minimal,,true,1,1,0,1,0,1
+PI,"Pajeú do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Palmeira do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Palmeirais",minimal,,true,1,1,0,1,0,1
+PI,"Paquetá",minimal,,true,1,1,0,1,0,1
+PI,"Parnaguá",minimal,,true,1,1,0,1,0,1
+PI,"Passagem Franca do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Patos do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Pau D'Arco do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Pavussu",minimal,,true,1,1,0,1,0,1
+PI,"Pedro II",minimal,,true,1,1,0,1,0,1
+PI,"Pedro Laurentino",minimal,,true,1,1,0,1,0,1
+PI,"Pimenteiras",minimal,,true,1,1,0,1,0,1
+PI,"Pio IX",minimal,,true,1,1,0,1,0,1
+PI,"Porto",minimal,,true,1,1,0,1,0,1
+PI,"Porto Alegre do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Prata do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Queimada Nova",minimal,,true,1,1,0,1,0,1
+PI,"Redenção do Gurguéia",minimal,,true,1,1,0,1,0,1
+PI,"Regeneração",minimal,,true,1,1,0,1,0,1
+PI,"Riacho Frio",minimal,,true,1,1,0,1,0,1
+PI,"Ribeira do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Rio Grande do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Santa Cruz do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Santa Cruz dos Milagres",minimal,,true,1,1,0,1,0,1
+PI,"Santa Filomena",minimal,,true,1,1,0,0,0,1
+PI,"Santa Luz",minimal,,true,1,1,0,1,0,1
+PI,"Santa Rosa do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Santana do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Santo Antônio de Lisboa",minimal,,true,1,1,0,1,0,1
+PI,"Santo Antônio dos Milagres",minimal,,true,1,1,0,1,0,1
+PI,"Santo Inácio do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Braz do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Francisco de Assis do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Francisco do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Gonçalo do Gurguéia",minimal,,true,1,1,0,1,0,1
+PI,"São Gonçalo do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São João da Canabrava",minimal,,true,1,1,0,1,0,1
+PI,"São João da Fronteira",minimal,,true,1,1,0,1,0,1
+PI,"São João da Serra",minimal,,true,1,1,0,1,0,1
+PI,"São João da Varjota",minimal,,true,1,1,0,1,0,1
+PI,"São João do Arraial",minimal,,true,1,1,0,1,0,1
+PI,"São João do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São José do Divino",minimal,,true,1,1,0,1,0,1
+PI,"São José do Peixe",minimal,,true,1,1,0,1,0,1
+PI,"São José do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Julião",minimal,,true,1,1,0,1,0,1
+PI,"São Lourenço do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Luis do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Miguel da Baixa Grande",minimal,,true,1,1,0,1,0,1
+PI,"São Miguel do Fidalgo",minimal,,true,1,1,0,1,0,1
+PI,"São Miguel do Tapuio",minimal,,true,1,1,0,1,0,1
+PI,"São Pedro do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"São Raimundo Nonato",minimal,,true,1,1,0,1,0,1
+PI,"Sebastião Barros",minimal,,true,1,1,0,1,0,1
+PI,"Sebastião Leal",minimal,,true,1,1,0,1,0,1
+PI,"Sigefredo Pacheco",minimal,,true,1,1,0,1,0,1
+PI,"Socorro do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Sussuapara",minimal,,true,1,1,0,1,0,1
+PI,"Tamboril do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Tanque do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Uruçuí",minimal,,true,1,1,0,1,0,1
+PI,"Valença do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Várzea Branca",minimal,,true,1,1,0,1,0,1
+PI,"Várzea Grande",minimal,,true,1,1,0,1,0,1
+PI,"Vera Mendes",minimal,,true,1,1,0,1,0,1
+PI,"Vila Nova do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Wall Ferraz",minimal,,true,1,1,0,1,0,1
+PI,"Antônio Almeida",minimal,,true,1,1,0,1,0,1
+PI,"Aroazes",minimal,,true,1,1,0,1,0,1
+PI,"Aroeiras do Itaim",minimal,,true,1,1,0,1,0,1
+PI,"Arraial",minimal,,true,1,1,0,1,0,1
+PI,"Assunção do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Avelino Lopes",minimal,,true,1,1,0,1,0,1
+PI,"Barra D'Alcântara",minimal,,true,1,1,0,1,0,1
+PI,"Barreiras do Piauí",minimal,,true,1,1,0,0,0,1
+PI,"Barro Duro",minimal,,true,1,1,0,1,0,1
+PI,"Batalha",minimal,,true,1,1,0,1,0,1
+PI,"Bela Vista do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Belém do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Beneditinos",minimal,,true,1,1,0,1,0,1
+PI,"Bertolínia",minimal,,true,1,1,0,1,0,1
+PI,"Betânia do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Boa Hora",minimal,,true,1,1,0,1,0,1
+PI,"Bocaina",minimal,,true,1,1,0,1,0,1
+PI,"Bom Princípio do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Bonfim do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Boqueirão do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Brejo do Piauí",minimal,,true,1,1,0,1,0,1
+PI,"Buriti dos Lopes",minimal,,true,1,1,0,1,0,1
+PI,"Buriti dos Montes",minimal,,true,1,1,0,1,0,1
+PI,"Cabeceiras do Piauí",minimal,,true,1,1,0,1,0,1
+RN,"Natal",full,30461,true,36,36,0,36,12,36
+RN,"Mossoró",minimal,,true,28,28,0,28,0,28
+RN,"Parnamirim",partial,,true,26,26,0,26,4,26
+RN,"Currais Novos",minimal,,true,13,13,0,13,0,13
+RN,"São Gonçalo do Amarante",minimal,,true,13,13,0,13,0,13
+RN,"Jardim de Piranhas",minimal,,true,10,10,0,10,0,10
+RN,"Acari",minimal,,true,8,8,0,8,0,8
+RN,"Parelhas",minimal,,true,8,8,0,8,0,8
+RN,"Itajá",minimal,,true,8,8,0,8,0,8
+RN,"Serra Negra do Norte",minimal,,true,7,7,0,7,0,7
+RN,"Riacho de Santana",minimal,,true,7,7,0,7,0,7
+RN,"Equador",minimal,,true,6,1,5,6,0,6
+RN,"Lagoa Nova",minimal,,true,6,6,0,6,0,6
+RN,"Governador Dix-Sept Rosado",minimal,,true,6,6,0,6,0,6
+RN,"São José do Seridó",minimal,,true,5,5,0,5,0,5
+RN,"Cruzeta",minimal,,true,5,5,0,5,0,5
+RN,"Janduís",minimal,,true,5,5,0,5,0,5
+RN,"Macaíba",minimal,,true,5,5,0,5,0,5
+RN,"Carnaúba dos Dantas",minimal,,true,5,5,0,5,0,5
+RN,"Santana do Matos",minimal,,true,4,4,0,4,0,4
+RN,"Carnaubais",minimal,,true,4,4,0,4,0,4
+RN,"Tenente Ananias",minimal,,true,2,2,0,2,0,2
+RN,"João Dias",minimal,,true,2,2,0,2,0,2
+RN,"Januário Cicco",minimal,,true,2,2,0,2,0,2
+RN,"Luís Gomes",minimal,,true,2,2,0,2,0,2
+RN,"São José do Campestre",minimal,,true,2,2,0,2,0,2
+RN,"Senador Georgino Avelino",minimal,,true,2,2,0,2,1,2
+RN,"Caraúbas",minimal,,true,2,2,0,2,0,2
+RN,"Bento Fernandes",minimal,,true,2,2,0,2,0,2
+RN,"José da Penha",minimal,,true,2,2,0,2,0,2
+RN,"Martins",minimal,,true,2,2,0,2,0,2
+RN,"Sítio Novo",minimal,,true,2,2,0,2,0,2
+RN,"Taipu",minimal,,true,2,2,0,2,0,2
+RN,"Lajes",minimal,,true,2,2,0,2,0,2
+RN,"Tangará",minimal,,true,2,2,0,2,0,2
+RN,"João Câmara",minimal,,true,1,1,0,1,0,1
+RN,"Fernando Pedroza",minimal,,true,1,1,0,1,0,1
+RN,"Açu",minimal,,true,1,1,0,1,0,1
+RN,"Afonso Bezerra",minimal,,true,1,1,0,1,0,1
+RN,"Água Nova",minimal,,true,1,1,0,1,0,1
+RN,"Alexandria",minimal,,true,1,1,0,1,0,1
+RN,"Almino Afonso",minimal,,true,1,1,0,1,0,1
+RN,"Alto do Rodrigues",minimal,,true,1,1,0,1,0,1
+RN,"Angicos",minimal,,true,1,1,0,1,0,1
+RN,"Antônio Martins",minimal,,true,1,1,0,1,0,1
+RN,"Apodi",minimal,,true,1,1,0,1,0,1
+RN,"Areia Branca",minimal,30407,true,1,1,0,1,1,1
+RN,"Arês",minimal,,true,1,1,0,1,1,1
+RN,"Baía Formosa",minimal,,true,1,1,0,1,1,1
+RN,"Baraúna",minimal,,true,1,1,0,1,0,1
+RN,"Barcelona",minimal,,true,1,1,0,1,0,1
+RN,"Jucurutu",minimal,,true,1,1,0,1,0,1
+RN,"Jundiá",minimal,,true,1,1,0,1,0,1
+RN,"Lagoa d'Anta",minimal,,true,1,1,0,1,0,1
+RN,"Lagoa de Pedras",minimal,,true,1,1,0,1,0,1
+RN,"Lagoa de Velhos",minimal,,true,1,1,0,1,0,1
+RN,"Lagoa Salgada",minimal,,true,1,1,0,1,0,1
+RN,"Lajes Pintadas",minimal,,true,1,1,0,1,0,1
+RN,"Lucrécia",minimal,,true,1,1,0,1,0,1
+RN,"Macau",minimal,30445,true,1,1,0,1,1,1
+RN,"Major Sales",minimal,,true,1,1,0,1,0,1
+RN,"Marcelino Vieira",minimal,,true,1,1,0,1,0,1
+RN,"Maxaranguape",minimal,,true,1,1,0,1,1,1
+RN,"Messias Targino",minimal,,true,1,1,0,1,0,1
+RN,"Montanhas",minimal,,true,1,1,0,1,0,1
+RN,"Monte Alegre",minimal,,true,1,1,0,1,0,1
+RN,"Monte das Gameleiras",minimal,,true,1,1,0,1,0,1
+RN,"Nísia Floresta",minimal,,true,1,1,0,1,1,1
+RN,"Nova Cruz",minimal,,true,1,1,0,1,0,1
+RN,"Olho d'Água do Borges",minimal,,true,1,1,0,1,0,1
+RN,"Ouro Branco",minimal,,true,1,1,0,1,0,1
+RN,"Paraná",minimal,,true,1,1,0,1,0,1
+RN,"Paraú",minimal,,true,1,1,0,1,0,1
+RN,"Parazinho",minimal,,true,1,1,0,1,0,1
+RN,"Passa e Fica",minimal,,true,1,1,0,1,0,1
+RN,"Passagem",minimal,,true,1,1,0,1,0,1
+RN,"Patu",minimal,,true,1,1,0,1,0,1
+RN,"Pau dos Ferros",minimal,,true,1,1,0,1,0,1
+RN,"Pedra Grande",minimal,,true,1,1,0,1,1,1
+RN,"Pedra Preta",minimal,,true,1,1,0,1,0,1
+RN,"Pedro Avelino",minimal,,true,1,1,0,1,0,1
+RN,"Pedro Velho",minimal,,true,1,1,0,1,0,1
+RN,"Pendências",minimal,,true,1,1,0,1,0,1
+RN,"Pilões",minimal,,true,1,1,0,1,0,1
+RN,"Poço Branco",minimal,,true,1,1,0,1,0,1
+RN,"Portalegre",minimal,,true,1,1,0,1,0,1
+RN,"Porto do Mangue",minimal,,true,1,1,0,1,1,1
+RN,"Pureza",minimal,,true,1,1,0,1,0,1
+RN,"Rafael Fernandes",minimal,,true,1,1,0,1,0,1
+RN,"Rafael Godeiro",minimal,,true,1,1,0,1,0,1
+RN,"Riacho da Cruz",minimal,,true,1,1,0,1,0,1
+RN,"Riachuelo",minimal,,true,1,1,0,1,0,1
+RN,"Rio do Fogo",minimal,,true,1,1,0,1,1,1
+RN,"Rodolfo Fernandes",minimal,,true,1,1,0,1,0,1
+RN,"Ruy Barbosa",minimal,,true,1,1,0,1,0,1
+RN,"Santa Cruz",minimal,,true,1,1,0,1,0,1
+RN,"Santa Maria",minimal,,true,1,1,0,1,0,1
+RN,"Santana do Seridó",minimal,,true,1,1,0,1,0,1
+RN,"Santo Antônio",minimal,,true,1,1,0,1,0,1
+RN,"São Bento do Norte",minimal,,true,1,1,0,1,1,1
+RN,"São Bento do Trairí",minimal,,true,1,1,0,1,0,1
+RN,"São Fernando",minimal,,true,1,1,0,1,0,1
+RN,"São Francisco do Oeste",minimal,,true,1,1,0,1,0,1
+RN,"São João do Sabugi",minimal,,true,1,1,0,1,0,1
+RN,"São José de Mipibu",minimal,,true,1,1,0,1,0,1
+RN,"São Miguel",minimal,,true,1,1,0,1,0,1
+RN,"São Miguel do Gostoso",minimal,,true,1,1,0,1,1,1
+RN,"São Paulo do Potengi",minimal,,true,1,1,0,1,0,1
+RN,"São Pedro",minimal,,true,1,1,0,1,0,1
+RN,"São Rafael",minimal,,true,1,1,0,1,0,1
+RN,"São Tomé",minimal,,true,1,1,0,1,0,1
+RN,"São Vicente",minimal,,true,1,1,0,1,0,1
+RN,"Senador Elói de Souza",minimal,,true,1,1,0,1,0,1
+RN,"Serra Caiada",minimal,,true,1,1,0,1,0,1
+RN,"Serra de São Bento",minimal,,true,1,1,0,1,0,1
+RN,"Serra do Mel",minimal,,true,1,1,0,1,0,1
+RN,"Serrinha",minimal,,true,1,1,0,1,0,1
+RN,"Serrinha dos Pintos",minimal,,true,1,1,0,1,0,1
+RN,"Severiano Melo",minimal,,true,1,1,0,1,0,1
+RN,"Taboleiro Grande",minimal,,true,1,1,0,1,0,1
+RN,"Tenente Laurentino Cruz",minimal,,true,1,1,0,1,0,1
+RN,"Tibau",minimal,,true,1,1,0,1,1,1
+RN,"Tibau do Sul",minimal,,true,1,1,0,1,1,1
+RN,"Timbaúba dos Batistas",minimal,,true,1,1,0,1,0,1
+RN,"Touros",minimal,,true,1,1,0,1,1,1
+RN,"Triunfo Potiguar",minimal,,true,1,1,0,1,0,1
+RN,"Umarizal",minimal,,true,1,1,0,1,0,1
+RN,"Upanema",minimal,,true,1,1,0,1,0,1
+RN,"Várzea",minimal,,true,1,1,0,1,0,1
+RN,"Venha-Ver",minimal,,true,1,1,0,1,0,1
+RN,"Vera Cruz",minimal,,true,1,1,0,1,0,1
+RN,"Viçosa",minimal,,true,1,1,0,1,0,1
+RN,"Vila Flor",minimal,,true,1,1,0,1,1,1
+RN,"Bodó",minimal,,true,1,1,0,1,0,1
+RN,"Bom Jesus",minimal,,true,1,1,0,1,0,1
+RN,"Brejinho",minimal,,true,1,1,0,1,0,1
+RN,"Caiçara do Norte",minimal,,true,1,1,0,1,1,1
+RN,"Caiçara do Rio do Vento",minimal,,true,1,1,0,1,0,1
+RN,"Caicó",minimal,,true,1,1,0,1,0,1
+RN,"Campo Grande",minimal,,true,1,1,0,1,0,1
+RN,"Campo Redondo",minimal,,true,1,1,0,1,0,1
+RN,"Canguaretama",minimal,,true,1,1,0,1,1,1
+RN,"Ceará-Mirim",minimal,,true,1,1,0,1,1,1
+RN,"Cerro Corá",minimal,,true,1,1,0,1,0,1
+RN,"Coronel Ezequiel",minimal,,true,1,1,0,1,0,1
+RN,"Coronel João Pessoa",minimal,,true,1,1,0,1,0,1
+RN,"Doutor Severiano",minimal,,true,1,1,0,1,0,1
+RN,"Encanto",minimal,,true,1,1,0,1,0,1
+RN,"Espírito Santo",minimal,,true,1,1,0,1,0,1
+RN,"Extremoz",minimal,,true,1,1,0,1,1,1
+RN,"Felipe Guerra",minimal,,true,1,1,0,1,0,1
+RN,"Florânia",minimal,,true,1,1,0,1,0,1
+RN,"Francisco Dantas",minimal,,true,1,1,0,1,0,1
+RN,"Frutuoso Gomes",minimal,,true,1,1,0,1,0,1
+RN,"Galinhos",minimal,,true,1,1,0,1,1,1
+RN,"Goianinha",minimal,,true,1,1,0,1,0,1
+RN,"Grossos",minimal,,true,1,1,0,1,1,1
+RN,"Guamaré",minimal,30443,true,1,1,0,1,1,1
+RN,"Ielmo Marinho",minimal,,true,1,1,0,1,0,1
+RN,"Ipanguaçu",minimal,,true,1,1,0,1,0,1
+RN,"Ipueira",minimal,,true,1,1,0,1,0,1
+RN,"Itaú",minimal,,true,1,1,0,1,0,1
+RN,"Jaçanã",minimal,,true,1,1,0,1,0,1
+RN,"Jandaíra",minimal,,true,1,1,0,1,0,1
+RN,"Japi",minimal,,true,1,1,0,1,0,1
+RN,"Jardim de Angicos",minimal,,true,1,1,0,1,0,1
+RN,"Jardim do Seridó",minimal,,true,1,1,0,1,0,1
+SE,"Aracaju",partial,30825,true,48,48,0,48,6,48
+SE,"Nossa Senhora do Socorro",minimal,,true,37,37,0,37,0,37
+SE,"Barra dos Coqueiros",partial,30810,true,19,19,0,19,9,19
+SE,"Tobias Barreto",minimal,,true,18,18,0,18,0,18
+SE,"Itabaiana",minimal,,true,16,16,0,16,0,16
+SE,"São Cristóvão",minimal,,true,15,15,0,15,0,15
+SE,"Lagarto",minimal,,true,14,14,0,14,0,14
+SE,"Nossa Senhora da Glória",minimal,,true,13,13,0,13,0,13
+SE,"Estância",partial,,true,12,12,0,12,1,12
+SE,"Boquim",minimal,,true,10,10,0,10,0,10
+SE,"Capela",minimal,,true,4,4,0,4,0,4
+SE,"Gararu",minimal,,true,3,3,0,3,0,3
+SE,"Santo Amaro das Brotas",partial,,true,2,2,0,2,1,2
+SE,"Carira",minimal,,true,2,2,0,2,0,2
+SE,"Riachão do Dantas",minimal,,true,2,2,0,2,0,2
+SE,"Malhador",minimal,,true,1,1,0,1,0,1
+SE,"Maruim",minimal,,true,1,1,0,1,0,1
+SE,"Moita Bonita",minimal,,true,1,1,0,1,0,1
+SE,"Monte Alegre de Sergipe",minimal,,true,1,1,0,1,0,1
+SE,"Amparo do São Francisco",minimal,,true,1,1,0,1,0,1
+SE,"Neópolis",minimal,,true,1,1,0,1,0,1
+SE,"Nossa Senhora Aparecida",minimal,,true,1,1,0,1,0,1
+SE,"Nossa Senhora das Dores",minimal,,true,1,1,0,1,0,1
+SE,"Nossa Senhora de Lourdes",minimal,,true,1,1,0,1,0,1
+SE,"Pacatuba",minimal,,true,1,1,0,1,1,1
+SE,"Pedra Mole",minimal,,true,1,1,0,1,0,1
+SE,"Pedrinhas",minimal,,true,1,1,0,1,0,1
+SE,"Pinhão",minimal,,true,1,1,0,1,0,1
+SE,"Pirambu",minimal,,true,1,1,0,1,1,1
+SE,"Poço Redondo",minimal,,true,1,1,0,1,0,1
+SE,"Poço Verde",minimal,,true,1,1,0,1,0,1
+SE,"Porto da Folha",minimal,,true,1,1,0,1,0,1
+SE,"Propriá",minimal,,true,1,1,0,1,0,1
+SE,"Riachuelo",minimal,,true,1,1,0,1,0,1
+SE,"Ribeirópolis",minimal,,true,1,1,0,1,0,1
+SE,"Rosário do Catete",minimal,,true,1,1,0,1,0,1
+SE,"Salgado",minimal,,true,1,1,0,1,0,1
+SE,"Santa Luzia do Itanhy",minimal,,true,1,1,0,1,0,1
+SE,"Santa Rosa de Lima",minimal,,true,1,1,0,1,0,1
+SE,"Santana do São Francisco",minimal,,true,1,1,0,1,0,1
+SE,"Muribeca",minimal,,true,1,1,0,1,0,1
+SE,"Aquidabã",minimal,,true,1,1,0,1,0,1
+SE,"Arauá",minimal,,true,1,1,0,1,0,1
+SE,"Areia Branca",minimal,30407,true,1,1,0,1,0,1
+SE,"Brejo Grande",minimal,,true,1,1,0,1,1,1
+SE,"Campo do Brito",minimal,,true,1,1,0,1,0,1
+SE,"Canhoba",minimal,,true,1,1,0,1,0,1
+SE,"Canindé de São Francisco",minimal,,true,1,1,0,1,0,1
+SE,"Carmópolis",minimal,,true,1,1,0,1,0,1
+SE,"Cedro de São João",minimal,,true,1,1,0,1,0,1
+SE,"Cristinápolis",minimal,,true,1,1,0,1,0,1
+SE,"Cumbe",minimal,,true,1,1,0,1,0,1
+SE,"Divina Pastora",minimal,,true,1,1,0,1,0,1
+SE,"São Domingos",minimal,,true,1,1,0,1,0,1
+SE,"São Francisco",minimal,,true,1,1,0,1,0,1
+SE,"São Miguel do Aleixo",minimal,,true,1,1,0,1,0,1
+SE,"Simão Dias",minimal,,true,1,1,0,1,0,1
+SE,"Siriri",minimal,,true,1,1,0,1,0,1
+SE,"Telha",minimal,,true,1,1,0,1,0,1
+SE,"Tomar do Geru",minimal,,true,1,1,0,1,0,1
+SE,"Umbaúba",minimal,,true,1,1,0,1,0,1
+SE,"Feira Nova",minimal,,true,1,1,0,1,0,1
+SE,"Frei Paulo",minimal,,true,1,1,0,1,0,1
+SE,"General Maynard",minimal,,true,1,1,0,1,0,1
+SE,"Graccho Cardoso",minimal,,true,1,1,0,1,0,1
+SE,"Ilha das Flores",minimal,,true,1,1,0,1,0,1
+SE,"Indiaroba",minimal,,true,1,1,0,1,1,1
+SE,"Itabaianinha",minimal,,true,1,1,0,1,0,1
+SE,"Itabi",minimal,,true,1,1,0,1,0,1
+SE,"Itaporanga d'Ajuda",minimal,,true,1,1,0,1,1,1
+SE,"Japaratuba",minimal,,true,1,1,0,1,0,1
+SE,"Japoatã",minimal,,true,1,1,0,1,0,1
+SE,"Laranjeiras",minimal,,true,1,1,0,1,0,1
+SE,"Macambira",minimal,,true,1,1,0,1,0,1
+SE,"Malhada dos Bois",minimal,,true,1,1,0,1,0,1
