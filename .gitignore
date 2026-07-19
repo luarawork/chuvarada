@@ -58,6 +58,12 @@ next-env.d.ts
 /dados-brutos/srtm/srtm_bahia_ne.tif
 /dados-brutos/srtm/srtm_pernambuco.tif
 /dados-brutos/srtm/srtm_rn.tif
+/dados-brutos/srtm/srtm_alagoas.tif
+/dados-brutos/srtm/srtm_ceara.tif
+/dados-brutos/srtm/srtm_maranhao.tif
+/dados-brutos/srtm/srtm_paraiba.tif
+/dados-brutos/srtm/srtm_piaui.tif
+/dados-brutos/srtm/srtm_sergipe.tif
 
 # zips do IBGE e do S2ID já descompactados (redundantes com os arquivos versionados)
 /dados-brutos/ibge/*/*.zip
