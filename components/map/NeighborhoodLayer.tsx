@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON, Layer } from "leaflet";
 import { NEIGHBORHOOD_STYLES, NEIGHBORHOOD_HOVER_STYLE } from "@/lib/geojson";
-import type { Neighborhood, RiskLevel } from "@/types";
+import { hasRealName } from "@/lib/neighborhoodName";
+import type { City, Neighborhood, RiskLevel } from "@/types";
 
 const LEVEL_LABELS: Record<RiskLevel, string> = {
   normal: "normal",
@@ -15,6 +16,7 @@ interface NeighborhoodLayerProps {
   map: LeafletMap | null;
   neighborhoods: Neighborhood[];
   levelsById: Record<string, RiskLevel>;
+  citiesById: Record<string, City>;
   pulsingId?: string | null;
   onSelect: (neighborhood: Neighborhood) => void;
 }
@@ -23,6 +25,7 @@ export function NeighborhoodLayer({
   map,
   neighborhoods,
   levelsById,
+  citiesById,
   pulsingId,
   onSelect,
 }: NeighborhoodLayerProps) {
@@ -54,7 +57,10 @@ export function NeighborhoodLayer({
             if (!neighborhood) return;
 
             const level = levelsById[feature.properties.id] ?? "normal";
-            layerInstance.bindTooltip(`${feature.properties.name} — ${LEVEL_LABELS[level]}`);
+            const label = hasRealName(neighborhood)
+              ? neighborhood.name
+              : citiesById[neighborhood.city_id]?.name ?? neighborhood.name;
+            layerInstance.bindTooltip(`${label} — ${LEVEL_LABELS[level]}`);
 
             layerInstance.on("mouseover", () => {
               (layerInstance as Layer & { setStyle: (s: object) => void }).setStyle(
@@ -80,7 +86,7 @@ export function NeighborhoodLayer({
       layerRef.current?.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, neighborhoods, levelsById]);
+  }, [map, neighborhoods, levelsById, citiesById]);
 
   useEffect(() => {
     if (!pulsingId || !layerRef.current) return;

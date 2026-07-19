@@ -38,6 +38,7 @@ export default function HomePage() {
   const [showLocationBanner, setShowLocationBanner] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const citiesById = useMemo(() => Object.fromEntries(cities.map((c) => [c.id, c])), [cities]);
   const neighborhoodIds = useMemo(() => neighborhoods.map((n) => n.id), [neighborhoods]);
   const realtimeUpdates = useRealtime(neighborhoodIds);
   const { current: selectedCurrent, history: selectedHistory } = useRisk(selected?.id ?? null);
@@ -168,6 +169,7 @@ export default function HomePage() {
           map={map}
           neighborhoods={neighborhoods}
           levelsById={levelsById}
+          citiesById={citiesById}
           onSelect={setSelected}
         />
         <EmptyStateLayer map={map} cities={cities} neighborhoods={neighborhoods} />
@@ -197,7 +199,11 @@ export default function HomePage() {
                 }
               : null
           }
-          tideLevel={previewScore?.tide_level ?? null}
+          tideLevel={
+            previewScore && previewNeighborhood && citiesById[previewNeighborhood.city_id]?.tide_code != null
+              ? previewScore.tide_level
+              : null
+          }
           onClick={() => {
             if (previewNeighborhood) setSelected(previewNeighborhood);
           }}
@@ -251,6 +257,7 @@ export default function HomePage() {
       <DetailPanel
         neighborhood={selected}
         cityName={selectedCity?.name ?? ""}
+        hasTideStation={selectedCity?.tide_code != null}
         current={selectedCurrent}
         history={selectedHistory}
         onClose={() => setSelected(null)}

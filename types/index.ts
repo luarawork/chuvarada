@@ -1,6 +1,7 @@
 export type DataLevel = "full" | "partial" | "minimal";
 export type RiskLevel = "normal" | "attention" | "critical";
 export type PressureTrend = "falling" | "stable" | "rising";
+export type NameSource = "bairro" | "subdistrito" | "distrito" | "setor";
 
 export interface City {
   id: string;
@@ -22,6 +23,7 @@ export interface Neighborhood {
   terrain_slope: number;
   hydro_proximity: number;
   is_coastal: boolean;
+  name_source: NameSource | null;
   created_at: string;
 }
 

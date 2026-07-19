@@ -12,11 +12,13 @@ import { useForecast } from "@/hooks/useForecast";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
+import { hasRealName } from "@/lib/neighborhoodName";
 import type { Neighborhood, RiskScore } from "@/types";
 
 interface DetailPanelProps {
   neighborhood: Neighborhood | null;
   cityName: string;
+  hasTideStation: boolean;
   current: RiskScore | null;
   history: RiskScore[];
   onClose: () => void;
@@ -25,6 +27,7 @@ interface DetailPanelProps {
 export function DetailPanel({
   neighborhood,
   cityName,
+  hasTideStation,
   current,
   history,
   onClose,
@@ -88,7 +91,7 @@ export function DetailPanel({
           <div className="flex items-start justify-between">
             <div>
               <h2 className="font-heading text-xl font-bold text-brand-gray-urban">
-                {neighborhood.name}
+                {hasRealName(neighborhood) ? neighborhood.name : "Área sem denominação oficial"}
               </h2>
               <p className="text-sm text-brand-gray-urban/60">{cityName}</p>
             </div>
@@ -152,11 +155,12 @@ export function DetailPanel({
                   loading={forecastLoading}
                   neighborhood={neighborhood}
                   currentScore={current}
+                  hasTideStation={hasTideStation}
                 />
               </div>
 
               <div className="mt-5">
-                <ScoreBreakdown score={current} />
+                <ScoreBreakdown score={current} hasTideStation={hasTideStation} />
               </div>
 
               <div className="mt-5">
