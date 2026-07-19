@@ -55,7 +55,8 @@ function predictSlotScore(
   neighborhood: Pick<Neighborhood, "terrain_slope" | "hydro_proximity" | "is_coastal">,
   currentScore: RiskScore,
   slot: ForecastSlot,
-  rain72hSoFar: number
+  rain72hSoFar: number,
+  hasTideStation: boolean
 ) {
   const rainIntensity = slot.rain / 3;
   return calculateScore(
@@ -71,7 +72,7 @@ function predictSlotScore(
       pressure: slot.pressure,
       pressure_trend: "stable",
     },
-    currentScore.tide_level
+    hasTideStation ? currentScore.tide_level : null
   );
 }
 
@@ -80,9 +81,10 @@ interface ForecastStripProps {
   loading: boolean;
   neighborhood: Neighborhood;
   currentScore: RiskScore | null;
+  hasTideStation: boolean;
 }
 
-export function ForecastStrip({ forecast, loading, neighborhood, currentScore }: ForecastStripProps) {
+export function ForecastStrip({ forecast, loading, neighborhood, currentScore, hasTideStation }: ForecastStripProps) {
   let cumulativeRain = currentScore?.rain_72h ?? 0;
 
   return (
@@ -114,7 +116,7 @@ export function ForecastStrip({ forecast, loading, neighborhood, currentScore }:
           {forecast.next12h.map((slot) => {
             cumulativeRain += slot.rain;
             const predicted = currentScore
-              ? predictSlotScore(neighborhood, currentScore, slot, cumulativeRain)
+              ? predictSlotScore(neighborhood, currentScore, slot, cumulativeRain, hasTideStation)
               : null;
 
             return (

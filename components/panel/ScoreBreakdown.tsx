@@ -20,9 +20,10 @@ function terrainLabel(slope: number): string {
 
 interface ScoreBreakdownProps {
   score: RiskScore;
+  hasTideStation: boolean;
 }
 
-export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
+export function ScoreBreakdown({ score, hasTideStation }: ScoreBreakdownProps) {
   const rainIntensityNorm = Math.min(1, score.rain_intensity / 30);
   const rain1hNorm = Math.min(1, score.rain_1h / 50);
   const rain72hNorm = Math.min(1, score.rain_72h / 100);
@@ -63,13 +64,17 @@ export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
       normalized: score.hydro_proximity,
       infoKey: "hydroProximity",
     },
-    {
-      icon: <WaveIcon />,
-      label: "Maré",
-      valueLabel: `${(score.tide_level * 100).toFixed(0)}%`,
-      normalized: score.tide_level,
-      infoKey: "tide",
-    },
+    ...(hasTideStation
+      ? [
+          {
+            icon: <WaveIcon />,
+            label: "Maré",
+            valueLabel: `${(score.tide_level * 100).toFixed(0)}%`,
+            normalized: score.tide_level,
+            infoKey: "tide" as const,
+          },
+        ]
+      : []),
   ];
 
   return (

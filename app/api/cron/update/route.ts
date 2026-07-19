@@ -128,11 +128,17 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
     getWeatherForPoint(city.id, cell.lat, cell.lng)
   );
 
+  // tide_code null = sem estação de maré nas proximidades — a variável não
+  // entra no cálculo (peso redistribuído em lib/score.ts), em vez de usar o
+  // 0.5 "neutro" que getCurrentTideLevel devolve só pra manter o retorno
+  // numérico em outros usos (ex: armazenamento em risk_scores.tide_level).
+  const tideLevelForScore = city.tide_code ? tide.level : null;
+
   const scoredRows: ScoredRow[] = [];
   for (let i = 0; i < cells.length; i++) {
     const weather = weatherByCell[i];
     for (const neighborhood of cells[i].neighborhoods) {
-      const result = calculateScore(neighborhood, weather, tide.level);
+      const result = calculateScore(neighborhood, weather, tideLevelForScore);
       scoredRows.push({ neighborhood, weather, result });
     }
   }

@@ -43,7 +43,8 @@ const VARIABLES = [
     title: "Maré",
     weight: 0.08,
     description:
-      "Em cidades costeiras como Salvador e Recife, a maré alta reduz a capacidade de escoamento das águas pluviais para o mar. Usamos dados oficiais da Marinha do Brasil.",
+      "Em cidades costeiras como Salvador e Recife, a maré alta reduz a capacidade de escoamento das águas pluviais para o mar. Usamos dados oficiais da Marinha do Brasil. " +
+      "A variável de maré é considerada apenas em municípios com estação de monitoramento da Marinha do Brasil nas proximidades. Onde não há estação, o peso é redistribuído entre as demais variáveis.",
   },
 ];
 
