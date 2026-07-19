@@ -48,6 +48,17 @@ next-env.d.ts
 /dados-brutos/ana/geoft_bho_curso_dagua.gpkg
 /dados-brutos/ana/hydro_nordeste_clipped.geojson
 
+# SRTM estadual (BA/PE/RN inteiros) — passam de 100MB fácil (Bahia mesclada
+# dá ~900MB). Recriáveis via os comandos wget da tarefa de expansão estadual.
+# Os SRTM por cidade (salvador/recife/natal/etc, pequenos) continuam versionados.
+/dados-brutos/srtm/srtm_bahia.tif
+/dados-brutos/srtm/srtm_bahia_sw.tif
+/dados-brutos/srtm/srtm_bahia_se.tif
+/dados-brutos/srtm/srtm_bahia_nw.tif
+/dados-brutos/srtm/srtm_bahia_ne.tif
+/dados-brutos/srtm/srtm_pernambuco.tif
+/dados-brutos/srtm/srtm_rn.tif
+
 # zips do IBGE e do S2ID já descompactados (redundantes com os arquivos versionados)
 /dados-brutos/ibge/*/*.zip
 /dados-brutos/S2ID/*.zip

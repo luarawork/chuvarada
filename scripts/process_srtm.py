@@ -24,12 +24,19 @@ Uso: python scripts/process_srtm.py --input dados-brutos/srtm/srtm_salvador.tif 
 import argparse
 import json
 import os
+import warnings
 
 import numpy as np
 import geopandas as gpd
 import rasterio
 from rasterio.mask import mask
 from rasterio.warp import calculate_default_transform, reproject, Resampling
+
+# rasterio.read(window=...) aciona um DeprecationWarning de reshape do NumPy
+# 2.5 em toda leitura de janela — inofensivo (é assim que a lib recorta), só
+# some quando o rasterio atualizar. Silenciado aqui pra não afogar o log
+# quando processamos milhares de bairros em modo estadual.
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Bounding boxes aproximadas (min_lon, min_lat, max_lon, max_lat) das cidades foco.
 CITY_BOUNDS = {
@@ -108,21 +115,91 @@ def aggregate_by_neighborhood(
     return gdf
 
 
+def aggregate_by_neighborhood_windowed(dem_path: str, neighborhoods_geojson: str) -> gpd.GeoDataFrame:
+    """Igual a aggregate_by_neighborhood, mas pra estados inteiros: em vez de
+    carregar o DEM inteiro em memória de uma vez (Bahia inteira em float64
+    passaria de 9GB), lê uma janela pequena por bairro (bbox + margem pra não
+    cortar o gradiente na borda), calcula a declividade só ali, e descarta.
+    Mantém só uma janela pequena em memória por vez."""
+    gdf = gpd.read_file(neighborhoods_geojson)
+    values = []
+
+    with rasterio.open(dem_path) as src:
+        pixel_size_deg = src.transform[0]
+        pixel_size_m = pixel_size_deg * 111_320
+        margin_deg = pixel_size_deg * 2  # margem de 2px pro gradiente não cortar na borda
+
+        for geom in gdf.geometry:
+            try:
+                minx, miny, maxx, maxy = geom.bounds
+                window = rasterio.windows.from_bounds(
+                    minx - margin_deg, miny - margin_deg, maxx + margin_deg, maxy + margin_deg,
+                    transform=src.transform,
+                )
+                dem_window = src.read(1, window=window)
+                if dem_window.size == 0:
+                    values.append(0.5)
+                    continue
+
+                window_transform = src.window_transform(window)
+                gy, gx = np.gradient(dem_window.astype("float32"), pixel_size_m)
+                slope_rad = np.arctan(np.sqrt(gx**2 + gy**2))
+                slope_norm = normalize_slope(np.degrees(slope_rad))
+
+                from rasterio.io import MemoryFile
+
+                with MemoryFile() as memfile:
+                    with memfile.open(
+                        driver="GTiff",
+                        height=slope_norm.shape[0],
+                        width=slope_norm.shape[1],
+                        count=1,
+                        dtype=slope_norm.dtype,
+                        crs=src.crs,
+                        transform=window_transform,
+                    ) as dataset:
+                        dataset.write(slope_norm, 1)
+                        out_image, _ = mask(dataset, [geom], crop=True)
+                        valid = out_image[out_image > 0]
+                        values.append(float(valid.mean()) if valid.size else 0.5)
+            except (ValueError, IndexError):
+                values.append(0.5)  # geometria fora do raster ou janela vazia
+
+    gdf["terrain_slope"] = values
+    return gdf
+
+
 def main():
     parser = argparse.ArgumentParser(description="Processa SRTM em declividade normalizada por bairro")
     parser.add_argument("--input", required=True, help="Caminho do .tif do SRTM")
-    parser.add_argument("--city", required=True, choices=CITY_BOUNDS.keys())
+    parser.add_argument("--city", choices=CITY_BOUNDS.keys(), help="Cidade específica (usa CITY_BOUNDS)")
+    parser.add_argument(
+        "--state",
+        help="Processa um estado inteiro (janela por bairro em vez de carregar o DEM inteiro em memória)",
+    )
     parser.add_argument(
         "--neighborhoods",
-        help="GeoJSON de bairros da cidade (gerado por process_neighborhoods.py) para agregação",
+        help="GeoJSON de bairros da cidade/estado (gerado por process_neighborhoods.py ou "
+        "process_state_neighborhoods.py) para agregação",
     )
     parser.add_argument("--output-dir", default="public/geojson")
     args = parser.parse_args()
 
-    bounds = CITY_BOUNDS[args.city]
-    slope_deg, transform, profile = compute_slope(args.input, bounds)
+    if not args.city and not args.state:
+        raise SystemExit("Especifique --city ou --state")
 
     os.makedirs(args.output_dir, exist_ok=True)
+
+    if args.state:
+        if not args.neighborhoods:
+            raise SystemExit("--neighborhoods é obrigatório com --state")
+        gdf = aggregate_by_neighborhood_windowed(args.input, args.neighborhoods)
+        gdf.to_file(args.neighborhoods, driver="GeoJSON")
+        print(f"terrain_slope atualizado (modo estadual, janela por bairro) em -> {args.neighborhoods}")
+        return
+
+    bounds = CITY_BOUNDS[args.city]
+    slope_deg, transform, profile = compute_slope(args.input, bounds)
 
     if args.neighborhoods:
         # Atualiza terrain_slope in-place no mesmo GeoJSON de bairros usado
