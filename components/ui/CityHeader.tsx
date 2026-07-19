@@ -22,14 +22,19 @@ function timeAgo(iso: string | null): string {
 
 export function CityHeader({ cityName, level, updatedAt }: CityHeaderProps) {
   return (
-    <div className="pointer-events-auto absolute left-4 top-4 z-[1000] rounded-2xl bg-brand-blue-deep/90 px-4 py-3 shadow-lg backdrop-blur-sm">
+    <div
+      className="pointer-events-auto absolute left-4 top-4 z-[1000] rounded-2xl border px-4 py-3 shadow-lg backdrop-blur"
+      style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+    >
       <div className="flex items-center gap-2">
-        <h1 className="font-heading text-lg font-bold text-white">
+        <h1 className="font-heading text-lg font-bold" style={{ color: "#f0f4f8" }}>
           {cityName ?? "Nordeste"}
         </h1>
         <RiskBadge level={level} />
       </div>
-      <p className="mt-0.5 text-xs text-brand-blue-light">{timeAgo(updatedAt)}</p>
+      <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+        {timeAgo(updatedAt)}
+      </p>
     </div>
   );
 }
