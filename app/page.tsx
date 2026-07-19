@@ -219,19 +219,27 @@ export default function HomePage() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="pointer-events-auto absolute bottom-60 left-4 right-4 z-[1050] flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-xl md:bottom-20 md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
+            className="pointer-events-auto absolute bottom-60 left-4 right-4 z-[1050] flex items-center justify-between gap-3 rounded-xl border px-4 py-3 shadow-xl backdrop-blur md:bottom-20 md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
+            style={{
+              backgroundColor: "rgba(13, 27, 42, 0.95)",
+              borderColor: "rgba(46, 125, 184, 0.3)",
+            }}
           >
-            <span className="text-sm text-brand-gray-urban">Ver risco na minha localização</span>
-            <div className="flex gap-2">
+            <span className="text-sm" style={{ color: "#f0f4f8" }}>
+              Ver risco na minha localização
+            </span>
+            <div className="flex shrink-0 gap-2">
               <button
                 onClick={() => setShowLocationBanner(false)}
-                className="rounded-full px-3 py-1.5 text-xs text-brand-gray-urban/60 hover:bg-brand-gray-light"
+                className="rounded-lg px-3 py-1.5 text-xs transition hover:text-[#f0f4f8]"
+                style={{ color: "#a8d4f0" }}
               >
                 Agora não
               </button>
               <button
                 onClick={handleLocationRequest}
-                className="rounded-full bg-brand-blue-mid px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-blue-deep"
+                className="rounded-lg border px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1a3a5c]"
+                style={{ backgroundColor: "#2e7db8", borderColor: "#2e7db8" }}
               >
                 Permitir
               </button>
