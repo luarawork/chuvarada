@@ -1,0 +1,1290 @@
+[
+  {
+    "name": "Abaiara",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Acarape",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Acaraú",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Acopiara",
+    "state_code": "CE",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aiuaba",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alcântaras",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Altaneira",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alto Santo",
+    "state_code": "CE",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Amontada",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antonina do Norte",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Apuiarés",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aquiraz",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aracati",
+    "state_code": "CE",
+    "neighborhood_count": 16,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aracoiaba",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ararendá",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araripe",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aratuba",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arneiroz",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Assaré",
+    "state_code": "CE",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aurora",
+    "state_code": "CE",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Baixio",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Banabuiú",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barbalha",
+    "state_code": "CE",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barreira",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barro",
+    "state_code": "CE",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barroquinha",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Baturité",
+    "state_code": "CE",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Beberibe",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bela Cruz",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Viagem",
+    "state_code": "CE",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Brejo Santo",
+    "state_code": "CE",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Camocim",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos Sales",
+    "state_code": "CE",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canindé",
+    "state_code": "CE",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Capistrano",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caridade",
+    "state_code": "CE",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caririaçu",
+    "state_code": "CE",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cariré",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cariús",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Carnaubal",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cascavel",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catarina",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catunda",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caucaia",
+    "state_code": "CE",
+    "neighborhood_count": 63,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cedro",
+    "state_code": "CE",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Chaval",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chorozinho",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Choró",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coreaú",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Crateús",
+    "state_code": "CE",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Crato",
+    "state_code": "CE",
+    "neighborhood_count": 40,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Croatá",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cruz",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Deputado Irapuan Pinheiro",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ereré",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Eusébio",
+    "state_code": "CE",
+    "neighborhood_count": 24,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Farias Brito",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Forquilha",
+    "state_code": "CE",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Fortaleza",
+    "state_code": "CE",
+    "neighborhood_count": 121,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Fortim",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frecheirinha",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "General Sampaio",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Granja",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Granjeiro",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Graça",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Groaíras",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaiúba",
+    "state_code": "CE",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaraciaba do Norte",
+    "state_code": "CE",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaramiranga",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Hidrolândia",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Horizonte",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibaretama",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ibiapina",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ibicuitinga",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Icapuí",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Icó",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iguatu",
+    "state_code": "CE",
+    "neighborhood_count": 50,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Independência",
+    "state_code": "CE",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipaporanga",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipaumirim",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipu",
+    "state_code": "CE",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipueiras",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iracema",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Irauçuba",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaitinga",
+    "state_code": "CE",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaiçaba",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapajé",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapipoca",
+    "state_code": "CE",
+    "neighborhood_count": 34,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapiúna",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itarema",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatira",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguaretama",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguaribara",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaguaribe",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguaruana",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jardim",
+    "state_code": "CE",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jati",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jijoca de Jericoacoara",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juazeiro do Norte",
+    "state_code": "CE",
+    "neighborhood_count": 46,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jucás",
+    "state_code": "CE",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lavras da Mangabeira",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Limoeiro do Norte",
+    "state_code": "CE",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Madalena",
+    "state_code": "CE",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Maracanaú",
+    "state_code": "CE",
+    "neighborhood_count": 46,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Maranguape",
+    "state_code": "CE",
+    "neighborhood_count": 36,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Marco",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Martinópole",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Massapê",
+    "state_code": "CE",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mauriti",
+    "state_code": "CE",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Meruoca",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Milagres",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Milhã",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miraíma",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Missão Velha",
+    "state_code": "CE",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mombaça",
+    "state_code": "CE",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Monsenhor Tabosa",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Morada Nova",
+    "state_code": "CE",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Moraújo",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morrinhos",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mucambo",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mulungu",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Olinda",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Russas",
+    "state_code": "CE",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Oriente",
+    "state_code": "CE",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ocara",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Orós",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacajus",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacatuba",
+    "state_code": "CE",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pacoti",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacujá",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Palhano",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Palmácia",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paracuru",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraipaba",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Parambu",
+    "state_code": "CE",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paramoti",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pedra Branca",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Penaforte",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pentecoste",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pereiro",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pindoretama",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piquet Carneiro",
+    "state_code": "CE",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pires Ferreira",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poranga",
+    "state_code": "CE",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Porteiras",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Potengi",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Potiretama",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Quiterianópolis",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Quixadá",
+    "state_code": "CE",
+    "neighborhood_count": 34,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Quixelô",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quixeramobim",
+    "state_code": "CE",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quixeré",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Redenção",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Reriutaba",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Russas",
+    "state_code": "CE",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Saboeiro",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salitre",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Quitéria",
+    "state_code": "CE",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santana do Acaraú",
+    "state_code": "CE",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santana do Cariri",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Pompeu",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Sá",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sobral",
+    "state_code": "CE",
+    "neighborhood_count": 52,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Solonópole",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Benedito",
+    "state_code": "CE",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Gonçalo do Amarante",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Jaguaribe",
+    "state_code": "CE",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Luís do Curu",
+    "state_code": "CE",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tabuleiro do Norte",
+    "state_code": "CE",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tamboril",
+    "state_code": "CE",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tarrafas",
+    "state_code": "CE",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tauá",
+    "state_code": "CE",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tejuçuoca",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tianguá",
+    "state_code": "CE",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Trairi",
+    "state_code": "CE",
+    "neighborhood_count": 20,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tururu",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubajara",
+    "state_code": "CE",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Umari",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Umirim",
+    "state_code": "CE",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uruburetama",
+    "state_code": "CE",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uruoca",
+    "state_code": "CE",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Varjota",
+    "state_code": "CE",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viçosa do Ceará",
+    "state_code": "CE",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Várzea Alegre",
+    "state_code": "CE",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

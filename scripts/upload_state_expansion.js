@@ -1,14 +1,15 @@
-// Expansão de cobertura: registra os municípios NOVOS de BA/PE/RN inteiros
-// (além das capitais que já existem) na tabela `cities`, e sobe os bairros
-// (ou distrito/setor, quando o município não tem bairro nomeado) de cada um
-// pra `neighborhoods`.
+// Expansão de cobertura: registra os municípios NOVOS dos 9 estados do
+// Nordeste inteiros (além das capitais que já existem) na tabela `cities`,
+// e sobe os bairros (ou distrito/setor, quando o município não tem bairro
+// nomeado) de cada um pra `neighborhoods`.
 //
-// Município que já existe em `cities` (Salvador, Recife, Natal — já
-// processados via o pipeline por cidade original) é IGNORADO por completo
+// Município que já existe em `cities` (as 9 capitais — Salvador, Recife,
+// Natal, Fortaleza, Maceió, Aracaju, João Pessoa, São Luís, Teresina — já
+// processadas via o pipeline por cidade original) é IGNORADO por completo
 // aqui: não mexe nos bairros dele. O dissolve deste pipeline estadual é
 // ligeiramente diferente do pipeline por cidade original (aqui inclui
 // setores sem NM_BAIRRO via fallback pra distrito/setor), então re-subir
-// esses 3 pelo caminho novo trocaria nomes/contagem de bairro e o
+// essas capitais pelo caminho novo trocaria nomes/contagem de bairro e o
 // upsert-por-nome do upload_neighborhoods.js entenderia como bairros
 // "removidos" — apagando o risk_scores/risk_events histórico deles.
 //
@@ -23,6 +24,12 @@ const STATE_FILES = {
   ba: { geojson: "neighborhoods_state_ba.geojson", manifest: "state_ba_municipios.json" },
   pe: { geojson: "neighborhoods_state_pe.geojson", manifest: "state_pe_municipios.json" },
   rn: { geojson: "neighborhoods_state_rn.geojson", manifest: "state_rn_municipios.json" },
+  al: { geojson: "neighborhoods_state_al.geojson", manifest: "state_al_municipios.json" },
+  ce: { geojson: "neighborhoods_state_ce.geojson", manifest: "state_ce_municipios.json" },
+  ma: { geojson: "neighborhoods_state_ma.geojson", manifest: "state_ma_municipios.json" },
+  pb: { geojson: "neighborhoods_state_pb.geojson", manifest: "state_pb_municipios.json" },
+  pi: { geojson: "neighborhoods_state_pi.geojson", manifest: "state_pi_municipios.json" },
+  se: { geojson: "neighborhoods_state_se.geojson", manifest: "state_se_municipios.json" },
 };
 
 // Estações de maré do CPTEC verificadas manualmente em
@@ -40,6 +47,14 @@ const TIDE_CODE_OVERRIDES = {
   "Areia Branca": "30407", // Porto de Areia Branca-Termisa-RN
   Guamaré: "30443", // Porto de Guamaré-RN
   Macau: "30445", // Porto de Macau-RN
+  Cabedelo: "30540", // Porto de Cabedelo-PB
+  "Tutóia": "30140", // Porto de Tutóia-MA
+  "Luís Correia": "30225", // Porto de Luís Correia-PI
+  "Barra dos Coqueiros": "30810", // Terminal Marítimo Inácio Barbosa-SE
+  "São Gonçalo do Amarante": "30337", // Terminal Portuário de Pecém-CE
+  // Itaqui (30110), Terminal da Alumar (30114) e Ponta da Madeira (30149)
+  // também aparecem na lista do CPTEC, mas os 3 ficam dentro do território
+  // de São Luís (cidade já cadastrada) — não há município novo pra atribuir.
 };
 
 function computeDataLevel(municipio) {
