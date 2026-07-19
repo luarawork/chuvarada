@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { InfoButton } from "@/components/ui/InfoButton";
+import { RainIcon, WaveIcon } from "@/components/ui/WeatherIcons";
 import { METRIC_INFO, type MetricInfoKey } from "@/lib/metricInfo";
 import type { RiskScore } from "@/types";
 
 interface Row {
-  emoji: string;
+  icon: ReactNode;
   label: string;
   valueLabel: string;
   normalized: number;
@@ -27,42 +29,42 @@ export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
 
   const rows: Row[] = [
     {
-      emoji: "🌧",
+      icon: <RainIcon />,
       label: "Intensidade da chuva",
       valueLabel: `${score.rain_intensity.toFixed(1)}mm/h`,
       normalized: rainIntensityNorm,
       infoKey: "rainIntensity",
     },
     {
-      emoji: "🌧",
+      icon: <RainIcon />,
       label: "Chuva última hora",
       valueLabel: `${score.rain_1h.toFixed(1)}mm`,
       normalized: rain1hNorm,
       infoKey: "rain1h",
     },
     {
-      emoji: "🌧",
+      icon: <RainIcon />,
       label: "Chuva 72h",
       valueLabel: `${score.rain_72h.toFixed(1)}mm`,
       normalized: rain72hNorm,
       infoKey: "rain72h",
     },
     {
-      emoji: "⛰",
+      icon: <span className="text-sm">⛰</span>,
       label: `Terreno (${terrainLabel(score.terrain_slope)})`,
       valueLabel: "",
       normalized: score.terrain_slope,
       infoKey: "terrain",
     },
     {
-      emoji: "🏞",
+      icon: <span className="text-sm">🏞</span>,
       label: "Proximidade hídrica",
       valueLabel: "",
       normalized: score.hydro_proximity,
       infoKey: "hydroProximity",
     },
     {
-      emoji: "🌊",
+      icon: <WaveIcon />,
       label: "Maré",
       valueLabel: `${(score.tide_level * 100).toFixed(0)}%`,
       normalized: score.tide_level,
@@ -76,7 +78,7 @@ export function ScoreBreakdown({ score }: ScoreBreakdownProps) {
         <div key={row.label}>
           <div className="flex items-center justify-between text-sm text-brand-gray-urban">
             <span className="flex items-center gap-1.5">
-              {row.emoji} {row.label}
+              {row.icon} {row.label}
               {row.valueLabel && <span className="text-brand-gray-urban/60">{row.valueLabel}</span>}
               <InfoButton
                 title={METRIC_INFO[row.infoKey].title}
