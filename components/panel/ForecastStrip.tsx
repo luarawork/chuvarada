@@ -3,22 +3,43 @@ import { METRIC_INFO } from "@/lib/metricInfo";
 import { calculateScore } from "@/lib/score";
 import type { ForecastResult, ForecastSlot, Neighborhood, RiskScore } from "@/types";
 
-const ICON_EMOJI: Record<string, string> = {
-  "01": "☀️",
-  "02": "🌤",
-  "03": "☁️",
-  "04": "☁️",
-  "09": "🌧",
-  "10": "🌦",
-  "11": "⛈",
-  "13": "❄️",
-  "50": "🌫",
+// Códigos de condição do tempo são WMO (weather_code da Open-Meteo), não
+// mais os códigos de ícone da OpenWeatherMap.
+const ICON_EMOJI: Record<number, string> = {
+  0: "☀️",
+  1: "🌤",
+  2: "⛅",
+  3: "☁️",
+  45: "🌫",
+  48: "🌫",
+  51: "🌦",
+  53: "🌦",
+  55: "🌦",
+  56: "🌦",
+  57: "🌦",
+  61: "🌧",
+  63: "🌧",
+  65: "🌧",
+  66: "🌧",
+  67: "🌧",
+  71: "❄️",
+  73: "❄️",
+  75: "❄️",
+  77: "❄️",
+  80: "🌦",
+  81: "🌧",
+  82: "🌧",
+  85: "❄️",
+  86: "❄️",
+  95: "⛈",
+  96: "⛈",
+  99: "⛈",
 };
 
 const LEVEL_EMOJI = { normal: "🟢", attention: "🟡", critical: "🔴" };
 
 function emojiForIcon(icon: string): string {
-  return ICON_EMOJI[icon.slice(0, 2)] ?? "🌡";
+  return ICON_EMOJI[Number(icon)] ?? "🌡";
 }
 
 function formatHour(iso: string): string {

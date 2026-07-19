@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getWeatherForPoint } from "@/lib/openweathermap";
+import { getWeatherForPoint } from "@/lib/weather";
 
 export async function GET(req: NextRequest) {
   const cityId = req.nextUrl.searchParams.get("cityId");

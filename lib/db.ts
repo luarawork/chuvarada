@@ -13,7 +13,11 @@ export function getDb(): Pool {
     if (!connectionString) {
       throw new Error("SUPABASE_CONNECTION_STRING não definida");
     }
-    pool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
+    // max maior que o default (10) porque o cron agora processa cidades em
+    // paralelo (~1800 cidades ativas desde a expansão pro Nordeste inteiro) —
+    // com o default, a concorrência do cron ficava presa esperando conexão
+    // livre em vez de aproveitar o paralelismo de fato.
+    pool = new Pool({ connectionString, ssl: { rejectUnauthorized: false }, max: 15 });
   }
   return pool;
 }

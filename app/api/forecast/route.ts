@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchForecastDisplay } from "@/lib/openweathermap";
+import { fetchForecastDisplay } from "@/lib/weather";
 
 // Previsão do tempo (atual + próximas ~12h) pro painel de detalhe do bairro.
 // Não passa por cache/tabela — só usado quando o usuário abre um bairro.

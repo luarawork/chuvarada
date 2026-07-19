@@ -5,7 +5,7 @@ const SOURCES = [
   { name: "ANA — rede hidrográfica nacional", url: "https://www.snirh.gov.br" },
   { name: "NASA SRTM — altimetria do terreno", url: "https://www.earthdata.nasa.gov" },
   { name: "IBGE — malha de bairros", url: "https://www.ibge.gov.br" },
-  { name: "OpenWeatherMap — clima em tempo real", url: "https://openweathermap.org" },
+  { name: "Open-Meteo — clima em tempo real e histórico", url: "https://open-meteo.com" },
   { name: "Prefeitura do Recife — hidrografia municipal", url: "https://dados.recife.pe.gov.br" },
   { name: "Codevasf — bacias hidrográficas do RN", url: "https://www.codevasf.gov.br" },
 ];

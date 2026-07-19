@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as turf from "@turf/turf";
 import { getServerSupabase } from "@/lib/supabase";
 import { calculateScore } from "@/lib/score";
-import { getWeatherForPoint } from "@/lib/openweathermap";
+import { getWeatherForPoint } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import type { City, Neighborhood } from "@/types";
 
