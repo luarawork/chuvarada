@@ -69,6 +69,10 @@ next-env.d.ts
 /dados-brutos/ibge/*/*.zip
 /dados-brutos/S2ID/*.zip
 
+# ZIPs anuais do INMET (Brasil inteiro, ~80-100MB cada) — só os CSVs das 3
+# estações (Salvador/Recife/Natal) já extraídos ficam versionados.
+/dados-brutos/inmet/*.zip
+
 # cache de bytecode Python
 __pycache__/
 *.pyc

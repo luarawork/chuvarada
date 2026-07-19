@@ -1,0 +1,277 @@
+[
+  {
+    "city_name": "Natal",
+    "date": "2022-07-02",
+    "precipitation_mm": 57.8
+  },
+  {
+    "city_name": "Natal",
+    "date": "2022-07-03",
+    "precipitation_mm": 161.8
+  },
+  {
+    "city_name": "Natal",
+    "date": "2022-07-08",
+    "precipitation_mm": 61.2
+  },
+  {
+    "city_name": "Natal",
+    "date": "2023-03-29",
+    "precipitation_mm": 69.2
+  },
+  {
+    "city_name": "Natal",
+    "date": "2023-04-09",
+    "precipitation_mm": 51.0
+  },
+  {
+    "city_name": "Natal",
+    "date": "2023-07-18",
+    "precipitation_mm": 50.2
+  },
+  {
+    "city_name": "Natal",
+    "date": "2023-08-19",
+    "precipitation_mm": 63.6
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-02-06",
+    "precipitation_mm": 65.0
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-03-14",
+    "precipitation_mm": 90.2
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-03-16",
+    "precipitation_mm": 51.0
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-06-18",
+    "precipitation_mm": 134.6
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-06-20",
+    "precipitation_mm": 51.6
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-06-21",
+    "precipitation_mm": 54.6
+  },
+  {
+    "city_name": "Natal",
+    "date": "2025-08-15",
+    "precipitation_mm": 86.8
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-02-15",
+    "precipitation_mm": 59.6
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-03-01",
+    "precipitation_mm": 57.0
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-03-28",
+    "precipitation_mm": 50.8
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-04-10",
+    "precipitation_mm": 81.2
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-04-11",
+    "precipitation_mm": 146.4
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-05-04",
+    "precipitation_mm": 66.0
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-05-13",
+    "precipitation_mm": 146.4
+  },
+  {
+    "city_name": "Recife",
+    "date": "2021-05-14",
+    "precipitation_mm": 65.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-01-15",
+    "precipitation_mm": 82.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-04-09",
+    "precipitation_mm": 50.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-10-22",
+    "precipitation_mm": 91.4
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-11-06",
+    "precipitation_mm": 51.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-11-14",
+    "precipitation_mm": 72.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-12-05",
+    "precipitation_mm": 56.8
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-12-09",
+    "precipitation_mm": 85.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2021-12-25",
+    "precipitation_mm": 74.2
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2022-03-04",
+    "precipitation_mm": 52.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2022-03-16",
+    "precipitation_mm": 83.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2022-04-17",
+    "precipitation_mm": 52.8
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2022-04-18",
+    "precipitation_mm": 119.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2023-04-24",
+    "precipitation_mm": 56.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2023-12-20",
+    "precipitation_mm": 52.4
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-01-27",
+    "precipitation_mm": 115.8
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-02-09",
+    "precipitation_mm": 67.2
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-02-11",
+    "precipitation_mm": 72.8
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-04-02",
+    "precipitation_mm": 111.2
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-04-08",
+    "precipitation_mm": 160.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-04-16",
+    "precipitation_mm": 67.8
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-04-22",
+    "precipitation_mm": 60.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-04-24",
+    "precipitation_mm": 63.0
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-05-06",
+    "precipitation_mm": 58.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-11-11",
+    "precipitation_mm": 64.4
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-11-25",
+    "precipitation_mm": 53.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-11-26",
+    "precipitation_mm": 65.2
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2024-11-27",
+    "precipitation_mm": 81.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-05-06",
+    "precipitation_mm": 92.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-05-08",
+    "precipitation_mm": 63.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-07-06",
+    "precipitation_mm": 59.2
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-08-31",
+    "precipitation_mm": 62.6
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-11-12",
+    "precipitation_mm": 106.4
+  },
+  {
+    "city_name": "Salvador",
+    "date": "2025-11-20",
+    "precipitation_mm": 97.0
+  }
+]
