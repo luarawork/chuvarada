@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chuvarada 🌧️
 
-## Getting Started
+Mapa de risco de alagamento em tempo real para o Nordeste brasileiro.
+Civic tech com personalidade — confiável mas humano.
 
-First, run the development server:
+## O que é
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades do Nordeste. Atualizado a cada 20 minutos. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
+
+O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo. Cidades do Nordeste brasileiro, com infraestrutura de drenagem historicamente subdimensionada, não foram projetadas para esse regime de chuva mais extremo. O Chuvarada tenta preencher o vão entre os alertas oficiais (por cidade ou região) e a pergunta real do cidadão: meu bairro está em risco agora?
+
+## Cobertura atual
+
+| Métrica | Valor |
+|---|---|
+| Estados | 9 (todo o Nordeste) |
+| Municípios | 1.794 (100% dos municípios IBGE) |
+| Bairros/distritos | 7.117 |
+| Com score calculado | 99,6% |
+| Municípios costeiros com dado de maré | 91 de 171 (53%) |
+
+## Como funciona
+
+O modelo calcula um score de 0 a 1 para cada bairro, combinando 6 variáveis:
+
+| Variável | Peso | Fonte |
+|---|---:|---|
+| Pico de chuva nas últimas 3h | 25% | Open-Meteo |
+| Chuva na última hora | 20% | Open-Meteo |
+| Chuva acumulada em 72h | 20% | Open-Meteo |
+| Declividade do terreno | 15% | NASA SRTM |
+| Proximidade de rios/canais | 12% | ANA/BHO + hidrografia local |
+| Nível de maré | 8% | Marinha do Brasil via CPTEC |
+
+Níveis de risco:
+- 🟢 Normal: score < 0,30
+- 🟡 Atenção: score 0,30 – 0,60
+- 🔴 Crítico: score > 0,60
+
+Além do score, 3 regras disparam nível crítico automaticamente:
+- Chuva > 50mm na última hora
+- Maré alta (>80%) + chuva em zona costeira
+- Solo saturado (>100mm/72h) + qualquer chuva nova
+
+Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré é redistribuído proporcionalmente entre as demais variáveis.
+
+## Stack
+
+| Camada | Tecnologia |
+|---|---|
+| Frontend | Next.js 14 + TypeScript + Tailwind CSS |
+| Mapa | Leaflet.js + OpenStreetMap (CartoDB Dark Matter) |
+| Banco | Supabase (PostgreSQL + Auth + Realtime) |
+| Clima | Open-Meteo (histórico observado real, sem chave de API) |
+| Maré | CPTEC/INPE (scraping da tábua oficial da Marinha do Brasil) |
+| Pré-processamento | Python (geopandas, rasterio, shapely, pyogrio) |
+| PWA | next-pwa |
+
+## Fontes de dados
+
+| Fonte | Órgão | O que fornece |
+|---|---|---|
+| SRTM | NASA / OpenTopography | Altimetria do terreno |
+| BHO | ANA | Rede hidrográfica nacional |
+| Setores censitários | IBGE | Malha de bairros/distritos |
+| Tábua de marés | Marinha do Brasil via CPTEC | Nível de maré por estação |
+| Clima em tempo real | Open-Meteo | Precipitação, vento, umidade, pressão |
+| Hidrografia do Recife | Prefeitura do Recife | Refinamento local de hidrografia |
+| Hidrografia da PB | AESA | Rede hídrica da Paraíba |
+| Hidrografia de SE | SERhidro/SEMAC | Rede hídrica de Sergipe |
+| Bairros de Aracaju | MapAju / Prefeitura de Aracaju | Geometria oficial de bairros |
+
+## Rodando localmente
+
+Pré-requisitos:
+- Node.js e npm
+- Projeto Supabase com as migrações aplicadas (scripts/sql/001 a 012)
+- Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
+
+Variáveis de ambiente (.env.local):
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_DB_PASSWORD=
+SUPABASE_CONNECTION_STRING=
+CRON_SECRET=
+WEATHER_CACHE_ONLY=false
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instalar e rodar:
+```bash
+npm install
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Forçar o cron manualmente:
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da Open-Meteo.
 
-## Learn More
+## Documentação
 
-To learn more about Next.js, take a look at the following resources:
+- [RELATORIO_COMPLETO.md](RELATORIO_COMPLETO.md) — histórico completo do projeto, decisões, dificuldades e fontes
+- [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model
+- `/como-funciona` — explicação do modelo em linguagem acessível (dentro do app)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Posicionamento
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+O Chuvarada complementa a informação pública, colocando dados abertos do governo nas mãos do cidadão comum. Não é crítica ao poder público — é parceria.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Construído com transparência: o app explica o modelo, admite as limitações (sem dados de bueiros ou galerias pluviais), e diferencia visualmente bairros com nome oficial de distritos administrativos usados como aproximação.
