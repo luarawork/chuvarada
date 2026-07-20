@@ -8,7 +8,9 @@
        C 112 250 159 180 256 72
        Z"
     fill="#2e7db8"
+    stroke="#a8d4f0"
+    stroke-width="8"
   />
-  <rect x="234" y="196" width="44" height="150" rx="22" fill="#1a3a5c"/>
-  <circle cx="256" cy="384" r="27" fill="#1a3a5c"/>
+  <rect x="234" y="196" width="44" height="150" rx="22" fill="#ffffff"/>
+  <circle cx="256" cy="384" r="27" fill="#ffffff"/>
 </svg>
