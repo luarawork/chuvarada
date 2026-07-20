@@ -66,6 +66,7 @@ function predictSlotScore(
       rain_3h: slot.rain,
       rain_72h: rain72hSoFar,
       rain_intensity: rainIntensity,
+      rain_peak_3h: rainIntensity,
       wind_speed: slot.wind_speed,
       wind_direction: 0,
       humidity: slot.humidity,

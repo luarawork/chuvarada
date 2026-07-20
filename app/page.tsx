@@ -191,6 +191,7 @@ export default function HomePage() {
                   rain_3h: previewScore.rain_1h,
                   rain_72h: previewScore.rain_72h,
                   rain_intensity: previewScore.rain_intensity,
+                  rain_peak_3h: previewScore.rain_peak_3h,
                   wind_speed: previewScore.wind_speed,
                   wind_direction: previewScore.wind_direction,
                   humidity: previewScore.humidity,

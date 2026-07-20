@@ -1,7 +1,7 @@
 import type { Neighborhood, NormalizedWeather, RiskLevel, ScoreResult } from "@/types";
 
 const WEIGHTS = {
-  rain_intensity: 0.25,
+  rain_peak_3h: 0.25,
   rain_1h: 0.2,
   rain_72h: 0.2,
   terrain_slope: 0.15,
@@ -17,7 +17,7 @@ const WEIGHTS = {
 const WEIGHT_WITHOUT_TIDE = (() => {
   const remaining = 1 - WEIGHTS.tide_level;
   return {
-    rain_intensity: WEIGHTS.rain_intensity / remaining,
+    rain_peak_3h: WEIGHTS.rain_peak_3h / remaining,
     rain_1h: WEIGHTS.rain_1h / remaining,
     rain_72h: WEIGHTS.rain_72h / remaining,
     terrain_slope: WEIGHTS.terrain_slope / remaining,
@@ -48,7 +48,7 @@ export function calculateScore(
   const weights = hasTide ? WEIGHTS : WEIGHT_WITHOUT_TIDE;
 
   const breakdown = {
-    rain_intensity: normalizeLinear(weather.rain_intensity, 10, 30),
+    rain_peak_3h: normalizeLinear(weather.rain_peak_3h, 10, 30),
     rain_1h: normalizeLinear(weather.rain_1h, 25, 50),
     rain_72h: normalizeLinear(weather.rain_72h, 50, 100),
     terrain_slope: neighborhood.terrain_slope,
@@ -57,7 +57,7 @@ export function calculateScore(
   };
 
   let score =
-    breakdown.rain_intensity * weights.rain_intensity +
+    breakdown.rain_peak_3h * weights.rain_peak_3h +
     breakdown.rain_1h * weights.rain_1h +
     breakdown.rain_72h * weights.rain_72h +
     breakdown.terrain_slope * weights.terrain_slope +

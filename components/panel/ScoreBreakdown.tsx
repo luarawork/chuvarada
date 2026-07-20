@@ -24,16 +24,16 @@ interface ScoreBreakdownProps {
 }
 
 export function ScoreBreakdown({ score, hasTideStation }: ScoreBreakdownProps) {
-  const rainIntensityNorm = Math.min(1, score.rain_intensity / 30);
+  const rainPeak3hNorm = Math.min(1, score.rain_peak_3h / 30);
   const rain1hNorm = Math.min(1, score.rain_1h / 50);
   const rain72hNorm = Math.min(1, score.rain_72h / 100);
 
   const rows: Row[] = [
     {
       icon: <RainIcon />,
-      label: "Intensidade da chuva",
-      valueLabel: `${score.rain_intensity.toFixed(1)}mm/h`,
-      normalized: rainIntensityNorm,
+      label: "Pico de chuva (3h)",
+      valueLabel: `${score.rain_peak_3h.toFixed(1)}mm/h`,
+      normalized: rainPeak3hNorm,
       infoKey: "rainIntensity",
     },
     {

@@ -2,9 +2,9 @@
 // mesmo tom direto e humano da página /como-funciona, sem jargão técnico.
 export const METRIC_INFO = {
   rainIntensity: {
-    title: "Intensidade da chuva",
+    title: "Pico de chuva (3h)",
     description:
-      "Quanto está chovendo agora, em milímetros por hora. Uma chuva forte concentrada em pouco tempo pesa mais no risco do que a mesma quantidade espalhada ao longo do dia.",
+      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas agora. Um pico forte que já passou ainda conta, porque uma chuva forte concentrada em pouco tempo pesa mais no risco do que a mesma quantidade espalhada ao longo do dia.",
   },
   rain1h: {
     title: "Chuva na última hora",

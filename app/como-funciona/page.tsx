@@ -6,10 +6,10 @@ import { SourcesList } from "@/components/how-it-works/SourcesList";
 const VARIABLES = [
   {
     emoji: "🌧",
-    title: "Intensidade da chuva",
+    title: "Pico de chuva (3h)",
     weight: 0.25,
     description:
-      "Quanto está chovendo agora, em milímetros por hora. Uma chuva de 30mm/h em 1 hora causa muito mais impacto do que 30mm em 6 horas.",
+      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas o instante atual. Um pico forte de 30mm/h que já passou ainda pesa no risco, porque picos de chuva forte costumam durar menos que os 20 minutos entre atualizações do mapa.",
   },
   {
     emoji: "🌧",

@@ -119,6 +119,24 @@ function sumPrecipitation(data: OpenMeteoResponse, nowMs: number, hoursBack: num
   return total;
 }
 
+// rain_1h/rain_intensity só capturavam o valor exato da hora em que o cron
+// rodava — um pico de chuva forte que dura menos que os 20 minutos entre
+// execuções nunca aparecia (achado do diagnóstico do mapa "todo verde" do
+// fim de semana de 18-19/07/2026: rain_72h real passava de 50mm em vários
+// bairros, mas rain_1h/rain_intensity ficavam em 0 porque não estava
+// chovendo no exato instante da leitura). Pega o MAIOR valor horário das
+// últimas 3h em vez do valor pontual — captura o pico mesmo que já tenha
+// passado dentro dessa janela.
+function peakPrecipitation(data: OpenMeteoResponse, nowMs: number, hoursBack: number): number {
+  const cutoff = nowMs - hoursBack * 3600 * 1000;
+  let peak = 0;
+  for (let i = 0; i < data.hourly.time.length; i++) {
+    const t = Date.parse(`${data.hourly.time[i]}Z`);
+    if (t <= nowMs && t > cutoff) peak = Math.max(peak, data.hourly.precipitation[i] ?? 0);
+  }
+  return peak;
+}
+
 function pressureTrend(current: number, previous: number | null): PressureTrend {
   if (previous === null) return "stable";
   const delta = current - previous;
@@ -185,6 +203,7 @@ export async function getWeatherForPoint(
         rain_3h: cached.rain_1h, // aproximação: cache não guarda rain_3h separado
         rain_72h: cached.rain_72h,
         rain_intensity: cached.rain_intensity,
+        rain_peak_3h: cached.rain_peak_3h,
         wind_speed: cached.wind_speed,
         wind_direction: cached.wind_direction,
         humidity: cached.humidity,
@@ -201,12 +220,14 @@ export async function getWeatherForPoint(
   const rain3h = sumPrecipitation(data, nowMs, 3);
   const rain72h = sumPrecipitation(data, nowMs, 72);
   const rainIntensity = Math.max(rain1h, rain3h / 3);
+  const rainPeak3h = peakPrecipitation(data, nowMs, 3);
 
   const normalized: NormalizedWeather = {
     rain_1h: rain1h,
     rain_3h: rain3h,
     rain_72h: rain72h,
     rain_intensity: rainIntensity,
+    rain_peak_3h: rainPeak3h,
     wind_speed: data.current.wind_speed_10m,
     wind_direction: data.current.wind_direction_10m,
     humidity: data.current.relative_humidity_2m,
@@ -226,8 +247,8 @@ export async function saveWeatherCache(
 ): Promise<void> {
   const db = getDb();
   await db.query(
-    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, wind_speed, wind_direction, humidity, pressure)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, wind_speed, wind_direction, humidity, pressure)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
     [
       cityId,
       lat,
@@ -235,6 +256,7 @@ export async function saveWeatherCache(
       data.rain_1h,
       data.rain_72h,
       data.rain_intensity,
+      data.rain_peak_3h,
       data.wind_speed,
       data.wind_direction,
       data.humidity,
