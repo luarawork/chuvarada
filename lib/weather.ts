@@ -4,6 +4,12 @@ import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, We
 
 const CACHE_TTL_MINUTES = 20;
 
+// Em dev/teste, força uso do cache mesmo expirado em vez de sempre buscar
+// dado novo — evita esgotar a cota diária gratuita do Open-Meteo rodando o
+// cron repetidas vezes durante desenvolvimento (foi exatamente isso que
+// esgotou a cota no fim de semana de 18-19/07/2026).
+const WEATHER_CACHE_ONLY = process.env.WEATHER_CACHE_ONLY === "true";
+
 // Open-Meteo (https://open-meteo.com) — gratuita, sem chave de API, e ao
 // contrário da OpenWeatherMap free tier tem um parâmetro `past_days` que
 // devolve chuva REALMENTE OBSERVADA nas últimas horas, não só previsão.
@@ -85,6 +91,45 @@ async function throttleOpenMeteo(): Promise<void> {
   if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
 }
 
+// Foi o que realmente esgotou a cota gratuita do Open-Meteo no fim de
+// semana de 18-19/07/2026: o cron rodou ~1794 cidades repetidas vezes
+// (cada rodada completa bate em ~2500+ células únicas) sem nenhum teto
+// próprio, só descobrindo o esgotamento quando a API já retornava 429 de
+// cota diária (indistinguível por status code de um rate-limit transitório
+// — o backoff exponencial existente não ajuda em nada contra uma cota que
+// só reseta no dia seguinte). Esse contador é uma trava própria, separada
+// da cota da API: para de tentar chamadas novas bem antes de bater na cota
+// real, e avisa no log em vez de só falhar silenciosamente depois de
+// esgotar todas as tentativas de retry.
+const MAX_CALLS_PER_HOUR = 500;
+let callTimestamps: number[] = [];
+let rateLimitWarned = false;
+
+export class RateLimitExceededError extends Error {
+  constructor() {
+    super(`Limite interno de ${MAX_CALLS_PER_HOUR} chamadas/hora ao Open-Meteo atingido`);
+    this.name = "RateLimitExceededError";
+  }
+}
+
+function checkHourlyRateLimit(): void {
+  const now = Date.now();
+  const oneHourAgo = now - 3600_000;
+  callTimestamps = callTimestamps.filter((t) => t > oneHourAgo);
+  if (callTimestamps.length >= MAX_CALLS_PER_HOUR) {
+    if (!rateLimitWarned) {
+      console.warn(
+        `[weather] Limite de ${MAX_CALLS_PER_HOUR} chamadas/hora ao Open-Meteo atingido — ` +
+          `pausando novas chamadas até a janela de 1h liberar (usando cache onde disponível).`
+      );
+      rateLimitWarned = true;
+    }
+    throw new RateLimitExceededError();
+  }
+  rateLimitWarned = false;
+  callTimestamps.push(now);
+}
+
 async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoResponse> {
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}` +
@@ -93,6 +138,7 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
     `&past_days=3&forecast_days=2&timezone=UTC`;
 
   for (let attempt = 0; attempt <= 5; attempt++) {
+    checkHourlyRateLimit();
     await throttleOpenMeteo();
     const res = await fetch(url);
     if (res.ok) return res.json();
@@ -137,6 +183,21 @@ function peakPrecipitation(data: OpenMeteoResponse, nowMs: number, hoursBack: nu
   return peak;
 }
 
+function weatherFromCache(cached: WeatherCache): NormalizedWeather {
+  return {
+    rain_1h: cached.rain_1h,
+    rain_3h: cached.rain_1h, // aproximação: cache não guarda rain_3h separado
+    rain_72h: cached.rain_72h,
+    rain_intensity: cached.rain_intensity,
+    rain_peak_3h: cached.rain_peak_3h,
+    wind_speed: cached.wind_speed,
+    wind_direction: cached.wind_direction,
+    humidity: cached.humidity,
+    pressure: cached.pressure,
+    pressure_trend: pressureTrend(cached.pressure, null),
+  };
+}
+
 function pressureTrend(current: number, previous: number | null): PressureTrend {
   if (previous === null) return "stable";
   const delta = current - previous;
@@ -145,11 +206,44 @@ function pressureTrend(current: number, previous: number | null): PressureTrend 
   return "stable";
 }
 
+// Cache em memória do processo pra previsão exibida no painel — antes essa
+// função ia direto pro Open-Meteo em toda abertura de bairro, sem nenhum
+// cache (só o cron passava por weather_cache). Bairros reabertos repetidas
+// vezes em dev/teste dentro da mesma janela de 20min agora reaproveitam o
+// resultado, e uma falha (cota esgotada ou limite interno) cai pro último
+// resultado bom em vez de quebrar o painel.
+interface CachedForecast {
+  data: ForecastResult;
+  fetchedAt: number;
+}
+const forecastMemCache = new Map<string, CachedForecast>();
+
 // Previsão pra exibir no painel do bairro: condição atual + próximas 12h. A
 // API já dá dado horário de verdade (diferente da OWM free, que só tinha
 // passos de 3h e exigia interpolar) — nenhuma estimativa aqui.
 export async function fetchForecastDisplay(lat: number, lng: number): Promise<ForecastResult> {
-  const data = await fetchOpenMeteo(lat, lng);
+  const cell = gridCell(lat, lng);
+  const cacheKey = `${cell.lat},${cell.lng}`;
+  const cachedEntry = forecastMemCache.get(cacheKey);
+  const ageMinutes = cachedEntry ? (Date.now() - cachedEntry.fetchedAt) / 60000 : Infinity;
+
+  if (cachedEntry && (WEATHER_CACHE_ONLY || ageMinutes < CACHE_TTL_MINUTES)) {
+    return cachedEntry.data;
+  }
+
+  let data: OpenMeteoResponse;
+  try {
+    data = await fetchOpenMeteo(cell.lat, cell.lng);
+  } catch (err) {
+    if (cachedEntry) {
+      console.warn(
+        `[weather] Falha ao buscar previsão nova (${(err as Error).message}) — ` +
+          `usando cache expirado (${Math.round(ageMinutes)}min)`
+      );
+      return cachedEntry.data;
+    }
+    throw err;
+  }
   const nowMs = Date.parse(`${data.current.time}Z`);
 
   const currentSlot: ForecastSlot = {
@@ -180,7 +274,9 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
       pressure: Math.round(data.hourly.surface_pressure[index]),
     }));
 
-  return { current: currentSlot, next12h };
+  const result: ForecastResult = { current: currentSlot, next12h };
+  forecastMemCache.set(cacheKey, { data: result, fetchedAt: Date.now() });
+  return result;
 }
 
 // Busca o clima pra um ponto específico (não pra cidade inteira). Bairros
@@ -197,46 +293,48 @@ export async function getWeatherForPoint(
   const cached = await getCachedWeather(cityId, cell.lat, cell.lng);
   if (cached) {
     const ageMinutes = (Date.now() - new Date(cached.fetched_at).getTime()) / 60000;
-    if (ageMinutes < CACHE_TTL_MINUTES) {
-      return {
-        rain_1h: cached.rain_1h,
-        rain_3h: cached.rain_1h, // aproximação: cache não guarda rain_3h separado
-        rain_72h: cached.rain_72h,
-        rain_intensity: cached.rain_intensity,
-        rain_peak_3h: cached.rain_peak_3h,
-        wind_speed: cached.wind_speed,
-        wind_direction: cached.wind_direction,
-        humidity: cached.humidity,
-        pressure: cached.pressure,
-        pressure_trend: pressureTrend(cached.pressure, null),
-      };
+    if (WEATHER_CACHE_ONLY || ageMinutes < CACHE_TTL_MINUTES) {
+      return weatherFromCache(cached);
     }
   }
 
-  const data = await fetchOpenMeteo(cell.lat, cell.lng);
-  const nowMs = Date.parse(`${data.current.time}Z`);
+  try {
+    const data = await fetchOpenMeteo(cell.lat, cell.lng);
+    const nowMs = Date.parse(`${data.current.time}Z`);
 
-  const rain1h = data.current.precipitation ?? 0;
-  const rain3h = sumPrecipitation(data, nowMs, 3);
-  const rain72h = sumPrecipitation(data, nowMs, 72);
-  const rainIntensity = Math.max(rain1h, rain3h / 3);
-  const rainPeak3h = peakPrecipitation(data, nowMs, 3);
+    const rain1h = data.current.precipitation ?? 0;
+    const rain3h = sumPrecipitation(data, nowMs, 3);
+    const rain72h = sumPrecipitation(data, nowMs, 72);
+    const rainIntensity = Math.max(rain1h, rain3h / 3);
+    const rainPeak3h = peakPrecipitation(data, nowMs, 3);
 
-  const normalized: NormalizedWeather = {
-    rain_1h: rain1h,
-    rain_3h: rain3h,
-    rain_72h: rain72h,
-    rain_intensity: rainIntensity,
-    rain_peak_3h: rainPeak3h,
-    wind_speed: data.current.wind_speed_10m,
-    wind_direction: data.current.wind_direction_10m,
-    humidity: data.current.relative_humidity_2m,
-    pressure: data.current.surface_pressure,
-    pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
-  };
+    const normalized: NormalizedWeather = {
+      rain_1h: rain1h,
+      rain_3h: rain3h,
+      rain_72h: rain72h,
+      rain_intensity: rainIntensity,
+      rain_peak_3h: rainPeak3h,
+      wind_speed: data.current.wind_speed_10m,
+      wind_direction: data.current.wind_direction_10m,
+      humidity: data.current.relative_humidity_2m,
+      pressure: data.current.surface_pressure,
+      pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
+    };
 
-  await saveWeatherCache(cityId, cell.lat, cell.lng, normalized);
-  return normalized;
+    await saveWeatherCache(cityId, cell.lat, cell.lng, normalized);
+    return normalized;
+  } catch (err) {
+    // Cota diária esgotada (429) ou limite interno de chamadas/hora: usa o
+    // cache expirado em vez de derrubar o bairro inteiro, se houver algo.
+    if (cached) {
+      console.warn(
+        `[weather] Falha ao buscar clima novo pra ${cityId} (${(err as Error).message}) — ` +
+          `usando cache expirado (${Math.round((Date.now() - new Date(cached.fetched_at).getTime()) / 60000)}min)`
+      );
+      return weatherFromCache(cached);
+    }
+    throw err;
+  }
 }
 
 export async function saveWeatherCache(
