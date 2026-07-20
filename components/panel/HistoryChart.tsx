@@ -28,9 +28,9 @@ export function HistoryChart({ history }: HistoryChartProps) {
     <div className="h-40 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-          <ReferenceArea y1={0} y2={0.4} fill="#2a9d72" fillOpacity={0.08} />
-          <ReferenceArea y1={0.4} y2={0.7} fill="#f0a500" fillOpacity={0.08} />
-          <ReferenceArea y1={0.7} y2={1} fill="#d64045" fillOpacity={0.08} />
+          <ReferenceArea y1={0} y2={0.3} fill="#2a9d72" fillOpacity={0.08} />
+          <ReferenceArea y1={0.3} y2={0.6} fill="#f0a500" fillOpacity={0.08} />
+          <ReferenceArea y1={0.6} y2={1} fill="#d64045" fillOpacity={0.08} />
           <XAxis dataKey="time" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
           <YAxis domain={[0, 1]} tick={{ fontSize: 10 }} />
           <Tooltip

@@ -33,9 +33,14 @@ function normalizeLinear(value: number, mid: number, max: number): number {
   return 0.5 + ((value - mid) / (max - mid)) * 0.5;
 }
 
+// Limiares recalibrados em 2026-07-20 (achado do diagnóstico do fim de
+// semana 18-19/07): um evento real de chuva em Recife, com rain_72h de
+// 56,74mm no bairro de maior risco (Nova Descoberta), gerou score 0,380 —
+// abaixo do limiar antigo de 0,4 pra "atenção". Os limiares de 0,4/0,7
+// estavam conservadores demais pra esse tipo de evento real.
 function levelFromScore(score: number): RiskLevel {
-  if (score < 0.4) return "normal";
-  if (score < 0.7) return "attention";
+  if (score < 0.3) return "normal";
+  if (score < 0.6) return "attention";
   return "critical";
 }
 

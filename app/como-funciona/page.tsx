@@ -97,15 +97,15 @@ export default function ComoFuncionaPage() {
 
           <div className="mt-6 space-y-2 text-sm">
             <p className="rounded-xl bg-brand-green-water/10 px-4 py-3 text-brand-green-water">
-              🟢 <strong>Normal (0.0 – 0.4):</strong> Condições seguras. Monitore se houver chuva
+              🟢 <strong>Normal (0.0 – 0.3):</strong> Condições seguras. Monitore se houver chuva
               prevista.
             </p>
             <p className="rounded-xl bg-brand-yellow-warn/10 px-4 py-3 text-brand-yellow-warn">
-              🟡 <strong>Atenção (0.4 – 0.7):</strong> Risco moderado. Evite áreas conhecidas por
+              🟡 <strong>Atenção (0.3 – 0.6):</strong> Risco moderado. Evite áreas conhecidas por
               alagamento.
             </p>
             <p className="rounded-xl bg-brand-red-alert/10 px-4 py-3 text-brand-red-alert">
-              🔴 <strong>Crítico (0.7 – 1.0):</strong> Risco alto. Evite áreas alagáveis e fique em
+              🔴 <strong>Crítico (0.6 – 1.0):</strong> Risco alto. Evite áreas alagáveis e fique em
               local seguro.
             </p>
           </div>
