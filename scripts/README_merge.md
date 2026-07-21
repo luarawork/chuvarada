@@ -90,6 +90,24 @@ Nada de manual — o sistema já foi desenhado pra isso:
   integração está ativa: `select rain_source, count(*) from weather_cache
   where fetched_at > now() - interval '1 hour' group by rain_source;`
 
+## Lock de escrita (`system_locks`)
+
+Este script grava uma linha em `system_locks` (key='merge_cache_write')
+antes de começar o lote de upserts em `merge_cache`, e apaga essa linha no
+`finally` (mesmo se a gravação falhar no meio). Enquanto o lock existe e
+tem menos de 30 minutos, `lib/merge.ts` trata `merge_cache` como
+indisponível e cai pro fallback normal (Open-Meteo) em vez de arriscar ler
+metade das células já atualizadas e metade não — ver
+`scripts/sql/018_system_locks.sql`.
+
+Motivação: o `merge-and-scores-update.yml` já sequencia o cron de scores
+pra rodar só depois deste script terminar quando os dois são disparados
+juntos pela mesma Action, mas o app pode ter *outro* agendador nativo
+disparando `/api/cron/update` no seu próprio horário (Vercel/Netlify/
+agendador interno — ver `lib/internalScheduler.ts`), sem nenhuma relação
+com esta Action. O lock protege contra esse caso também, não só contra
+execuções manuais concorrentes deste script.
+
 ## Riscos conhecidos (ver proposta completa para mais detalhes)
 
 - O CPTEC pode mudar a estrutura de pastas/nomes de arquivo sem aviso — é um

@@ -35,11 +35,46 @@ function snapToGrid(value: number, origin: number): number {
   return Math.round(snapped * 10000) / 10000;
 }
 
+// Acima disso, um lock de escrita em system_locks é considerado travado
+// (processo morreu no meio sem liberar) e passa a ser ignorado -- ver
+// scripts/fetch_merge_cptec.py, que grava/apaga esse lock.
+const LOCK_MAX_AGE_MINUTES = 30;
+
+// Evita 1 query em system_locks por célula consultada (getMergeData roda
+// uma vez por bairro/grupo de bairros a cada ciclo de cron -- na expansão
+// nacional isso chegaria a milhares de chamadas por hora). O lock só muda
+// de estado umas poucas vezes por hora, então um cache curto em memória do
+// processo já elimina quase toda essa repetição sem atrasar a detecção.
+const LOCK_CHECK_CACHE_MS = 30_000;
+let lockCache: { checkedAt: number; locked: boolean } | null = null;
+
+// merge_cache está sendo escrito agora (fetch_merge_cptec.py rodando) --
+// ver comentário acima de getMergeData sobre por que isso importa: ler no
+// meio de um lote de ~31.500 upserts mistura célula já atualizada com
+// célula ainda não tocada nessa mesma rodada (foi exatamente isso que
+// causou o incidente de Natal, 21/07/2026).
+async function isMergeCacheWriting(): Promise<boolean> {
+  if (lockCache && Date.now() - lockCache.checkedAt < LOCK_CHECK_CACHE_MS) {
+    return lockCache.locked;
+  }
+
+  const db = getDb();
+  const { rows } = await db.query(`select locked_at from system_locks where key = 'merge_cache_write'`);
+  const lockRow = rows[0];
+  const locked = !!lockRow && (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000 < LOCK_MAX_AGE_MINUTES;
+
+  lockCache = { checkedAt: Date.now(), locked };
+  return locked;
+}
+
 // Busca o dado de precipitação mais recente do MERGE/CPTEC pra célula de
 // grade (~10km) mais próxima do ponto pedido. Retorna null se não houver
-// nenhuma leitura, ou se a mais recente já estiver velha demais (>6h) —
-// nesses casos quem chama deve cair pro fallback da Open-Meteo.
+// nenhuma leitura, se a mais recente já estiver velha demais (>6h), ou se
+// merge_cache estiver sendo escrito agora (lock ativo) -- nesses casos
+// quem chama deve cair pro fallback da Open-Meteo.
 export async function getMergeData(lat: number, lng: number): Promise<MergeData | null> {
+  if (await isMergeCacheWriting()) return null;
+
   const gridLat = snapToGrid(lat, MERGE_GRID_ORIGIN_LAT);
   const gridLng = snapToGrid(lng, MERGE_GRID_ORIGIN_LON);
 

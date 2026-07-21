@@ -244,6 +244,17 @@ def save_rows(rows: list[dict]) -> int:
 
     inserted = 0
     try:
+        # Lock de escrita -- sinaliza pro cron Node.js (lib/merge.ts) que
+        # merge_cache está sendo gravado agora, pra ele não ler uma célula
+        # já atualizada e outra ainda não nessa mesma rodada (ver
+        # scripts/sql/018_system_locks.sql e o incidente de Natal,
+        # 21/07/2026, que motivou isso). Liberado no finally mesmo se a
+        # gravação falhar no meio.
+        conn.run(
+            "insert into system_locks (key, locked_at, locked_by) values ('merge_cache_write', now(), 'fetch_merge_cptec') "
+            "on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by"
+        )
+
         # Insert em lote (1 round-trip de rede por lote, não 1 por célula) —
         # com ~31 mil células no bbox do Nordeste, inserir linha a linha
         # levaria dezenas de minutos só em latência de rede até o Supabase.
@@ -281,6 +292,7 @@ def save_rows(rows: list[dict]) -> int:
         # pg8000.native.Connection já faz autocommit por statement (sem
         # transação explícita) — não existe/precisa de conn.commit() aqui.
     finally:
+        conn.run("delete from system_locks where key = 'merge_cache_write'")
         conn.close()
     return inserted
 
