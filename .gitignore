@@ -78,6 +78,15 @@ next-env.d.ts
 
 # zips do IBGE e do S2ID já descompactados (redundantes com os arquivos versionados)
 /dados-brutos/ibge/*/*.zip
+
+# Shapefiles de setores censitários do IBGE que passam do limite de 100MB do
+# GitHub em pelo menos um arquivo (MG_setores.shp 155MB, SC_setores.shp
+# 110MB, SP_setores.shp 132MB + SP_setores.dbf 218MB) — PR/RJ/RS/ES ficam
+# todos abaixo do limite e continuam versionados normalmente. Recriáveis via
+# os comandos de download da tarefa de expansão Sul+Sudeste.
+/dados-brutos/ibge/mg/
+/dados-brutos/ibge/sc/
+/dados-brutos/ibge/sp/
 /dados-brutos/S2ID/*.zip
 
 # ZIPs anuais do INMET (Brasil inteiro, ~80-100MB cada) — só os CSVs das 3
