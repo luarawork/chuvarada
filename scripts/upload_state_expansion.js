@@ -79,6 +79,27 @@ const TIDE_CODE_OVERRIDES = {
   // de barra/canal do mesmo porto -- 60132 é a estação do porto em si)
   Florianópolis: "60245", // Porto de Florianópolis-SC
   "Rio Grande": "60370", // Porto do Rio Grande-RS
+
+  // Rechecagem completa do catálogo Sul+Sudeste (diagnóstico de cobertura,
+  // 21/07/2026) -- 12 estações adicionais confirmadas por pesquisa (nome do
+  // porto/terminal nem sempre é o nome do município). Aplicadas direto via
+  // UPDATE no banco (municípios já existiam); registradas aqui só como fonte
+  // de verdade documentada -- não têm efeito num re-upload (município já
+  // existente é pulado, ver loop principal acima).
+  Aracruz: "40240", // Terminal de Barra do Riacho-ES
+  Anchieta: "40280", // Terminal da Ponta do Ubu-ES (Samarco)
+  Macaé: "50116", // Terminal Marítimo de Imbetiba-RJ
+  Itaguaí: "50145", // Porto de Itaguaí-RJ
+  "Arraial do Cabo": "50156", // Porto do Forno-RJ
+  Mangaratiba: "50165", // Terminal da Ilha Guaíba-RJ (Vale)
+  "Angra dos Reis": "50170", // Porto de Angra dos Reis-RJ
+  "São Sebastião": "50210", // Porto de São Sebastião-SP
+  Antonina: "60139", // Terminal Portuário da Ponta do Félix-PR
+  "São Francisco do Sul": "60220", // Porto de São Francisco do Sul-SC
+  Itajaí: "60235", // Porto de Itajaí-SC
+  Imbituba: "60250", // Porto de Imbituba-SC
+  // Porto do Tubarão-ES (40255) fica dentro do território de Vitória (já
+  // tem código, 40252) -- sem município novo pra atribuir.
 };
 
 function computeDataLevel(municipio) {
