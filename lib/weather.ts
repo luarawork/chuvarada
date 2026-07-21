@@ -164,16 +164,27 @@ async function throttleOpenMeteo(): Promise<void> {
 // real, e avisa no log em vez de só falhar silenciosamente depois de
 // esgotar todas as tentativas de retry.
 //
-// Trocado de um teto "por hora" (500) pra um teto "por dia" (9.500):
+// Trocado de um teto "por hora" (500) pra um teto "por dia" (9.200):
 // investigação de scripts/relatorio_testes_pos_correcao.md (Médio 5) achou
 // que o gargalo real do Open-Meteo não é a taxa por hora (o plano gratuito
 // permite 5.000/h — 10x o antigo limite interno), é a cota diária real de
 // 10.000/dia, com HTTP 429 "Daily API request limit exceeded" de verdade
-// quando estourada. Um teto "por hora" de 500 chamadas, sustentado 24h,
-// já somava 12.000/dia — 20% acima da cota real — mesmo sem nenhuma
-// elevação. 9.500/dia deixa ~500 de margem pras chamadas extras de
+// quando estourada. 9.200/dia deixa ~800 de margem pras chamadas extras de
 // fetchForecastDisplay (previsão exibida no painel de bairro).
-const MAX_CALLS_PER_DAY = 9500;
+//
+// Atenção -- este teto continua sendo só um backstop de segurança, não uma
+// garantia de que o consumo real cabe embaixo dele: mesmo com as 3
+// otimizações de arquitetura (Opções 1-3, ver route.ts e as funções logo
+// abaixo), a projeção medida em regime permanente pro Nordeste sozinho
+// ficou em ~15.700 chamadas/dia -- acima até deste teto reduzido. Isso
+// acontece porque, ao contrário do esperado, dias com MAIS chuva geram
+// MAIS células passando no gatilho de "MERGE mostra chuva significativa"
+// (mergeShowsSignificantRain), exigindo refresh a cada ciclo -- ou seja, o
+// consumo sobe justamente nos dias em que o produto mais precisa estar
+// certo. Este teto seguirá acionando fallback de cache em boa parte dos
+// dias até uma redução adicional (grade mais grossa, ou plano pago) ser
+// decidida.
+const MAX_CALLS_PER_DAY = 9200;
 const WARN_AT_PERCENT = 0.8;
 const WARN_THRESHOLD = Math.floor(MAX_CALLS_PER_DAY * WARN_AT_PERCENT);
 
@@ -221,6 +232,38 @@ function checkDailyRateLimit(): void {
     );
     warned80 = true;
   }
+}
+
+// Opções 2+3 do plano de otimização pra expansão nacional: só chama a
+// Open-Meteo quando realmente precisa, em vez de todo ciclo pra toda
+// célula. Implementadas juntas porque uma depende da outra pra ser segura
+// -- a Opção 2 sozinha (só pular quando o MERGE não mostra chuva) não tem
+// nenhum teto de tempo, então uma célula parada num período seco há
+// semanas nunca atualizaria vento/umidade/pressão/rain_1h; a Opção 3
+// sozinha (só o teto de 24h) ainda deixaria o sistema cego a chuva nova
+// por até 24h se não checasse o MERGE a cada ciclo. Juntas: reaproveita o
+// cache enquanto (a) ele tiver menos de 24h E (b) o MERGE -- que já
+// atualiza de graça, 1x/hora, independente da Open-Meteo -- não mostrar
+// chuva significativa na célula. Sem MERGE disponível, busca sempre, por
+// segurança (nunca deixa um bairro sem dado por causa desta otimização).
+const SECONDARY_VARS_MAX_AGE_HOURS = 24;
+const SIGNIFICANT_RAIN_72H_MM = 10;
+const SIGNIFICANT_RAIN_PEAK_3H_MM = 2;
+
+export function mergeShowsSignificantRain(merge: MergeData | null): boolean {
+  if (!merge) return true;
+  return merge.rain_72h > SIGNIFICANT_RAIN_72H_MM || merge.rain_peak_3h > SIGNIFICANT_RAIN_PEAK_3H_MM;
+}
+
+// Reconstrói o resultado a partir do cache existente (vento/umidade/
+// pressão/rain_1h) combinado com o MERGE mais recente pra rain_72h/
+// rain_peak_3h -- mesma lógica já usada como fallback de erro logo abaixo,
+// promovida aqui a caminho normal quando decidimos não chamar a Open-Meteo.
+function buildFromCacheAndMerge(cached: WeatherCache, merge: MergeData | null): NormalizedWeather {
+  const fromCache = weatherFromCache(cached);
+  if (!merge) return fromCache;
+  const best = getBestRainData(merge, { rain_72h: fromCache.rain_72h, rain_peak_3h: fromCache.rain_peak_3h });
+  return { ...fromCache, rain_72h: best.rain_72h, rain_peak_3h: best.rain_peak_3h, rain_source: best.rain_source };
 }
 
 async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoResponse> {
@@ -412,6 +455,18 @@ export async function getWeatherForPoint(
     console.warn(`[weather] Falha ao consultar merge_cache pra ${cityId}: ${(mergeErr as Error).message} — usando Open-Meteo`);
   }
 
+  // Opções 2+3 (ver comentário acima de mergeShowsSignificantRain): com
+  // cache disponível e ainda dentro do teto de 24h, só vale a pena gastar
+  // uma chamada à Open-Meteo se o MERGE indicar chuva -- fora isso, vento/
+  // umidade/pressão/rain_1h dificilmente mudaram o bastante pra justificar
+  // o custo, e rain_72h/rain_peak_3h já vêm atualizados pelo MERGE de graça.
+  if (cached) {
+    const cacheAgeHours = (Date.now() - new Date(cached.fetched_at).getTime()) / 3_600_000;
+    if (cacheAgeHours <= SECONDARY_VARS_MAX_AGE_HOURS && !mergeShowsSignificantRain(merge)) {
+      return buildFromCacheAndMerge(cached, merge);
+    }
+  }
+
   try {
     const data = await fetchOpenMeteo(cell.lat, cell.lng);
     const nowMs = Date.parse(`${data.current.time}Z`);
@@ -454,12 +509,7 @@ export async function getWeatherForPoint(
         `[weather] Falha ao buscar clima novo pra ${cityId} (${(err as Error).message}) — ` +
           `usando cache expirado (${Math.round((Date.now() - new Date(cached.fetched_at).getTime()) / 60000)}min)`
       );
-      const fromCache = weatherFromCache(cached);
-      if (merge) {
-        const best = getBestRainData(merge, { rain_72h: fromCache.rain_72h, rain_peak_3h: fromCache.rain_peak_3h });
-        return { ...fromCache, rain_72h: best.rain_72h, rain_peak_3h: best.rain_peak_3h, rain_source: best.rain_source };
-      }
-      return fromCache;
+      return buildFromCacheAndMerge(cached, merge);
     }
     throw err;
   }
