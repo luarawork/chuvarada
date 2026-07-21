@@ -173,18 +173,16 @@ async function throttleOpenMeteo(): Promise<void> {
 // quando estourada. 9.200/dia deixa ~800 de margem pras chamadas extras de
 // fetchForecastDisplay (previsão exibida no painel de bairro).
 //
-// Atenção -- este teto continua sendo só um backstop de segurança, não uma
-// garantia de que o consumo real cabe embaixo dele: mesmo com as 3
-// otimizações de arquitetura (Opções 1-3, ver route.ts e as funções logo
-// abaixo), a projeção medida em regime permanente pro Nordeste sozinho
-// ficou em ~15.700 chamadas/dia -- acima até deste teto reduzido. Isso
-// acontece porque, ao contrário do esperado, dias com MAIS chuva geram
-// MAIS células passando no gatilho de "MERGE mostra chuva significativa"
-// (mergeShowsSignificantRain), exigindo refresh a cada ciclo -- ou seja, o
-// consumo sobe justamente nos dias em que o produto mais precisa estar
-// certo. Este teto seguirá acionando fallback de cache em boa parte dos
-// dias até uma redução adicional (grade mais grossa, ou plano pago) ser
-// decidida.
+// Atualização de 21/07/2026: com a migração pra WeatherAPI.com (plano
+// Business, 10M chamadas/mês -- ver lib/weatherapi.ts), a Open-Meteo deixou
+// de ser o caminho principal pra variáveis secundárias e virou só um
+// fallback de emergência (usado quando a WeatherAPI falha). Esse teto de
+// 9.200/dia continua valendo como backstop de segurança pra esse fallback
+// -- a análise de regime permanente que antes mostrava ~15.700 chamadas/dia
+// (acima do teto) não se aplica mais, porque esse volume não passa mais
+// pela Open-Meteo no dia a dia. Se um dia inteiro cair no fallback (ex:
+// WeatherAPI fora do ar), este contador ainda protege a cota real da
+// Open-Meteo (10.000/dia) de um esgotamento silencioso.
 const MAX_CALLS_PER_DAY = 9200;
 const WARN_AT_PERCENT = 0.8;
 const WARN_THRESHOLD = Math.floor(MAX_CALLS_PER_DAY * WARN_AT_PERCENT);
