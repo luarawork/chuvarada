@@ -78,7 +78,7 @@ export interface TideCache {
   cached_at: string;
 }
 
-export type RainSource = "merge_cptec" | "openmeteo";
+export type RainSource = "merge_cptec" | "openmeteo" | "merge_cptec_priority" | "max_merge_openmeteo";
 
 export interface WeatherCache {
   id: string;

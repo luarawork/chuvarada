@@ -27,6 +27,7 @@ export interface MergeData {
   rain_72h: number;
   rain_peak_3h: number;
   source: "merge";
+  fetched_at: string;
 }
 
 function snapToGrid(value: number, origin: number): number {
@@ -62,5 +63,6 @@ export async function getMergeData(lat: number, lng: number): Promise<MergeData 
     rain_72h: cached.rain_72h,
     rain_peak_3h: cached.rain_peak_3h,
     source: "merge",
+    fetched_at: cached.fetched_at,
   };
 }

@@ -1,7 +1,68 @@
 import { getDb } from "./db";
 import { gridCell } from "./grid";
 import { getMergeData } from "./merge";
+import type { MergeData } from "./merge";
 import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, RainSource, WeatherCache } from "@/types";
+
+// Acima disso, o MERGE é considerado velho demais mesmo que getMergeData()
+// já não devesse ter devolvido nada nesse caso (mesmo limite de
+// lib/merge.ts) — checado de novo aqui como defesa, não só confiança cega
+// no que getMergeData já filtrou.
+const MERGE_MAX_AGE_HOURS = 6;
+
+interface RainReading {
+  rain_72h: number;
+  rain_peak_3h: number;
+}
+
+// Decide qual fonte de rain_72h/rain_peak_3h usar, em vez de sempre
+// priorizar o MERGE cegamente (achado do relatório de testes pré-deploy:
+// no evento real de Recife de 26/06/2026, o MERGE subestimou a chuva
+// — 51,1mm contra 92,7mm da Open-Meteo — e a integração anterior sempre
+// usava o MERGE quando disponível, entregando um resultado pior que a
+// fonte que ele substituiu).
+//
+// Atenção: a primeira versão desta função (replicando literalmente o
+// pseudocódigo do pedido) tinha um bug real, encontrado ao testar contra
+// os dados reais de Recife: a condição "merge < openMeteo*2" cobre
+// TAMBÉM os casos em que openMeteo é maior que merge (ex: 51,1 < 92,7*2),
+// então o branch de "usar o maior dos dois" nunca era alcançado quando a
+// Open-Meteo estava correta — o caso que essa mudança deveria justamente
+// resolver. Corrigido comparando primeiro se a Open-Meteo é maior que o
+// MERGE (não uma proporção fixa), antes de checar o quanto o MERGE
+// supera a Open-Meteo.
+export function getBestRainData(merge: MergeData | null, openMeteo: RainReading): RainReading & { rain_source: RainSource } {
+  const mergeIsStale =
+    !merge || new Date(merge.fetched_at).getTime() < Date.now() - MERGE_MAX_AGE_HOURS * 3_600_000;
+
+  if (mergeIsStale) {
+    return { rain_72h: openMeteo.rain_72h, rain_peak_3h: openMeteo.rain_peak_3h, rain_source: "openmeteo" };
+  }
+
+  // Open-Meteo maior que o MERGE (caso real: Recife 26/06 — o MERGE
+  // subestimou um sistema de chuva mais amplo que o modelo numérico
+  // global captou melhor). Conservador: usa o maior dos dois valores,
+  // preferindo alertar a silenciar.
+  if (openMeteo.rain_72h > merge.rain_72h) {
+    return {
+      rain_72h: Math.max(merge.rain_72h, openMeteo.rain_72h),
+      rain_peak_3h: Math.max(merge.rain_peak_3h, openMeteo.rain_peak_3h),
+      rain_source: "max_merge_openmeteo",
+    };
+  }
+
+  // MERGE mais que o dobro da Open-Meteo (caso real: Natal 18/07 — a
+  // Open-Meteo subestimou um evento convectivo localizado que o MERGE,
+  // com resolução ~10km contra ~25km, capturou corretamente).
+  if (merge.rain_72h > openMeteo.rain_72h * 2) {
+    return { rain_72h: merge.rain_72h, rain_peak_3h: merge.rain_peak_3h, rain_source: "merge_cptec_priority" };
+  }
+
+  // MERGE igual ou até 2x maior que a Open-Meteo — as duas fontes
+  // concordam dentro de uma margem razoável; usa o MERGE pela resolução
+  // espacial melhor (~10km vs ~25km).
+  return { rain_72h: merge.rain_72h, rain_peak_3h: merge.rain_peak_3h, rain_source: "merge_cptec" };
+}
 
 const CACHE_TTL_MINUTES = 20;
 
@@ -328,14 +389,13 @@ export async function getWeatherForPoint(
     const rain3h = sumPrecipitation(data, nowMs, 3);
     const rainIntensity = Math.max(rain1h, rain3h / 3);
 
-    const rain72h = merge ? merge.rain_72h : sumPrecipitation(data, nowMs, 72);
-    const rainPeak3h = merge ? merge.rain_peak_3h : peakPrecipitation(data, nowMs, 3);
-    const rainSource: RainSource = merge ? "merge_cptec" : "openmeteo";
-    if (!merge) {
-      console.warn(
-        `[weather] MERGE/CPTEC indisponível ou desatualizado pra ${cityId} — usando Open-Meteo pra rain_72h/rain_peak_3h`
-      );
-    }
+    const best = getBestRainData(merge, {
+      rain_72h: sumPrecipitation(data, nowMs, 72),
+      rain_peak_3h: peakPrecipitation(data, nowMs, 3),
+    });
+    const rain72h = best.rain_72h;
+    const rainPeak3h = best.rain_peak_3h;
+    const rainSource = best.rain_source;
 
     const normalized: NormalizedWeather = {
       rain_1h: rain1h,
@@ -365,7 +425,8 @@ export async function getWeatherForPoint(
       );
       const fromCache = weatherFromCache(cached);
       if (merge) {
-        return { ...fromCache, rain_72h: merge.rain_72h, rain_peak_3h: merge.rain_peak_3h, rain_source: "merge_cptec" };
+        const best = getBestRainData(merge, { rain_72h: fromCache.rain_72h, rain_peak_3h: fromCache.rain_peak_3h });
+        return { ...fromCache, rain_72h: best.rain_72h, rain_peak_3h: best.rain_peak_3h, rain_source: best.rain_source };
       }
       return fromCache;
     }
