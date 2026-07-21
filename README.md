@@ -1,23 +1,23 @@
 # Chuvarada 🌧️
 
-Mapa de risco de alagamento em tempo real para o Nordeste brasileiro.
+Mapa de risco de alagamento em tempo real para o Brasil.
 Civic tech com personalidade — confiável mas humano.
 
 ## O que é
 
-O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades do Nordeste. Atualizado a cada hora. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
+O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades brasileiras. Atualizado a cada hora. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
 
-O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo. Cidades do Nordeste brasileiro, com infraestrutura de drenagem historicamente subdimensionada, não foram projetadas para esse regime de chuva mais extremo. O Chuvarada tenta preencher o vão entre os alertas oficiais (por cidade ou região) e a pergunta real do cidadão: meu bairro está em risco agora?
+O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo. Cidades brasileiras, com infraestrutura de drenagem historicamente subdimensionada, não foram projetadas para esse regime de chuva mais extremo. O Chuvarada tenta preencher o vão entre os alertas oficiais (por cidade ou região) e a pergunta real do cidadão: meu bairro está em risco agora?
 
 ## Cobertura atual
 
 | Métrica | Valor |
 |---|---|
-| Estados | 9 (todo o Nordeste) |
-| Municípios | 1.794 (100% dos municípios IBGE) |
-| Bairros/distritos | 7.117 |
-| Com score calculado | 99,6% |
-| Municípios costeiros com dado de maré | 91 de 171 (53%) |
+| Estados | 16 (Nordeste + Sul + Sudeste) |
+| Municípios | 4.653 (100% dos municípios IBGE desses estados) |
+| Bairros/distritos | 24.556 |
+| Com score calculado | 100% |
+| Municípios costeiros com dado de maré | 96 de 292 (33%) |
 
 ## Como funciona
 
