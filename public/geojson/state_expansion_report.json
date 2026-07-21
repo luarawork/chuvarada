@@ -1882,5 +1882,82 @@
     "fallback_name_cities": 0,
     "coastal_new_cities": 0,
     "tide_codes_assigned": []
+  },
+  {
+    "state": "PR",
+    "skipped_existing": [],
+    "new_cities": 399,
+    "new_neighborhoods": 1778,
+    "fallback_name_cities": 357,
+    "coastal_new_cities": 7,
+    "tide_codes_assigned": [
+      "Paranaguá"
+    ]
+  },
+  {
+    "state": "SC",
+    "skipped_existing": [],
+    "new_cities": 295,
+    "new_neighborhoods": 2175,
+    "fallback_name_cities": 170,
+    "coastal_new_cities": 31,
+    "tide_codes_assigned": [
+      "Florianópolis"
+    ]
+  },
+  {
+    "state": "RS",
+    "skipped_existing": [],
+    "new_cities": 497,
+    "new_neighborhoods": 3596,
+    "fallback_name_cities": 335,
+    "coastal_new_cities": 28,
+    "tide_codes_assigned": [
+      "Rio Grande"
+    ]
+  },
+  {
+    "state": "SP",
+    "skipped_existing": [],
+    "new_cities": 645,
+    "new_neighborhoods": 3185,
+    "fallback_name_cities": 587,
+    "coastal_new_cities": 16,
+    "tide_codes_assigned": [
+      "Santos"
+    ]
+  },
+  {
+    "state": "RJ",
+    "skipped_existing": [],
+    "new_cities": 92,
+    "new_neighborhoods": 1802,
+    "fallback_name_cities": 61,
+    "coastal_new_cities": 25,
+    "tide_codes_assigned": [
+      "Rio de Janeiro"
+    ]
+  },
+  {
+    "state": "MG",
+    "skipped_existing": [],
+    "new_cities": 853,
+    "new_neighborhoods": 3872,
+    "fallback_name_cities": 798,
+    "coastal_new_cities": 0,
+    "tide_codes_assigned": [
+      "Candeias"
+    ]
+  },
+  {
+    "state": "ES",
+    "skipped_existing": [],
+    "new_cities": 78,
+    "new_neighborhoods": 1031,
+    "fallback_name_cities": 61,
+    "coastal_new_cities": 14,
+    "tide_codes_assigned": [
+      "Vitória"
+    ]
   }
 ]

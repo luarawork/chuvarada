@@ -30,6 +30,18 @@ const STATE_FILES = {
   pb: { geojson: "neighborhoods_state_pb.geojson", manifest: "state_pb_municipios.json" },
   pi: { geojson: "neighborhoods_state_pi.geojson", manifest: "state_pi_municipios.json" },
   se: { geojson: "neighborhoods_state_se.geojson", manifest: "state_se_municipios.json" },
+  // Expansão Sul + Sudeste (21/07/2026) -- mesmo pipeline do Nordeste,
+  // adaptado pros 7 estados. Diferente do Nordeste, nenhuma capital desses
+  // estados existia em `cities` antes desta expansão (confirmado por
+  // query), então todos os municípios entram como novos, inclusive as
+  // capitais litorâneas.
+  pr: { geojson: "neighborhoods_state_pr.geojson", manifest: "state_pr_municipios.json" },
+  sc: { geojson: "neighborhoods_state_sc.geojson", manifest: "state_sc_municipios.json" },
+  rs: { geojson: "neighborhoods_state_rs.geojson", manifest: "state_rs_municipios.json" },
+  sp: { geojson: "neighborhoods_state_sp.geojson", manifest: "state_sp_municipios.json" },
+  rj: { geojson: "neighborhoods_state_rj.geojson", manifest: "state_rj_municipios.json" },
+  mg: { geojson: "neighborhoods_state_mg.geojson", manifest: "state_mg_municipios.json" },
+  es: { geojson: "neighborhoods_state_es.geojson", manifest: "state_es_municipios.json" },
 };
 
 // Estações de maré do CPTEC verificadas manualmente em
@@ -55,6 +67,18 @@ const TIDE_CODE_OVERRIDES = {
   // Itaqui (30110), Terminal da Alumar (30114) e Ponta da Madeira (30149)
   // também aparecem na lista do CPTEC, mas os 3 ficam dentro do território
   // de São Luís (cidade já cadastrada) — não há município novo pra atribuir.
+
+  // Sul + Sudeste (21/07/2026) -- verificados em
+  // http://ondas.cptec.inpe.br/~rondas/mares/index.php (mesma fonte usada
+  // acima), cruzando cada nome de porto/terminal com o município real do
+  // shapefile IBGE que o contém.
+  Santos: "50225", // Porto de Santos-SP
+  "Rio de Janeiro": "50140", // Porto do Rio de Janeiro-RJ
+  Vitória: "40252", // Porto de Vitória-ES
+  Paranaguá: "60132", // Porto de Paranaguá-PR (há também 60130/60135, códigos
+  // de barra/canal do mesmo porto -- 60132 é a estação do porto em si)
+  Florianópolis: "60245", // Porto de Florianópolis-SC
+  "Rio Grande": "60370", // Porto do Rio Grande-RS
 };
 
 function computeDataLevel(municipio) {
