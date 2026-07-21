@@ -156,16 +156,17 @@ async function main() {
         cityIdByKey[key] = cityId;
 
         for (const feature of features) {
-          const { name, terrain_slope, hydro_proximity, is_coastal } = feature.properties;
+          const { name, terrain_slope, hydro_proximity, is_coastal, name_source } = feature.properties;
           await client.query(
-            `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal)
-             values ($1, $2, $3, $4, $5, $6)
+            `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal, name_source)
+             values ($1, $2, $3, $4, $5, $6, $7)
              on conflict (city_id, name) do update set
                geometry = excluded.geometry,
                terrain_slope = excluded.terrain_slope,
                hydro_proximity = excluded.hydro_proximity,
-               is_coastal = excluded.is_coastal`,
-            [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal]
+               is_coastal = excluded.is_coastal,
+               name_source = excluded.name_source`,
+            [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal, name_source ?? "bairro"]
           );
         }
 

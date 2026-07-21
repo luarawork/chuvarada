@@ -6,6 +6,14 @@
 // Aracaju, João Pessoa, Teresina), que só usa NM_BAIRRO real por construção
 // — esses ficam 'bairro' por padrão.
 //
+// Chave do lookup inclui o estado (não só cidade+bairro): com só os 9
+// estados do Nordeste original a colisão era teoricamente possível mas rara;
+// com os 7 estados de Sul+Sudeste também no lookup, nomes de
+// cidade/bairro que se repetem em estados diferentes (ex: "Santa Cruz",
+// "Centro") ficariam sujeitos a pegar o name_source de outro estado sem
+// esse escopo -- os GeoJSONs de origem não têm a propriedade `state` (só
+// vem do nome do arquivo), por isso o uf do loop é injetado na chave aqui.
+//
 // Idempotente: só atualiza linhas com name_source ainda nulo.
 //
 // Uso: node scripts/backfill_name_source.js
@@ -14,7 +22,10 @@ const fs = require("fs");
 const path = require("path");
 const { Client } = require("pg");
 
-const STATE_FILES = ["al", "ba", "ce", "ma", "pb", "pe", "pi", "rn", "se"];
+const STATE_FILES = [
+  "al", "ba", "ce", "ma", "pb", "pe", "pi", "rn", "se",
+  "pr", "sc", "rs", "sp", "rj", "mg", "es",
+];
 
 async function main() {
   const client = new Client({
@@ -24,7 +35,7 @@ async function main() {
   await client.connect();
 
   try {
-    // (city_name -> (bairro_name -> name_source)) a partir dos 9 geojsons estaduais
+    // (estado::cidade::bairro) -> name_source, a partir dos 16 geojsons estaduais
     const lookup = new Map();
     for (const uf of STATE_FILES) {
       const filePath = path.join(__dirname, "..", "public", "geojson", `neighborhoods_state_${uf}.geojson`);
@@ -33,14 +44,14 @@ async function main() {
       for (const feature of geojson.features) {
         const { city, name, name_source } = feature.properties;
         if (!name_source) continue;
-        const key = `${city}::${name}`;
+        const key = `${uf.toUpperCase()}::${city}::${name}`;
         lookup.set(key, name_source);
       }
     }
-    console.log(`${lookup.size} pares (cidade, bairro) -> name_source carregados dos arquivos estaduais.`);
+    console.log(`${lookup.size} triplas (estado, cidade, bairro) -> name_source carregadas dos arquivos estaduais.`);
 
     const { rows } = await client.query(`
-      select n.id, n.name, c.name as cidade
+      select n.id, n.name, c.name as cidade, c.state as estado
       from neighborhoods n
       join cities c on c.id = n.city_id
       where n.name_source is null
@@ -56,7 +67,7 @@ async function main() {
       const values = [];
       const params = [];
       batch.forEach((row, idx) => {
-        const key = `${row.cidade}::${row.name}`;
+        const key = `${row.estado}::${row.cidade}::${row.name}`;
         const source = lookup.get(key);
         if (source) fromStateFile++;
         else defaultedToBairro++;
