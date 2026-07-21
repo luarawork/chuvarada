@@ -41,7 +41,9 @@ export default function HomePage() {
   const citiesById = useMemo(() => Object.fromEntries(cities.map((c) => [c.id, c])), [cities]);
   const neighborhoodIds = useMemo(() => neighborhoods.map((n) => n.id), [neighborhoods]);
   const realtimeUpdates = useRealtime(neighborhoodIds);
-  const { current: selectedCurrent, history: selectedHistory } = useRisk(selected?.id ?? null);
+  const { current: selectedCurrent, history: selectedHistory, justUpdated: selectedJustUpdated } = useRisk(
+    selected?.id ?? null
+  );
 
   useEffect(() => {
     async function load() {
@@ -262,6 +264,7 @@ export default function HomePage() {
         hasTideStation={selectedCity?.tide_code != null}
         current={selectedCurrent}
         history={selectedHistory}
+        justUpdated={selectedJustUpdated}
         onClose={() => setSelected(null)}
       />
     </main>

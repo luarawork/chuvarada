@@ -21,6 +21,7 @@ interface DetailPanelProps {
   hasTideStation: boolean;
   current: RiskScore | null;
   history: RiskScore[];
+  justUpdated?: boolean;
   onClose: () => void;
 }
 
@@ -30,6 +31,7 @@ export function DetailPanel({
   hasTideStation,
   current,
   history,
+  justUpdated = false,
   onClose,
 }: DetailPanelProps) {
   // Previsão precisa ser do centroide do PRÓPRIO bairro, não do centro da
@@ -141,6 +143,18 @@ export function DetailPanel({
             <>
               <div className="mt-3 flex items-center gap-3">
                 <RiskBadge level={current.level} score={current.score} />
+                <AnimatePresence>
+                  {justUpdated && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="rounded-full bg-brand-green-water/10 px-3 py-1 text-xs font-medium text-brand-green-water"
+                    >
+                      Atualizado agora
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
 
               {current.auto_critical && current.auto_critical_reason && (
