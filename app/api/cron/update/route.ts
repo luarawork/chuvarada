@@ -21,6 +21,18 @@ import type { City, Neighborhood, NormalizedWeather } from "@/types";
 const CITY_CONCURRENCY = 4;
 const CELL_CONCURRENCY = 4;
 
+// Antes da expansão nacional: o grid de 0,1° sozinho não reduzia o piso de
+// células como esperado (medido em scripts/relatorio_testes_pos_correcao.md
+// atualizado -- só 14% de queda, não os ~4x esperados de dobrar o lado da
+// célula), porque a maioria das ~1.794 cidades ativas tem poucos bairros
+// espalhados por um município inteiro e já caía em células diferentes
+// mesmo sendo a mesma cidade pequena. Cidades com poucos bairros (a
+// maioria) agora usam 1 célula única centrada no centro da cidade,
+// ignorando onde cada bairro fica dentro dela -- só cidades grandes o
+// bastante pra ter variação real de chuva internamente (Salvador, Recife,
+// Natal etc.) continuam com sub-grade por centróide de bairro.
+const LARGE_CITY_THRESHOLD = 10;
+
 // Roda a cada hora (configurado externamente — Vercel Cron ou similar).
 // Protegido por CRON_SECRET no header Authorization.
 export async function GET(req: NextRequest) {
@@ -98,11 +110,23 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
   // Bairros próximos caem na mesma célula de ~10km e reaproveitam o mesmo
   // clima — em vez de um único ponto (centro da cidade) pra todos os
   // bairros, o que fazia Salvador/Natal inteiras mostrarem a mesma chuva
-  // independente de onde o bairro fica.
+  // independente de onde o bairro fica. Cidades pequenas (<= LARGE_CITY_THRESHOLD
+  // bairros, a maioria) usam direto o centro da cidade como célula única --
+  // nelas não há variação de chuva relevante entre bairros pra justificar
+  // sub-grade, e usar sempre o mesmo ponto colapsa a cidade inteira numa
+  // única chamada de clima.
+  const useSubGrid = neighborhoods.length > LARGE_CITY_THRESHOLD;
   const cellGroups = new Map<string, { lat: number; lng: number; neighborhoods: Neighborhood[] }>();
   for (const neighborhood of neighborhoods) {
-    const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
-    const [lng, lat] = centroid.geometry.coordinates;
+    let lat: number;
+    let lng: number;
+    if (useSubGrid) {
+      const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
+      [lng, lat] = centroid.geometry.coordinates;
+    } else {
+      lat = city.lat;
+      lng = city.lng;
+    }
     const cell = gridCell(lat, lng);
     const key = gridCellKey(cell);
 
