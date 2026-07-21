@@ -78,6 +78,8 @@ export interface TideCache {
   cached_at: string;
 }
 
+export type RainSource = "merge_cptec" | "openmeteo";
+
 export interface WeatherCache {
   id: string;
   city_id: string;
@@ -87,6 +89,7 @@ export interface WeatherCache {
   rain_72h: number;
   rain_intensity: number;
   rain_peak_3h: number;
+  rain_source: RainSource;
   wind_speed: number;
   wind_direction: number;
   humidity: number;
@@ -100,6 +103,7 @@ export interface NormalizedWeather {
   rain_72h: number;
   rain_intensity: number;
   rain_peak_3h: number;
+  rain_source: RainSource;
   wind_speed: number;
   wind_direction: number;
   humidity: number;
