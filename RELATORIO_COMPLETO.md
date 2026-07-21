@@ -1,25 +1,25 @@
-# Relatório Completo — Chuvarada
+# Chuvarada — Relatório Completo do Projeto
 
-**Data deste relatório:** 2026-07-19
-**Período coberto:** 2026-07-18 (início do projeto) a 2026-07-19 (estado atual)
+**Data deste relatório:** 21/07/2026
+**Período coberto:** 18/07/2026 (início do projeto) a 21/07/2026 (estado atual)
 
-Este documento descreve o projeto Chuvarada do zero: o que é, por que existe, como foi construído, quais decisões técnicas e de produto foram tomadas, quais dificuldades reais apareceram no caminho, o que ainda falta, e como rodar tudo localmente. É escrito para alguém que nunca viu o código, mas precisa entender o projeto inteiro — sem inflar o que foi feito nem esconder o que não funcionou.
+Este documento descreve o projeto Chuvarada do zero: o que é, por que existe, como foi construído, quais decisões técnicas e de produto foram tomadas, quais dificuldades reais apareceram no caminho, o que ainda falta, e como rodar tudo localmente. É escrito para alguém que nunca viu o código, mas precisa entender o projeto inteiro — sem inflar o que foi feito nem esconder o que não funcionou ou o que ainda está quebrado.
 
 ---
 
-## 1. Visão geral do projeto
+## 1. Visão geral
 
-**Chuvarada** é um PWA (Progressive Web App) que mostra, em tempo real e por bairro, o risco de alagamento em cidades do Nordeste do Brasil. O usuário abre o app, vê um mapa do Nordeste inteiro com bairros coloridos por nível de risco (verde/amarelo/vermelho), pode tocar em qualquer bairro pra ver o detalhamento do cálculo, a previsão do tempo hora a hora, e salvar bairros como favoritos pra acompanhar.
+**Chuvarada** é um PWA (Progressive Web App) que mostra, em tempo real e por bairro, o risco de alagamento em cidades brasileiras. O usuário abre o app, vê um mapa colorido por nível de risco (verde/amarelo/vermelho), pode tocar em qualquer bairro pra ver o detalhamento do cálculo, a previsão do tempo hora a hora, e salvar bairros como favoritos.
 
 ### O problema que resolve
 
-O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo — o mesmo volume mensal de chuva que antes se distribuía ao longo de semanas hoje cai em poucas horas. Cidades do Nordeste brasileiro, com infraestrutura de drenagem urbana historicamente subdimensionada e datada, não foram projetadas pra esse regime de chuva mais extremo. O resultado são alagamentos cada vez mais frequentes e mais graves, muitas vezes em bairros onde o morador não tinha como saber que o risco estava subindo naquele momento específico.
+O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo — o mesmo volume mensal de chuva que antes se distribuía ao longo de semanas hoje cai em poucas horas. Cidades brasileiras, com infraestrutura de drenagem urbana historicamente subdimensionada, não foram projetadas pra esse regime de chuva mais extremo. O resultado são alagamentos cada vez mais frequentes, muitas vezes em bairros onde o morador não tinha como saber que o risco estava subindo naquele momento específico.
 
-Hoje, o cidadão comum não tem uma forma acessível e granular de saber "meu bairro está em risco agora?" — os alertas oficiais de Defesa Civil, quando existem, costumam ser por cidade ou por região inteira, não por bairro, e nem toda cidade do interior tem esse serviço ativo e atualizado. O Chuvarada tenta preencher esse vão: cruzar dados públicos (clima, terreno, hidrografia, maré) num modelo simples e transparente, atualizado a cada hora, granular o suficiente pra dizer "este bairro específico" em vez de "esta cidade inteira".
+Os alertas oficiais de Defesa Civil, quando existem, costumam ser por cidade ou região inteira — não por bairro — e nem toda cidade tem esse serviço ativo e atualizado. O Chuvarada tenta preencher esse vão: cruzar dados públicos (clima, terreno, hidrografia, maré) num modelo simples e transparente, atualizado a cada hora, granular o suficiente pra dizer "este bairro específico" em vez de "esta cidade inteira".
 
 ### Público-alvo
 
-Cidadão comum, não especialista — alguém que quer decidir rapidamente "posso sair de casa agora?" ou "preciso me preocupar com este bairro que estou monitorando?". Por isso o app evita jargão técnico na interface (a página `/como-funciona` existe justamente pra explicar o modelo em linguagem simples pra quem quiser entender o "porquê" por trás da cor do mapa) e prioriza clareza visual sobre densidade de informação.
+Cidadão comum, não especialista — alguém que quer decidir rapidamente "posso sair de casa agora?" ou "preciso me preocupar com este bairro que estou monitorando?". O app evita jargão técnico na interface (a página `/como-funciona` existe justamente pra explicar o modelo em linguagem simples) e prioriza clareza visual sobre densidade de informação.
 
 ### Posicionamento
 
@@ -27,413 +27,423 @@ O Chuvarada se posiciona como **complemento** à informação pública, não com
 
 ---
 
-## 2. Stack tecnológico
-
-| Camada | Tecnologia | Por quê |
-|---|---|---|
-| Frontend | **Next.js 14** (App Router) + **TypeScript** + **Tailwind CSS** | App Router permite misturar rotas de API (`app/api/`) e páginas no mesmo projeto sem precisar de um backend separado — importante pro cron de atualização de risco rodar como uma rota Next mesmo, sem infraestrutura extra. TypeScript pega erros de schema (ex: campo que existe em `WeatherCache` mas não foi propagado pra `NormalizedWeather`) em tempo de compilação, o que importa muito num modelo de risco onde um campo faltando silenciosamente vira um `undefined` que quebra o cálculo. |
-| Mapa | **Leaflet.js** + tiles CartoDB Dark Matter | Leaflet é leve, não depende de chave de API paga (diferente do Google Maps/Mapbox em escala), e tem suporte maduro a polígonos GeoJSON — essencial já que cada bairro é desenhado como polígono real, não como marcador de ponto. O tile escuro (Dark Matter) combina com a paleta do app e reduz ruído visual, deixando as cores de risco dos bairros como o elemento visual dominante. |
-| Animações | **Framer Motion** | Usado nas transições do painel de bairro, no coração de favorito, e nos banners — dá uma sensação de resposta mais viva sem exigir CSS keyframes manuais espalhados pelo código. |
-| Gráficos | **Recharts** | Usado no histórico de score por bairro (`HistoryChart`) — biblioteca React-nativa, evita reimplementar eixos/tooltips/zonas de referência coloridas na mão. |
-| Banco de dados | **Supabase** (Postgres gerenciado + Auth + Realtime + RLS) | Dá banco relacional de verdade (importante pro modelo de risco, que faz joins entre `neighborhoods`, `cities`, `risk_scores`), autenticação pronta (usada em `/auth` e favoritos), e um canal de **Realtime** que notifica o frontend assim que uma nova linha entra em `risk_scores` — sem isso, o mapa precisaria fazer polling manual a cada X segundos em vez de atualizar assim que o cron termina. |
-| Acesso ao banco (server-side) | **`pg`** (Pool direto), não só o client JS do Supabase | As rotas de API (cron, scripts de backfill) escrevem em lote (`insertRiskScoresBatch`, `upload_state_expansion.js`) usando queries SQL diretas via `pg` — mais controle sobre performance de insert em massa (7.117 bairros) do que o client REST do Supabase permitiria com a mesma previsibilidade. |
-| Clima em tempo real | **WeatherAPI.com** (secundárias) + **MERGE/CPTEC** (chuva acumulada/pico) | Ver justificativa detalhada abaixo — a Open-Meteo (que já tinha trocado a OpenWeatherMap em 19/07) foi substituída em 21/07 por uma limitação estrutural de cota; continua integrada só como fallback. |
-| Maré | **CPTEC/INPE** (scraping HTML da tábua de marés da Marinha do Brasil) | Não existe API pública de maré em tempo real gratuita cobrindo o Nordeste inteiro — a alternativa foi extrair a tábua de marés publicada pelo CPTEC (`lib/cptec.ts`, via `cheerio`), que é o dado oficial usado pela própria Marinha. |
-| Pré-processamento geoespacial | **Python** (`geopandas`, `rasterio`, `shapely`, `pyogrio`) | Processar shapefiles do IBGE, GeoTIFFs de elevação (SRTM) e geopackages de hidrografia em escala nacional (a BHO/ANA tem 2,7 milhões de feições) exige ferramentas GIS maduras — não há equivalente prático em Node/TS pra esse volume de geoprocessamento. |
-| PWA | **next-pwa** | Ver justificativa abaixo — app instalável sem passar por loja de aplicativo. |
-
-### Por que Open-Meteo em vez de OpenWeatherMap
-
-O projeto começou com **OpenWeatherMap** (commit inicial, 18/07). O problema descoberto depois (troca feita em **19/07**, commit `6f70d02`): o plano gratuito da OpenWeatherMap **não tem endpoint de histórico** — só previsão futura. Isso forçava `rain_72h` (chuva acumulada nas últimas 72 horas, 20% do peso do modelo) a ser calculado a partir do endpoint de *previsão* de 5 dias, o que é logicamente errado: chuva que já caiu e passou (ex: um fim de semana chuvoso seguido de uma segunda-feira seca) nunca aparecia no cálculo, porque a "previsão" não sabe o que já choveu.
-
-A Open-Meteo, além de gratuita e sem exigir chave de API, tem o parâmetro `past_days` que devolve chuva **realmente observada** nas horas/dias anteriores — resolvendo esse problema de origem. A troca também teve um efeito colateral positivo de performance: o cron foi reescrito nessa mesma virada pra processar cidades em paralelo (antes era sequencial e levava horas pra 1.794 municípios).
-
-### Por que Supabase Realtime
-
-Sem um canal de atualização push, o mapa só saberia que um bairro mudou de risco fazendo polling — verificar a cada N segundos se há dado novo, desperdiçando requisições na maior parte do tempo (o cron só roda a cada hora). O Supabase Realtime assina mudanças na tabela `risk_scores` via replicação lógica do Postgres e empurra o evento direto pro cliente WebSocket already conectado — o mapa reage no instante em que o cron grava um novo score, sem esperar o próximo ciclo de polling.
-
-### Por que PWA em vez de app nativo
-
-Um PWA instala direto do navegador (sem loja de aplicativo, sem processo de aprovação, sem taxa de desenvolvedor), roda em iOS e Android com o mesmo código, e permite iteração rápida — importante pra um projto neste estágio, onde o modelo de risco e a cobertura de dados ainda estão evoluindo ativamente. O `manifest.json` (`background_color`, `theme_color`, ícones em 192/512px e a variante `maskable`) e o service worker gerado pelo `next-pwa` dão a experiência de "app instalado" (ícone na tela inicial, tela cheia) sem o custo de manter duas bases de código nativas (iOS + Android).
-
----
-
-## 3. Fontes de dados — completo e honesto
-
-### SRTM / NASA (altimetria)
-
-- **O que fornece**: elevação do terreno, usada para calcular `terrain_slope` (declividade) por bairro — terreno mais plano acumula água com mais facilidade que terreno íngreme.
-- **Como foi obtida**: GeoTIFFs SRTMGL1 baixados via [OpenTopography](https://portal.opentopography.org/) (portal.opentopography.org), um recorte por cidade nas primeiras 9 capitais, depois recortes estaduais maiores (Bahia, Pernambuco, Rio Grande do Norte, e depois os outros 6 estados) via `scripts/download_srtm_patch.js`.
-- **Dificuldades**: a API do OpenTopography tem **cota de 50 chamadas/dia no plano gratuito**, que foi esgotada durante os testes — limitação externa, não um bug do projeto. Os arquivos estaduais grandes (Bahia mesclada chega a ~900MB) passam do limite de 100MB do GitHub e por isso **não são versionados** — ficam listados no `.gitignore` com instrução de como recriá-los.
-- **Limitações**: resolução de ~30m (SRTMGL1) — suficiente pra declividade agregada por bairro, não pra microtopografia de rua.
-
-### BHO/ANA (hidrografia nacional)
-
-- **O que fornece**: cursos d'água (rios, canais, riachos) usados pra calcular `hydro_proximity` — quanto mais perto de um corpo d'água, maior o risco de transbordamento.
-- **Órgão**: ANA (Agência Nacional de Águas), base BHO (Base Hidrográfica Ottocodificada).
-- **URL**: `https://metadados.snirh.gov.br/files/32e309da-a8c1-443f-90ac-0cd79ce6a33d/geoft_bho_curso_dagua.gpkg`
-- **Como foi obtida**: download direto de um GeoPackage nacional de **2,7GB** (2.751.685 feições, Brasil inteiro) — o recorte regional "Atlântico Nordeste Oriental" mencionado no plano original do projeto não existe mais nesse formato, então o pipeline precisou lidar com o arquivo nacional inteiro.
-- **Dificuldade real**: baixar/processar 2,7GB parecia impraticável a princípio. A solução foi usar **bbox pushdown** no próprio `geopandas.read_file()` — o GDAL recorta o arquivo na leitura, sem carregar o Brasil inteiro em memória. O bbox usado (`NORDESTE_BBOX` em `scripts/process_bho.py`) cortava incorretamente as bordas do Nordeste real (oeste do Maranhão, sul da Bahia, litoral leste de João Pessoa e Fernando de Noronha) — corrigido em 19/07 (ver seção 7).
-- **Limitação conhecida**: por ser um dado nacional generalista, tem menos detalhe em áreas urbanas densas do que um cadastro municipal de drenagem (ver Recife/Paraíba/Sergipe abaixo, que complementam a BHO com dado local onde disponível).
-
-### IBGE Censo 2022 (malha de setores censitários/bairros)
-
-- **O que fornece**: os polígonos de bairro (ou, na ausência de bairro nomeado, distrito administrativo) usados como unidade geográfica de todo o modelo.
-- **URL**: `https://geoftp.ibge.gov.br/.../censo_2022/setores/shp/UF/` (shapefile por estado, todos os municípios juntos).
-- **Como foi obtida**: download direto por estado (9 shapefiles, um por UF do Nordeste).
-- **Dificuldades**: URLs desatualizadas em relação ao que o plano original do projeto previa (a estrutura de pastas do FTP do IBGE mudou); codificação mista UTF-8/Latin-1 nos atributos de nome de município/bairro entre estados, exigindo tratamento cuidadoso de encoding no `geopandas`.
-- **Limitação estrutural importante**: o Censo 2022 só preenche `NM_BAIRRO` pra municípios que têm bairro oficialmente nomeado. Municípios pequenos do interior — muito comuns no Nordeste — não têm essa subdivisão, e o pipeline cai no distrito administrativo (`NM_DIST`) como aproximação geométrica. Isso significa que, em boa parte do interior, "o bairro X" no app é na prática **o distrito inteiro** (que pode ser bem maior que um bairro urbano de verdade) — ver números por estado na seção 6.
-
-### CPTEC/INPE (tábua de marés via scraping)
-
-- **O que fornece**: nível de maré normalizado (0 a 1), 8% do peso do modelo, aplicado só em municípios costeiros com estação de monitoramento próxima.
-- **Órgão**: CPTEC/INPE, dado oficial da Marinha do Brasil.
-- **URL**: `http://ondas.cptec.inpe.br/~rondas/mares/index.php?cod={codigo}&mes={mes}&ano={ano}`
-- **Como foi obtida**: **scraping HTML** (`lib/cptec.ts`, via `cheerio`) — não existe API JSON pública para esse dado. O parser extrai uma tabela HTML de dia/hora/altura por estação.
-- **Dificuldades encontradas**: (1) o site espera o ano com **2 dígitos**, não 4 — mandar "2026" faz o template do CPTEC concatenar errado e cair num fallback de mês vazio; (2) o domínio só responde de forma confiável em **HTTP puro**, não HTTPS moderno; (3) o catálogo de estações é limitado — só **~23 estações cobrem o Nordeste inteiro** (de 51 no Brasil todo), então a maior parte dos municípios costeiros não tem estação própria e precisou de atribuição por proximidade geográfica (ver seção 8).
-- **Limitação conhecida**: sem dado publicado para meses futuros até o CPTEC divulgar (o cache trata isso como "miss" e tenta de novo, não fica travado).
-
-### WeatherAPI.com + MERGE/CPTEC (clima em tempo real e chuva acumulada)
-
-- **O que fornece hoje** (atualizado 21/07/2026): rain_1h, vento, umidade e pressão vêm da **WeatherAPI.com** (plano Business contratado, 10M chamadas/mês); chuva acumulada em 72h e pico de 3h vêm do **MERGE/CPTEC** (satélite GPM/IMERG-Late + pluviômetros do INMET, grade ~10km) — juntas, o núcleo do modelo (65% do peso combinado entre as 3 variáveis de chuva).
-- **Por que a troca**: a Open-Meteo (usada de 19/07 a 21/07, ver histórico abaixo) tem cota gratuita de só 10.000 chamadas/dia — insuficiente mesmo depois de 3 rodadas de otimização de arquitetura (agrupamento por célula, sub-grade só em cidades grandes, refresh sob demanda conforme o MERGE detecta chuva). A WeatherAPI Business dá ~333.000 chamadas/dia, o que sozinho já cobre com folga o Nordeste inteiro e viabiliza a expansão nacional planejada.
-- **URL**: `https://api.weatherapi.com/v1/forecast.json` — usa o endpoint `forecast.json` (não `current.json`) mesmo só precisando do clima atual, porque só ele devolve a série horária do dia (necessária pra `rain_3h`/`rain_intensity`, o pico das últimas 3h em vez do valor pontual — ver "Limitação" abaixo).
-- **Open-Meteo como fallback**: continua integrada (`lib/weather.ts`) e é acionada automaticamente se a WeatherAPI falhar — nesse cenário específico, ainda usa o parâmetro `past_days` pra recuperar rain_72h/rain_peak_3h reais, exatamente como fazia quando era a fonte principal.
-- **Limitação**: como qualquer API meteorológica, é uma estimativa de modelo numérico — não substitui um pluviômetro físico no bairro. `rain_intensity`/`rain_3h` da WeatherAPI usam a série horária do dia local (00h até agora) do próprio `forecast.json`, mesma técnica que a Open-Meteo usava com `past_days`.
-
-#### Histórico: Open-Meteo (19/07 a 21/07/2026)
-
-- **O que fornecia**: as mesmas 6 variáveis acima, todas de uma fonte só.
-- **URL**: `https://api.open-meteo.com/v1/forecast` — gratuita, sem chave de API.
-- **Como foi obtida**: chamada HTTP direta por célula geográfica (grade de ~10km, não por cidade inteira — ver seção 4).
-- **Dificuldades**: cota diária gratuita **esgotada em produção** no fim de semana de 18-19/07/2026, quando o cron rodou ~1.794 cidades repetidas vezes durante testes intensivos, retornando HTTP 429 (mesmo código de um rate-limit transitório, dificultando o diagnóstico — ver seção 7). Corrigido primeiro com contador interno de chamadas/dia, cache mais respeitado e um modo `WEATHER_CACHE_ONLY` pra desenvolvimento; depois, definitivamente, com a migração pra WeatherAPI.com acima.
-
-### Cemaden
-
-- **Status**: apenas planejado, **não integrado**. O Cemaden (Centro Nacional de Monitoramento e Alertas de Desastres Naturais) foi cogitado como fonte de alerta oficial complementar, mas essa integração não chegou a ser implementada nesta fase do projeto.
-
-### Defesa Civil / S2ID (histórico de ocorrências) — tentado, com limitações
-
-- **O que é**: S2ID (Sistema Integrado de Informações sobre Desastres), Ministério da Integração Nacional — reconhecimentos oficiais de Situação de Emergência (SE) / Estado de Calamidade Pública (ECP) por decreto municipal.
-- **Como foi processado**: `scripts/process_s2id.py` lê planilhas `.xls` anuais (2013-2016) de Salvador, Recife e Natal, detectando o cabeçalho dinamicamente (o layout mudou entre 2013-2015 e 2016).
-- **Limitação séria encontrada**: a granularidade do S2ID é **por município**, não por bairro — não dá pra validar o modelo de risco (que é por bairro) diretamente contra esses eventos. Além disso, não havia eventos de alagamento datados suficientes no período coberto pra servir de base de validação estatística robusta. Essa foi uma tentativa que **não deu no resultado esperado** (ver seção 9).
-
-### Hidrografia do Recife (Secretaria de Meio Ambiente)
-
-- **O que fornece**: faixas marginais de proteção dos recursos hídricos do Recife — mais preciso que a BHO nacional pra uso urbano dentro da cidade.
-- **URL**: portal de dados abertos do Recife, descoberto via busca na API do CKAN (o dataset citado no plano original do projeto, `recursos_hidricos.geojson`, não existe mais nesse portal — foi encontrado um equivalente, `faixas-marginais-dos-recursos-hidricos.geojson`).
-- **Como foi processado**: `scripts/process_hydro_recife.py` mescla o dado municipal com a BHO regional, dando prioridade ao dado local onde ele existe e completando com a BHO só numa vizinhança de ~11km ao redor (sem esse limite, o arquivo de saída incluiria os ~240 mil trechos de rio de todo o Nordeste, gerando ~150MB pra uma cidade só).
-
-### Hidrografia da Paraíba / AESA
-
-- **Órgão**: AESA (Agência Executiva de Gestão das Águas do Estado da Paraíba).
-- **URL**: `https://geoportal.aesa.pb.gov.br/arquivos/arquivos-shapefiles/`
-- **Status**: dado baixado (`scripts/06ed293`/`5e54b97`, commitado como dado bruto não processado) — shapefiles de bacias hidrográficas, drenagem principal e sub-bacias da Paraíba. Ainda não integrado ao cálculo final de `hydro_proximity` (fica como melhoria de precisão futura, já que a PB já tem 100% de `hydro_proximity` real via BHO).
-
-### Hidrografia de Sergipe / SERhidro
-
-- **Órgão**: SEMAC/SERhidro (geoportal estadual lançado em 2024).
-- **URL**: `https://serhidro.semac.se.gov.br/datasets/hidrografia-sergipe`
-- **Status**: **integrado**. `scripts/process_hydro_sergipe.py` combina o dado local do SERhidro/SEMARH com a BHO nacional — importante: em vez de **substituir** a BHO pelo dado local (o que seria uma regressão, já que a SEMARH tem menos cobertura de riachos intermitentes que a BHO), o script faz `max()` entre os dois por bairro, aproveitando o melhor dos dois onde cada um for mais denso (ver seção 9).
-
-### Hidrografia de Alagoas / SEPLAG
-
-- **Órgão**: SEPLAG-AL ("Alagoas Geográfico") e `dados.al.gov.br` (dataset de recursos hídricos e bacias de Alagoas).
-- **Status**: **pesquisado, não baixado** — Alagoas já tem 100% de `hydro_proximity` real via BHO nacional (0 bairros com valor zero), então essa fonte ficou como upgrade de precisão de baixa prioridade, não corretiva.
-
-### Shapefiles de bairros das capitais
-
-| Capital | Fonte | Status |
-|---|---|---|
-| Aracaju (SE) | MapAju / SIUGWEB | **Obtido** — geoportal oficial ativo, exportação direta |
-| Maceió (AL) | Observatório da Cidade (IPLAM) / dados.al.gov.br | **Obtido** (dado bruto baixado, não processado) |
-| São Luís (MA) | GISMaps (redistribui dado da prefeitura) | **Baixado, com limitação de acesso** — ver seção 9 |
-| Teresina (PI) | SEMPLAN (portal oficial) | **Tentado, bloqueado** — portal protegido por WAF/JS impediu automação |
-| João Pessoa (PB) | Filipeia / geo.joaopessoa.pb.gov.br | **Tentado, bloqueado** — mesma limitação (WAF/JS) |
-
-### OpenTopography (SRTM via API, limitações de cota)
-
-Já descrito na seção de SRTM acima — cota de **50 chamadas/dia** no plano gratuito, esgotada durante os testes de expansão estadual. Contornado processando por lotes menores ao longo de vários dias.
-
----
-
-## 4. Pipeline de dados — do dado bruto ao mapa
-
-### 1. Download dos dados brutos
-Scripts e comandos manuais (`wget`, downloads diretos de portal) trazem shapefiles do IBGE, GeoTIFFs do OpenTopography, o geopackage da BHO/ANA, e hidrografias locais (Recife, Paraíba, Sergipe) para `dados-brutos/` (fora do controle de versão para os arquivos grandes — ver `.gitignore`).
-
-### 2. Pré-processamento Python
-Ordem real de execução (documentada em `process_neighborhoods.py`):
-1. **`process_neighborhoods.py`** (ou `process_state_neighborhoods.py`, variante para estado inteiro) — dissolve os setores censitários do IBGE em polígonos por bairro, marca `is_coastal`, exporta GeoJSON com `terrain_slope`/`hydro_proximity` como placeholder.
-2. **`process_srtm.py`** — abre o GeoTIFF, calcula declividade (gradiente do DEM em graus), agrega por bairro (média dentro do polígono) e preenche `terrain_slope` de verdade *in-place* no mesmo GeoJSON. Tem um modo "por janela" (`aggregate_by_neighborhood_windowed`) para estados inteiros, evitando carregar um raster de vários GB em memória de uma vez.
-3. **`process_bho.py`** — recorta a hidrografia nacional pelo bbox do Nordeste, calcula a distância de cada bairro ao curso d'água mais próximo, normaliza (`0` = >5km, `1` = <500m) e preenche `hydro_proximity`.
-4. **`process_hydro_recife.py`** / **`process_hydro_sergipe.py`** — refinam `hydro_proximity` com dado hidrográfico municipal/estadual mais preciso onde disponível, combinando com a BHO (nunca substituindo integralmente).
-
-Scripts complementares: `process_s2id.py` (eventos históricos de desastre), `process_inmet_extremes.py` (dias de chuva extrema por estação INMET), `compute_slope_for_geometries.py` (recálculo pontual de declividade para correções).
-
-### 3. Upload pro Supabase
-`upload_neighborhoods.js` e `upload_state_expansion.js` leem os GeoJSONs processados e inserem em lote nas tabelas `cities`/`neighborhoods` via `pg` direto (não o client REST do Supabase, por performance em volume). Scripts de correção pontual (`fix_sao_luis_neighborhood.js`, `fix_areia_branca_tide_code.js`, `fix_terrain_slope_placeholders.js`, `assign_tide_by_proximity.js`, `fix_hydro_proximity_bbox.js`, `fix_hydro_sergipe_local.js`, `fix_fernando_de_noronha_tide.js`, `backfill_terrain_slope.js`, `backfill_name_source.js`) tratam problemas descobertos depois do upload inicial (ver seção 7).
-
-### 4. Cron de 1 hora (fluxo detalhado)
-`app/api/cron/update/route.ts`, protegido por `CRON_SECRET` no header `Authorization`:
-1. Busca todas as `cities` ativas (1.794) e todos os `neighborhoods` (7.117).
-2. Agrupa os bairros de cada cidade por **célula geográfica** (grade de ~10km, `lib/grid.ts`) — bairros próximos dentro da mesma célula reaproveitam a mesma chamada de clima, em vez de 1 chamada por bairro (que geraria dezenas de milhares de chamadas desnecessárias) ou 1 chamada por cidade inteira (que perderia a variação real de chuva dentro de cidades grandes).
-3. Para cada célula, busca o clima (`getWeatherForPoint`, com cache de 20 minutos e fallback pra dado em cache se a chamada nova falhar).
-4. Busca o nível de maré atual (`getCurrentTideLevel`) para cidades com `tide_code`.
-5. Calcula o score de cada bairro (`calculateScore`, ver seção 5).
-6. Insere os resultados em lote em `risk_scores` e sincroniza `risk_events` (início/fim de um período em determinado nível).
-7. Cidades são processadas em paralelo (4 por vez), e dentro de cada cidade, células também em paralelo (4 por vez) — teto de concorrência originalmente calibrado para não estourar o rate limit da Open-Meteo; mantido mesmo após a migração pra WeatherAPI.com (cota bem maior) por throughput previsível.
-
-### 5. Cálculo do score por bairro
-Ver seção 5 completa abaixo.
-
-### 6. Supabase Realtime → atualização do mapa
-Assim que a linha nova entra em `risk_scores`, o Supabase Realtime (assinatura via `hooks/useRealtime.ts`) empurra o evento pro cliente conectado, que atualiza a cor do bairro no mapa sem precisar recarregar a página ou fazer polling.
-
----
-
-## 5. Modelo de risco — explicação técnica completa
-
-O cálculo (`lib/score.ts`) é uma soma ponderada de 6 variáveis, cada uma normalizada entre 0 e 1:
-
-| Variável | Peso | Normalização |
-|---|---:|---|
-| `rain_peak_3h` — maior chuva horária nas últimas 3h | 25% | linear: 0mm/h→0, 10mm/h→0,5, 30mm/h→1,0 |
-| `rain_1h` — chuva na última hora | 20% | linear: 0mm→0, 25mm→0,5, 50mm→1,0 |
-| `rain_72h` — chuva acumulada em 72h | 20% | linear: 0mm→0, 50mm→0,5, 100mm→1,0 |
-| `terrain_slope` — declividade do terreno | 15% | já normalizado no pré-processamento (0=plano/maior risco, 1=íngreme/menor risco) |
-| `hydro_proximity` — proximidade a rio/canal | 12% | já normalizado no pré-processamento (0=longe, 1=perto) |
-| `tide_level` — nível de maré | 8% | 0 a 1, só quando o município tem `tide_code` |
-
-A função `normalizeLinear(value, mid, max)` usa o ponto médio como referência de 0,5 (interpolação linear em dois trechos), não uma reta única de 0 a max — isso dá mais sensibilidade na faixa "moderada" da variável.
-
-### Por que `rain_peak_3h` em vez de `rain_intensity`
-
-Até 19/07, a variável de intensidade de chuva (`rain_intensity`) capturava só **o valor exato do instante em que o cron rodava**. Um pico de chuva forte que dura menos que os 20 minutos entre execuções do cron (bem comum em chuva convectiva tropical) passava completamente despercebido — o cron podia rodar 5 minutos depois do pico parar e nunca "ver" aquela chuva forte. `rain_peak_3h` resolve isso pegando o **máximo** valor horário dentro das últimas 3 horas, não só o instante atual — um pico que já passou ainda pesa no risco.
-
-### Limiares atuais (0,30 / 0,60) e por que foram ajustados
-
-```
-Normal:    0,00 – 0,30
-Atenção:   0,30 – 0,60
-Crítico:   0,60 – 1,00
-```
-
-Até 19/07, os limiares eram 0,40/0,70. Um evento real de chuva em Recife no fim de semana de 18-19/07 (bairro Nova Descoberta, `rain_72h = 56,74mm`) gerou score **0,380** — abaixo do limiar antigo de 0,4, ou seja, ficou classificado como "normal" apesar de já ter uma quantidade de chuva acumulada significativa. Os limiares foram recalibrados para 0,30/0,60 depois desse achado — com o novo limiar, o mesmo bairro passa a "atenção".
-
-### As 3 regras de crítico automático
-
-Independente do score ponderado, o bairro entra direto em **crítico** se qualquer uma destas condições for verdadeira:
-1. `rain_1h > 50mm` — chuva extrema na última hora.
-2. `tide_level > 0,8` **e** `rain_3h > 20mm` **e** o bairro é costeiro **e** o município tem estação de maré — maré alta reduzindo a capacidade de escoamento durante chuva em zona costeira.
-3. `rain_72h > 100mm` **e** `rain_1h > 0` — solo já saturado recebendo qualquer chuva nova.
-
-### Maré condicional e peso redistribuído
-
-A variável de maré só entra no cálculo em municípios com `tide_code` cadastrado (estação CPTEC próxima o suficiente para servir de referência confiável). Em municípios sem `tide_code`, o app **não** usa um valor "neutro" de 0,5 fingindo dado — isso distorceria o score artificialmente. Em vez disso, o peso de 8% da maré é redistribuído proporcionalmente entre as 5 variáveis restantes, mantendo a soma em 1,0.
-
-### Limitações honestas do modelo
-
-O Chuvarada **não tem dado de bueiros e galerias pluviais** — essa informação não está disponível publicamente em nenhuma capital nordestina mapeada nesta pesquisa. Por isso o modelo usa hidrografia natural (rios, canais, córregos) e declividade do terreno como aproximação da capacidade de escoamento urbano real. O modelo é deliberadamente conservador: prefere alertar quando o risco real pode ser menor do que silenciar quando o risco é real.
-
----
-
-## 6. Cobertura geográfica
-
-Números atuais (verificados diretamente no banco em 19/07/2026):
+## 2. Cobertura atual
 
 | Métrica | Valor |
 |---|---:|
-| Estados cobertos | **9** (todo o Nordeste: AL, BA, CE, MA, PB, PE, PI, RN, SE) |
-| Municípios cadastrados | **1.794** (100% dos municípios IBGE do Nordeste) |
-| Municípios com ao menos 1 bairro | **1.794** (100%) |
-| Bairros/distritos no total | **7.117** |
-| Bairros com `terrain_slope` real (sem placeholder) | **7.117** (100%) |
-| Bairros com `hydro_proximity` computado (>0) | **7.001** (98,4%) |
-| Bairros com score de risco calculado | **7.117** (100%) |
-| Municípios costeiros | **171** |
-| Municípios costeiros com `tide_code` | **91** (53,2%) |
-| Eventos históricos importados | **55** (precipitação extrema, INMET, Salvador/Recife/Natal) |
-
-### Por estado
-
-| Estado | Municípios | Bairros | `hydro_proximity=0` | Nome de bairro real |
-|---|---:|---:|---:|---:|
-| AL | 102 | 240 | 0 | 52,1% |
-| BA | 417 | 1.306 | 103 | 34,8% |
-| CE | 184 | 2.197 | 5 | 59,6% |
-| MA | 217 | 415 | 5 | 41,4% |
-| PB | 223 | 551 | 0 | 46,6% |
-| PE | 185 | 1.056 | 2 | 62,4% |
-| PI | 224 | 702 | 1 | 68,2% |
-| RN | 167 | 375 | 0 | 49,3% |
-| SE | 75 | 275 | 0 | 65,5% |
+| Estados | **16** (Nordeste completo + Sul + Sudeste) |
+| Municípios | **4.653** (100% dos municípios IBGE desses estados) |
+| Bairros/distritos/subdistritos | **24.556** |
+| Com score de risco calculado | **100%** |
+| Municípios costeiros | 292 |
+| Municípios costeiros com estação de maré (`tide_code`) | 110 (37,7%) |
 
 ### Nível de dado por cidade (`data_level`)
 
 | Nível | Cidades | O que significa |
 |---|---:|---|
-| `full` | 3 | Salvador, Recife, Natal — modelo completo com hidrografia municipal refinada |
-| `partial` | 31 | Capitais e cidades grandes com hidrografia regional (BHO) mas sem dado municipal dedicado |
-| `minimal` | 1.760 | Modelo baseado em clima, terreno e hidrografia regional — sem refinamento local |
+| `full` | 3 | Salvador (BA), Recife (PE), Natal (RN) — bairro real + hidrografia municipal refinada |
+| `partial` | 91 | Capitais e cidades grandes com hidrografia local/regional adicional ou shapefile municipal de bairro, sem o refinamento completo das 3 `full` |
+| `minimal` | 4.559 | Modelo baseado em clima, terreno e hidrografia nacional (BHO), sem refinamento local |
 
-### Cobertura de maré
+### Por estado
 
-171 municípios costeiros, dos quais **91 têm `tide_code`** — a maioria por atribuição da estação CPTEC mais próxima (o catálogo real tem só ~23 estações cobrindo todo o litoral nordestino, então várias cidades vizinhas compartilham legitimamente o código da estação mais próxima). Municípios a mais de 80km de qualquer estação foram deixados **sem** `tide_code` deliberadamente — um dado de baixa confiança seria pior que a ausência de dado (ver seção 8).
+| Estado | Município | Nordeste/Sul/Sudeste |
+|---|---:|---|
+| AL, BA, CE, MA, PB, PE, PI, RN, SE | 1.794 | Nordeste (cobertura original) |
+| ES, MG, PR, RJ, RS, SC, SP | 2.859 | Sul + Sudeste (expansão de 20-21/07/2026) |
 
-### Os 3 níveis de "empty state"
+### O que falta cobrir
 
-O mapa nunca esconde uma área sem cobertura completa — em vez disso, sinaliza o nível real de dado disponível:
-1. **Bairro real com score calculado** — polígono colorido normalmente pelo nível de risco.
-2. **Bairro com nome de fallback** (distrito/setor, não bairro nomeado no Censo) — ainda mostra o score, mas o nome exibido é honesto sobre a granularidade real (`hasRealName()` em `lib/neighborhoodName.ts` sinaliza isso para a UI).
-3. **Município sem nenhum bairro processado ainda** (hoje: nenhum — o único caso, São Luís, foi corrigido em 19/07) — mostraria o contorno municipal real do IBGE em cinza, com tooltip "Cobertura em expansão", em vez de um marcador de ponto solto ou simplesmente omitir a área do mapa (`components/map/EmptyStateLayer.tsx`).
+**Centro-Oeste e Norte** — ainda sem nenhum dado. Ficaram de fora da expansão Sul/Sudeste por ordem de prioridade de produto (ver seção 9): Sul e Sudeste concentram mais população urbana e mais eventos de chuva intensa documentados publicamente do que Centro-Oeste e Norte, então entraram primeiro.
 
----
+### Por que São Paulo, Campinas e Sorocaba usam distrito em vez de bairro
 
-## 7. Dificuldades encontradas — cronologia honesta
+O Censo 2022 do IBGE não preenche `NM_BAIRRO` para esses 3 municípios — só `NM_DIST` (distrito administrativo, uma subdivisão bem mais grossa que bairro urbano de verdade). Investigado como possível bug de pipeline (diagnóstico de 20/07/2026): não é. Conferido também o shapefile bruto do IBGE (a granularidade grossa já vem da fonte, não é perda no processamento) e o portal de dados abertos da própria Prefeitura de São Paulo (GeoSampa) — que também só disponibiliza distrito, não bairro, para consulta programática. Decisão: manter distrito como aproximação, com `name_source='distrito'` sinalizando a diferença na UI, em vez de tentar uma fonte alternativa não oficial (ver seção 9, "OSM para bairros de SP").
 
-### Dados
-
-- **URLs desatualizadas nas fontes originais** — o FTP do IBGE, o portal da ANA e o portal de dados abertos do Recife mudaram de estrutura em relação ao que o plano original do projeto previa; cada uma exigiu buscar o dataset equivalente atual antes de baixar.
-- **Geopackage de 2,7GB da ANA** — parecia impraticável baixar/processar por inteiro; resolvido com bbox pushdown no `geopandas.read_file()`.
-- **`NORDESTE_BBOX` cortando municípios nas bordas dos estados** — descoberto no diagnóstico de 19/07: o bbox original (`-45,0 / -15,0 / -35,0 / -1,0`) cortava o oeste do Maranhão, o sul da Bahia, e a borda leste (Fernando de Noronha e o litoral da própria capital João Pessoa). Corrigido alargando para `(-49,5 / -19,0 / -31,5 / -1,5)` e reprocessando.
-- **Codificação mista UTF-8/Latin-1 nos shapefiles do IBGE** — nomes de município/bairro com acentuação exigiram tratamento cuidadoso de encoding entre estados diferentes.
-- **Litoral subestimado por usar centroide em vez de polígono inteiro** — a marcação `is_coastal` mede a distância do **centroide** do bairro até a linha de costa; bairros grandes que só encostam a costa numa ponta podem ser sub ou super-representados. Ficou como aproximação aceita, não corrigida.
-- **Colisão de nomes entre municípios homônimos de estados diferentes** — `Areia Branca` existe tanto no RN (costeiro) quanto em SE (interior, não-costeiro); o mapa de códigos de maré (`TIDE_CODE_OVERRIDES`, indexado só por nome) atribuiu o código do RN também ao de SE por engano. Corrigido trocando a chave para `nome::estado`.
-- **São Luís sem bairro por bug silencioso de skip no upload** — São Luís já existia em `cities` (de uma tentativa anterior que não completou o processamento), então quando o Maranhão inteiro foi processado depois, o script de upload pulou São Luís silenciosamente por já "existir", sem checar se ela de fato tinha bairros. Corrigido inserindo o dado (já processado e correto) que tinha sido descartado.
-- **`tide_code` duplicado entre Areia Branca/RN e Areia Branca/SE** — mesma causa raiz da colisão de nomes acima.
-- **8 bairros com `terrain_slope` placeholder** (Fernando de Noronha/PE, alguns em RN) — nomes de bairro que não bateram entre o geojson processado e a tabela `cities` no momento do backfill; corrigidos recalculando via SRTM diretamente pelas coordenadas.
-- **CPTEC sem dado de julho/2026 em alguns momentos** — limitação externa (a tábua de maré de um mês futuro só é publicada perto da data); tratado como cache miss recuperável, não erro permanente.
-- **OpenTopography com cota de 50 chamadas/dia esgotada durante testes** — contornado processando em lotes menores ao longo de vários dias.
-
-### Frontend
-
-- **`leaflet.css` não importado causando mapa em branco** — o CSS oficial do Leaflet não estava sendo carregado, fazendo o mapa renderizar sem nenhum tile visível. Corrigido logo no início (commit `aded496`, mesmo dia do setup inicial).
-- **Commits com autor errado** — e-mail de commit não verificado no GitHub numa fase inicial; ajustado.
-- **Previsão idêntica em todos os bairros** — o painel de previsão usava o centroide da **cidade**, não do bairro específico selecionado, fazendo bairros diferentes da mesma cidade mostrarem exatamente a mesma previsão. Corrigido buscando por célula geográfica do bairro.
-- **Card de alerta nunca mostrava dados de clima** — a condição que decidia mostrar o `AlertCard` dependia de um estado (`selected`) que, quando `null` (nenhum bairro selecionado — justamente quando o card aparece), fazia a variável de clima do card nunca ser preenchida. Corrigido usando um bairro de referência fixo para os dados de clima do card, consistente com o que abre ao clicar nele.
-
-### Modelo
-
-- **`rain_72h` usando previsão futura da OpenWeatherMap em vez de histórico observado** — causa raiz do "mapa sempre verde" percebido no fim de semana de 18-19/07: chuva que já tinha caído e passado nunca entrava no cálculo. Resolvido trocando para Open-Meteo (que tem endpoint de histórico real).
-- **`rain_intensity` capturando só o instante atual** — picos de chuva entre execuções do cron (20 minutos) passavam despercebidos. Resolvido com `rain_peak_3h` (máximo das últimas 3h, não o valor pontual).
-- **Limiares conservadores demais** — 56,74mm/72h em Recife ficou classificado como "normal" (score 0,380, abaixo do limiar antigo de 0,4). Ajustado de 0,40/0,70 para 0,30/0,60.
-- **Cron impraticável na escala de 7.117 bairros com processamento sequencial** — reescrito para processar cidades em paralelo (4 por vez) com agrupamento por célula geográfica e inserts em lote, em vez de bairro por bairro sequencial.
-- **Rate limit da Open-Meteo esgotado durante sessão de testes intensivos** — o cron rodou ~1.794 cidades repetidas vezes num curto período, esgotando a cota diária gratuita (retornando HTTP 429, indistinguível por status code de um rate-limit transitório — o backoff exponencial existente não ajuda contra uma cota que só reseta no dia seguinte). Corrigido com um contador interno de chamadas/hora (pausa e loga aviso antes de bater na cota real), fallback para cache expirado quando a chamada nova falha, e um modo `WEATHER_CACHE_ONLY=true` para desenvolvimento.
-
-### Fontes de dados
-
-- **GISMaps bloqueando download automático** — portal usado por algumas prefeituras (ex: São Luís) tem um gate comercial que impede automação direta via `wget`.
-- **Portais com JS/WAF impedindo download automatizado** — Filipeia/João Pessoa e SEMPLAN/Teresina têm proteção que bloqueia requisições automatizadas simples; exigiria navegador real ou acesso manual.
-- **SERhidro (Sergipe) em ArcGIS Hub** — parte dos dados só carrega via JavaScript executado no navegador, não em requisição HTTP direta.
-- **IPECE (Ceará) inacessível** — geoportal com hidrografia local de maior precisão não pôde ser baixado nesta pesquisa.
-- **S2ID sem eventos de alagamento datados suficientes para BA/PE/RN no período coberto** — limitou a validação histórica do modelo (ver seção 9).
-- **Substituição direta da hidrografia local de Sergipe seria uma regressão** — a base estadual (SEMARH) é mais esparsa em riachos intermitentes que a BHO nacional; resolvido combinando as duas com `max()` por bairro, em vez de substituir uma pela outra.
+De forma mais ampla, **cerca de 46% dos 24.556 registros são distrito/subdistrito, não bairro nomeado** — limitação estrutural do Censo 2022 para municípios menores do interior em todo o país, não específica de SP.
 
 ---
 
-## 8. Decisões de produto tomadas ao longo do desenvolvimento
+## 3. Stack técnico completo
 
-- **Granularidade por bairro, não por grid fixo** — mostrar risco por bairro real (mesmo quando o "bairro" é na prática um distrito, ver seção 6) é mais intuitivo pro usuário do que uma grade arbitrária de células, mesmo custando mais trabalho de pré-processamento geoespacial.
-- **PWA em vez de app nativo** — ver justificativa completa na seção 2.
-- **Mapa abre no Nordeste inteiro, dados carregam por viewport** — em vez de forçar o usuário a escolher uma cidade primeiro, o app já mostra o panorama regional de cara, com o usuário podendo pedir localização ou navegar livremente.
-- **Empty states por nível de dado, não ocultar áreas sem cobertura** — uma área sem bairro processado ainda aparece no mapa com um estado visual claro ("cobertura em expansão"), em vez de simplesmente não existir visualmente, o que poderia ser confundido com "sem risco".
-- **Bairros sem nome real exibidos de forma transparente** — em vez de fingir que um distrito é um bairro nomeado, o app sinaliza a diferença (`lib/neighborhoodName.ts`), sendo honesto sobre a granularidade real do dado que o usuário está vendo.
-- **Maré condicional, peso redistribuído sem estação** — em vez de usar um valor neutro fingindo dado onde não existe estação de maré, o peso é redistribuído entre as demais variáveis (ver seção 5).
-- **Open-Meteo em vez de OpenWeatherMap** (histórico observado vs. previsão) — decisão tomada depois de identificar a limitação estrutural do plano gratuito da OpenWeatherMap (seção 3).
-- **Limiares ajustados após evento real de chuva** — a recalibração de 0,40/0,70 para 0,30/0,60 não foi teórica, foi motivada por um caso real observado em produção (Nova Descoberta/Recife).
-- **Não atribuir `tide_code` para municípios a mais de 80km de qualquer estação** — atribuir maré por proximidade é uma aproximação razoável até certa distância; além disso, o dado se torna enganoso, e a decisão foi deixar sem `tide_code` (e portanto sem a variável de maré) em vez de forçar um valor de baixa confiança.
-- **Combinar hidrografia local + BHO com `max()` em vez de substituir** — evita que um dado estadual mais esparso em algumas áreas (mas mais preciso em outras) piore a cobertura geral.
-- **Posicionamento como parceiro do poder público, não crítico** — decisão de tom e comunicação, refletida no rodapé do app e na página `/como-funciona`.
+| Camada | Tecnologia | Por quê |
+|---|---|---|
+| Frontend | Next.js 14 (App Router) + TypeScript + Tailwind CSS | App Router permite rotas de API (`app/api/`) e páginas no mesmo projeto — o cron de atualização de risco roda como uma rota Next mesmo, sem infraestrutura extra. TypeScript pega erros de schema em tempo de compilação. |
+| Mapa | Leaflet.js + tiles CartoDB Dark Matter | Leve, sem chave de API paga, suporte maduro a polígonos GeoJSON (bairro é desenhado como polígono real). Canvas renderer (`preferCanvas: true`, 21/07) em vez do SVG padrão — com milhares de polígonos num viewport largo, SVG cria um `<path>` por feature (caro de repintar); Canvas desenha tudo numa única superfície de bitmap. |
+| Animações | Framer Motion | Transições do painel de bairro, coração de favorito, banners. |
+| Gráficos | Recharts | Histórico de score por bairro (`HistoryChart`). |
+| Banco | Supabase (Postgres gerenciado + Auth + Realtime + RLS) | Banco relacional de verdade (joins entre `neighborhoods`/`cities`/`risk_scores`), autenticação pronta, e um canal de Realtime que notifica o frontend assim que uma nova linha entra em `risk_scores` — sem isso, o mapa precisaria de polling manual. |
+| Acesso ao banco (server-side) | `pg` (Pool direto), não só o client REST do Supabase | Rotas de API e scripts de backfill escrevem em lote (`insertRiskScoresBatch`, `upload_state_expansion.js`) com mais controle de performance do que o client REST permitiria em volume (24.556 bairros). |
+| Clima | Open-Meteo (camada 1) + WeatherAPI.com (camada 2, fallback de emergência) + MERGE/CPTEC (chuva acumulada/pico) | Ver seção 4 — arquitetura evoluiu bastante e foi revertida uma vez. |
+| Maré | CPTEC/INPE (scraping HTML) — **atualmente fora do ar**, fallback neutro | Ver seção 4. |
+| Pré-processamento geoespacial | Python (geopandas, rasterio, shapely, pyogrio, STRtree do shapely) | Processar shapefiles do IBGE, GeoTIFFs SRTM e geopackages de hidrografia em escala nacional exige ferramentas GIS maduras. |
+| PWA | next-pwa | App instalável sem loja de aplicativo, service worker desabilitado em desenvolvimento (`disable: NODE_ENV === 'development'`). |
+| Automação | GitHub Actions (`.github/workflows/merge-and-scores-update.yml`) | Um único workflow horário com 2 jobs sequenciais via `needs` (ver seção 6). |
 
----
+### Decisões de arquitetura tomadas e por quê
 
-## 9. O que foi tentado e não funcionou
-
-- **Validação histórica com S2ID** — a granularidade por município (não por bairro) e a escassez de eventos de alagamento datados no período coberto impediram uma validação estatística robusta do modelo contra ocorrências reais. A tabela `historical_events` existe e tem 55 eventos importados (via INMET, precipitação extrema por estação), mas isso é diferente de uma validação ponta-a-ponta do score de risco contra desastres confirmados por bairro.
-- **Download automático de shapefiles de bairro via `wget`** — funcionou para Aracaju (MapAju) e parcialmente para Maceió, mas falhou para Teresina e João Pessoa por proteção WAF/JS nos respectivos portais municipais.
-- **Hidrografia local do Ceará via IPECE** — geoportal identificado como fonte de melhor precisão, mas inacessível para download nesta pesquisa.
-- **Substituição direta da hidrografia de Sergipe** — testado e descartado por ser uma regressão de cobertura (ver seção 7); resolvido com combinação em vez de substituição.
-- **Atribuição de `tide_code` de baixa confiança (>80km)** — calculado, mas deliberadamente **não aplicado** — decisão consciente de que a ausência de dado é mais honesta que uma aproximação ruim.
-
----
-
-## 10. O que ainda falta
-
-- **Deploy** — combinado como fase futura (Netlify cogitado), ainda não realizado.
-- **Domínio** — não adquirido/configurado ainda.
-- **Shapefiles de bairro de São Luís, Teresina, João Pessoa** — bloqueados por proteção de portal (GISMaps/WAF); precisam de download manual ou acesso alternativo.
-- **Hidrografia local do Ceará** — IPECE inacessível nesta pesquisa; pendente de nova tentativa ou contato direto com o órgão.
-- **Hidrografia local de Sergipe com granularidade maior** — o que existe já está integrado (combinado com BHO), mas há espaço de precisão adicional não explorado.
-- **Validação histórica do modelo** — tabela criada e populada com dados INMET, mas sem uma validação estatística ponta-a-ponta do score contra eventos reais confirmados por bairro (ver seção 9).
-- **Documentação final no Notion** — planejada como fase pós-desenvolvimento, ainda não feita.
-- **Notificações push** — a tabela `notifications` já existe no schema (seção 11), mas não há UI nem lógica de envio implementada.
-- **Autenticação e favoritos** — ao contrário do item acima, esta parte está **implementada e funcional**: `useAuth`, página `/auth` (login/cadastro por e-mail e senha), coração de favorito no painel de bairro, página `/favoritos`, e abertura do app centralizada no bairro favoritado mais recentemente para usuários autenticados.
+- **Carregamento por viewport, não tudo de uma vez** (21/07) — o Supabase/PostgREST tem um teto rígido de 1.000 linhas por requisição (confirmado: nem um `Range` header explícito pedindo mais consegue passar disso). Com 24.556 bairros, o carregamento único antigo só conseguia mostrar ~4% do Brasil — e por acaso nenhum bairro de São Paulo entrava nesse recorte, criando a aparência de "São Paulo não tem dado" quando na verdade era um teto de paginação silencioso. Corrigido com um endpoint (`/api/neighborhoods`) que filtra por bounding box do viewport atual do mapa, usando `centroid_lat`/`centroid_lng` pré-calculados (índice dedicado).
+- **Modo cidade no zoom-out** (21/07) — abaixo de um certo zoom, o mapa mostra 1 ponto por cidade (colorido pelo pior nível entre seus bairros) em vez de polígonos de bairro. Motivo duplo: polígonos ficam ilegíveis nessa escala, e o payload de geometria de um viewport largo chegava a ~9MB. A agregação por cidade (`city_risk_summary`) é uma **tabela real**, não uma view calculada na hora — medido com `EXPLAIN ANALYZE` que agregar "o score mais recente de cada bairro" ao vivo leva 1 a 3 segundos mesmo com índice, rápido demais de repetir a cada cron mas devagar demais pra manter o mapa interativo por request. Como o cron já calcula o score de cada bairro de uma cidade de uma vez e tem esse resultado em memória, ele mesmo atualiza a tabela — custo adicional praticamente zero.
+- **LATERAL join em vez de view com `DISTINCT ON`** (21/07) — a view `latest_risk_scores` (criada na migração 008), quando usada num `JOIN`, forçava o planner do Postgres a des-duplicar a tabela `risk_scores` inteira (todos os bairros do Brasil) mesmo pra devolver os bairros de um viewport pequeno — ~220ms/188 mil buffer hits pra 124 bairros. Trocado por um `LEFT JOIN LATERAL ... LIMIT 1` (usa o índice `risk_scores_neighborhood_time`), que vira um nested loop buscando só o score de cada bairro já filtrado: ~7ms pro mesmo resultado, ~28x mais rápido.
+- **Supabase Realtime com filtro server-side por viewport** — antes assinava todo `INSERT` em `risk_scores` nacionalmente e descartava client-side o que não interessava; com bairros carregados por viewport (dezenas/centenas, não mais 24.556), passou a usar o filtro server-side do Realtime (`neighborhood_id=in.(...)`), com um teto de segurança (500 ids) caindo pro filtro client-side antigo se o viewport for grande demais pro filtro.
+- **`mergeNewerScores()` em vez de merge cego de estado** — um bairro pode ter score atualizado por 2 fontes concorrentes (fetch do viewport e Realtime); o fetch pode demorar e resolver *depois* de um evento Realtime mais recente já ter chegado. Um merge cego deixava o fetch atrasado sobrescrever o score novo com o antigo. A função compara `calculated_at` antes de aceitar qualquer atualização, garantindo que a versão mais recente sempre vence.
+- **Geometria simplificada (Douglas-Peucker) servida no lugar da original** — tolerância de 0,001° (~100m), escolhida empiricamente (0,0001° cogitado inicialmente não reduzia quase nada, porque a fonte IBGE já tem vértices mais espaçados que isso). Corta ~37% do payload sem distorcer visivelmente o formato do bairro. Coluna nova (`geometry_simplified`), preservando a geometria original intacta.
+- **Lock de execução (`system_locks`)** — protege contra 2 disparos do cron simultâneos (ex: disparo manual enquanto o agendado já está no meio do ciclo) e contra a race condition entre o script Python do MERGE e o cron de scores (ver seção 6/7).
 
 ---
 
-## 11. Estrutura do repositório
+## 4. Fontes de dados — completo e honesto
+
+### NASA SRTM (via OpenTopography)
+- **O que fornece**: elevação do terreno, usada para `terrain_slope` (declividade) por bairro.
+- **Como foi obtida**: GeoTIFFs SRTMGL1 via [OpenTopography](https://portal.opentopography.org/), recortes por cidade nas primeiras capitais, depois recortes estaduais maiores.
+- **Dificuldades**: cota de **50 chamadas/dia** no plano gratuito, esgotada durante os testes de expansão — contornado processando por lotes/quadrantes ao longo de vários dias.
+- **Limitações**: resolução ~30m — suficiente pra declividade agregada por bairro, não pra microtopografia de rua.
+- **Status**: ativo.
+
+### BHO/ANA (hidrografia nacional)
+- **O que fornece**: cursos d'água usados para `hydro_proximity`.
+- **Órgão**: ANA (Agência Nacional de Águas), base BHO (Base Hidrográfica Ottocodificada), geopackage nacional de 2,7GB (2.751.685 feições).
+- **Como foi obtida**: `geopandas.read_file()` com bbox pushdown (o GDAL recorta na leitura, sem carregar o Brasil inteiro em memória).
+- **Dificuldades**: bbox inicial cortava bordas reais do Nordeste (oeste do MA, sul da BA, litoral leste de PB, Fernando de Noronha) — alargado e reprocessado. Na expansão nacional, `process_bho.py` com `unary_union` + loop não terminou em 64 minutos para Sul/Sudeste — trocado por STRtree (índice espacial), resolvendo o problema de escala.
+- **Status**: ativo, base de todo o país.
+
+### IBGE Censo 2022 (setores censitários)
+- **O que fornece**: os polígonos de bairro (ou distrito/subdistrito, na ausência de bairro nomeado).
+- **Como foi obtida**: shapefile por estado via FTP do IBGE.
+- **Dificuldades**: codificação mista UTF-8/Latin-1 nos atributos entre estados; colisão de nomes entre municípios homônimos de estados diferentes (ex: Areia Branca existe em RN e SE).
+- **Limitação estrutural**: ~46% dos registros nacionais são distrito/subdistrito, não bairro nomeado — mais pronunciado no interior e em municípios grandes como São Paulo/Campinas/Sorocaba (ver seção 2).
+- **Status**: ativo, fonte primária de geometria em todo o país.
+
+### MERGE/CPTEC (precipitação — satélite + pluviômetros)
+- **O que fornece**: `rain_72h` e `rain_peak_3h` — chuva acumulada e pico, combinando satélite (GPM/IMERG) e pluviômetros do INMET em uma grade de ~10km, publicada pelo CPTEC/INPE.
+- **Como foi obtida**: `scripts/fetch_merge_cptec.py`, rodando a cada hora via GitHub Actions, grava em `merge_cache`.
+- **Dificuldades**: um quadrante do Maranhão baixou truncado uma vez (HTTP 200 mas arquivo cortado) — corrigido com validação completa do raster antes de mesclar. Grid de célula aumentado para 0,1° e rate limiter trocado de "por hora" para contador diário durante a expansão nacional, pra escalar de ~1.800 pra ~4.650 cidades sem estourar limites.
+- **Status**: **ativo, fonte principal de chuva acumulada/pico** em todo o país.
+
+### Open-Meteo (variáveis secundárias + camada 1 de fallback)
+- **O que fornece**: `rain_1h`, vento, umidade, pressão — e, quando é a camada ativa, também serve de origem alternativa pra `rain_72h`/`rain_peak_3h` via `past_days=3` (comparado com o MERGE, usa o maior valor).
+- **Por que é camada 1 de novo**: o projeto tentou migrar `rain_1h`/vento/umidade/pressão pra WeatherAPI.com em 21/07 (ver abaixo), mas revertida no mesmo dia — cota real da Open-Meteo (10.000 chamadas/dia) é maior que a do plano gratuito da WeatherAPI (3.333/dia), e o plano Business contratado da WeatherAPI só é válido até 28/07/2026 (não é uma solução durável).
+- **Status**: ativo, camada 1.
+
+### WeatherAPI.com (fallback de emergência)
+- **O que fornece**: mesmas variáveis da Open-Meteo, usada só quando a Open-Meteo falha ou esgota a cota do dia.
+- **Status**: ativo como **camada 2** (reserva de emergência) — não como fonte primária. Precisa de `WEATHERAPI_KEY` configurada.
+
+### CPTEC/maré (scraper) — **INATIVO**
+- **O que fornecia**: nível de maré (0 a 1), 8% do peso do modelo, via scraping HTML da tábua oficial da Marinha do Brasil publicada pelo CPTEC.
+- **Status atual**: **fora do ar** — confirmado por inspeção direta do HTML (não é mudança de layout que quebrou o parser: a página retorna uma tabela genuinamente vazia para qualquer estação/mês/ano testado, incluindo meses passados que deveriam ter dado histórico).
+- **O que foi investigado como alternativa**: o antigo webservice estruturado da Marinha foi descontinuado em 2018. A fonte real hoje é um PDF anual por estação (`marinha.mil.br/chm/.../tabua_{ano}_0.pdf`), confirmado tecnicamente parseável via `pdfplumber` num exemplo de 2023 — mas as páginas de listagem necessárias pra descobrir a URL de cada estação pro ano corrente retornam 403 (WAF), e o padrão de URL de anos anteriores não se estende a 2026 (404).
+- **Decisão**: formalizar o fallback neutro (0,5) em vez de investir na integração com o PDF da Marinha agora — ver seção 9. `EMPTY_TIDE_RETRY_HOURS=24` evita bater no endpoint morto a cada ciclo de cron pra cada cidade costeira.
+- **Impacto**: `tide_level` fica sempre neutro (0,5) para as 110 cidades com `tide_code` cadastrado; o peso de 8% cai no mesmo mecanismo de redistribuição já usado para cidades sem estação — não há dado incorreto sendo exibido, só a variável temporariamente fora do cálculo real em todo o país.
+
+### Defesa Civil / S2ID — tentado, com limitações
+- **O que é**: Sistema Integrado de Informações sobre Desastres — reconhecimentos oficiais de Situação de Emergência/Estado de Calamidade por decreto municipal.
+- **Limitação séria**: granularidade por município, não por bairro — não dá pra validar o modelo (que é por bairro) diretamente. Também não havia eventos de alagamento datados suficientes no período coberto pra uma validação estatística robusta.
+- **Status**: tentado, não deu no resultado esperado (ver seção 9).
+
+### Hidrografia local: Recife
+- **Órgão**: Prefeitura do Recife (dados abertos, faixas marginais dos recursos hídricos).
+- **Status**: integrado — `process_hydro_recife.py` combina com a BHO regional (prioriza dado local, completa com BHO numa vizinhança de ~11km).
+
+### Hidrografia local: Paraíba (AESA)
+- **Órgão**: AESA (Agência Executiva de Gestão das Águas da Paraíba).
+- **Status**: baixado, ainda não integrado ao cálculo final (a PB já tem 100% de `hydro_proximity` real via BHO; fica como melhoria de precisão futura).
+
+### Hidrografia local: Sergipe (SERhidro)
+- **Órgão**: SEMAC/SERhidro (geoportal estadual).
+- **Status**: integrado — `process_hydro_sergipe.py` combina com a BHO via `max()` por bairro (nunca substitui, sempre complementa — substituir seria regressão, já que a base estadual é mais esparsa em riachos intermitentes que a BHO nacional).
+
+### Bairros municipais: Aracaju (MapAju)
+- **Status**: obtido — geoportal oficial ativo, exportação direta, geometria oficial de bairro real usada em vez de setor censitário.
+
+### BRAMS/CPTEC — investigado, descartado
+- **O que é**: modelo de previsão numérica regional do CPTEC.
+- **Motivo do descarte**: ciclo de publicação de 1x por dia — regressão frente à Open-Meteo/MERGE, que atualizam por hora.
+
+### INMET — investigado, parcialmente inviável
+- **O que é**: Instituto Nacional de Meteorologia, rede de estações automáticas com dado horário real (pluviômetro físico, não estimativa de satélite).
+- **Limitação**: API horária exige token de acesso — processo de solicitação burocrático, não resolvido nesta fase. INMET já é usado indiretamente (dados de precipitação extrema histórica importados para `historical_events`, e o próprio MERGE/CPTEC incorpora pluviômetros do INMET na sua grade combinada).
+
+### NASA GPM IMERG — investigado, substituído pelo MERGE
+- **O que é**: dado de precipitação por satélite da NASA, componente também usado pelo MERGE/CPTEC.
+- **Motivo**: acesso direto exige conta NASA Earthdata — processo mais burocrático que consumir o produto já combinado (satélite + pluviômetro) publicado pelo CPTEC via MERGE, que entrega o mesmo tipo de dado com menos fricção de acesso.
+
+---
+
+## 5. Modelo de risco — documentação técnica completa
+
+### Variáveis e pesos atuais
+
+| Variável | Peso | Fonte | Normalização |
+|---|---:|---|---|
+| `rain_peak_3h` | 25% | MERGE/CPTEC (ou Open-Meteo, o maior dos dois) | 0mm/h→0, 10mm/h→0,5, 30mm/h→1,0 |
+| `rain_1h` | 20% | Open-Meteo (camada 1) / WeatherAPI.com (camada 2) | 0mm→0, 25mm→0,5, 50mm→1,0 |
+| `rain_72h` | 20% | MERGE/CPTEC (ou Open-Meteo, o maior dos dois) | 0mm→0, 50mm→0,5, 100mm→1,0 |
+| `terrain_slope` | 15% | NASA SRTM | pré-processado |
+| `hydro_proximity` | 12% | ANA/BHO + hidrografia local | pré-processado |
+| `tide_level` | 8% | CPTEC (fallback neutro 0,5 — fonte fora do ar, ver seção 4) | 0 a 1 |
+
+A normalização usa `normalizeLinear(valor, meio, máximo)` — interpolação linear em dois trechos usando o ponto médio como referência de 0,5, não uma reta única até o máximo. Dá mais sensibilidade na faixa "moderada" da variável.
+
+### Evolução do modelo
+
+- **`rain_intensity` → `rain_peak_3h`** (19-20/07): a variável antiga capturava só o valor exato do instante em que o cron rodava. Picos de chuva convectiva tropical costumam durar menos que o intervalo entre execuções do cron — um pico podia já ter passado e nunca ser "visto". `rain_peak_3h` resolve pegando o máximo horário das últimas 3 horas.
+- **Limiares 0,4/0,7 → 0,3/0,6** (20/07): motivado por um evento real de chuva em Recife (bairro Nova Descoberta, `rain_72h=56,74mm`) que gerou score 0,380 — classificado como "normal" com os limiares antigos, apesar de já ter chuva acumulada significativa.
+- **Maré condicional**: só entra no cálculo em cidades com `tide_code` cadastrado; sem isso, o peso de 8% é redistribuído proporcionalmente entre as 5 variáveis restantes, mantendo a soma em 1,0 — em vez de usar um valor neutro fingindo dado real.
+- **Guarda de recência na regra de maré+costa** (achado do relatório de testes pré-deploy): a regra 2 de crítico automático (maré alta + chuva costeira) só dispara se o dado de maré usado tiver menos de 26h — margem que cobre um ciclo completo de maré (~6h) mais folga. Sem isso, aplicar a regra sobre um `tide_level` muito antigo (comum quando 89% das cidades usam `weather_cache` expirado na maior parte do tempo) arriscaria disparar — ou deixar de disparar — com base numa maré que já não é a de agora.
+
+### Regras de crítico automático
+
+Independente do score ponderado, o bairro entra direto em crítico se:
+1. `rain_1h > 50mm` — chuva extrema na última hora.
+2. `tide_level > 0,8` **e** `rain_3h > 20mm` **e** bairro costeiro **e** `tide_code` cadastrado **e** dado de maré com menos de 26h.
+3. `rain_72h > 100mm` **e** `rain_1h > 0` — solo saturado recebendo qualquer chuva nova.
+
+### Validações com eventos reais
+
+- **Natal, 18-19/07/2026**: 102mm em 24h — o modelo classificou corretamente como crítico.
+- **Natal, 21/07/2026**: 17 pontos de alagamento noticiados na cidade — 13 dos 13 bairros correspondentes já estavam em crítico no modelo. Esse mesmo incidente expôs uma race condition real entre o script do MERGE e o cron de scores (ver seção 7), corrigida no mesmo dia.
+- **Rio Grande do Sul, frente fria** (expansão Sul/Sudeste): ~95% dos bairros do estado em atenção/crítico simultaneamente — padrão consistente com chuva frontal (frente cobrindo o estado inteiro), diferente do padrão localizado/convectivo típico do Nordeste. Validação qualitativa de que o modelo responde de forma coerente a um regime de chuva bem diferente do que foi originalmente calibrado.
+
+### Limitações honestas do modelo
+
+- Sem dado de bueiros ou galerias pluviais — não disponível publicamente em nenhuma cidade mapeada nesta pesquisa.
+- `rain_72h`/`rain_peak_3h` são estimativas de modelo numérico (satélite + pluviômetro combinados via MERGE), não medição física por pluviômetro em cada bairro.
+- Eventos convectivos muito localizados podem ser subestimados pela grade de ~10km do MERGE — no caso de Natal o MERGE capturou bem, mas isso não garante captura de todo evento sub-grade.
+- A validação histórica (`historical_events`) existe mas não tem eventos datados por bairro suficientes para uma validação estatística robusta — os casos reais de Natal/RS acima são validação qualitativa pontual, não um backtesting sistemático.
+
+---
+
+## 6. Arquitetura de dados — pipeline completo
+
+### Pré-processamento (Python, offline, por estado/cidade)
+
+1. **Download** — IBGE (setores censitários), SRTM (OpenTopography), BHO/ANA (geopackage nacional), hidrografias locais (Recife/Paraíba/Sergipe), shapefile de bairro de Aracaju.
+2. **`process_neighborhoods.py`** / **`process_state_neighborhoods.py`** — dissolve setores censitários em polígonos de bairro, marca `is_coastal`, exporta GeoJSON com placeholders de `terrain_slope`/`hydro_proximity`.
+3. **`process_srtm.py`** — calcula declividade real a partir do GeoTIFF, agrega por bairro, preenche `terrain_slope` *in-place*.
+4. **`process_bho.py`** — distância de cada bairro ao curso d'água nacional mais próximo (STRtree), normaliza e preenche `hydro_proximity`.
+5. **`process_hydro_recife.py`** / **`process_hydro_sergipe.py`** — refinam `hydro_proximity` com hidrografia local, via `max()` com a BHO.
+6. **`upload_neighborhoods.js`** / **`upload_state_expansion.js`** — inserem em lote via `pg` direto (`city_id`, `name`, `geometry`, `geometry_simplified`, `terrain_slope`, `hydro_proximity`, `is_coastal`, `name_source`, `centroid_lat`/`lng`).
+
+### Ciclo de atualização (produção, a cada hora)
 
 ```
-app/                        Rotas Next.js (App Router)
+GitHub Action (.github/workflows/merge-and-scores-update.yml, "0 * * * *"):
+
+1. update_merge: fetch_merge_cptec.py → merge_cache
+   (precipitação MERGE/CPTEC pra todo o Brasil coberto, grade ~10km)
+
+2. update_scores (needs: update_merge, só roda depois do 1 terminar):
+   /api/cron/update → risk_scores (score de cada bairro)
+   ├── Open-Meteo (camada 1): rain_1h/vento/umidade/pressão
+   │     (TTL do cache: 24h se célula seca, 3h se célula com chuva)
+   ├── WeatherAPI.com (camada 2): fallback se Open-Meteo esgotar/falhar
+   ├── weather_cache existente <24h (camada 3): fallback se as 2 acima falharem
+   └── Neutro (camada 4): último recurso, nunca deixa um bairro sem nenhum dado
+   → upsertCityRiskSummary: agregado por cidade atualizado no mesmo passo
+     (sem query extra — já tem o score de cada bairro em memória)
+```
+
+A ordem por `needs` (não por horário/offset entre 2 workflows separados) existe especificamente porque rodar os dois em paralelo causava uma race condition real: parte dos bairros liam célula de `merge_cache` já atualizada nessa rodada, parte liam célula ainda não tocada (caindo pro fallback Open-Meteo, subestimando a chuva) — descoberto no incidente de Natal de 21/07/2026.
+
+### Supabase Realtime
+
+O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no viewport atual (filtro server-side quando o viewport tem até 500 bairros, client-side como fallback de segurança acima disso). O mapa atualiza a cor do bairro automaticamente, sem reload. `mergeNewerScores()` (comparando `calculated_at`) garante que um fetch de viewport atrasado nunca sobrescreve um score mais novo já recebido via Realtime.
+
+---
+
+## 7. Bugs encontrados e corrigidos
+
+### Bugs de dados
+1. **`NORDESTE_BBOX` cortando municípios nas bordas** (MA, PB, PI, PE) → alargado para `(-49,5, -19,0, -31,5, -1,5)`.
+2. **São Luís sem bairros** por skip silencioso no upload (já existia em `cities` de uma tentativa anterior, sem checar se tinha bairro associado) → corrigido com INSERT pontual do dado já processado.
+3. **`tide_code` duplicado** entre Areia Branca/RN e Areia Branca/SE (mapa de códigos indexado só por nome, sem UF) → UPDATE removendo o código de SE, chave trocada para `nome::estado`.
+4. **8 bairros com `terrain_slope` placeholder** (Fernando de Noronha, Equador/RN — fora dos bounding boxes originais) → backfill com SRTM real via OpenTopography.
+5. **`hydro_proximity=0` por bbox nacional cortando bordas dos estados** → bbox alargado e reprocessado.
+6. **`name_source` nulo em 17.439 bairros do Sul/Sudeste** → backfill a partir dos GeoJSONs de origem.
+7. **77 atribuições incorretas de `tide_code` por distância** (bug no script de atribuição por proximidade) → revertidas e refeitas com referência às cidades-sede reais das estações.
+8. **Codificação mista UTF-8/Latin-1** nos shapefiles do IBGE → função de correção de dupla-codificação no pipeline.
+9. **Litoral subestimado** por usar centroide do bairro em vez do polígono inteiro para calcular distância à costa → trocado para distância do polígono completo.
+10. **Colisão de nomes entre municípios homônimos** de estados diferentes → chave trocada de `nome` para `(nome, estado)`.
+11. **`MERGE_BBOX` não cobrindo Sul/Sudeste** → alargado para `BRASIL_BBOX = (-57,7, -33,8, -31,5, -1,5)`.
+
+### Bugs de pipeline
+12. `process_srtm.py` salvando resultado em arquivo separado em vez de atualizar `terrain_slope` *in-place* nos GeoJSONs.
+13. `process_bho.py` gerando artefatos intermediários dentro de `public/geojson/` → movidos para `dados-brutos/`.
+14. `process_hydro_recife.py` quebrando por CRS incompatível (WGS84 vs SIRGAS2000).
+15. `process_bho.py` com `unary_union` + loop não terminando em 64min pra Sul/Sudeste → trocado por STRtree (índice espacial).
+16. Script de upload pulando São Luís silenciosamente (nome já existia em `cities`) — mesma causa raiz do bug #2.
+17. `fetch_merge_cptec.py`: quadrante do Maranhão baixado truncado (HTTP 200 mas arquivo cortado) → validação completa do raster antes de mesclar.
+
+### Bugs de modelo
+18. `rain_72h` calculado a partir de previsão futura (limitação do plano gratuito da fonte original) → trocado para uma fonte com histórico observado real (`past_days`).
+19. `rain_intensity` capturando só o instante atual, perdendo picos entre execuções do cron → trocado para `rain_peak_3h` (máximo das últimas 3h).
+20. Limiares conservadores demais (0,4/0,7): 56mm/72h em Recife ficou "normal" → ajustado para 0,3/0,6 após evento real.
+21. Fonte de MERGE priorizada cegamente sobre a fonte secundária → implementado `getBestRainData()` com lógica de comparação (usa o maior valor entre as duas).
+
+### Bugs de frontend
+22. **PostgREST retornando só 1.000 bairros** (teto rígido, confirmado que nem `Range` header explícito consegue passar) → carregamento por viewport com `/api/neighborhoods`, filtrando por `centroid_lat`/`centroid_lng`.
+23. **View `latest_risk_scores` congelada** após `ALTER TABLE ADD COLUMN` — Postgres congela a lista de colunas de uma view `select *` no momento da criação, não acompanha colunas adicionadas depois na tabela (`rain_peak_3h`, `rain_source` ficaram de fora) → recriada na migração 020.
+24. **Deep-link `?bairro=` nunca abrindo o painel** — race condition: o efeito de auto-abertura tinha `flyTo` nas dependências, e a identidade de `flyTo` muda assim que o mapa deixa de ser `null` (poucos ms após o mount); isso reiniciava o efeito e cancelava o fetch em andamento antes da resposta chegar → corrigido isolando esse caminho num efeito mount-only com uma ref estável.
+25. **Race condition entre fetch do viewport e Supabase Realtime** — fetch atrasado sobrescrevendo score mais novo já recebido via Realtime, fazendo o polígono do mapa voltar a ficar verde mesmo com o painel já mostrando crítico → corrigido com `mergeNewerScores()` comparando `calculated_at`.
+26. Card de alerta nunca mostrava dados de clima (condição mutuamente exclusiva com o estado de bairro selecionado).
+27. Previsão idêntica em todos os bairros de uma cidade (usando centroide da cidade, não do bairro) → trocado para centroide do bairro via `turf.centroid`.
+28. Cron rodou parcialmente uma vez (timeout de 670s) — ES e MG ficaram com processamento incompleto → segunda execução completou.
+
+### Bugs de infraestrutura
+29. GitHub Action do MERGE nunca tinha sido de fato ativada em produção (workflow existia no código, secrets nunca configurados) → documentado em `SETUP_ACTIONS.md` + lock de escrita implementado antes de ativar de verdade.
+30. Race condition entre `fetch_merge_cptec.py` e o cron de scores rodando em paralelo/fora de ordem → `system_locks` com acquire/release + jobs sequenciais via `needs` no workflow unificado.
+31. `Number(env) || default` tratando `"0"` como falsy no rate limiter (um valor de configuração igual a zero caía silenciosamente pro default) → corrigido com um helper que só usa o default quando a env var está de fato ausente/inválida, não quando é zero.
+32. Cota diária esgotada durante sessão de testes intensivos → rate limiter diário + modo `WEATHER_CACHE_ONLY` pra desenvolvimento sem consumir cota.
+33. Cota de 50 chamadas/dia do OpenTopography esgotada durante a expansão → baixado em quadrantes/lotes menores ao longo de vários dias.
+
+---
+
+## 8. O que foi tentado e não funcionou
+
+- **Validação histórica com S2ID** — granularidade por município (não por bairro) e poucos eventos de alagamento datados no período coberto impediram validação estatística robusta.
+- **TideLevelAPI** — domínio morto.
+- **CPTEC/maré** — página com tabela vazia (serviço degradado do lado do órgão, sem solução do lado do cliente).
+- **Webservice estruturado da Marinha** — descontinuado em 2018.
+- **PDF da Marinha** — tecnicamente parseável, mas as URLs de descoberta por estação para 2026 retornam 403 (WAF) ou 404 (padrão de anos anteriores não se estende).
+- **INMET API horária** — exige token, processo burocrático não resolvido nesta fase.
+- **NASA GPM IMERG direto** — requer conta NASA Earthdata.
+- **Google Earth Engine** — requer conta Google + Earth Engine habilitado.
+- **BRAMS/CPTEC** — ciclo de publicação de 1x/dia é regressão frente à Open-Meteo/MERGE (atualização por hora).
+- **OSM para bairros de São Paulo** — decidido manter consistência com a fonte IBGE em vez de misturar fontes de granularidade/critério diferentes.
+- **Shapefiles de Teresina e João Pessoa** — portais municipais protegidos por WAF, automação bloqueada.
+- **Hidrografia local do Ceará (IPECE)** — geoportal inacessível.
+- **Hidrografia local de Sergipe (SERhidro), parte via ArcGIS Hub** — parte do dado só carrega via JavaScript executado no navegador, não em requisição HTTP direta (contornado usando o subconjunto que respondia a requisição direta).
+
+---
+
+## 9. Decisões de produto tomadas
+
+- **Granularidade por bairro, não grid fixo** — mais intuitivo pro usuário do que uma grade arbitrária de células, mesmo custando mais trabalho de pré-processamento geoespacial.
+- **PWA em vez de app nativo** — instala direto do navegador, sem loja de aplicativo, mesmo código pra iOS/Android, iteração rápida num projeto com modelo e cobertura ainda em evolução ativa.
+- **Mapa abre no viewport dinâmico, carrega por área visível** — em vez de forçar escolha de cidade primeiro, ou tentar carregar o Brasil inteiro de uma vez (inviável pelo teto de 1.000 linhas do PostgREST).
+- **Empty states por nível de dado, não ocultar áreas sem cobertura** — uma área sem bairro processado ainda aparece no mapa com um estado visual claro ("cobertura em expansão"), em vez de simplesmente não existir visualmente (o que poderia ser confundido com "sem risco").
+- **Bairros sem nome real exibidos de forma transparente** — "Área sem denominação oficial" em vez de fingir que um distrito é um bairro nomeado.
+- **Maré condicional** — peso redistribuído em vez de mostrar linha de maré onde não há estação confiável nas proximidades.
+- **Open-Meteo → MERGE para precipitação** — histórico observado real em vez de estimativa/previsão, decisão que se manteve mesmo depois da tentativa (e reversão) de migrar `rain_1h` para WeatherAPI.com.
+- **Limiares ajustados após evento real** em Natal, não teoricamente.
+- **Não atribuir `tide_code`** para municípios a mais de 80km de qualquer estação — dado de baixa confiança seria pior que a ausência de dado.
+- **Combinar hidrografia local + BHO com `max()`**, nunca substituir — evita que um dado local mais esparso em algumas áreas piore a cobertura geral que a BHO já oferecia.
+- **Posicionamento como parceiro do poder público, não crítico** — decisão de tom e comunicação, refletida no rodapé do app e em `/como-funciona`.
+- **WeatherAPI.com como fallback de emergência, não fonte primária** — decisão revertida uma vez (21/07): a WeatherAPI chegou a ser camada 1, mas a cota do plano gratuito da Open-Meteo é maior e mais durável que o plano Business contratado da WeatherAPI (que expira 28/07/2026).
+- **Manter distritos do IBGE para SP/Campinas/Sorocaba** — consistência de fonte e critério em vez de misturar com um dado municipal de granularidade diferente.
+- **Formalizar fallback neutro de maré** em vez de investir agora na integração com o PDF da Marinha (decisão explícita do usuário, com as alternativas — investir no PDF, ou só pausar e reportar — descartadas).
+- **Modo cidade com `CircleMarker` no zoom-out** (Opção A, entre as alternativas discutidas) — pontos coloridos por cidade em vez de manter polígonos de bairro ilegíveis/pesados numa escala de zoom-out.
+- **Sul e Sudeste antes de Centro-Oeste e Norte** — maior concentração de população urbana e de eventos de chuva intensa documentados publicamente.
+
+---
+
+## 10. Limitações conhecidas e documentadas
+
+### Estruturais (sem solução técnica imediata)
+- **Maré sempre em 0,5** — fonte CPTEC fora do ar; alternativa real (PDF da Marinha) exige um projeto separado de descoberta de URL por estação + parser de PDF.
+- **São Paulo, Campinas e Sorocaba com distrito, não bairro** — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades; o próprio GeoSampa (portal da Prefeitura de SP) também só disponibiliza distrito.
+- **Interior do Brasil sem bairro nomeado** (~46% dos registros são distrito/subdistrito) — limitação do Censo 2022 pra municípios pequenos, em todo o país.
+- **Eventos convectivos muito localizados podem ser subestimados** pela grade de ~10km do MERGE — capturado corretamente no caso de Natal, mas reconhecido como limitação estrutural para eventos ainda menores que a célula.
+
+### De cobertura
+- **Centro-Oeste e Norte** ainda sem cobertura nenhuma.
+- **Cidades a mais de 80km de qualquer estação de maré** ficam intencionalmente sem `tide_code`.
+- **Hidrografia local do Ceará** sem fonte alternativa disponível (IPECE inacessível).
+
+### De infraestrutura
+- **GitHub Actions precisam de secrets configurados manualmente** antes do primeiro deploy real (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL` — ver `scripts/SETUP_ACTIONS.md`).
+- **`flyTo` animado do Leaflet não completa em ambiente de navegador headless/aba em segundo plano** — descoberto testando a feature de modo cidade (21/07): o Chromium suspende `requestAnimationFrame` quando `document.hidden=true`, e o `flyTo` depende disso pra animar. Não é um bug do app — confirmado via `setView` (sem animação) que a lógica de navegação em si funciona corretamente; só a *animação* não roda em aba de fundo.
+
+---
+
+## 11. O que falta fazer
+
+### Antes do deploy
+- Configurar os secrets no GitHub (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver `scripts/SETUP_ACTIONS.md`.
+- Testar a GitHub Action via `workflow_dispatch` manual.
+- Definir a plataforma de deploy (Vercel/Netlify cogitados, nenhuma decidida ainda).
+
+### Pós-deploy prioritário
+- Expandir cobertura para Centro-Oeste e Norte.
+- Investigar alternativa real para dados de maré (descobrir URL do PDF anual da Marinha por estação + parser).
+- Notificações push — tabela `notifications` já existe no schema, UI e lógica de envio não implementadas.
+- Documentação final consolidada no Notion.
+
+### Melhorias futuras
+- Integração com API horária do INMET (token necessário) para pluviômetros reais complementares ao MERGE.
+- Validação histórica sistemática do modelo com eventos datados por bairro (hoje só há validação qualitativa pontual — Natal, RS).
+- Ajuste fino de pesos do modelo para diferenciar chuva frontal (padrão do Sul) de chuva convectiva (padrão do Nordeste) — hoje o mesmo conjunto de pesos serve os dois regimes.
+- Shapefile de bairro real para São Paulo, Campinas e Sorocaba, se/quando uma fonte pública oficial surgir.
+
+---
+
+## 12. Estrutura do repositório
+
+```
+app/                          Rotas Next.js (App Router)
 ├── api/
-│   ├── cron/update/         Cron principal — recalcula risco de todos os bairros
-│   ├── forecast/            Previsão do tempo (atual + 12h) por coordenada
-│   ├── score/                Score de risco por bairro
-│   ├── tide/                 Nível de maré por cidade
-│   └── weather/               Clima bruto por coordenada
-├── auth/                     Página de login/cadastro
-├── favoritos/                 Página de bairros salvos
-├── como-funciona/              Explicação do modelo em linguagem simples
-└── page.tsx                    Página principal (mapa)
+│   ├── cron/update/            Cron principal — recalcula risco de todos os bairros
+│   ├── neighborhoods/           Bairros por viewport (bbox) + score embutido + lookup por id
+│   ├── cities-summary/           Agregado por cidade pro modo "pontos" no zoom-out
+│   ├── forecast/                  Previsão do tempo (atual + 12h) por coordenada
+│   ├── score/                      Score de risco por bairro
+│   ├── tide/                        Nível de maré por cidade
+│   └── weather/                      Clima bruto por coordenada
+├── auth/                        Página de login/cadastro
+├── favoritos/                    Página de bairros salvos
+├── como-funciona/                  Explicação do modelo em linguagem simples
+└── page.tsx                        Página principal (mapa)
 
 components/
-├── map/                       MapContainer, NeighborhoodLayer, EmptyStateLayer, LocationButton
-├── panel/                      DetailPanel, ScoreBreakdown, ForecastStrip, HistoryChart
-├── ui/                         AlertCard, CityHeader, MapLegend, InfoButton/Modal, WeatherIcons, etc.
-└── how-it-works/                RiskDiagram, VariableCard, SourcesList (usados em /como-funciona)
+├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, EmptyStateLayer, LocationButton
+├── panel/                        DetailPanel, ScoreBreakdown, ForecastStrip, HistoryChart
+├── ui/                            AlertCard, CityHeader, MapLegend, InfoButton/Modal, WeatherIcons etc.
+└── how-it-works/                    RiskDiagram, VariableCard, SourcesList (usados em /como-funciona)
 
-lib/                           Integrações e motor de risco
-├── score.ts                    Cálculo do score de risco (motor principal)
-├── weather.ts                   Orquestração de clima (cache, MERGE, fallback Open-Meteo, rate limiting)
-├── weatherapi.ts                 Integração WeatherAPI.com (fonte primária de rain_1h/vento/umidade/pressão)
-├── cptec.ts                      Integração CPTEC (maré, via scraping)
-├── db.ts                          Pool de conexão Postgres direta
-├── supabase.ts                    Client Supabase (Auth, Realtime)
-├── grid.ts                         Agrupamento geográfico em células (~10km)
-├── geojson.ts                      Utilitários de geometria (localizar bairro por ponto)
-├── neighborhoodName.ts              Lógica de nome real vs. fallback
-└── metricInfo.ts                     Textos explicativos das métricas (botões de "?")
+lib/                             Integrações e motor de risco
+├── score.ts                       Cálculo do score de risco (motor principal)
+├── weather.ts                       Orquestração de clima (cache, MERGE, fallback em camadas, rate limiting)
+├── weatherapi.ts                     Integração WeatherAPI.com (camada 2, fallback de emergência)
+├── merge.ts                           Leitura do merge_cache (chuva MERGE/CPTEC)
+├── cptec.ts                            Integração CPTEC (maré — atualmente fallback neutro)
+├── db.ts                                Pool de conexão Postgres direta
+├── supabase.ts                           Client Supabase (Auth, Realtime)
+├── grid.ts                                Agrupamento geográfico em células (~10km)
+├── geojson.ts                              Utilitários de geometria (localizar bairro por ponto, estilos)
+├── neighborhoodName.ts                       Lógica de nome real vs. fallback
+└── metricInfo.ts                               Textos explicativos das métricas (botões de "?")
 
-hooks/                          useAuth, useFavorites, useForecast, useMap, useRealtime, useRisk, useLocation, useIsDesktop
+hooks/                           useAuth, useFavorites, useForecast, useMap, useRealtime, useRisk, useLocation, useIsDesktop
 
-scripts/                        Pré-processamento Python + upload + diagnósticos
-├── process_neighborhoods.py       Setores censitários → polígonos de bairro (por cidade)
-├── process_state_neighborhoods.py  Variante para estado inteiro
+scripts/                         Pré-processamento Python + upload + diagnósticos
+├── process_neighborhoods.py / process_state_neighborhoods.py    Setores censitários → polígonos de bairro
 ├── process_srtm.py                  SRTM → terrain_slope
-├── process_bho.py                    BHO/ANA → hydro_proximity (nacional)
-├── process_hydro_recife.py            Hidrografia municipal do Recife (refinamento local)
-├── process_hydro_sergipe.py            Hidrografia estadual de Sergipe (refinamento local)
-├── process_s2id.py                      Eventos de desastre S2ID (Defesa Civil)
-├── process_inmet_extremes.py             Dias de chuva extrema (INMET)
-├── upload_neighborhoods.js / upload_state_expansion.js   Upload em lote pro Supabase
-├── fix_*.js / backfill_*.js               Correções pontuais pós-upload
-├── assign_tide_by_proximity.js             Atribuição de tide_code por distância
-├── generate_icons.js                        Gera os ícones PNG do PWA a partir de public/icon*.svg
-└── sql/                                       Migrações numeradas (001 a 012)
+├── process_bho.py                     BHO/ANA → hydro_proximity (nacional, via STRtree)
+├── process_hydro_recife.py / process_hydro_sergipe.py    Hidrografia local (refinamento)
+├── coastal_hydro_proximity.py           Distância à linha de costa (fallback pra bairros costeiros)
+├── fetch_merge_cptec.py                   MERGE/CPTEC → merge_cache
+├── upload_neighborhoods.js / upload_state_expansion.js     Upload em lote pro Supabase
+├── backfill_*.js                            Backfills pontuais (centroides, geometria simplificada, name_source, city_risk_summary)
+├── fix_*.js                                  Correções pontuais pós-upload
+├── assign_tide_by_proximity.js                 Atribuição de tide_code por distância
+├── SETUP_ACTIONS.md                              Guia de configuração dos secrets do GitHub Actions
+└── sql/                                            Migrações numeradas (001 a 022)
 
-public/geojson/                 Dados processados (28 arquivos) servidos estaticamente ao frontend
+public/geojson/                 Dados processados servidos estaticamente ao frontend
 dados-brutos/                   Dados brutos baixados (fora do git para os arquivos grandes — ver .gitignore)
 ```
 
 ---
 
-## 12. Como rodar o projeto localmente
+## 13. Como rodar localmente
 
 ### Pré-requisitos
 - Node.js e npm
-- Python 3 com `geopandas`, `rasterio`, `shapely`, `pyogrio` (só necessário para rodar os scripts de pré-processamento geoespacial, não para rodar o app em si)
-- Uma instância Supabase (projeto criado, com as migrações de `scripts/sql/` aplicadas em ordem)
+- Python 3 com `geopandas`, `rasterio`, `shapely`, `pyogrio` (só necessário para os scripts de pré-processamento geoespacial)
+- Uma instância Supabase com as migrações de `scripts/sql/` aplicadas em ordem (001 a 022)
 
 ### Variáveis de ambiente (`.env.local`)
 ```
@@ -442,13 +452,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_DB_PASSWORD=
 SUPABASE_CONNECTION_STRING=
 CRON_SECRET=
-OPENTOPOGRAPHY_API_KEY=
+WEATHERAPI_KEY=
 
 # Opcional — modo de desenvolvimento
 WEATHER_CACHE_ONLY=false
 ```
-
-`WEATHER_CACHE_ONLY=true` força o app a usar sempre o `weather_cache` já existente (mesmo expirado) em vez de chamar a WeatherAPI/Open-Meteo — útil para testar sem consumir a cota diária.
 
 ### Instalar e rodar
 ```bash
@@ -457,27 +465,33 @@ npm run dev
 ```
 Abre em `http://localhost:3000`.
 
-### Rodar os scripts de pré-processamento
+### Rodar os scripts Python de pré-processamento
 ```bash
-# Exemplo: processar bairros de uma cidade
-python scripts/process_neighborhoods.py \
-  --input dados-brutos/ibge/pe/PE_setores_CD2022.shp \
-  --municipality Recife --city-name Recife --city-id <uuid>
+# Exemplo: processar bairros de um estado inteiro
+python scripts/process_state_neighborhoods.py --state SP \
+  --input dados-brutos/ibge/sp/SP_setores_CD2022.shp
 
-# Depois, preencher terrain_slope e hydro_proximity in-place no mesmo GeoJSON
-python scripts/process_srtm.py --input dados-brutos/srtm/srtm_recife.tif --city recife \
-  --neighborhoods public/geojson/neighborhoods_recife.geojson
+# Preencher terrain_slope a partir do SRTM, in-place no GeoJSON
+python scripts/process_srtm.py --input dados-brutos/srtm/srtm_sp.tif \
+  --neighborhoods public/geojson/neighborhoods_state_sp.geojson
 
+# Preencher hydro_proximity a partir da BHO nacional
 python scripts/process_bho.py --input dados-brutos/ana/geoft_bho_curso_dagua.gpkg \
-  --neighborhoods public/geojson/neighborhoods_recife.geojson
+  --neighborhoods public/geojson/neighborhoods_state_sp.geojson
 ```
 
 ### Forçar o cron manualmente
 ```bash
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
 ```
-Isso recalcula o score de risco de todos os 7.117 bairros — pode levar alguns minutos e consome a cota da WeatherAPI (usar `WEATHER_CACHE_ONLY=true` para testar sem gastar cota).
+Recalcula o score de risco de todos os 24.556 bairros — pode levar vários minutos e consome cota da Open-Meteo/WeatherAPI.
+
+### Desenvolvimento sem consumir cota de clima
+```
+WEATHER_CACHE_ONLY=true
+```
+Força o app a sempre usar o `weather_cache` já existente (mesmo expirado) em vez de chamar Open-Meteo/WeatherAPI — útil pra testar UI/lógica sem gastar a cota diária.
 
 ---
 
-*Relatório gerado a partir do estado real do código, banco de dados e histórico de commits do repositório em 19/07/2026.*
+*Relatório gerado a partir do estado real do código, banco de dados (consultado diretamente em produção) e histórico de commits do repositório em 21/07/2026.*
