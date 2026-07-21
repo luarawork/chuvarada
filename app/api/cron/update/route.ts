@@ -33,6 +33,36 @@ const CELL_CONCURRENCY = 4;
 // Natal etc.) continuam com sub-grade por centróide de bairro.
 const LARGE_CITY_THRESHOLD = 10;
 
+// Lock de execução -- protege contra 2 disparos do cron rodando ao mesmo
+// tempo (ex: disparo manual enquanto o agendado já está no meio do ciclo,
+// que agora leva ~11min com a cobertura nacional -- ver relatório da
+// expansão Sul+Sudeste). Sem isso, 2 ciclos concorrentes dobrariam o
+// consumo de cota das APIs de clima à toa e poderiam gravar risk_scores
+// inconsistentes (mesma classe de race condition do lock em merge_cache,
+// ver lib/merge.ts e scripts/fetch_merge_cptec.py).
+const CRON_LOCK_KEY = "cron_running";
+const CRON_LOCK_MAX_AGE_MINUTES = 15;
+
+async function isCronAlreadyRunning(db: Pool): Promise<boolean> {
+  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [CRON_LOCK_KEY]);
+  const lockRow = rows[0];
+  if (!lockRow) return false;
+  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
+  return ageMinutes < CRON_LOCK_MAX_AGE_MINUTES;
+}
+
+async function acquireCronLock(db: Pool): Promise<void> {
+  await db.query(
+    `insert into system_locks (key, locked_at, locked_by) values ($1, now(), 'cron_update')
+     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
+    [CRON_LOCK_KEY]
+  );
+}
+
+async function releaseCronLock(db: Pool): Promise<void> {
+  await db.query(`delete from system_locks where key = $1`, [CRON_LOCK_KEY]);
+}
+
 // Roda a cada hora (configurado externamente — Vercel Cron ou similar).
 // Protegido por CRON_SECRET no header Authorization.
 export async function GET(req: NextRequest) {
@@ -42,41 +72,51 @@ export async function GET(req: NextRequest) {
   }
 
   const db = getDb();
-  resetCycleStats();
 
-  const { rows: cities } = await db.query<City>("select * from cities where active = true");
-  const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
-
-  const neighborhoodsByCity = new Map<string, Neighborhood[]>();
-  for (const n of allNeighborhoods) {
-    if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
-    neighborhoodsByCity.get(n.city_id)!.push(n);
+  if (await isCronAlreadyRunning(db)) {
+    return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 15min)" });
   }
 
-  const summary: Record<string, number> = {};
+  await acquireCronLock(db);
+  resetCycleStats();
 
-  await runWithConcurrency(cities, CITY_CONCURRENCY, async (city) => {
-    try {
-      summary[city.name] = await processCity(db, city, neighborhoodsByCity.get(city.id) ?? []);
-    } catch (err) {
-      summary[city.name] = -1;
-      console.error(`Erro ao processar ${city.name}:`, err);
+  try {
+    const { rows: cities } = await db.query<City>("select * from cities where active = true");
+    const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
+
+    const neighborhoodsByCity = new Map<string, Neighborhood[]>();
+    for (const n of allNeighborhoods) {
+      if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
+      neighborhoodsByCity.get(n.city_id)!.push(n);
     }
-  });
 
-  // Persiste o resumo por camada de fallback (ver lib/weather.ts) pra
-  // alimentar GET /api/health -- os contadores de rate limit em si só
-  // vivem em memória do processo (não sobrevivem a um cold start
-  // serverless), então esta linha é a única forma confiável de saber, em
-  // produção, como foi a distribuição de fontes do ciclo mais recente.
-  const stats = getCycleStats();
-  await db.query(
-    `insert into cron_run_stats (total_cities, openmeteo_count, weatherapi_fallback_count, cache_emergency_count, neutral_fallback_count)
-     values ($1, $2, $3, $4, $5)`,
-    [cities.length, stats.openmeteo, stats.weatherapi_fallback, stats.cache_emergency, stats.neutral_fallback]
-  );
+    const summary: Record<string, number> = {};
 
-  return NextResponse.json({ ok: true, processed: summary, weatherSources: stats, at: new Date().toISOString() });
+    await runWithConcurrency(cities, CITY_CONCURRENCY, async (city) => {
+      try {
+        summary[city.name] = await processCity(db, city, neighborhoodsByCity.get(city.id) ?? []);
+      } catch (err) {
+        summary[city.name] = -1;
+        console.error(`Erro ao processar ${city.name}:`, err);
+      }
+    });
+
+    // Persiste o resumo por camada de fallback (ver lib/weather.ts) pra
+    // alimentar GET /api/health -- os contadores de rate limit em si só
+    // vivem em memória do processo (não sobrevivem a um cold start
+    // serverless), então esta linha é a única forma confiável de saber, em
+    // produção, como foi a distribuição de fontes do ciclo mais recente.
+    const stats = getCycleStats();
+    await db.query(
+      `insert into cron_run_stats (total_cities, openmeteo_count, weatherapi_fallback_count, cache_emergency_count, neutral_fallback_count)
+       values ($1, $2, $3, $4, $5)`,
+      [cities.length, stats.openmeteo, stats.weatherapi_fallback, stats.cache_emergency, stats.neutral_fallback]
+    );
+
+    return NextResponse.json({ ok: true, processed: summary, weatherSources: stats, at: new Date().toISOString() });
+  } finally {
+    await releaseCronLock(db);
+  }
 }
 
 async function runWithConcurrency<T>(
