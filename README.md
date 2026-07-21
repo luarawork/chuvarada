@@ -13,11 +13,11 @@ O aquecimento global vem tornando eventos de chuva mais intensos e concentrados 
 
 | Métrica | Valor |
 |---|---|
-| Estados | 16 (Nordeste + Sul + Sudeste) |
+| Estados | 16 (Nordeste completo + Sul + Sudeste) |
 | Municípios | 4.653 (100% dos municípios IBGE desses estados) |
-| Bairros/distritos | 24.556 |
+| Bairros/distritos/subdistritos | 24.556 |
 | Com score calculado | 100% |
-| Municípios costeiros com dado de maré | 96 de 292 (33%) |
+| Municípios costeiros com dado de maré cadastrado | 110 de 292 (37,7%) |
 
 ## Como funciona
 
@@ -26,7 +26,7 @@ O modelo calcula um score de 0 a 1 para cada bairro, combinando 6 variáveis:
 | Variável | Peso | Fonte |
 |---|---:|---|
 | Pico de chuva nas últimas 3h | 25% | MERGE/CPTEC |
-| Chuva na última hora | 20% | WeatherAPI.com |
+| Chuva na última hora | 20% | Open-Meteo |
 | Chuva acumulada em 72h | 20% | MERGE/CPTEC |
 | Declividade do terreno | 15% | NASA SRTM |
 | Proximidade de rios/canais | 12% | ANA/BHO + hidrografia local |
@@ -39,56 +39,57 @@ Níveis de risco:
 
 Além do score, 3 regras disparam nível crítico automaticamente:
 - Chuva > 50mm na última hora
-- Maré alta (>80%) + chuva em zona costeira
+- Maré alta (>80%) + chuva em zona costeira (só com dado de maré recente, <26h)
 - Solo saturado (>100mm/72h) + qualquer chuva nova
 
 Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré é redistribuído proporcionalmente entre as demais variáveis.
 
-**Limitação conhecida (22/07/2026):** a fonte de maré do CPTEC está fora
-do ar (confirmado — não é só mudança de layout, a tábua vem vazia pra
-qualquer estação/mês/ano) e o webservice alternativo da Marinha foi
-descontinuado em 2018. Até essa fonte ser restaurada ou substituída,
-`tide_level` fica sempre neutro (0,5) para todas as 22 estações
-cadastradas — o peso de 8% cai no mesmo mecanismo de redistribuição já
-usado para municípios sem estação próxima, então não há dado incorreto
-sendo exibido, só a variável de maré temporariamente fora do cálculo em
-todo o país (ver `lib/cptec.ts`).
+Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível entre seus bairros) em vez de polígonos — ilegíveis nessa escala e caros de carregar num viewport largo.
+
+## Limitações conhecidas
+
+- **Maré**: a fonte CPTEC está fora do ar — confirmado que não é mudança de layout, a tábua vem vazia para qualquer estação/mês/ano testado, e o webservice alternativo da Marinha foi descontinuado em 2018. Até essa fonte ser restaurada ou substituída, `tide_level` fica sempre neutro (0,5) em todo o país (ver `lib/cptec.ts`).
+- **São Paulo, Campinas e Sorocaba**: usam distrito administrativo em vez de bairro — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades (confirmado também no GeoSampa, portal da própria Prefeitura de SP). Afeta ~46% dos registros nacionais no total, mais concentrado no interior.
+- **Centro-Oeste e Norte**: cobertura ainda pendente.
 
 ## Stack
 
 | Camada | Tecnologia |
 |---|---|
 | Frontend | Next.js 14 + TypeScript + Tailwind CSS |
-| Mapa | Leaflet.js + OpenStreetMap (CartoDB Dark Matter) |
+| Mapa | Leaflet.js (Canvas renderer) + OpenStreetMap (CartoDB Dark Matter) |
 | Banco | Supabase (PostgreSQL + Auth + Realtime) |
-| Clima | WeatherAPI.com (vento/umidade/pressão/rain_1h) + MERGE/CPTEC (chuva acumulada/pico) |
-| Maré | CPTEC/INPE (scraping da tábua oficial da Marinha do Brasil) |
+| Clima | Open-Meteo (camada 1) + WeatherAPI.com (camada 2, fallback de emergência) |
+| Precipitação acumulada/pico | MERGE/CPTEC (satélite GPM/IMERG + pluviômetros INMET) |
+| Maré | CPTEC/INPE (scraping da tábua oficial da Marinha — atualmente fora do ar) |
 | Pré-processamento | Python (geopandas, rasterio, shapely, pyogrio) |
+| Automação | GitHub Actions (cron horário: MERGE → scores) |
 | PWA | next-pwa |
 
 ## Fontes de dados
 
-| Fonte | Órgão | O que fornece |
-|---|---|---|
-| SRTM | NASA / OpenTopography | Altimetria do terreno |
-| BHO | ANA | Rede hidrográfica nacional |
-| Setores censitários | IBGE | Malha de bairros/distritos |
-| Tábua de marés | Marinha do Brasil via CPTEC | Nível de maré por estação |
-| Clima em tempo real | WeatherAPI.com | Vento, umidade, pressão, chuva na última hora |
-| Precipitação MERGE/CPTEC | INPE | Chuva acumulada em 72h e pico de 3h (satélite + pluviômetros) |
-| Hidrografia do Recife | Prefeitura do Recife | Refinamento local de hidrografia |
-| Hidrografia da PB | AESA | Rede hídrica da Paraíba |
-| Hidrografia de SE | SERhidro/SEMAC | Rede hídrica de Sergipe |
-| Bairros de Aracaju | MapAju / Prefeitura de Aracaju | Geometria oficial de bairros |
+| Fonte | Órgão | O que fornece | Status |
+|---|---|---|---|
+| SRTM | NASA / OpenTopography | Altimetria do terreno | ✅ Ativo |
+| BHO | ANA | Rede hidrográfica nacional | ✅ Ativo |
+| Setores censitários | IBGE | Malha de bairros/distritos | ✅ Ativo |
+| MERGE/CPTEC | INPE | Chuva acumulada em 72h e pico de 3h (satélite + pluviômetros) | ✅ Ativo |
+| Open-Meteo | Open-Meteo | Vento, umidade, pressão, chuva na última hora (camada 1) | ✅ Ativo |
+| WeatherAPI.com | WeatherAPI | Mesmas variáveis, fallback de emergência (camada 2) | ✅ Ativo |
+| Tábua de marés | Marinha do Brasil via CPTEC | Nível de maré por estação | 🔴 Fora do ar (fallback neutro) |
+| Hidrografia do Recife | Prefeitura do Recife | Refinamento local de hidrografia | ✅ Ativo |
+| Hidrografia de Sergipe | SERhidro/SEMAC | Refinamento local de hidrografia | ✅ Ativo |
+| Hidrografia da Paraíba | AESA | Rede hídrica da Paraíba | 🟡 Baixada, não integrada |
+| Bairros de Aracaju | MapAju / Prefeitura de Aracaju | Geometria oficial de bairros | ✅ Ativo |
 
 ## Rodando localmente
 
 Pré-requisitos:
 - Node.js e npm
-- Projeto Supabase com as migrações aplicadas (scripts/sql/001 a 012)
+- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `022`)
 - Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
 
-Variáveis de ambiente (.env.local):
+Variáveis de ambiente (`.env.local`):
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
@@ -110,16 +111,18 @@ Forçar o cron manualmente:
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
 ```
 
-Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da WeatherAPI/Open-Meteo.
+Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da Open-Meteo/WeatherAPI.
 
-## Documentação
+Antes do deploy, configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver [`scripts/SETUP_ACTIONS.md`](scripts/SETUP_ACTIONS.md).
+
+## Documentação completa
 
 - [RELATORIO_COMPLETO.md](RELATORIO_COMPLETO.md) — histórico completo do projeto, decisões, dificuldades e fontes
-- [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model
+- [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model, Cobertura
 - `/como-funciona` — explicação do modelo em linguagem acessível (dentro do app)
 
 ## Posicionamento
 
 O Chuvarada complementa a informação pública, colocando dados abertos do governo nas mãos do cidadão comum. Não é crítica ao poder público — é parceria.
 
-Construído com transparência: o app explica o modelo, admite as limitações (sem dados de bueiros ou galerias pluviais), e diferencia visualmente bairros com nome oficial de distritos administrativos usados como aproximação.
+Construído com transparência: o app explica o modelo, admite as limitações (sem dados de bueiros ou galerias pluviais, maré em fallback neutro, distritos em vez de bairro onde o Censo não tem essa granularidade), e diferencia visualmente bairros com nome oficial de distritos administrativos usados como aproximação.
