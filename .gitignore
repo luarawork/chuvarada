@@ -65,6 +65,17 @@ next-env.d.ts
 /dados-brutos/srtm/srtm_piaui.tif
 /dados-brutos/srtm/srtm_sergipe.tif
 
+# SRTM Sul + Sudeste (expansão nacional, 21/07/2026) — mesmo motivo acima.
+# MG/RS/SP passaram do limite de área da API do OpenTopography (450.000km²)
+# e foram baixados em quadrantes/metades e mesclados com rasterio.
+/dados-brutos/srtm/srtm_parana.tif
+/dados-brutos/srtm/srtm_santa_catarina.tif
+/dados-brutos/srtm/srtm_rio_grande_do_sul.tif
+/dados-brutos/srtm/srtm_sao_paulo.tif
+/dados-brutos/srtm/srtm_rio_de_janeiro.tif
+/dados-brutos/srtm/srtm_minas_gerais.tif
+/dados-brutos/srtm/srtm_espirito_santo.tif
+
 # zips do IBGE e do S2ID já descompactados (redundantes com os arquivos versionados)
 /dados-brutos/ibge/*/*.zip
 /dados-brutos/S2ID/*.zip
