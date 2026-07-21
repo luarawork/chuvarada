@@ -1,0 +1,41 @@
+name: Update MERGE Cache + Risk Scores
+
+# Substitui merge-cache-update.yml + cron-update.yml (arquivos separados,
+# ambos agendados pra "0 * * * *" sem nenhuma garantia de ordem entre eles).
+# Isso causava uma race condition real: quando update_scores rodava antes
+# do update_merge terminar de gravar as ~31.500 células do Nordeste em
+# merge_cache, parte dos bairros lia célula já atualizada (score correto)
+# e parte lia célula ainda não tocada nessa rodada (caía pro fallback
+# Open-Meteo, subestimando a chuva) -- ver incidente de Natal, 21/07/2026.
+#
+# Jobs sequenciais via "needs" garantem a ordem sem depender de timing
+# (diferente de rodar os dois no mesmo minuto ou com offset de minutos):
+# update_scores só começa depois que update_merge termina com sucesso.
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update_merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install rasterio numpy requests pg8000
+      - run: python scripts/fetch_merge_cptec.py
+        env:
+          SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
+
+  update_scores:
+    needs: update_merge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger cron de risco
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            --max-time 570 \
+            "${{ secrets.APP_URL }}/api/cron/update"
