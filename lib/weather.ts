@@ -250,6 +250,21 @@ const SECONDARY_VARS_MAX_AGE_HOURS = 24;
 const SIGNIFICANT_RAIN_72H_MM = 10;
 const SIGNIFICANT_RAIN_PEAK_3H_MM = 2;
 
+// Lacuna encontrada ao medir o efeito real das Opções 1+2+3 combinadas: a
+// versão original de "sempre buscar quando o MERGE mostra chuva" refrescava
+// a célula em TODO ciclo (a cada hora) enquanto a chuva durasse -- e é
+// justamente esse balde (~514 células "chuvosas" agora, medido no Nordeste)
+// que respondia por ~78% do consumo diário projetado (~12.336 das ~15.700
+// chamadas/dia), deixando o total ~70% acima do orçamento mesmo depois das
+// outras duas otimizações. rain_72h/rain_peak_3h -- o sinal de risco que
+// mais importa -- já vêm do MERGE de graça em todo ciclo, chuva ou não; o
+// que a Open-Meteo ainda contribui nesses casos é só vento/umidade/pressão/
+// rain_1h, que não precisam de tanta frequência quanto o cron em si.
+// Refrescar essas variáveis a cada 3h em vez de a cada ciclo (1h) corta o
+// custo desse balde de 24x/dia pra 8x/dia sem atrasar em nada o sinal
+// principal de risco.
+const RAIN_ACTIVE_MAX_AGE_HOURS = 3;
+
 export function mergeShowsSignificantRain(merge: MergeData | null): boolean {
   if (!merge) return true;
   return merge.rain_72h > SIGNIFICANT_RAIN_72H_MM || merge.rain_peak_3h > SIGNIFICANT_RAIN_PEAK_3H_MM;
@@ -455,14 +470,15 @@ export async function getWeatherForPoint(
     console.warn(`[weather] Falha ao consultar merge_cache pra ${cityId}: ${(mergeErr as Error).message} — usando Open-Meteo`);
   }
 
-  // Opções 2+3 (ver comentário acima de mergeShowsSignificantRain): com
-  // cache disponível e ainda dentro do teto de 24h, só vale a pena gastar
-  // uma chamada à Open-Meteo se o MERGE indicar chuva -- fora isso, vento/
-  // umidade/pressão/rain_1h dificilmente mudaram o bastante pra justificar
-  // o custo, e rain_72h/rain_peak_3h já vêm atualizados pelo MERGE de graça.
+  // Opções 2+3 (ver comentário acima de mergeShowsSignificantRain): o teto
+  // de frescor do cache secundário (vento/umidade/pressão/rain_1h) varia
+  // conforme o MERGE mostra chuva ou não na célula -- 24h parada, 3h em
+  // chuva (ver RAIN_ACTIVE_MAX_AGE_HOURS). rain_72h/rain_peak_3h já vêm
+  // atualizados pelo MERGE de graça em todo ciclo, chuva ou não.
   if (cached) {
     const cacheAgeHours = (Date.now() - new Date(cached.fetched_at).getTime()) / 3_600_000;
-    if (cacheAgeHours <= SECONDARY_VARS_MAX_AGE_HOURS && !mergeShowsSignificantRain(merge)) {
+    const maxAgeHours = mergeShowsSignificantRain(merge) ? RAIN_ACTIVE_MAX_AGE_HOURS : SECONDARY_VARS_MAX_AGE_HOURS;
+    if (cacheAgeHours <= maxAgeHours) {
       return buildFromCacheAndMerge(cached, merge);
     }
   }
