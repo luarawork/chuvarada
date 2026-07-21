@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as turf from "@turf/turf";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
-import { getWeatherForPoint } from "@/lib/weather";
+import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import { calculateScore } from "@/lib/score";
 import { gridCell, gridCellKey } from "@/lib/grid";
@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
   }
 
   const db = getDb();
+  resetCycleStats();
 
   const { rows: cities } = await db.query<City>("select * from cities where active = true");
   const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
@@ -63,7 +64,19 @@ export async function GET(req: NextRequest) {
     }
   });
 
-  return NextResponse.json({ ok: true, processed: summary, at: new Date().toISOString() });
+  // Persiste o resumo por camada de fallback (ver lib/weather.ts) pra
+  // alimentar GET /api/health -- os contadores de rate limit em si só
+  // vivem em memória do processo (não sobrevivem a um cold start
+  // serverless), então esta linha é a única forma confiável de saber, em
+  // produção, como foi a distribuição de fontes do ciclo mais recente.
+  const stats = getCycleStats();
+  await db.query(
+    `insert into cron_run_stats (total_cities, openmeteo_count, weatherapi_fallback_count, cache_emergency_count, neutral_fallback_count)
+     values ($1, $2, $3, $4, $5)`,
+    [cities.length, stats.openmeteo, stats.weatherapi_fallback, stats.cache_emergency, stats.neutral_fallback]
+  );
+
+  return NextResponse.json({ ok: true, processed: summary, weatherSources: stats, at: new Date().toISOString() });
 }
 
 async function runWithConcurrency<T>(
