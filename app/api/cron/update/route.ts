@@ -21,7 +21,7 @@ import type { City, Neighborhood, NormalizedWeather } from "@/types";
 const CITY_CONCURRENCY = 4;
 const CELL_CONCURRENCY = 4;
 
-// Roda a cada 20 minutos (configurado externamente — Vercel Cron ou similar).
+// Roda a cada hora (configurado externamente — Vercel Cron ou similar).
 // Protegido por CRON_SECRET no header Authorization.
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");

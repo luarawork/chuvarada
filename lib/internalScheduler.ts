@@ -21,7 +21,7 @@ export function startInternalCron(): void {
     return;
   }
 
-  cron.schedule("*/20 * * * *", async () => {
+  cron.schedule("0 * * * *", async () => {
     try {
       const res = await fetch(`${appUrl}/api/cron/update`, {
         headers: { Authorization: `Bearer ${cronSecret}` },
@@ -32,5 +32,5 @@ export function startInternalCron(): void {
     }
   });
 
-  console.log("[internal-cron] agendador interno ativo (a cada 20min)");
+  console.log("[internal-cron] agendador interno ativo (a cada 1h)");
 }

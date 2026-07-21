@@ -15,7 +15,7 @@ Este documento descreve o projeto Chuvarada do zero: o que é, por que existe, c
 
 O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo — o mesmo volume mensal de chuva que antes se distribuía ao longo de semanas hoje cai em poucas horas. Cidades do Nordeste brasileiro, com infraestrutura de drenagem urbana historicamente subdimensionada e datada, não foram projetadas pra esse regime de chuva mais extremo. O resultado são alagamentos cada vez mais frequentes e mais graves, muitas vezes em bairros onde o morador não tinha como saber que o risco estava subindo naquele momento específico.
 
-Hoje, o cidadão comum não tem uma forma acessível e granular de saber "meu bairro está em risco agora?" — os alertas oficiais de Defesa Civil, quando existem, costumam ser por cidade ou por região inteira, não por bairro, e nem toda cidade do interior tem esse serviço ativo e atualizado. O Chuvarada tenta preencher esse vão: cruzar dados públicos (clima, terreno, hidrografia, maré) num modelo simples e transparente, atualizado a cada 20 minutos, granular o suficiente pra dizer "este bairro específico" em vez de "esta cidade inteira".
+Hoje, o cidadão comum não tem uma forma acessível e granular de saber "meu bairro está em risco agora?" — os alertas oficiais de Defesa Civil, quando existem, costumam ser por cidade ou por região inteira, não por bairro, e nem toda cidade do interior tem esse serviço ativo e atualizado. O Chuvarada tenta preencher esse vão: cruzar dados públicos (clima, terreno, hidrografia, maré) num modelo simples e transparente, atualizado a cada hora, granular o suficiente pra dizer "este bairro específico" em vez de "esta cidade inteira".
 
 ### Público-alvo
 
@@ -50,7 +50,7 @@ A Open-Meteo, além de gratuita e sem exigir chave de API, tem o parâmetro `pas
 
 ### Por que Supabase Realtime
 
-Sem um canal de atualização push, o mapa só saberia que um bairro mudou de risco fazendo polling — verificar a cada N segundos se há dado novo, desperdiçando requisições na maior parte do tempo (o cron só roda a cada 20 minutos). O Supabase Realtime assina mudanças na tabela `risk_scores` via replicação lógica do Postgres e empurra o evento direto pro cliente WebSocket already conectado — o mapa reage no instante em que o cron grava um novo score, sem esperar o próximo ciclo de polling.
+Sem um canal de atualização push, o mapa só saberia que um bairro mudou de risco fazendo polling — verificar a cada N segundos se há dado novo, desperdiçando requisições na maior parte do tempo (o cron só roda a cada hora). O Supabase Realtime assina mudanças na tabela `risk_scores` via replicação lógica do Postgres e empurra o evento direto pro cliente WebSocket already conectado — o mapa reage no instante em que o cron grava um novo score, sem esperar o próximo ciclo de polling.
 
 ### Por que PWA em vez de app nativo
 
@@ -97,7 +97,7 @@ Um PWA instala direto do navegador (sem loja de aplicativo, sem processo de apro
 
 - **O que fornece**: chuva na última hora, chuva acumulada em 72h, pico de chuva nas últimas 3h, vento, umidade, pressão — o núcleo do modelo (65% do peso combinado entre as 3 variáveis de chuva).
 - **URL**: `https://api.open-meteo.com/v1/forecast` — gratuita, sem chave de API.
-- **Como foi obtida**: chamada HTTP direta por célula geográfica (grade de ~5km, não por cidade inteira — ver seção 4).
+- **Como foi obtida**: chamada HTTP direta por célula geográfica (grade de ~10km, não por cidade inteira — ver seção 4).
 - **Dificuldades**: cota diária gratuita **esgotada em produção** no fim de semana de 18-19/07/2026, quando o cron rodou ~1.794 cidades repetidas vezes durante testes intensivos, retornando HTTP 429 (mesmo código de um rate-limit transitório, dificultando o diagnóstico — ver seção 7). Corrigido com contador interno de chamadas/hora, cache mais respeitado e um modo `WEATHER_CACHE_ONLY` pra desenvolvimento.
 - **Limitação**: como qualquer API meteorológica, é uma estimativa de modelo numérico — não substitui um pluviômetro físico no bairro.
 
@@ -167,10 +167,10 @@ Scripts complementares: `process_s2id.py` (eventos históricos de desastre), `pr
 ### 3. Upload pro Supabase
 `upload_neighborhoods.js` e `upload_state_expansion.js` leem os GeoJSONs processados e inserem em lote nas tabelas `cities`/`neighborhoods` via `pg` direto (não o client REST do Supabase, por performance em volume). Scripts de correção pontual (`fix_sao_luis_neighborhood.js`, `fix_areia_branca_tide_code.js`, `fix_terrain_slope_placeholders.js`, `assign_tide_by_proximity.js`, `fix_hydro_proximity_bbox.js`, `fix_hydro_sergipe_local.js`, `fix_fernando_de_noronha_tide.js`, `backfill_terrain_slope.js`, `backfill_name_source.js`) tratam problemas descobertos depois do upload inicial (ver seção 7).
 
-### 4. Cron de 20 minutos (fluxo detalhado)
+### 4. Cron de 1 hora (fluxo detalhado)
 `app/api/cron/update/route.ts`, protegido por `CRON_SECRET` no header `Authorization`:
 1. Busca todas as `cities` ativas (1.794) e todos os `neighborhoods` (7.117).
-2. Agrupa os bairros de cada cidade por **célula geográfica** (grade de ~5km, `lib/grid.ts`) — bairros próximos dentro da mesma célula reaproveitam a mesma chamada de clima, em vez de 1 chamada por bairro (que geraria dezenas de milhares de chamadas desnecessárias) ou 1 chamada por cidade inteira (que perderia a variação real de chuva dentro de cidades grandes).
+2. Agrupa os bairros de cada cidade por **célula geográfica** (grade de ~10km, `lib/grid.ts`) — bairros próximos dentro da mesma célula reaproveitam a mesma chamada de clima, em vez de 1 chamada por bairro (que geraria dezenas de milhares de chamadas desnecessárias) ou 1 chamada por cidade inteira (que perderia a variação real de chuva dentro de cidades grandes).
 3. Para cada célula, busca o clima (`getWeatherForPoint`, com cache de 20 minutos e fallback pra dado em cache se a chamada nova falhar).
 4. Busca o nível de maré atual (`getCurrentTideLevel`) para cidades com `tide_code`.
 5. Calcula o score de cada bairro (`calculateScore`, ver seção 5).
@@ -392,7 +392,7 @@ lib/                           Integrações e motor de risco
 ├── cptec.ts                      Integração CPTEC (maré, via scraping)
 ├── db.ts                          Pool de conexão Postgres direta
 ├── supabase.ts                    Client Supabase (Auth, Realtime)
-├── grid.ts                         Agrupamento geográfico em células (~5km)
+├── grid.ts                         Agrupamento geográfico em células (~10km)
 ├── geojson.ts                      Utilitários de geometria (localizar bairro por ponto)
 ├── neighborhoodName.ts              Lógica de nome real vs. fallback
 └── metricInfo.ts                     Textos explicativos das métricas (botões de "?")

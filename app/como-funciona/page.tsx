@@ -9,7 +9,7 @@ const VARIABLES = [
     title: "Pico de chuva (3h)",
     weight: 0.25,
     description:
-      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas o instante atual. Um pico forte de 30mm/h que já passou ainda pesa no risco, porque picos de chuva forte costumam durar menos que os 20 minutos entre atualizações do mapa. Vem do produto MERGE do CPTEC/INPE (satélite + pluviômetros reais) quando disponível; usa a Open-Meteo como alternativa quando não.",
+      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas o instante atual. Um pico forte de 30mm/h que já passou ainda pesa no risco, porque picos de chuva forte costumam durar menos que a hora entre atualizações do mapa. Vem do produto MERGE do CPTEC/INPE (satélite + pluviômetros reais) quando disponível; usa a Open-Meteo como alternativa quando não.",
   },
   {
     emoji: "🌧",
@@ -71,7 +71,7 @@ export default function ComoFuncionaPage() {
           <p className="leading-relaxed text-brand-gray-urban">
             O Chuvarada cruza dados públicos disponibilizados pelo governo para estimar, em tempo
             real, o risco de alagamento por bairro nas cidades do Nordeste. Nosso modelo não é
-            perfeito — nenhum é — mas é transparente, honesto e atualizado a cada 20 minutos. Use
+            perfeito — nenhum é — mas é transparente, honesto e atualizado a cada hora. Use
             como apoio para suas decisões. Não substitui alertas oficiais da Defesa Civil.
           </p>
         </section>

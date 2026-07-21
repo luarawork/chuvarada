@@ -41,5 +41,5 @@ export default async () => {
 // é dependência do projeto (o bundler de funções do Netlify resolve o
 // shape de `config` em tempo de build, independente do nosso tsconfig).
 export const config = {
-  schedule: "*/20 * * * *",
+  schedule: "0 * * * *",
 };

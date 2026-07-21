@@ -5,7 +5,7 @@ Civic tech com personalidade — confiável mas humano.
 
 ## O que é
 
-O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades do Nordeste. Atualizado a cada 20 minutos. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
+O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades do Nordeste. Atualizado a cada hora. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
 
 O aquecimento global vem tornando eventos de chuva mais intensos e concentrados no tempo. Cidades do Nordeste brasileiro, com infraestrutura de drenagem historicamente subdimensionada, não foram projetadas para esse regime de chuva mais extremo. O Chuvarada tenta preencher o vão entre os alertas oficiais (por cidade ou região) e a pergunta real do cidadão: meu bairro está em risco agora?
 

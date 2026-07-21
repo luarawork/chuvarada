@@ -8,16 +8,14 @@ manualmente.
 
 ## Opção A — Vercel Cron (`vercel.json`)
 
-**Já existia no repositório**, criado no commit inicial do projeto, e já
-estava correto: dispara `/api/cron/update` a cada 20 minutos (`*/20 * * * *`,
-não os 30 minutos do pedido original — 20min é a cadência real do modelo,
-documentada em `/como-funciona` e no README).
-
-Nenhuma mudança necessária aqui — só verificado.
+Dispara `/api/cron/update` a cada hora (`0 * * * *`) — intervalo aumentado de
+20 minutos pra 1 hora antes da expansão nacional, junto com o grid da
+Open-Meteo (ver `lib/grid.ts`), pra manter o consumo de chamadas dentro da
+cota diária gratuita mesmo com o dobro de cidades.
 
 **Limitação a saber**: o plano Hobby (gratuito) da Vercel limita cron jobs a
-no máximo 1 execução por dia por cron — precisa do plano Pro pra rodar a
-cada 20 minutos de verdade. Isso não é algo que dá pra contornar no código;
+no máximo 1 execução por dia por cron — precisa do plano Pro pra rodar de
+hora em hora de verdade. Isso não é algo que dá pra contornar no código;
 é uma decisão de qual plano contratar na hora do deploy.
 
 ## Opção B — GitHub Actions (independente de plataforma)
@@ -26,7 +24,7 @@ Dois workflows novos, ambos com `workflow_dispatch` pra disparo manual de
 teste, além do agendamento automático:
 
 ### `.github/workflows/cron-update.yml`
-Dispara `/api/cron/update` a cada 20 minutos.
+Dispara `/api/cron/update` a cada hora.
 
 **Correção em relação ao pedido original**: o exemplo dado usava `curl -X POST`,
 mas a rota (`app/api/cron/update/route.ts`) só implementa `export async function GET`
@@ -76,14 +74,14 @@ cenário, porque não há uma plataforma orquestrando o agendamento por fora.
 
 - **`lib/internalScheduler.ts`**: usa `node-cron` (já era dependência do
   projeto, `package.json`) pra chamar `/api/cron/update` internamente a
-  cada 20 minutos.
+  cada hora.
 - **`instrumentation.ts`**: hook oficial do Next.js, chamado 1x quando o
   processo do servidor sobe — liga o agendador interno.
 
 **Só ativa com `ENABLE_INTERNAL_CRON=true`** — por padrão fica desligado.
 Isso é importante: se ligado num ambiente serverless (Vercel/Netlify), cada
 requisição roda numa instância nova e efêmera, então o `node-cron` nunca
-completaria um ciclo de 20 minutos direito, e ainda duplicaria o
+completaria um ciclo de 1 hora direito, e ainda duplicaria o
 agendamento nativo da plataforma. **Só ativar em servidor persistente.**
 
 Testado nesta sessão: com `instrumentation.ts` adicionado mas
@@ -101,8 +99,7 @@ configurado via `export const config = { schedule: "..." }` dentro do
 próprio arquivo da function (não precisa de `netlify.toml` separado pra
 isso).
 
-Criado **`netlify/functions/scheduled-cron.mts`**, agendado a cada 20
-minutos.
+Criado **`netlify/functions/scheduled-cron.mts`**, agendado a cada hora.
 
 **Achado importante durante a implementação**: funções agendadas da
 Netlify têm **limite de 30 segundos de execução** — bem menor que os
