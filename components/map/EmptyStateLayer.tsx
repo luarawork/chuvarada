@@ -2,27 +2,29 @@
 
 import { useEffect, useRef } from "react";
 import type { Map as LeafletMap, LayerGroup, Path } from "leaflet";
-import type { City, Neighborhood } from "@/types";
+import type { City } from "@/types";
 
 interface EmptyStateLayerProps {
   map: LeafletMap | null;
   cities: City[];
-  neighborhoods: Neighborhood[];
+  emptyCityIds: Set<string>;
 }
 
-// Municípios sem NENHUM bairro processado ainda (hoje: só São Luís) ganham o
+// Municípios sem NENHUM bairro processado ainda (hoje: nenhum, mas a lista
+// vem de uma checagem global -- ver /api/neighborhoods?emptyCities=true --
+// em vez de inferir a partir dos bairros carregados no viewport atual, que
+// faria toda cidade fora da tela parecer "vazia" incorretamente) ganham o
 // polígono municipal real do IBGE (/geojson/empty_state_municipios.geojson)
 // em vez de um marcador de ponto solto — visualmente consistente com os
 // polígonos de bairro de verdade, sem sugerir uma área de risco calculada.
-export function EmptyStateLayer({ map, cities, neighborhoods }: EmptyStateLayerProps) {
+export function EmptyStateLayer({ map, cities, emptyCityIds }: EmptyStateLayerProps) {
   const groupRef = useRef<LayerGroup | null>(null);
 
   useEffect(() => {
     if (!map) return;
     let cancelled = false;
 
-    const citiesWithNeighborhoods = new Set(neighborhoods.map((n) => n.city_id));
-    const emptyCities = cities.filter((c) => !citiesWithNeighborhoods.has(c.id));
+    const emptyCities = cities.filter((c) => emptyCityIds.has(c.id));
 
     if (emptyCities.length === 0) return;
 
@@ -63,7 +65,7 @@ export function EmptyStateLayer({ map, cities, neighborhoods }: EmptyStateLayerP
       cancelled = true;
       groupRef.current?.remove();
     };
-  }, [map, cities, neighborhoods]);
+  }, [map, cities, emptyCityIds]);
 
   return null;
 }

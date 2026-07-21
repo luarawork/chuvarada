@@ -14,7 +14,7 @@ import { AlertCard } from "@/components/ui/AlertCard";
 import { ProfileButton } from "@/components/ui/ProfileButton";
 import { MapLegend } from "@/components/ui/MapLegend";
 import { DetailPanel } from "@/components/panel/DetailPanel";
-import { useMap } from "@/hooks/useMap";
+import { useMap, type MapBounds } from "@/hooks/useMap";
 import { useLocation } from "@/hooks/useLocation";
 import { useRealtime } from "@/hooks/useRealtime";
 import { useRisk } from "@/hooks/useRisk";
@@ -24,19 +24,78 @@ import { supabase } from "@/lib/supabase";
 import { findNeighborhoodAtPoint } from "@/lib/geojson";
 import type { City, Neighborhood, RiskLevel, RiskScore } from "@/types";
 
+// Página do PostgREST -- o projeto Supabase tem um teto rígido de 1000
+// linhas por requisição (confirmado: nem um Range header explícito pedindo
+// mais consegue passar disso), então "cities" (4.653 linhas) sempre precisa
+// de paginação em loop, mesmo sem geometria (o teto é por LINHA, não por
+// tamanho de payload). Ver diagnóstico "São Paulo não aparece no mapa".
+const SUPABASE_PAGE_SIZE = 1000;
+
+async function fetchAllCities(): Promise<City[]> {
+  const all: City[] = [];
+  let from = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from("cities")
+      .select("id, name, state, lat, lng, tide_code, data_level, active, created_at")
+      .eq("active", true)
+      .range(from, from + SUPABASE_PAGE_SIZE - 1);
+    if (error) {
+      console.error("Erro ao buscar cities:", error);
+      break;
+    }
+    if (!data || data.length === 0) break;
+    all.push(...(data as City[]));
+    if (data.length < SUPABASE_PAGE_SIZE) break;
+    from += SUPABASE_PAGE_SIZE;
+  }
+  return all;
+}
+
+interface NeighborhoodsResponse {
+  neighborhoods: Neighborhood[];
+  scores: Record<string, RiskScore>;
+  truncated: boolean;
+}
+
+async function fetchNeighborhoodsForBounds(bounds: MapBounds): Promise<NeighborhoodsResponse> {
+  const params = new URLSearchParams({
+    north: bounds.north.toString(),
+    south: bounds.south.toString(),
+    east: bounds.east.toString(),
+    west: bounds.west.toString(),
+  });
+  const res = await fetch(`/api/neighborhoods?${params}`);
+  if (!res.ok) throw new Error(`Falha ao buscar bairros do viewport: ${res.status}`);
+  return res.json();
+}
+
 export default function HomePage() {
-  const { map, handleMapReady, flyTo } = useMap();
+  const { map, bounds, handleMapReady, flyTo } = useMap();
   const location = useLocation();
   const { user } = useAuth();
   const { orderedIds: favoriteIds, loading: favoritesLoading } = useFavorites();
   const autoOpenedRef = useRef(false);
+  // flyTo muda de identidade assim que `map` deixa de ser null (poucos ms
+  // depois do mount, quando handleMapReady roda) -- se um efeito de fetch
+  // assíncrono tivesse flyTo nas deps, esse reinício cancelaria o fetch em
+  // andamento (via `cancelled = true` no cleanup) antes da resposta chegar.
+  // Guardar numa ref deixa os efeitos abaixo chamarem a versão mais recente
+  // sem precisar listá-la como dependência.
+  const flyToRef = useRef(flyTo);
+  useEffect(() => {
+    flyToRef.current = flyTo;
+  }, [flyTo]);
 
   const [cities, setCities] = useState<City[]>([]);
+  const [emptyCityIds, setEmptyCityIds] = useState<Set<string>>(new Set());
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [latestScores, setLatestScores] = useState<Record<string, RiskScore>>({});
   const [selected, setSelected] = useState<Neighborhood | null>(null);
   const [showLocationBanner, setShowLocationBanner] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [citiesLoaded, setCitiesLoaded] = useState(false);
+  const [viewportLoadedOnce, setViewportLoadedOnce] = useState(false);
+  const loading = !citiesLoaded || !viewportLoadedOnce;
 
   const citiesById = useMemo(() => Object.fromEntries(cities.map((c) => [c.id, c])), [cities]);
   const neighborhoodIds = useMemo(() => neighborhoods.map((n) => n.id), [neighborhoods]);
@@ -45,18 +104,51 @@ export default function HomePage() {
     selected?.id ?? null
   );
 
+  // Cidades e a lista (global, não-viewport) de município sem bairro nenhum
+  // -- carregadas 1x, não mudam com a navegação no mapa.
   useEffect(() => {
     async function load() {
-      const [{ data: citiesData }, { data: neighborhoodsData }] = await Promise.all([
-        supabase.from("cities").select("*").eq("active", true),
-        supabase.from("neighborhoods").select("*"),
+      const [citiesData, emptyRes] = await Promise.all([
+        fetchAllCities(),
+        fetch("/api/neighborhoods?emptyCities=true").then((r) => r.json()),
       ]);
-      setCities((citiesData as City[]) ?? []);
-      setNeighborhoods((neighborhoodsData as Neighborhood[]) ?? []);
-      setLoading(false);
+      setCities(citiesData);
+      setEmptyCityIds(new Set((emptyRes.cityIds as string[]) ?? []));
+      setCitiesLoaded(true);
     }
     load();
   }, []);
+
+  // Bairros do viewport atual -- recarrega (com debounce) toda vez que o
+  // usuário navega o mapa. Substitui o antigo carregamento único de todos
+  // os 24.556 bairros, que sempre batia no limite de 1000 linhas do
+  // PostgREST (só ~4% do Brasil aparecia, nenhum bairro de São Paulo entre
+  // eles -- ver diagnóstico "São Paulo não aparece no mapa").
+  useEffect(() => {
+    if (!bounds) return;
+    let cancelled = false;
+
+    const timer = setTimeout(async () => {
+      try {
+        const { neighborhoods: data, scores, truncated } = await fetchNeighborhoodsForBounds(bounds);
+        if (cancelled) return;
+        setNeighborhoods(data);
+        setLatestScores((prev) => ({ ...prev, ...scores }));
+        if (truncated) {
+          console.warn(`/api/neighborhoods: resultado truncado no viewport atual -- dê zoom in pra ver todos os bairros.`);
+        }
+        setViewportLoadedOnce(true);
+      } catch (err) {
+        console.error("Erro ao buscar bairros do viewport:", err);
+        setViewportLoadedOnce(true);
+      }
+    }, 300);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [bounds]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowLocationBanner(true), 1500);
@@ -66,27 +158,6 @@ export default function HomePage() {
   useEffect(() => {
     setLatestScores((prev) => ({ ...prev, ...realtimeUpdates }));
   }, [realtimeUpdates]);
-
-  useEffect(() => {
-    async function loadLatestScores() {
-      if (neighborhoodIds.length === 0) return;
-      // Usa a view latest_risk_scores (1 linha por bairro) em vez de um
-      // .in("neighborhood_id", [...706 ids]) — essa lista gera uma URL
-      // grande demais pro PostgREST e falhava silenciosamente.
-      const { data, error } = await supabase.from("latest_risk_scores").select("*");
-      if (error) {
-        console.error("Erro ao buscar latest_risk_scores:", error);
-        return;
-      }
-
-      const byNeighborhood: Record<string, RiskScore> = {};
-      for (const row of (data as RiskScore[]) ?? []) {
-        byNeighborhood[row.neighborhood_id] = row;
-      }
-      setLatestScores(byNeighborhood);
-    }
-    loadLatestScores();
-  }, [neighborhoodIds]);
 
   const levelsById = useMemo(() => {
     const map: Record<string, RiskLevel> = {};
@@ -107,38 +178,72 @@ export default function HomePage() {
   }, [location.status, location.lat, location.lng, neighborhoods, flyTo]);
 
   // Abre direto num bairro específico ao chegar via link da página de
-  // favoritos (?bairro=<id>), ou — se o usuário está logado e tem
-  // favoritos — no bairro favoritado mais recentemente. Só tenta uma vez
-  // por carregamento, pra não reabrir o painel depois que o usuário fechar.
+  // favoritos (?bairro=<id>). Roda só no mount (deps: []) -- não pode
+  // depender de `user`/`favoritesLoading`/`flyTo`, porque qualquer um deles
+  // mudando de identidade enquanto o fetch abaixo está em voo dispararia o
+  // cleanup (`cancelled = true`) e descartaria a resposta já certa, mesmo
+  // com `autoOpenedRef` impedindo um segundo fetch. bairroParam tem
+  // prioridade sobre favoritos e não depende de autenticação, então não
+  // precisa esperar nada.
+  //
+  // Busca o bairro-alvo direto por id (/api/neighborhoods?id=), em vez de
+  // esperar ele aparecer em `neighborhoods` — esse array agora é escopado
+  // pelo viewport atual do mapa, então um favorito em São Paulo nunca
+  // apareceria ali se o mapa abrir centralizado no Nordeste.
   useEffect(() => {
-    if (autoOpenedRef.current || neighborhoods.length === 0) return;
-
-    // Lê a query string direto do window em vez de usar useSearchParams —
-    // esse hook exige envolver a página inteira num <Suspense>, o que
-    // causava divergência entre o HTML renderizado no servidor e no
-    // cliente (a página já é 100% client-side, não precisa desse boundary).
     const bairroParam = new URLSearchParams(window.location.search).get("bairro");
-    let target: Neighborhood | undefined;
+    if (!bairroParam || autoOpenedRef.current) return;
+    autoOpenedRef.current = true;
 
-    if (bairroParam) {
-      target = neighborhoods.find((n) => n.id === bairroParam);
-    } else if (user && !favoritesLoading && favoriteIds.length > 0) {
-      target = neighborhoods.find((n) => n.id === favoriteIds[0]);
-    } else if (!bairroParam && (!user || favoritesLoading)) {
-      return; // ainda esperando saber se tem usuário/favoritos
-    }
+    fetch(`/api/neighborhoods?id=${bairroParam}`)
+      .then((r) => r.json())
+      .then(({ neighborhoods: found, scores }: NeighborhoodsResponse) => {
+        if (found.length === 0) return;
+        const target = found[0];
+        setNeighborhoods((prev) => (prev.some((n) => n.id === target.id) ? prev : [...prev, target]));
+        setLatestScores((prev) => ({ ...prev, ...scores }));
+        setSelected(target);
+        const centroid = turf.centroid(target.geometry as GeoJSON.Geometry);
+        const [lng, lat] = centroid.geometry.coordinates;
+        flyToRef.current(lat, lng, 14);
+      })
+      .catch((err) => console.error("Erro ao buscar bairro-alvo:", err));
+  }, []);
 
-    if (!target) {
-      if (bairroParam || (user && !favoritesLoading)) autoOpenedRef.current = true;
+  // Se não veio por ?bairro= e o usuário está logado com favoritos, abre no
+  // favorito mais recente assim que auth/favoritos resolverem. Mesma razão
+  // do efeito acima para não incluir `flyTo` nas deps (usa flyToRef).
+  useEffect(() => {
+    if (autoOpenedRef.current) return;
+    if (new URLSearchParams(window.location.search).get("bairro")) return;
+    if (!user || favoritesLoading) return;
+    if (favoriteIds.length === 0) {
+      autoOpenedRef.current = true;
       return;
     }
 
     autoOpenedRef.current = true;
-    setSelected(target);
-    const centroid = turf.centroid(target.geometry as GeoJSON.Geometry);
-    const [lng, lat] = centroid.geometry.coordinates;
-    flyTo(lat, lng, 14);
-  }, [neighborhoods, user, favoritesLoading, favoriteIds, flyTo]);
+    let cancelled = false;
+    const targetId = favoriteIds[0];
+
+    fetch(`/api/neighborhoods?id=${targetId}`)
+      .then((r) => r.json())
+      .then(({ neighborhoods: found, scores }: NeighborhoodsResponse) => {
+        if (cancelled || found.length === 0) return;
+        const target = found[0];
+        setNeighborhoods((prev) => (prev.some((n) => n.id === target.id) ? prev : [...prev, target]));
+        setLatestScores((prev) => ({ ...prev, ...scores }));
+        setSelected(target);
+        const centroid = turf.centroid(target.geometry as GeoJSON.Geometry);
+        const [lng, lat] = centroid.geometry.coordinates;
+        flyToRef.current(lat, lng, 14);
+      })
+      .catch((err) => console.error("Erro ao buscar bairro-alvo:", err));
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user, favoritesLoading, favoriteIds]);
 
   const selectedCity = selected ? cities.find((c) => c.id === selected.city_id) : null;
 
@@ -174,7 +279,7 @@ export default function HomePage() {
           citiesById={citiesById}
           onSelect={setSelected}
         />
-        <EmptyStateLayer map={map} cities={cities} neighborhoods={neighborhoods} />
+        <EmptyStateLayer map={map} cities={cities} emptyCityIds={emptyCityIds} />
       </MapContainer>
 
       <ProfileButton />

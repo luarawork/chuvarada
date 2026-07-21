@@ -23,7 +23,12 @@ export function useMap() {
     setMap(instance);
     updateBounds(instance.getBounds());
 
+    // moveend já cobre o caso comum (pan e zoom via scroll/botões alteram a
+    // view e disparam moveend), mas zoomend garante o bounds atualizado
+    // também em transições onde só o zoom muda sem mover o centro (ex:
+    // duplo-clique exatamente no centro atual).
     instance.on("moveend", () => updateBounds(instance.getBounds()));
+    instance.on("zoomend", () => updateBounds(instance.getBounds()));
   }, []);
 
   function updateBounds(b: LatLngBounds) {
