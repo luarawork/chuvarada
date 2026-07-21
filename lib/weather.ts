@@ -163,33 +163,64 @@ async function throttleOpenMeteo(): Promise<void> {
 // da cota da API: para de tentar chamadas novas bem antes de bater na cota
 // real, e avisa no log em vez de só falhar silenciosamente depois de
 // esgotar todas as tentativas de retry.
-const MAX_CALLS_PER_HOUR = 500;
-let callTimestamps: number[] = [];
-let rateLimitWarned = false;
+//
+// Trocado de um teto "por hora" (500) pra um teto "por dia" (9.500):
+// investigação de scripts/relatorio_testes_pos_correcao.md (Médio 5) achou
+// que o gargalo real do Open-Meteo não é a taxa por hora (o plano gratuito
+// permite 5.000/h — 10x o antigo limite interno), é a cota diária real de
+// 10.000/dia, com HTTP 429 "Daily API request limit exceeded" de verdade
+// quando estourada. Um teto "por hora" de 500 chamadas, sustentado 24h,
+// já somava 12.000/dia — 20% acima da cota real — mesmo sem nenhuma
+// elevação. 9.500/dia deixa ~500 de margem pras chamadas extras de
+// fetchForecastDisplay (previsão exibida no painel de bairro).
+const MAX_CALLS_PER_DAY = 9500;
+const WARN_AT_PERCENT = 0.8;
+const WARN_THRESHOLD = Math.floor(MAX_CALLS_PER_DAY * WARN_AT_PERCENT);
+
+function utcDateString(d: Date): string {
+  return d.toISOString().slice(0, 10);
+}
+
+let currentUtcDay = utcDateString(new Date());
+let callsToday = 0;
+let warned80 = false;
+let warned100 = false;
 
 export class RateLimitExceededError extends Error {
   constructor() {
-    super(`Limite interno de ${MAX_CALLS_PER_HOUR} chamadas/hora ao Open-Meteo atingido`);
+    super(`Limite interno de ${MAX_CALLS_PER_DAY} chamadas/dia ao Open-Meteo atingido`);
     this.name = "RateLimitExceededError";
   }
 }
 
-function checkHourlyRateLimit(): void {
-  const now = Date.now();
-  const oneHourAgo = now - 3600_000;
-  callTimestamps = callTimestamps.filter((t) => t > oneHourAgo);
-  if (callTimestamps.length >= MAX_CALLS_PER_HOUR) {
-    if (!rateLimitWarned) {
+function checkDailyRateLimit(): void {
+  const today = utcDateString(new Date());
+  if (today !== currentUtcDay) {
+    currentUtcDay = today;
+    callsToday = 0;
+    warned80 = false;
+    warned100 = false;
+  }
+
+  if (callsToday >= MAX_CALLS_PER_DAY) {
+    if (!warned100) {
       console.warn(
-        `[weather] Limite de ${MAX_CALLS_PER_HOUR} chamadas/hora ao Open-Meteo atingido — ` +
-          `pausando novas chamadas até a janela de 1h liberar (usando cache onde disponível).`
+        `[weather] Limite de ${MAX_CALLS_PER_DAY} chamadas/dia ao Open-Meteo atingido — ` +
+          `pausando novas chamadas até a meia-noite UTC (usando cache onde disponível).`
       );
-      rateLimitWarned = true;
+      warned100 = true;
     }
     throw new RateLimitExceededError();
   }
-  rateLimitWarned = false;
-  callTimestamps.push(now);
+
+  callsToday++;
+  if (!warned80 && callsToday >= WARN_THRESHOLD) {
+    console.warn(
+      `[weather] ${callsToday} de ${MAX_CALLS_PER_DAY} chamadas diárias ao Open-Meteo usadas ` +
+        `(${Math.round(WARN_AT_PERCENT * 100)}%) — aproximando do limite diário.`
+    );
+    warned80 = true;
+  }
 }
 
 async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoResponse> {
@@ -200,7 +231,7 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
     `&past_days=3&forecast_days=2&timezone=UTC`;
 
   for (let attempt = 0; attempt <= 5; attempt++) {
-    checkHourlyRateLimit();
+    checkDailyRateLimit();
     await throttleOpenMeteo();
     const res = await fetch(url);
     if (res.ok) return res.json();
@@ -343,7 +374,7 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
 }
 
 // Busca o clima pra um ponto específico (não pra cidade inteira). Bairros
-// próximos caem na mesma célula de ~5km (lib/grid.ts) e reaproveitam o
+// próximos caem na mesma célula de ~10km (lib/grid.ts) e reaproveitam o
 // mesmo fetch/cache — cidades grandes como Salvador acabam com várias
 // células distintas, capturando a variação real de chuva dentro da cidade
 // em vez de um único valor pra cidade toda.

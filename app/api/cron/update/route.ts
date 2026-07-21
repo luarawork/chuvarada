@@ -95,7 +95,7 @@ interface ScoredRow {
 async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
   const tide = await getCurrentTideLevel(city.id, city.tide_code);
 
-  // Bairros próximos caem na mesma célula de ~5km e reaproveitam o mesmo
+  // Bairros próximos caem na mesma célula de ~10km e reaproveitam o mesmo
   // clima — em vez de um único ponto (centro da cidade) pra todos os
   // bairros, o que fazia Salvador/Natal inteiras mostrarem a mesma chuva
   // independente de onde o bairro fica.
