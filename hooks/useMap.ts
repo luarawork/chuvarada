@@ -18,17 +18,22 @@ export const NORDESTE_BOUNDS: [[number, number], [number, number]] = [
 export function useMap() {
   const [map, setMap] = useState<LeafletMap | null>(null);
   const [bounds, setBounds] = useState<MapBounds | null>(null);
+  const [zoom, setZoom] = useState<number | null>(null);
 
   const handleMapReady = useCallback((instance: LeafletMap) => {
     setMap(instance);
     updateBounds(instance.getBounds());
+    setZoom(instance.getZoom());
 
     // moveend já cobre o caso comum (pan e zoom via scroll/botões alteram a
     // view e disparam moveend), mas zoomend garante o bounds atualizado
     // também em transições onde só o zoom muda sem mover o centro (ex:
     // duplo-clique exatamente no centro atual).
     instance.on("moveend", () => updateBounds(instance.getBounds()));
-    instance.on("zoomend", () => updateBounds(instance.getBounds()));
+    instance.on("zoomend", () => {
+      updateBounds(instance.getBounds());
+      setZoom(instance.getZoom());
+    });
   }, []);
 
   function updateBounds(b: LatLngBounds) {
@@ -47,5 +52,5 @@ export function useMap() {
     [map]
   );
 
-  return { map, bounds, handleMapReady, flyTo };
+  return { map, bounds, zoom, handleMapReady, flyTo };
 }

@@ -15,6 +15,23 @@ export interface City {
   created_at: string;
 }
 
+// Agregado de risco por cidade (view/tabela city_risk_summary) -- usado só
+// pelo modo "pontos" do mapa no zoom-out (ver CityMarkerLayer), não pelo
+// modo bairro normal (que usa RiskScore por bairro).
+export interface CitySummary {
+  city_id: string;
+  name: string;
+  state: string;
+  lat: number;
+  lng: number;
+  data_level: DataLevel;
+  max_score: number | null;
+  worst_level: RiskLevel;
+  critical_count: number;
+  attention_count: number;
+  last_updated: string | null;
+}
+
 export interface Neighborhood {
   id: string;
   city_id: string;

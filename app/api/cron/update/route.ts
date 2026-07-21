@@ -222,8 +222,48 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
 
   await insertRiskScoresBatch(db, scoredRows, tide.level);
   await syncRiskEventsBatch(db, scoredRows);
+  await upsertCityRiskSummary(db, city, scoredRows);
 
   return scoredRows.length;
+}
+
+// Atualiza o agregado por cidade usado pelo modo "pontos" do mapa no
+// zoom-out (city_risk_summary, ver migração 022) direto a partir de
+// `scoredRows` -- já temos o score/level de CADA bairro da cidade em
+// memória aqui, então isso não é uma query nova nenhuma, só um upsert de 1
+// linha. Ver comentário da migração: calcular esse agregado ao vivo por
+// request (LATERAL ou merge join sobre risk_scores inteira) media 1-3s pra
+// poucas centenas de cidades -- rápido demais de repetir a cada
+// cron, devagar demais pra manter o mapa interativo.
+async function upsertCityRiskSummary(db: Pool, city: City, rows: ScoredRow[]): Promise<void> {
+  if (rows.length === 0) return;
+
+  const maxScore = Math.max(...rows.map((r) => r.result.score));
+  const hasCritical = rows.some((r) => r.result.level === "critical");
+  const hasAttention = rows.some((r) => r.result.level === "attention");
+  const worstLevel = hasCritical ? "critical" : hasAttention ? "attention" : "normal";
+  const criticalCount = rows.filter((r) => r.result.level === "critical").length;
+  const attentionCount = rows.filter((r) => r.result.level === "attention").length;
+
+  await db.query(
+    `insert into city_risk_summary (
+       city_id, name, state, lat, lng, data_level,
+       max_score, worst_level, critical_count, attention_count, last_updated, refreshed_at
+     ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, now(), now())
+     on conflict (city_id) do update set
+       name = excluded.name,
+       state = excluded.state,
+       lat = excluded.lat,
+       lng = excluded.lng,
+       data_level = excluded.data_level,
+       max_score = excluded.max_score,
+       worst_level = excluded.worst_level,
+       critical_count = excluded.critical_count,
+       attention_count = excluded.attention_count,
+       last_updated = excluded.last_updated,
+       refreshed_at = excluded.refreshed_at`,
+    [city.id, city.name, city.state, city.lat, city.lng, city.data_level, maxScore, worstLevel, criticalCount, attentionCount]
+  );
 }
 
 async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLevel: number): Promise<void> {
