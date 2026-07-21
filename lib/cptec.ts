@@ -89,14 +89,19 @@ async function saveTideCache(
   );
 }
 
-export async function getCachedTide(cityId: string): Promise<TideCacheData | null> {
+interface CachedTideRow {
+  data: TideCacheData;
+  cached_at: string;
+}
+
+export async function getCachedTide(cityId: string): Promise<CachedTideRow | null> {
   const now = new Date();
   const db = getDb();
   const { rows } = await db.query(
-    `select data from tide_cache where city_id = $1 and month = $2 and year = $3`,
+    `select data, cached_at from tide_cache where city_id = $1 and month = $2 and year = $3`,
     [cityId, now.getMonth() + 1, now.getFullYear()]
   );
-  return rows[0]?.data ?? null;
+  return rows[0] ?? null;
 }
 
 // Retorna o nível de maré atual normalizado (0.0 a 1.0) comparando a hora atual
@@ -106,10 +111,12 @@ export async function getCurrentTideLevel(
   tideCode: string | null
 ): Promise<TideResult> {
   if (!tideCode) {
-    return { level: 0.5, estimated: true, note: "sem dado de maré" };
+    return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
   }
 
-  let cache = await getCachedTide(cityId);
+  const cachedRow = await getCachedTide(cityId);
+  let cache = cachedRow?.data ?? null;
+  let cachedAt = cachedRow?.cached_at ?? null;
 
   // Uma linha de cache com 0 dias significa que a última tentativa não
   // encontrou tábua publicada para o mês (ex: mês futuro que o CPTEC ainda
@@ -119,13 +126,14 @@ export async function getCurrentTideLevel(
     try {
       const now = new Date();
       cache = await fetchTideTable(cityId, tideCode, now.getMonth() + 1, now.getFullYear());
+      cachedAt = now.toISOString(); // acabou de buscar/gravar, então é fresco agora
     } catch {
-      return { level: 0.5, estimated: true, note: "sem dado de maré" };
+      return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
     }
   }
 
   if (!cache || cache.days.length === 0) {
-    return { level: 0.5, estimated: true, note: "sem dado de maré" };
+    return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
   }
 
   const now = new Date();
@@ -134,12 +142,12 @@ export async function getCurrentTideLevel(
 
   const closest = closestTide(today, now);
   if (!closest) {
-    return { level: 0.5, estimated: true, note: "dado estimado" };
+    return { level: 0.5, estimated: true, note: "dado estimado", cached_at: cachedAt };
   }
 
   const range = cache.max_level - cache.min_level || 1;
   const normalized = (closest.level - cache.min_level) / range;
-  return { level: clamp01(normalized), estimated: false };
+  return { level: clamp01(normalized), estimated: false, cached_at: cachedAt };
 }
 
 function formatDate(date: Date): string {

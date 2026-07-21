@@ -115,6 +115,7 @@ export interface TideResult {
   level: number;
   estimated: boolean;
   note?: string;
+  cached_at: string | null;
 }
 
 export interface ForecastSlot {

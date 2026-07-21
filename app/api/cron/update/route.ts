@@ -138,7 +138,7 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
   for (let i = 0; i < cells.length; i++) {
     const weather = weatherByCell[i];
     for (const neighborhood of cells[i].neighborhoods) {
-      const result = calculateScore(neighborhood, weather, tideLevelForScore);
+      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at);
       scoredRows.push({ neighborhood, weather, result });
     }
   }

@@ -44,10 +44,28 @@ function levelFromScore(score: number): RiskLevel {
   return "critical";
 }
 
+// Regra 2 (maré alta + chuva costeira) só dispara se o dado de maré usado
+// tiver menos de 26h — a tábua de maré muda de ciclo a cada ~6h, e 26h é
+// margem suficiente pra cobrir um ciclo completo mais folga. Achado do
+// relatório de testes pré-deploy: com 89% das cidades usando weather_cache
+// expirado (>2h) na maior parte do tempo, aplicar essa regra sobre um
+// tide_level muito antigo arriscava disparar (ou deixar de disparar)
+// com base numa maré que já não é a de agora. Conservador: sem dado
+// recente, a regra simplesmente não avalia — melhor não alertar por essa
+// via específica do que alertar (ou deixar de alertar) errado.
+const TIDE_DATA_MAX_AGE_HOURS = 26;
+
+function isTideDataRecent(tideLastUpdated: string | null): boolean {
+  if (!tideLastUpdated) return false;
+  const ageHours = (Date.now() - new Date(tideLastUpdated).getTime()) / 3_600_000;
+  return ageHours < TIDE_DATA_MAX_AGE_HOURS;
+}
+
 export function calculateScore(
   neighborhood: Pick<Neighborhood, "terrain_slope" | "hydro_proximity" | "is_coastal">,
   weather: NormalizedWeather,
-  tideLevel: number | null
+  tideLevel: number | null,
+  tideLastUpdated: string | null = null
 ): ScoreResult {
   const hasTide = tideLevel !== null;
   const weights = hasTide ? WEIGHTS : WEIGHT_WITHOUT_TIDE;
@@ -77,7 +95,7 @@ export function calculateScore(
   if (weather.rain_1h > 50) {
     autoCritical = true;
     autoCriticalReason = "Chuva extrema na última hora";
-  } else if (hasTide && tideLevel > 0.8 && weather.rain_3h > 20 && neighborhood.is_coastal) {
+  } else if (hasTide && tideLevel > 0.8 && weather.rain_3h > 20 && neighborhood.is_coastal && isTideDataRecent(tideLastUpdated)) {
     autoCritical = true;
     autoCriticalReason = "Maré alta com chuva em zona costeira";
   } else if (weather.rain_72h > 100 && weather.rain_1h > 0) {
