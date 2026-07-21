@@ -1,12 +1,16 @@
-// WeatherAPI.com (https://www.weatherapi.com) -- substitui a Open-Meteo como
-// fonte primária das variáveis secundárias (rain_1h, vento, umidade,
-// pressão) a partir de 21/07/2026. Motivo da troca: o plano Business
-// contratado dá 10 milhões de chamadas/mês (~333 mil/dia), bem acima da
-// cota diária gratuita da Open-Meteo (10.000/dia) que motivou toda a
-// engenharia de otimização em lib/weather.ts (Opções 1-3 do plano de
-// expansão nacional). rain_72h/rain_peak_3h continuam vindo do MERGE/CPTEC
-// sem nenhuma alteração (ver lib/merge.ts) -- essa troca é só pra`s
-// variáveis que a Open-Meteo ainda fornecia.
+// WeatherAPI.com (https://www.weatherapi.com) -- fonte de variáveis
+// secundárias (rain_1h, vento, umidade, pressão) desde 21/07/2026.
+// rain_72h/rain_peak_3h continuam vindo do MERGE/CPTEC sem nenhuma
+// alteração (ver lib/merge.ts) -- essa integração é só pra`s variáveis que
+// a Open-Meteo também fornece.
+//
+// Papel na estratégia de fallback em camadas (ver lib/weather.ts): o plano
+// Business contratado (10M chamadas/mês) só vale até 28/07/2026 -- depois
+// disso cai pro plano free (3.333/dia). Por isso a WeatherAPI virou camada
+// 2 (reserva de emergência), atrás da Open-Meteo (camada 1, cota real de
+// 10.000/dia, maior que os 3.333 do free da WeatherAPI pós-28/07). O teto
+// interno (WEATHERAPI_DAILY_LIMIT, default 3.000) já assume o cenário
+// pós-28/07 por segurança, mesmo enquanto o Business ainda está ativo.
 //
 // Usa o endpoint forecast.json (não current.json) mesmo só precisando do
 // clima ATUAL: current.json não devolve nenhuma série horária, e o cálculo
@@ -16,6 +20,8 @@
 // do dia local (00h até agora) com precipitação observada, do mesmo jeito
 // que a Open-Meteo já dava via past_days -- confirmado com uma chamada
 // real de teste antes de escrever este código.
+import { DailyRateLimiter, envIntOr, type RateLimiterStats } from "./rateLimiter";
+
 const BASE_URL = "https://api.weatherapi.com/v1";
 
 interface WeatherApiForecastResponse {
@@ -46,57 +52,19 @@ export interface WeatherApiReading {
 }
 
 // Contador diário próprio, separado do da Open-Meteo (lib/weather.ts) --
-// são cotas de provedores diferentes, e a Open-Meteo continua existindo
-// como fallback com sua própria cota real de 10.000/dia. Misturar os dois
-// contadores deixaria o fallback sem proteção nenhuma se a WeatherAPI
-// consumisse o teto sozinha.
-const MAX_CALLS_PER_DAY = 300_000;
-const WARN_AT_PERCENT = 0.8;
-const WARN_THRESHOLD = Math.floor(MAX_CALLS_PER_DAY * WARN_AT_PERCENT);
+// são cotas de provedores diferentes. Configurável via env porque o teto
+// real muda em 28/07/2026 (fim do plano Business).
+const WEATHERAPI_DAILY_LIMIT = envIntOr(process.env.WEATHERAPI_DAILY_LIMIT, 3_000);
+const weatherApiLimiter = new DailyRateLimiter(WEATHERAPI_DAILY_LIMIT, "WeatherAPI.com");
 
-function utcDateString(d: Date): string {
-  return d.toISOString().slice(0, 10);
+export function getWeatherApiLimiterStats(): RateLimiterStats {
+  return weatherApiLimiter.getStats();
 }
-
-let currentUtcDay = utcDateString(new Date());
-let callsToday = 0;
-let warned80 = false;
-let warned100 = false;
 
 export class WeatherApiRateLimitExceededError extends Error {
   constructor() {
-    super(`Limite interno de ${MAX_CALLS_PER_DAY} chamadas/dia à WeatherAPI atingido`);
+    super(`Limite interno de ${WEATHERAPI_DAILY_LIMIT} chamadas/dia à WeatherAPI atingido`);
     this.name = "WeatherApiRateLimitExceededError";
-  }
-}
-
-function checkDailyRateLimit(): void {
-  const today = utcDateString(new Date());
-  if (today !== currentUtcDay) {
-    currentUtcDay = today;
-    callsToday = 0;
-    warned80 = false;
-    warned100 = false;
-  }
-
-  if (callsToday >= MAX_CALLS_PER_DAY) {
-    if (!warned100) {
-      console.warn(
-        `[weatherapi] Limite de ${MAX_CALLS_PER_DAY} chamadas/dia atingido — ` +
-          `pausando novas chamadas até a meia-noite UTC (caindo pro fallback da Open-Meteo onde disponível).`
-      );
-      warned100 = true;
-    }
-    throw new WeatherApiRateLimitExceededError();
-  }
-
-  callsToday++;
-  if (!warned80 && callsToday >= WARN_THRESHOLD) {
-    console.warn(
-      `[weatherapi] ${callsToday} de ${MAX_CALLS_PER_DAY} chamadas diárias usadas ` +
-        `(${Math.round(WARN_AT_PERCENT * 100)}%) — aproximando do limite diário.`
-    );
-    warned80 = true;
   }
 }
 
@@ -114,6 +82,13 @@ async function throttleWeatherApi(): Promise<void> {
   if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
 }
 
+// Checagem rápida usada pela camada de fallback em lib/weather.ts ANTES de
+// sequer tentar a chamada -- evita gastar o espaçamento de throttle numa
+// chamada que já sabemos que vai ser rejeitada pelo contador interno.
+export function isWeatherApiExhausted(): boolean {
+  return weatherApiLimiter.isExhausted();
+}
+
 async function fetchWeatherApi(lat: number, lng: number): Promise<WeatherApiForecastResponse> {
   const apiKey = process.env.WEATHERAPI_KEY;
   if (!apiKey) throw new Error("WEATHERAPI_KEY não configurada");
@@ -121,7 +96,8 @@ async function fetchWeatherApi(lat: number, lng: number): Promise<WeatherApiFore
   const url = `${BASE_URL}/forecast.json?key=${apiKey}&q=${lat},${lng}&days=1&aqi=no&alerts=no`;
 
   for (let attempt = 0; attempt <= 5; attempt++) {
-    checkDailyRateLimit();
+    if (weatherApiLimiter.isExhausted()) throw new WeatherApiRateLimitExceededError();
+    weatherApiLimiter.increment();
     await throttleWeatherApi();
     const res = await fetch(url);
     if (res.ok) return res.json();

@@ -83,10 +83,14 @@ export type RainSource = "merge_cptec" | "openmeteo" | "merge_cptec_priority" | 
 
 // Eixo diferente de RainSource: RainSource rastreia qual fonte deu rain_72h/
 // rain_peak_3h (merge vs openmeteo, ver getBestRainData). WeatherSource
-// rastreia qual provedor deu as variáveis SECUNDÁRIAS desta linha (rain_1h,
-// vento, umidade, pressão) -- weatherapi na maioria dos casos, openmeteo só
-// quando a WeatherAPI falha e o fallback entra em ação (ver lib/weather.ts).
-export type WeatherSource = "weatherapi" | "openmeteo";
+// rastreia qual CAMADA da estratégia de fallback deu as variáveis
+// SECUNDÁRIAS desta linha (rain_1h, vento, umidade, pressão) -- ver
+// lib/weather.ts:
+//   "openmeteo"          -- camada 1 (principal), sucesso normal
+//   "weatherapi_fallback" -- camada 2, Open-Meteo falhou ou esgotou a cota
+//   "cache_emergency"     -- camada 3, as duas APIs falharam, reaproveita cache <24h
+//   "neutral_fallback"    -- último recurso, nem cache existe -- valores neutros
+export type WeatherSource = "openmeteo" | "weatherapi_fallback" | "cache_emergency" | "neutral_fallback";
 
 export interface WeatherCache {
   id: string;

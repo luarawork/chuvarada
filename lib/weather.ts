@@ -2,7 +2,8 @@ import { getDb } from "./db";
 import { gridCell } from "./grid";
 import { getMergeData } from "./merge";
 import type { MergeData } from "./merge";
-import { getWeatherApiReading } from "./weatherapi";
+import { getWeatherApiReading, isWeatherApiExhausted } from "./weatherapi";
+import { DailyRateLimiter, envIntOr, type RateLimiterStats } from "./rateLimiter";
 import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, RainSource, WeatherCache, WeatherSource } from "@/types";
 
 // Acima disso, o MERGE é considerado velho demais mesmo que getMergeData()
@@ -165,71 +166,27 @@ async function throttleOpenMeteo(): Promise<void> {
 // real, e avisa no log em vez de só falhar silenciosamente depois de
 // esgotar todas as tentativas de retry.
 //
-// Trocado de um teto "por hora" (500) pra um teto "por dia" (9.200):
-// investigação de scripts/relatorio_testes_pos_correcao.md (Médio 5) achou
-// que o gargalo real do Open-Meteo não é a taxa por hora (o plano gratuito
-// permite 5.000/h — 10x o antigo limite interno), é a cota diária real de
-// 10.000/dia, com HTTP 429 "Daily API request limit exceeded" de verdade
-// quando estourada. 9.200/dia deixa ~800 de margem pras chamadas extras de
-// fetchForecastDisplay (previsão exibida no painel de bairro).
-//
-// Atualização de 21/07/2026: com a migração pra WeatherAPI.com (plano
-// Business, 10M chamadas/mês -- ver lib/weatherapi.ts), a Open-Meteo deixou
-// de ser o caminho principal pra variáveis secundárias e virou só um
-// fallback de emergência (usado quando a WeatherAPI falha). Esse teto de
-// 9.200/dia continua valendo como backstop de segurança pra esse fallback
-// -- a análise de regime permanente que antes mostrava ~15.700 chamadas/dia
-// (acima do teto) não se aplica mais, porque esse volume não passa mais
-// pela Open-Meteo no dia a dia. Se um dia inteiro cair no fallback (ex:
-// WeatherAPI fora do ar), este contador ainda protege a cota real da
-// Open-Meteo (10.000/dia) de um esgotamento silencioso.
-const MAX_CALLS_PER_DAY = 9200;
-const WARN_AT_PERCENT = 0.8;
-const WARN_THRESHOLD = Math.floor(MAX_CALLS_PER_DAY * WARN_AT_PERCENT);
+// Atualização de 21/07/2026: Open-Meteo voltou a ser a camada 1 (principal)
+// da estratégia de fallback em camadas -- WeatherAPI.com é a camada 2
+// (reserva de emergência, ver lib/weatherapi.ts), configurada com um teto
+// bem menor (3.000/dia por padrão) porque o plano Business dela só vale até
+// 28/07/2026. 9.500/dia deixa ~500 de margem sobre a cota real (10.000/dia)
+// pras chamadas extras de fetchForecastDisplay. Configurável via env.
+const OPENMETEO_DAILY_LIMIT = envIntOr(process.env.OPENMETEO_DAILY_LIMIT, 9_500);
+const openMeteoLimiter = new DailyRateLimiter(OPENMETEO_DAILY_LIMIT, "Open-Meteo");
 
-function utcDateString(d: Date): string {
-  return d.toISOString().slice(0, 10);
+export function getOpenMeteoLimiterStats(): RateLimiterStats {
+  return openMeteoLimiter.getStats();
 }
 
-let currentUtcDay = utcDateString(new Date());
-let callsToday = 0;
-let warned80 = false;
-let warned100 = false;
+export function isOpenMeteoExhausted(): boolean {
+  return openMeteoLimiter.isExhausted();
+}
 
 export class RateLimitExceededError extends Error {
   constructor() {
-    super(`Limite interno de ${MAX_CALLS_PER_DAY} chamadas/dia ao Open-Meteo atingido`);
+    super(`Limite interno de ${OPENMETEO_DAILY_LIMIT} chamadas/dia ao Open-Meteo atingido`);
     this.name = "RateLimitExceededError";
-  }
-}
-
-function checkDailyRateLimit(): void {
-  const today = utcDateString(new Date());
-  if (today !== currentUtcDay) {
-    currentUtcDay = today;
-    callsToday = 0;
-    warned80 = false;
-    warned100 = false;
-  }
-
-  if (callsToday >= MAX_CALLS_PER_DAY) {
-    if (!warned100) {
-      console.warn(
-        `[weather] Limite de ${MAX_CALLS_PER_DAY} chamadas/dia ao Open-Meteo atingido — ` +
-          `pausando novas chamadas até a meia-noite UTC (usando cache onde disponível).`
-      );
-      warned100 = true;
-    }
-    throw new RateLimitExceededError();
-  }
-
-  callsToday++;
-  if (!warned80 && callsToday >= WARN_THRESHOLD) {
-    console.warn(
-      `[weather] ${callsToday} de ${MAX_CALLS_PER_DAY} chamadas diárias ao Open-Meteo usadas ` +
-        `(${Math.round(WARN_AT_PERCENT * 100)}%) — aproximando do limite diário.`
-    );
-    warned80 = true;
   }
 }
 
@@ -269,6 +226,32 @@ export function mergeShowsSignificantRain(merge: MergeData | null): boolean {
   return merge.rain_72h > SIGNIFICANT_RAIN_72H_MM || merge.rain_peak_3h > SIGNIFICANT_RAIN_PEAK_3H_MM;
 }
 
+// Contagem por camada usada pra popular GET /api/health (via
+// scripts/sql/017_layered_fallback.sql, tabela cron_run_stats) -- só em
+// memória do processo, resetada no início de cada execução do cron
+// (app/api/cron/update/route.ts chama resetCycleStats() antes de
+// processar as cidades e persiste getCycleStats() no banco ao final).
+export interface CycleStats {
+  openmeteo: number;
+  weatherapi_fallback: number;
+  cache_emergency: number;
+  neutral_fallback: number;
+}
+
+let cycleStats: CycleStats = { openmeteo: 0, weatherapi_fallback: 0, cache_emergency: 0, neutral_fallback: 0 };
+
+export function resetCycleStats(): void {
+  cycleStats = { openmeteo: 0, weatherapi_fallback: 0, cache_emergency: 0, neutral_fallback: 0 };
+}
+
+export function getCycleStats(): CycleStats {
+  return { ...cycleStats };
+}
+
+function incrementCycleStat(source: keyof CycleStats): void {
+  cycleStats[source]++;
+}
+
 // Reconstrói o resultado a partir do cache existente (vento/umidade/
 // pressão/rain_1h) combinado com o MERGE mais recente pra rain_72h/
 // rain_peak_3h -- mesma lógica já usada como fallback de erro logo abaixo,
@@ -288,7 +271,8 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
     `&past_days=3&forecast_days=2&timezone=UTC`;
 
   for (let attempt = 0; attempt <= 5; attempt++) {
-    checkDailyRateLimit();
+    if (openMeteoLimiter.isExhausted()) throw new RateLimitExceededError();
+    openMeteoLimiter.increment();
     await throttleOpenMeteo();
     const res = await fetch(url);
     if (res.ok) return res.json();
@@ -476,50 +460,20 @@ export async function getWeatherForPoint(
     }
   }
 
-  // Migração de 21/07/2026: variáveis secundárias (rain_1h, vento, umidade,
-  // pressão) vêm agora da WeatherAPI.com (plano Business, 10M chamadas/mês
-  // -- ver lib/weatherapi.ts), não mais da Open-Meteo. rain_72h/rain_peak_3h
-  // continuam vindo do MERGE sem alteração: como a WeatherAPI não devolve
-  // sem custo extra uma série de 72h pra comparar (só o current.json/
-  // forecast.json do dia, não os 3 dias que a Open-Meteo dava via
-  // past_days), a comparação merge-vs-alternativa de getBestRainData deixa
-  // de rodar no caminho normal -- se o MERGE estiver disponível, usa ele
-  // direto; se não, reaproveita o último valor conhecido em cache em vez de
-  // gastar uma chamada extra à Open-Meteo só pra essa comparação (o objetivo
-  // desta migração é justamente reduzir a dependência dela). Open-Meteo
-  // continua existindo, mas só como fallback de emergência se a WeatherAPI
-  // falhar -- nesse fallback específico, a comparação merge-vs-openmeteo
-  // original é preservada, porque nesse caso a Open-Meteo está sendo
-  // chamada mesmo e o dado de 72h dela sai de graça.
-  const rain72hFromMerge = merge ? merge.rain_72h : (cached?.rain_72h ?? 0);
-  const rainPeak3hFromMerge = merge ? merge.rain_peak_3h : (cached?.rain_peak_3h ?? 0);
-  const rainSourceFromMerge: RainSource = merge ? "merge_cptec" : (cached?.rain_source ?? "openmeteo");
-
-  try {
-    const reading = await getWeatherApiReading(cell.lat, cell.lng);
-    const rainIntensity = Math.max(reading.rain_1h, reading.rain_3h / 3);
-
-    const normalized: NormalizedWeather = {
-      rain_1h: reading.rain_1h,
-      rain_3h: reading.rain_3h,
-      rain_72h: rain72hFromMerge,
-      rain_intensity: rainIntensity,
-      rain_peak_3h: rainPeak3hFromMerge,
-      rain_source: rainSourceFromMerge,
-      wind_speed: reading.wind_speed,
-      wind_direction: reading.wind_direction,
-      humidity: reading.humidity,
-      pressure: reading.pressure,
-      pressure_trend: pressureTrend(reading.pressure, cached?.pressure ?? null),
-    };
-
-    await saveWeatherCache(cityId, cell.lat, cell.lng, normalized, "weatherapi");
-    return normalized;
-  } catch (weatherApiErr) {
-    console.warn(
-      `[weather] WeatherAPI falhou pra ${cityId} (${(weatherApiErr as Error).message}) — usando Open-Meteo como fallback`
-    );
-
+  // Estratégia de fallback em camadas (21/07/2026): Open-Meteo volta a ser
+  // a camada 1 -- cota real de 10.000/dia, maior que os 3.333/dia do plano
+  // free da WeatherAPI (o Business contratado só vale até 28/07/2026).
+  // Camada 1 (Open-Meteo) dá rain_72h/rain_peak_3h "de graça" na mesma
+  // chamada (past_days=3), então a comparação completa de getBestRainData
+  // com o MERGE roda normalmente aqui -- mesmo comportamento de antes da
+  // migração pra WeatherAPI. Camada 2 (WeatherAPI) não tem uma janela de
+  // 72h sem custo extra, então usa o MERGE direto (ou o cache, se o MERGE
+  // também estiver indisponível) pra rain_72h/rain_peak_3h, igual ao que a
+  // migração anterior já fazia. Camadas 3 (cache <24h) e 4 (neutro) nunca
+  // deixam um bairro sem nenhum dado -- ver types/index.ts pros 4 valores
+  // de weather_source.
+  if (!openMeteoLimiter.isExhausted()) {
+    let normalized: NormalizedWeather | null = null;
     try {
       const data = await fetchOpenMeteo(cell.lat, cell.lng);
       const nowMs = Date.parse(`${data.current.time}Z`);
@@ -533,7 +487,7 @@ export async function getWeatherForPoint(
         rain_peak_3h: peakPrecipitation(data, nowMs, 3),
       });
 
-      const normalized: NormalizedWeather = {
+      normalized = {
         rain_1h: rain1h,
         rain_3h: rain3h,
         rain_72h: best.rain_72h,
@@ -546,23 +500,132 @@ export async function getWeatherForPoint(
         pressure: data.current.surface_pressure,
         pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
       };
-
-      await saveWeatherCache(cityId, cell.lat, cell.lng, normalized, "openmeteo");
-      return normalized;
     } catch (openMeteoErr) {
-      // As duas fontes falharam: usa o cache expirado em vez de derrubar o
-      // bairro inteiro, se houver algo — mas ainda sobrepõe rain_72h/
-      // rain_peak_3h do MERGE se tiver dado fresco, já que esse problema é
-      // só das APIs de clima, não do MERGE.
-      if (cached) {
-        console.warn(
-          `[weather] Open-Meteo também falhou pra ${cityId} (${(openMeteoErr as Error).message}) — ` +
-            `usando cache expirado (${Math.round((Date.now() - new Date(cached.fetched_at).getTime()) / 60000)}min)`
-        );
-        return buildFromCacheAndMerge(cached, merge);
-      }
-      throw openMeteoErr;
+      console.warn(
+        `[weather] Open-Meteo falhou pra ${cityId} (${(openMeteoErr as Error).message}) — tentando WeatherAPI.com`
+      );
     }
+
+    // A leitura em si já foi obtida com sucesso -- uma falha ao GRAVAR no
+    // cache (ex: erro transitório de conexão com o banco) não deve
+    // descartar um dado bom e cair pra camada 2 à toa; só registra o aviso
+    // e segue com o valor que já temos.
+    if (normalized) {
+      await saveWeatherCacheSafe(cityId, cell.lat, cell.lng, normalized, "openmeteo");
+      incrementCycleStat("openmeteo");
+      return normalized;
+    }
+  }
+
+  // Camada 2: WeatherAPI.com (reserva de emergência)
+  const rain72hFromMerge = merge ? merge.rain_72h : (cached?.rain_72h ?? 0);
+  const rainPeak3hFromMerge = merge ? merge.rain_peak_3h : (cached?.rain_peak_3h ?? 0);
+  const rainSourceFromMerge: RainSource = merge ? "merge_cptec" : (cached?.rain_source ?? "openmeteo");
+
+  if (!isWeatherApiExhausted()) {
+    let normalized: NormalizedWeather | null = null;
+    try {
+      const reading = await getWeatherApiReading(cell.lat, cell.lng);
+      const rainIntensity = Math.max(reading.rain_1h, reading.rain_3h / 3);
+
+      normalized = {
+        rain_1h: reading.rain_1h,
+        rain_3h: reading.rain_3h,
+        rain_72h: rain72hFromMerge,
+        rain_intensity: rainIntensity,
+        rain_peak_3h: rainPeak3hFromMerge,
+        rain_source: rainSourceFromMerge,
+        wind_speed: reading.wind_speed,
+        wind_direction: reading.wind_direction,
+        humidity: reading.humidity,
+        pressure: reading.pressure,
+        pressure_trend: pressureTrend(reading.pressure, cached?.pressure ?? null),
+      };
+      console.info(`[weather] WeatherAPI.com usado como fallback (camada 2) pra ${cityId}`);
+    } catch (weatherApiErr) {
+      console.warn(
+        `[weather] WeatherAPI.com também falhou pra ${cityId} (${(weatherApiErr as Error).message}) — usando cache`
+      );
+    }
+
+    if (normalized) {
+      await saveWeatherCacheSafe(cityId, cell.lat, cell.lng, normalized, "weatherapi_fallback");
+      incrementCycleStat("weatherapi_fallback");
+      return normalized;
+    }
+  }
+
+  // Camada 3: cache existente (até 24h) -- último recurso antes do neutro.
+  //
+  // Deliberadamente NÃO grava uma nova linha em weather_cache aqui (desvio
+  // do pedido original, que listava 'cache_emergency' como valor a
+  // persistir). Motivo: gravar agora criaria um fetched_at novo em cima de
+  // um dado que continua sendo o mesmo antigo -- na próxima execução do
+  // cron, a checagem de TTL no topo desta função (24h parado / 3h chuvoso)
+  // veria essa linha como "fresca" e pularia até 24h de tentativas novas às
+  // camadas 1 e 2, mesmo que a Open-Meteo/WeatherAPI já tivessem voltado ao
+  // ar. Sem gravar, a linha antiga continua envelhecendo de verdade, e o
+  // próximo ciclo tenta as APIs reais de novo -- exatamente o que uma
+  // "reserva de emergência" deveria fazer. O uso desta camada ainda fica
+  // rastreável via GET /api/health (incrementCycleStat), só não via
+  // weather_cache.weather_source.
+  if (cached) {
+    const cacheAgeHours = (Date.now() - new Date(cached.fetched_at).getTime()) / 3_600_000;
+    if (cacheAgeHours <= 24) {
+      console.warn(`[weather] Usando cache de emergência pra ${cityId} (${cached.fetched_at})`);
+      incrementCycleStat("cache_emergency");
+      return buildFromCacheAndMerge(cached, merge);
+    }
+  }
+
+  // Camada 4: sem dado disponível de jeito nenhum (nem cache) -- nunca
+  // deixar o app sem retorno, mas com um valor claramente identificável
+  // como não-confiável (weather_source="neutral_fallback") em vez de
+  // fingir que representa uma leitura real. Risco conhecido e aceito pelo
+  // pedido: um "calmo" fabricado pode mascarar risco real numa célula nova
+  // sem histórico durante uma queda simultânea das duas APIs -- cenário
+  // raro (célula brand-new + Open-Meteo E WeatherAPI fora do ar ao mesmo
+  // tempo), mas vale monitorar via GET /api/health se acontecer com
+  // frequência maior que a esperada. Também não grava em weather_cache,
+  // pelo mesmo motivo da camada 3 -- não existia linha nenhuma antes (é
+  // por isso que chegamos até aqui), então gravar um valor fabricado
+  // criaria uma "primeira leitura" falsa que o próximo ciclo trataria como
+  // cache válido por até 24h.
+  console.warn(`[weather] Nenhuma fonte disponível pra ${cityId} (nem cache) — retornando valores neutros`);
+  incrementCycleStat("neutral_fallback");
+  return {
+    rain_1h: 0,
+    rain_3h: 0,
+    rain_72h: rain72hFromMerge,
+    rain_intensity: 0,
+    rain_peak_3h: rainPeak3hFromMerge,
+    rain_source: rainSourceFromMerge,
+    wind_speed: 0,
+    wind_direction: 0,
+    humidity: 50,
+    pressure: 1013,
+    pressure_trend: "stable",
+  };
+}
+
+// Variante de saveWeatherCache que nunca lança -- usada nas camadas 1 e 2
+// do fallback, onde a leitura em si já foi obtida com sucesso e uma falha
+// de escrita no banco (conexão instável, constraint, etc.) não deveria
+// jogar fora um dado bom nem cascatear pra próxima camada.
+async function saveWeatherCacheSafe(
+  cityId: string,
+  lat: number,
+  lng: number,
+  data: NormalizedWeather,
+  weatherSource: WeatherSource
+): Promise<void> {
+  try {
+    await saveWeatherCache(cityId, lat, lng, data, weatherSource);
+  } catch (err) {
+    console.warn(
+      `[weather] Falha ao gravar weather_cache pra ${cityId} (${(err as Error).message}) — ` +
+        `o dado desta camada (${weatherSource}) ainda é usado neste ciclo, só não fica salvo pro próximo.`
+    );
   }
 }
 
