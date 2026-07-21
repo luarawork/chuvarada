@@ -13,6 +13,7 @@ require("dotenv").config({ path: ".env.local" });
 const fs = require("fs");
 const path = require("path");
 const { Client } = require("pg");
+const turf = require("@turf/turf");
 
 const CITY_FILES = {
   Salvador: "neighborhoods_salvador.geojson",
@@ -48,15 +49,19 @@ async function main() {
       for (const feature of geojson.features) {
         const { name, terrain_slope, hydro_proximity, is_coastal } = feature.properties;
         namesInFile.push(name);
+        const centroid = turf.centroid(feature);
+        const [centroidLng, centroidLat] = centroid.geometry.coordinates;
         await client.query(
-          `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal)
-           values ($1, $2, $3, $4, $5, $6)
+          `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal, centroid_lat, centroid_lng)
+           values ($1, $2, $3, $4, $5, $6, $7, $8)
            on conflict (city_id, name) do update set
              geometry = excluded.geometry,
              terrain_slope = excluded.terrain_slope,
              hydro_proximity = excluded.hydro_proximity,
-             is_coastal = excluded.is_coastal`,
-          [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal]
+             is_coastal = excluded.is_coastal,
+             centroid_lat = excluded.centroid_lat,
+             centroid_lng = excluded.centroid_lng`,
+          [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal, centroidLat, centroidLng]
         );
         upserted++;
       }

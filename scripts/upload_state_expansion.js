@@ -178,16 +178,20 @@ async function main() {
 
         for (const feature of features) {
           const { name, terrain_slope, hydro_proximity, is_coastal, name_source } = feature.properties;
+          const centroid = turf.centroid(feature);
+          const [centroidLng, centroidLat] = centroid.geometry.coordinates;
           await client.query(
-            `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal, name_source)
-             values ($1, $2, $3, $4, $5, $6, $7)
+            `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal, name_source, centroid_lat, centroid_lng)
+             values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
              on conflict (city_id, name) do update set
                geometry = excluded.geometry,
                terrain_slope = excluded.terrain_slope,
                hydro_proximity = excluded.hydro_proximity,
                is_coastal = excluded.is_coastal,
-               name_source = excluded.name_source`,
-            [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal, name_source ?? "bairro"]
+               name_source = excluded.name_source,
+               centroid_lat = excluded.centroid_lat,
+               centroid_lng = excluded.centroid_lng`,
+            [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal, name_source ?? "bairro", centroidLat, centroidLng]
           );
         }
 
