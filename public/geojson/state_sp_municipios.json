@@ -1,0 +1,4517 @@
+[
+  {
+    "name": "Adamantina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Adolfo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aguaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Agudos",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alambari",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alfredo Marcondes",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Altair",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Altinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Alegre",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alumínio",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvinlândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Americana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Amparo",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Américo Brasiliense",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Américo de Campos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Analândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Andradina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Angatuba",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anhembi",
+    "state_code": "SP",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Anhumas",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aparecida",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aparecida d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Apiaí",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aramina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arandu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arapeí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araraquara",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araçariguama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araçatuba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araçoiaba da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arco-Íris",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arealva",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Areias",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Areiópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ariranha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Artur Nogueira",
+    "state_code": "SP",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arujá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aspásia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Assis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Atibaia",
+    "state_code": "SP",
+    "neighborhood_count": 42,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Auriflama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Avanhandava",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Avaré",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Avaí",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bady Bassitt",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balbinos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bananal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barbosa",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bariri",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra Bonita",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra do Chapéu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra do Turvo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barretos",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barrinha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barueri",
+    "state_code": "SP",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barão de Antonina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bastos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Batatais",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bauru",
+    "state_code": "SP",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bebedouro",
+    "state_code": "SP",
+    "neighborhood_count": 66,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bento de Abreu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bernardino de Campos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bertioga",
+    "state_code": "SP",
+    "neighborhood_count": 19,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bilac",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Birigui",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Biritiba Mirim",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Esperança do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bocaina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bofete",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boituva",
+    "state_code": "SP",
+    "neighborhood_count": 58,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Jesus dos Perdões",
+    "state_code": "SP",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Sucesso de Itararé",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boracéia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Borborema",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Borebi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Borá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Botucatu",
+    "state_code": "SP",
+    "neighborhood_count": 101,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bragança Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 60,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Braúna",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brejo Alegre",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brodowski",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brotas",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buri",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buritama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buritizal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bálsamo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cabreúva",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cabrália Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caconde",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cafelândia",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caiabu",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caieiras",
+    "state_code": "SP",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caiuá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cajamar",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cajati",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cajobi",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cajuru",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campina do Monte Alegre",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campinas",
+    "state_code": "SP",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo Limpo Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos Novos Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos do Jordão",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cananéia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canas",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canitar",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capela do Alto",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capivari",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capão Bonito",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caraguatatuba",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carapicuíba",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cardoso",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Casa Branca",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Castilho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catanduva",
+    "state_code": "SP",
+    "neighborhood_count": 109,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Catiguá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caçapava",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cedral",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerqueira César",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerquilho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cesário Lange",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Charqueada",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chavantes",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Clementina",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colômbia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conchal",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conchas",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cordeirópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coroados",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Macedo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Corumbataí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cosmorama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cosmópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cotia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cravinhos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristais Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruzeiro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruzália",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cubatão",
+    "state_code": "SP",
+    "neighborhood_count": 42,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cunha",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cássia dos Coqueiros",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cândido Mota",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cândido Rodrigues",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Descalvado",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Diadema",
+    "state_code": "SP",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Dirce Reis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divinolândia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dobrada",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dois Córregos",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dolcinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dourado",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dracena",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Duartina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dumont",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Echaporã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Eldorado",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Elias Fausto",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Elisiário",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Embaúba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Embu das Artes",
+    "state_code": "SP",
+    "neighborhood_count": 114,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Embu-Guaçu",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Emilianópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Engenheiro Coelho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espírito Santo do Pinhal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espírito Santo do Turvo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estiva Gerbi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estrela d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estrela do Norte",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Euclides da Cunha Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fartura",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fernando Prestes",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fernandópolis",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fernão",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ferraz de Vasconcelos",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Flora Rica",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Floreal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Florínea",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Flórida Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Franca",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Francisco Morato",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Franco da Rocha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gabriel Monteiro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Garça",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gastão Vidigal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gavião Peixoto",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "General Salgado",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Getulina",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Glicério",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaimbê",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaiçara",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guapiara",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guapiaçu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaraci",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarani d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarantã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guararapes",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guararema",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaratinguetá",
+    "state_code": "SP",
+    "neighborhood_count": 40,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaraçaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guareí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guariba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarujá",
+    "state_code": "SP",
+    "neighborhood_count": 41,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guarulhos",
+    "state_code": "SP",
+    "neighborhood_count": 48,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guará",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guatapará",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaíra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guzolândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gália",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Herculândia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Holambra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Hortolândia",
+    "state_code": "SP",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Iacanga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iacri",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iaras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibaté",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibirarema",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibirá",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibitinga",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiúna",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Icém",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iepê",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igarapava",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igaratá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igaraçu do Tietê",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iguape",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ilha Comprida",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ilha Solteira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ilhabela",
+    "state_code": "SP",
+    "neighborhood_count": 50,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Indaiatuba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Indiana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Indiaporã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inúbia Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipaussu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iperó",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipeúna",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipiguá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iporanga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iracemápolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irapuru",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irapuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaberá",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itajobi",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaju",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itanhaém",
+    "state_code": "SP",
+    "neighborhood_count": 46,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaoca",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapecerica da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapetininga",
+    "state_code": "SP",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapeva",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapevi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapira",
+    "state_code": "SP",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapirapuã Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaporanga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapura",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapuí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaquaquecetuba",
+    "state_code": "SP",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itararé",
+    "state_code": "SP",
+    "neighborhood_count": 48,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itariri",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatiba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatinga",
+    "state_code": "SP",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itirapina",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itirapuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itobi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itupeva",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ituverava",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itápolis",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaborandi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaboticabal",
+    "state_code": "SP",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jacareí",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaci",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacupiranga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaguariúna",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jales",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jambeiro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jandira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jardinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jarinu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaú",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jeriquara",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Joanópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "José Bonifácio",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "João Ramalho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jumirim",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jundiaí",
+    "state_code": "SP",
+    "neighborhood_count": 74,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Junqueirópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juquitiba",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juquiá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Júlio Mesquita",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoinha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Laranjal Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lavrinhas",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lavínia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Leme",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lençóis Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Limeira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lindóia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lins",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lorena",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lourdes",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Louveira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lucianópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lucélia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luiziânia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lupércio",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lutécia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luís Antônio",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Macatuba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Macaubal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Macedônia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Magda",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mairinque",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mairiporã",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manduri",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marabá Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maracaí",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marapoama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mariápolis",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Martinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marília",
+    "state_code": "SP",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matão",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mauá",
+    "state_code": "SP",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mendonça",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Meridiano",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mesópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miguelópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mineiros do Tietê",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mira Estrela",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miracatu",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirandópolis",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirante do Paranapanema",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirassol",
+    "state_code": "SP",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mirassolândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mococa",
+    "state_code": "SP",
+    "neighborhood_count": 35,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mogi Guaçu",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mogi Mirim",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mogi das Cruzes",
+    "state_code": "SP",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mombuca",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mongaguá",
+    "state_code": "SP",
+    "neighborhood_count": 13,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Monte Alegre do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Alto",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Aprazível",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Azul Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Castelo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Mor",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monteiro Lobato",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monções",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro Agudo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morungaba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Motuca",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Murutinga do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nantes",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Narandiba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Natividade da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nazaré Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Neves Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nhandeara",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nipoã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Aliança",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Campina",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Canaã Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Castilho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Europa",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Granada",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Guataporanga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Independência",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Luzitânia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Odessa",
+    "state_code": "SP",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novais",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Horizonte",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nuporanga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ocauçu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Olímpia",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Onda Verde",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oriente",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Orindiúva",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Orlândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Osasco",
+    "state_code": "SP",
+    "neighborhood_count": 61,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Oscar Bressane",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Osvaldo Cruz",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ourinhos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Verde",
+    "state_code": "SP",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ouroeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacaembu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palestina",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmares Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmeira d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmital",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Panorama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraguaçu Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraibuna",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paranapanema",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paranapuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Parapuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraíso",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pardinho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pariquera-Açu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Parisi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Patrocínio Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulicéia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulistânia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulo de Faria",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulínia",
+    "state_code": "SP",
+    "neighborhood_count": 38,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pederneiras",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Bela",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedranópolis",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedregulho",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedreira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedrinhas Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedro de Toledo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Penápolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pereira Barreto",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pereiras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Peruíbe",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piacatu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piedade",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pilar do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pindamonhangaba",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pindorama",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinhalzinho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piquerobi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piquete",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piracaia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piracicaba",
+    "state_code": "SP",
+    "neighborhood_count": 76,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Piraju",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirajuí",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirangi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirapora do Bom Jesus",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirapozinho",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirassununga",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piratininga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pitangueiras",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Planalto",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Platina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poloni",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pompéia",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pongaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontal",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontalinda",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontes Gestal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Populina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porangaba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Feliz",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Ferreira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Potim",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Potirendaba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poá",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pracinha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pradópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Praia Grande",
+    "state_code": "SP",
+    "neighborhood_count": 33,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pratânia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Alves",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Bernardes",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Epitácio",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Prudente",
+    "state_code": "SP",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Venceslau",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Promissão",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quadra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quatá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Queiroz",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Queluz",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quintana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rafard",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rancharia",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Redenção da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Regente Feijó",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Reginópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Registro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Restinga",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Bonito",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Branco",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Corrente",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Grande",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Pires",
+    "state_code": "SP",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ribeirão Preto",
+    "state_code": "SP",
+    "neighborhood_count": 57,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ribeirão do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão dos Índios",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rifaina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rincão",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rinópolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Claro",
+    "state_code": "SP",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Grande da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio das Pedras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Riolândia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Riversul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rosana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Roseira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rubinéia",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rubiácea",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sabino",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sagres",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sales",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sales Oliveira",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salesópolis",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salmourão",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Saltinho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salto",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salto Grande",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salto de Pirapora",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sandovalina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Adélia",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Albertina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Branca",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Bárbara d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Clara d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz da Conceição",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz da Esperança",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz das Palmeiras",
+    "state_code": "SP",
+    "neighborhood_count": 36,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Cruz do Rio Pardo",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Ernestina",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Fé do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Gertrudes",
+    "state_code": "SP",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Isabel",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Lúcia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Mercedes",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita d'Oeste",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita do Passa Quatro",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rosa de Viterbo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Salete",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana da Ponte Pensa",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana de Parnaíba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Anastácio",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo André",
+    "state_code": "SP",
+    "neighborhood_count": 114,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santo Antônio da Alegria",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio de Posse",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Aracanguá",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Jardim",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Pinhal",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Expedito",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santos",
+    "state_code": "SP",
+    "neighborhood_count": 71,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santópolis do Aguapeí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sarapuí",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sarutaiá",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sebastianópolis do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra Azul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra Negra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serrana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sertãozinho",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sete Barras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Severínia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Silveiras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Socorro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sorocaba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sud Mennucci",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sumaré",
+    "state_code": "SP",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Suzano",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Suzanápolis",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Bento do Sapucaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Bernardo do Campo",
+    "state_code": "SP",
+    "neighborhood_count": 36,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Caetano do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Carlos",
+    "state_code": "SP",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Joaquim da Barra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José da Bela Vista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Barreiro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Rio Pardo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Rio Preto",
+    "state_code": "SP",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José dos Campos",
+    "state_code": "SP",
+    "neighborhood_count": 37,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São João da Boa Vista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João das Duas Pontes",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João de Iracema",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Pau d'Alho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Lourenço da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Luiz do Paraitinga",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Manuel",
+    "state_code": "SP",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Miguel Arcanjo",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Paulo",
+    "state_code": "SP",
+    "neighborhood_count": 96,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro do Turvo",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Roque",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião",
+    "state_code": "SP",
+    "neighborhood_count": 38,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Sebastião da Grama",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Simão",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Vicente",
+    "state_code": "SP",
+    "neighborhood_count": 30,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tabapuã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tabatinga",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taboão da Serra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taciba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taguaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taiaçu",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taiúva",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tambaú",
+    "state_code": "SP",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tanabi",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tapiratiba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tapiraí",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquaral",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquaritinga",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquarituba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquarivaí",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tarabai",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tarumã",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tatuí",
+    "state_code": "SP",
+    "neighborhood_count": 99,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Taubaté",
+    "state_code": "SP",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tejupá",
+    "state_code": "SP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Teodoro Sampaio",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Terra Roxa",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tietê",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Timburi",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Torre de Pedra",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Torrinha",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Trabiju",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tremembé",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Fronteiras",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tuiuti",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tupi Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tupã",
+    "state_code": "SP",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Turiúba",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Turmalina",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubarana",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubatuba",
+    "state_code": "SP",
+    "neighborhood_count": 66,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ubirajara",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uchoa",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "União Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uru",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urupês",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urânia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Valentim Gentil",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Valinhos",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Valparaíso",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Grande Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Grande do Sul",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vera Cruz",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vinhedo",
+    "state_code": "SP",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Viradouro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vista Alegre do Alto",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vitória Brasil",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Votorantim",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Votuporanga",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Várzea Paulista",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Zacarias",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas da Prata",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas de Lindóia",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas de Santa Bárbara",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas de São Pedro",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Álvares Florence",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Álvares Machado",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Álvaro de Carvalho",
+    "state_code": "SP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Óleo",
+    "state_code": "SP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

@@ -1,0 +1,3481 @@
+[
+  {
+    "name": "Aceguá",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Agudo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ajuricaba",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alecrim",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alegrete",
+    "state_code": "RS",
+    "neighborhood_count": 75,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alegria",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Almirante Tamandaré do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alpestre",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Alegre",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Feliz",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvorada",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Amaral Ferrador",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ametista do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "André da Rocha",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anta Gorda",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antônio Prado",
+    "state_code": "RS",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arambaré",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araricá",
+    "state_code": "RS",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aratiba",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arroio Grande",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arroio do Meio",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arroio do Padre",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arroio do Sal",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arroio do Tigre",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arroio dos Ratos",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Arvorezinha",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Augusto Pestana",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bagé",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balneário Pinhal",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra Funda",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barra do Guarita",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra do Quaraí",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra do Ribeiro",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barra do Rio Azul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barracão",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barros Cassal",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barão",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barão de Cotegipe",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barão do Triunfo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Benjamin Constant do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bento Gonçalves",
+    "state_code": "RS",
+    "neighborhood_count": 51,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Boa Vista das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista do Buricá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista do Cadeado",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista do Incra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus",
+    "state_code": "RS",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Princípio",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Progresso",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Retiro do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Boqueirão do Leão",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bossoroca",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bozano",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Braga",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Brochier",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Butiá",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cacequi",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cachoeirinha",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cacique Doble",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caibaté",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caiçara",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Camaquã",
+    "state_code": "RS",
+    "neighborhood_count": 37,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Camargo",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cambará do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campestre da Serra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campina das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campinas do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo Bom",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Novo",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos Borges",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Candelária",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Candiota",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canela",
+    "state_code": "RS",
+    "neighborhood_count": 37,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canguçu",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canoas",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canudos do Vale",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capela de Santana",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Capitão",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capivari do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capão Bonito do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capão da Canoa",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capão do Cipó",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Capão do Leão",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Carazinho",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caraá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carlos Barbosa",
+    "state_code": "RS",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Carlos Gomes",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Casca",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caseiros",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Catuípe",
+    "state_code": "RS",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caxias do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 72,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caçapava do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Centenário",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerrito",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerro Branco",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cerro Grande",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerro Grande do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerro Largo",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Chapada",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Charqueadas",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Charrua",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chiapetta",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chuvisca",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chuí",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cidreira",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ciríaco",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colinas",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colorado",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Condor",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Constantina",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coqueiro Baixo",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coqueiros do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Barros",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Bicaco",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Pilar",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cotiporã",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coxilha",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Crissiumal",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristal",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cristal do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruz Alta",
+    "state_code": "RS",
+    "neighborhood_count": 69,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cruzaltense",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruzeiro do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cândido Godói",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "David Canabarro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Derrubadas",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dezesseis de Novembro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dilermando de Aguiar",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dois Irmãos",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Dois Irmãos das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dois Lajeados",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Feliciano",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Pedrito",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Dom Pedro de Alcântara",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dona Francisca",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Doutor Maurício Cardoso",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Doutor Ricardo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Eldorado do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 23,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Encantado",
+    "state_code": "RS",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Encruzilhada do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Engenho Velho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Entre Rios do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Entre-Ijuís",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Erebango",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Erechim",
+    "state_code": "RS",
+    "neighborhood_count": 54,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ernestina",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Erval Grande",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Erval Seco",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Esmeralda",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Esperança do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espumoso",
+    "state_code": "RS",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Estação",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Esteio",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Estrela",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Estrela Velha",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estância Velha",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Eugênio de Castro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fagundes Varela",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Farroupilha",
+    "state_code": "RS",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Faxinal do Soturno",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Faxinalzinho",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fazenda Vilanova",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Feliz",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Flores da Cunha",
+    "state_code": "RS",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Floriano Peixoto",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fontoura Xavier",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Formigueiro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Forquetinha",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fortaleza dos Valos",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frederico Westphalen",
+    "state_code": "RS",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Garibaldi",
+    "state_code": "RS",
+    "neighborhood_count": 29,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Garruchos",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gaurama",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "General Câmara",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gentil",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Getúlio Vargas",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Giruá",
+    "state_code": "RS",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Glorinha",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gramado",
+    "state_code": "RS",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Gramado Xavier",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gramado dos Loureiros",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gravataí",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guabiju",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaporé",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guarani das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaíba",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Harmonia",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Herval",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Herveiras",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Horizontina",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Hulha Negra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Humaitá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibarama",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiaçá",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiraiaras",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ibirapuitã",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ibirubá",
+    "state_code": "RS",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Igrejinha",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ijuí",
+    "state_code": "RS",
+    "neighborhood_count": 47,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ilópolis",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Imbé",
+    "state_code": "RS",
+    "neighborhood_count": 20,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Imigrante",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Independência",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inhacorá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipiranga do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipê",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Iraí",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaara",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itacurubi",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapuca",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaqui",
+    "state_code": "RS",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itati",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatiba do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ivorá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ivoti",
+    "state_code": "RS",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaboticaba",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacuizinho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacutinga",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaguari",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguarão",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaquirana",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jari",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jóia",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Júlio de Castilhos",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Bonita do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Vermelha",
+    "state_code": "RS",
+    "neighborhood_count": 34,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lagoa dos Três Cantos",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoão",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lajeado",
+    "state_code": "RS",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lajeado do Bugre",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lavras do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Liberato Salzano",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lindolfo Collor",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Linha Nova",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Machadinho",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mampituba",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manoel Viana",
+    "state_code": "RS",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Maquiné",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maratá",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marau",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marcelino Ramos",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mariana Pimentel",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mariano Moro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marques de Souza",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mata",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mato Castelhano",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mato Leitão",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mato Queimado",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maximiliano de Almeida",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maçambará",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Minas do Leão",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Miraguaí",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montauri",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Alegre dos Campos",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Belo do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montenegro",
+    "state_code": "RS",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mormaço",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morrinhos do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro Redondo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro Reuter",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mostardas",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muitos Capões",
+    "state_code": "RS",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muliterno",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muçum",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nicolau Vergueiro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nonoai",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Alvorada",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Araçá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Bassano",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Boa Vista",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Bréscia",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Candelária",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Esperança do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Hartz",
+    "state_code": "RS",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Palma",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Petrópolis",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Prata",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Pádua",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Ramada",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Roma do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Santa Rita",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Barreiro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Cabrais",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Hamburgo",
+    "state_code": "RS",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Machado",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Tiradentes",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Xingu",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Não-Me-Toque",
+    "state_code": "RS",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Osório",
+    "state_code": "RS",
+    "neighborhood_count": 23,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paim Filho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmares do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmeira das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmitinho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Panambi",
+    "state_code": "RS",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pantano Grande",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraí",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraíso do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pareci Novo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Parobé",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passa Sete",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passo Fundo",
+    "state_code": "RS",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Passo do Sobrado",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulo Bento",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paverama",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedras Altas",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedro Osório",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pejuçara",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pelotas",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Picada Café",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinhal",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinhal Grande",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pinhal da Serra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinheirinho do Vale",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinheiro Machado",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinto Bandeira",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirapó",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piratini",
+    "state_code": "RS",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Planalto",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ponte Preta",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontão",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Alegre",
+    "state_code": "RS",
+    "neighborhood_count": 94,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Porto Lucena",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Mauá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Vera Cruz",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Xavier",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Portão",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pouso Novo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poço das Antas",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Lucena",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Progresso",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Protásio Alves",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Putinga",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quaraí",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quatro Irmãos",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quevedos",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quinze de Novembro",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Redentora",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Relvado",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Restinga Sêca",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Grande",
+    "state_code": "RS",
+    "neighborhood_count": 54,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Pardo",
+    "state_code": "RS",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio dos Índios",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Riozinho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Roca Sales",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rodeio Bonito",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rolador",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rolante",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ronda Alta",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rondinha",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Roque Gonzales",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rosário do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 40,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sagrada Família",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Saldanha Marinho",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salto do Jacuí",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Salvador das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salvador do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sananduva",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sant'Ana do Livramento",
+    "state_code": "RS",
+    "neighborhood_count": 39,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Bárbara do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Cecília do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Clara do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 44,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Margarida do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria",
+    "state_code": "RS",
+    "neighborhood_count": 50,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Maria do Herval",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rosa",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Tereza",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Vitória do Palmar",
+    "state_code": "RS",
+    "neighborhood_count": 22,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santana da Boa Vista",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santiago",
+    "state_code": "RS",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santo Antônio da Patrulha",
+    "state_code": "RS",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santo Antônio das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Palma",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Planalto",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Augusto",
+    "state_code": "RS",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santo Cristo",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Expedito do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Ângelo",
+    "state_code": "RS",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sapiranga",
+    "state_code": "RS",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sapucaia do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sarandi",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Seberi",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sede Nova",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Segredo",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Selbach",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Salgado Filho",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sentinela do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serafina Corrêa",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sertão",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sertão Santana",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sete de Setembro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Severiano de Almeida",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Silveira Martins",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sinimbu",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sobradinho",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Soledade",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Borja",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Domingos do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco de Assis",
+    "state_code": "RS",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Francisco de Paula",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gabriel",
+    "state_code": "RS",
+    "neighborhood_count": 44,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Jerônimo",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Jorge",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Herval",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Hortêncio",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Inhacorá",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Norte",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Ouro",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José dos Ausentes",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Urtiga",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Polêsine",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Leopoldo",
+    "state_code": "RS",
+    "neighborhood_count": 25,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Lourenço do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Luiz Gonzaga",
+    "state_code": "RS",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Marcos",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Martinho",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Martinho da Serra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Nicolau",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Paulo das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro da Serra",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro do Butiá",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Sebastião do Caí",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sepé",
+    "state_code": "RS",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Valentim",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Valentim do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Valério do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Vendelino",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Vicente do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sério",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tabaí",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tapejara",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tapera",
+    "state_code": "RS",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tapes",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquara",
+    "state_code": "RS",
+    "neighborhood_count": 29,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Taquari",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Taquaruçu do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tavares",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tenente Portela",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Terra de Areia",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Teutônia",
+    "state_code": "RS",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tio Hugo",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tiradentes do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Toropi",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Torres",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tramandaí",
+    "state_code": "RS",
+    "neighborhood_count": 31,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Travesseiro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Trindade do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Triunfo",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Arroios",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Cachoeiras",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três Coroas",
+    "state_code": "RS",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três Forquilhas",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Palmeiras",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três Passos",
+    "state_code": "RS",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três de Maio",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tucunduva",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tunas",
+    "state_code": "RS",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tupanci do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tupanciretã",
+    "state_code": "RS",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tupandi",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tuparendi",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Turuçu",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubiretama",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Unistalda",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "União da Serra",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uruguaiana",
+    "state_code": "RS",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vacaria",
+    "state_code": "RS",
+    "neighborhood_count": 61,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vale Real",
+    "state_code": "RS",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vale Verde",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vale do Sol",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vanini",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Venâncio Aires",
+    "state_code": "RS",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vera Cruz",
+    "state_code": "RS",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Veranópolis",
+    "state_code": "RS",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vespasiano Corrêa",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viadutos",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viamão",
+    "state_code": "RS",
+    "neighborhood_count": 26,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vicente Dutra",
+    "state_code": "RS",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Victor Graeff",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Flores",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Lângaro",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Maria",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Nova do Sul",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vista Alegre",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vista Alegre do Prata",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vista Gaúcha",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vitória das Missões",
+    "state_code": "RS",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Westfália",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Xangri-lá",
+    "state_code": "RS",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Água Santa",
+    "state_code": "RS",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Áurea",
+    "state_code": "RS",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

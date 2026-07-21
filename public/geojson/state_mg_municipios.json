@@ -1,0 +1,5973 @@
+[
+  {
+    "name": "Abadia dos Dourados",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Abaeté",
+    "state_code": "MG",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Abre Campo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Acaiaca",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aguanil",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aimorés",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aiuruoca",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alagoa",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Albertina",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alfenas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alfredo Vasconcelos",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Almenara",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alpercata",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alpinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alterosa",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Caparaó",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Jequitibá",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Rio Doce",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvarenga",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvorada de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Além Paraíba",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Amparo do Serra",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Andradas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Andrelândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Angelândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antônio Carlos",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antônio Dias",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antônio Prado de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aracitaba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araguari",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arantina",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araponga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araporã",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arapuá",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araxá",
+    "state_code": "MG",
+    "neighborhood_count": 59,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araçaí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araçuaí",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araújos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arceburgo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arcos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Areado",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Argirita",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aricanduva",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arinos",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Astolfo Dutra",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ataléia",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Augusto de Lima",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Açucena",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Baependi",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Baldim",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bambuí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bandeira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bandeira do Sul",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barbacena",
+    "state_code": "MG",
+    "neighborhood_count": 61,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barra Longa",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barroso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barão de Cocais",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barão do Monte Alto",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bela Vista de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belmiro Braga",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belo Horizonte",
+    "state_code": "MG",
+    "neighborhood_count": 476,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Belo Oriente",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belo Vale",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Berilo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Berizal",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bertópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Betim",
+    "state_code": "MG",
+    "neighborhood_count": 130,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bias Fortes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bicas",
+    "state_code": "MG",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Biquinhas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Esperança",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bocaina de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bocaiúva",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Despacho",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jardim de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus da Penha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus do Amparo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus do Galho",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Repouso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Sucesso",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bonfim",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bonfinópolis de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bonito de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Borda da Mata",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Botelhos",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Botumirim",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brasilândia de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brasília de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brazópolis",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Braúnas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brumadinho",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brás Pires",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bueno Brandão",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buenópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bugre",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buritis",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Buritizeiro",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cabeceira Grande",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cabo Verde",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira Dourada",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira da Prata",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira de Pajeú",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caetanópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caeté",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caiana",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cajuri",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caldas",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Camacho",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Camanducaia",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cambuquira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cambuí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campanha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campanário",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campestre",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campina Verde",
+    "state_code": "MG",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Azul",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo Belo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo Florido",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo do Meio",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos Altos",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos Gerais",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cana Verde",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canaã",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Candeias",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cantagalo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canápolis",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caparaó",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capela Nova",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capelinha",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capetinga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capim Branco",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capitão Andrade",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capitão Enéas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capitólio",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caputira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caranaíba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carandaí",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carangola",
+    "state_code": "MG",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caratinga",
+    "state_code": "MG",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caraí",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carbonita",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Careaçu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carlos Chagas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo da Cachoeira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo da Mata",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo do Cajuru",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo do Paranaíba",
+    "state_code": "MG",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Carmo do Rio Claro",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmésia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmópolis de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carneirinho",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carrancas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carvalhos",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carvalhópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Casa Grande",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cascalho Rico",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cataguases",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catas Altas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catas Altas da Noruega",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catuji",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catuti",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caxambu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cedro do Abaeté",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Central de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Centralina",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chalé",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chapada Gaúcha",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chapada do Norte",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chiador",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chácara",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cipotânea",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Claraval",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Claro dos Poções",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cláudio",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coimbra",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coluna",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Comendador Gomes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Comercinho",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição da Aparecida",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição da Barra de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição das Alagoas",
+    "state_code": "MG",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Conceição das Pedras",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição de Ipanema",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição do Mato Dentro",
+    "state_code": "MG",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição do Pará",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição do Rio Verde",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição dos Ouros",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Confins",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Congonhal",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Congonhas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Congonhas do Norte",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conquista",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conselheiro Lafaiete",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conselheiro Pena",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Consolação",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Contagem",
+    "state_code": "MG",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coqueiral",
+    "state_code": "MG",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Coração de Jesus",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cordisburgo",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cordislândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Corinto",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coroaci",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coromandel",
+    "state_code": "MG",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Coronel Fabriciano",
+    "state_code": "MG",
+    "neighborhood_count": 71,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Coronel Murta",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Pacheco",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Xavier Chaves",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Couto de Magalhães de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristais",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristiano Otoni",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristina",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cristália",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Crisólita",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Crucilândia",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cruzeiro da Fortaleza",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruzília",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cuparaque",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curral de Dentro",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curvelo",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cássia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Córrego Danta",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Córrego Fundo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Córrego Novo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Córrego do Bom Jesus",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cônego Marinho",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Datas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Delfim Moreira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Delfinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Delta",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Descoberto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Desterro de Entre Rios",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Desterro do Melo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Diamantina",
+    "state_code": "MG",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Diogo de Vasconcelos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dionísio",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divino",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divino das Laranjeiras",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divinolândia de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divinésia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divisa Alegre",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divisa Nova",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divisópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Bosco",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Cavati",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Joaquim",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Silvério",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Viçoso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dona Euzébia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dores de Campos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dores de Guanhães",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dores do Indaiá",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dores do Turvo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Doresópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Douradoquara",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Durandé",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Elói Mendes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Engenheiro Caldas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Engenheiro Navarro",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Entre Folhas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Entre Rios de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ervália",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Esmeraldas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espera Feliz",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espinosa",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espírito Santo do Dourado",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estiva",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estrela Dalva",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estrela do Indaiá",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Estrela do Sul",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Eugenópolis",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ewbank da Câmara",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Extrema",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fama",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Faria Lemos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Felisburgo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Felixlândia",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Felício dos Santos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fernandes Tourinho",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ferros",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fervedouro",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Florestal",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Formiga",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Formoso",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fortaleza de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fortuna de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Francisco Badaró",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Francisco Dumont",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Francisco Sá",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Franciscópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frei Gaspar",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frei Inocêncio",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frei Lagonegro",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fronteira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fronteira dos Vales",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Fruta de Leite",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Frutal",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Funilândia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Galiléia",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gameleiras",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Glaucilândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Goiabeira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Goianá",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gonzaga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gonçalves",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gouveia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Governador Valadares",
+    "state_code": "MG",
+    "neighborhood_count": 100,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Grupiara",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Grão Mogol",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guanhães",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guapé",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaraciaba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaraciama",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarani",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaranésia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarará",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarda-Mor",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaxupé",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guidoval",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guimarânia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guiricema",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gurinhatã",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Heliodora",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iapu",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibertioga",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiaí",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiracatu",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiraci",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibirité",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibitiúra de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibituruna",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiá",
+    "state_code": "MG",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Icaraí de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igarapé",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igaratinga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iguatama",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ijaci",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ilicínea",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Imbé de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inconfidentes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Indaiabira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Indianópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ingaí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inhapim",
+    "state_code": "MG",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inhaúma",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Inimutaba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipaba",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipanema",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipatinga",
+    "state_code": "MG",
+    "neighborhood_count": 35,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipiaçu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipuiúna",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iraí de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itabira",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itabirinha",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itabirito",
+    "state_code": "MG",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itacambira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itacarambi",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaguara",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaipé",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itajubá",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itamarandiba",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itamarati de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itambacuri",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itambé do Mato Dentro",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itamogi",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itamonte",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itanhandu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itanhomi",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaobim",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapagipe",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapecerica",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapeva",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatiaiuçu",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaverava",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaú de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaúna",
+    "state_code": "MG",
+    "neighborhood_count": 53,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itinga",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itueta",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ituiutaba",
+    "state_code": "MG",
+    "neighborhood_count": 67,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itumirim",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iturama",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itutinga",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaboticatubas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacinto",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacutinga",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacuí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaguaraçu",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jampruca",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Janaúba",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Januária",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Japaraíba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Japonvar",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaíba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jeceaba",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jenipapo de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jequeri",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jequitaí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jequitibá",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jequitinhonha",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jesuânia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Joanésia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Joaquim Felício",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Joaíma",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jordânia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Josenópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "José Gonçalves de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "José Raydan",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "João Monlevade",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "João Pinheiro",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juatuba",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juiz de Fora",
+    "state_code": "MG",
+    "neighborhood_count": 100,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Juramento",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juruaia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juvenília",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ladainha",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagamar",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Dourada",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Formosa",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Grande",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa Santa",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa da Prata",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lagoa dos Patos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lajinha",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lambari",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lamim",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Laranjal",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lassance",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lavras",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Leandro Ferreira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Leme do Prado",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Leopoldina",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Liberdade",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lima Duarte",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Limeira do Oeste",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lontra",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luisburgo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luislândia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luminárias",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luz",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Machacalis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Machado",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Madre de Deus de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Malacacheta",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mamonas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manhuaçu",
+    "state_code": "MG",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manhumirim",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mantena",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mar de Espanha",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maravilhas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maria da Fé",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mariana",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marilac",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maripá de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marliéria",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marmelópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Martinho Campos",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Martins Soares",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mata Verde",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Materlândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mateus Leme",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mathias Lobato",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matias Barbosa",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matias Cardoso",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matipó",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mato Verde",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matozinhos",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matutina",
+    "state_code": "MG",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Medeiros",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Medina",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mendes Pimentel",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mercês",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mesquita",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Minas Novas",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Minduri",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirabela",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miradouro",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miravânia",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miraí",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Moeda",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Moema",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monjolos",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monsenhor Paulo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montalvânia",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Alegre de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Monte Azul",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Belo",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Carmelo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Formoso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Santo de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Sião",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montes Claros",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montezuma",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morada Nova de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro da Garça",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro do Pilar",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Munhoz",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muriaé",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mutum",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muzambinho",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mário Campos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nacip Raydan",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nanuque",
+    "state_code": "MG",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Naque",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Natalândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Natércia",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nazareno",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nepomuceno",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ninheira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Belém",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Era",
+    "state_code": "MG",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Lima",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Módica",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Ponte",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Porteirinha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Resende",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Serrana",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova União",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Cruzeiro",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Oriente de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novorizonte",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Olaria",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Olhos-d'Água",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oliveira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oliveira Fortes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Olímpio Noronha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Onça de Pitangui",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oratórios",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Orizânia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Branco",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Fino",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Preto",
+    "state_code": "MG",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Verde de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Padre Carvalho",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Padre Paraíso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pai Pedro",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paineiras",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pains",
+    "state_code": "MG",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paiva",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palma",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Papagaios",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paracatu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraguaçu",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraisópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraopeba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pará de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passa Quatro",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passa Tempo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passa Vinte",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passabém",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passos",
+    "state_code": "MG",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Patis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Patos de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 77,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Patrocínio",
+    "state_code": "MG",
+    "neighborhood_count": 37,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Patrocínio do Muriaé",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paula Cândido",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulistas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pavão",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Azul",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Bonita",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Dourada",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra do Anta",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra do Indaiá",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedralva",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedras de Maria da Cruz",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedrinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedro Leopoldo",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedro Teixeira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pequeri",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pequi",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Perdigão",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Perdizes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Perdões",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Periquito",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pescador",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Peçanha",
+    "state_code": "MG",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Piau",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piedade de Caratinga",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piedade de Ponte Nova",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piedade do Rio Grande",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piedade dos Gerais",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pimenta",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pingo-d'Água",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pintópolis",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piracema",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirajuba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piranga",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piranguinho",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piranguçu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirapetinga",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pirapora",
+    "state_code": "MG",
+    "neighborhood_count": 25,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Piraúba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pitangui",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piumhi",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Planura",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pocrane",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pompéu",
+    "state_code": "MG",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ponte Nova",
+    "state_code": "MG",
+    "neighborhood_count": 55,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ponto Chique",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponto dos Volantes",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porteirinha",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Firme",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poté",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pouso Alegre",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pouso Alto",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poço Fundo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poços de Caldas",
+    "state_code": "MG",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Prados",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Prata",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pratinha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pratápolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Bernardes",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Juscelino",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Kubitschek",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Olegário",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Prudente de Morais",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quartel Geral",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Queluzito",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Raposos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Raul Soares",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Recreio",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Reduto",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Resende Costa",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Resplendor",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ressaquinha",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Riachinho",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Riacho dos Machados",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Vermelho",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão das Neves",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Acima",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Casca",
+    "state_code": "MG",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Doce",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Espera",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Manso",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Novo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Paranaíba",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Pardo de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Piracicaba",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Pomba",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Preto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Vermelho",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio do Prado",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ritápolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rochedo de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rodeiro",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Romaria",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rosário da Limeira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rubelita",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rubim",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sabará",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sabinópolis",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sacramento",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Salinas",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salto da Divisa",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Bárbara",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Bárbara do Leste",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Bárbara do Monte Verde",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Bárbara do Tugúrio",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz de Salinas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz do Escalvado",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Efigênia de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Fé de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Helena de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Juliana",
+    "state_code": "MG",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Luzia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Margarida",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria de Itabira",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria do Salto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria do Suaçuí",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita de Caldas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita de Ibitipoca",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita de Jacutinga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita do Itueto",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita do Sapucaí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rosa da Serra",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Vitória",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana da Vargem",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana de Cataguases",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana de Pirapama",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Deserto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Garambéu",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Jacaré",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Manhuaçu",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Paraíso",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Riacho",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana dos Montes",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Amparo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Aventureiro",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Grama",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Itambé",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Jacinto",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Monte",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Retiro",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Rio Abaixo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Hipólito",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santos Dumont",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sapucaí-Mirim",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sardoá",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sarzedo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sem-Peixe",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Amaral",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Cortes",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Firmino",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador José Bento",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador Modestino Gonçalves",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senhora de Oliveira",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senhora do Porto",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senhora dos Remédios",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sericita",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Seritinga",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra Azul de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra da Saudade",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra do Salitre",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra dos Aimorés",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serrania",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serranos",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serranópolis de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serro",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sete Lagoas",
+    "state_code": "MG",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Setubinha",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Silveirânia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Silvianópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Simonésia",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Simão Pereira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sobrália",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Soledade de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Bento Abade",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Brás do Suaçuí",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos das Dores",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos do Prata",
+    "state_code": "MG",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco de Paula",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco de Sales",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco do Glória",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Félix de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Geraldo",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Geraldo da Piedade",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Geraldo do Baixio",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Gonçalo do Abaeté",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gonçalo do Pará",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gonçalo do Rio Abaixo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gonçalo do Rio Preto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gonçalo do Sapucaí",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gotardo",
+    "state_code": "MG",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Joaquim de Bicas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José da Barra",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José da Lapa",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José da Safira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José da Varginha",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Alegre",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Divino",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Goiabal",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Jacuri",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Mantimento",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João Batista do Glória",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João Evangelista",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João Nepomuceno",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Lagoa",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Mata",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Ponte",
+    "state_code": "MG",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João das Missões",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João del Rei",
+    "state_code": "MG",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São João do Manhuaçu",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Manteninha",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Oriente",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Pacuí",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Paraíso",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Lourenço",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel do Anta",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro da União",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro do Suaçuí",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro dos Ferros",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Romão",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Roque de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião da Bela Vista",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião da Vargem Alegre",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Anta",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Maranhão",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Oeste",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Paraíso",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Rio Preto",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião do Rio Verde",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Tiago",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Tomás de Aquino",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Tomé das Letras",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Vicente de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tabuleiro",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taiobeiras",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taparuba",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tapira",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tapiraí",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taquaraçu de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tarumirim",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Teixeiras",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Teófilo Otoni",
+    "state_code": "MG",
+    "neighborhood_count": 44,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Timóteo",
+    "state_code": "MG",
+    "neighborhood_count": 40,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tiradentes",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tiros",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tocantins",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tocos do Moji",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Toledo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tombos",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Corações",
+    "state_code": "MG",
+    "neighborhood_count": 57,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três Marias",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Pontas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tumiritinga",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tupaciguara",
+    "state_code": "MG",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Turmalina",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Turvolândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubaporanga",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ubaí",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uberaba",
+    "state_code": "MG",
+    "neighborhood_count": 45,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Uberlândia",
+    "state_code": "MG",
+    "neighborhood_count": 80,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ubá",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Umburatiba",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Unaí",
+    "state_code": "MG",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "União de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uruana de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Urucuia",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urucânia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Alegre",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Bonita",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Grande do Rio Pardo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Varginha",
+    "state_code": "MG",
+    "neighborhood_count": 38,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Varjão de Minas",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Varzelândia",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vazante",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Verdelândia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Veredinha",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vermelho Novo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Veríssimo",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vespasiano",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vieiras",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Virgem da Lapa",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Virginópolis",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Virgolândia",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Virgínia",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Visconde do Rio Branco",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viçosa",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Volta Grande",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Várzea da Palma",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Wenceslau Braz",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Água Boa",
+    "state_code": "MG",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Água Comprida",
+    "state_code": "MG",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas Formosas",
+    "state_code": "MG",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas Vermelhas",
+    "state_code": "MG",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

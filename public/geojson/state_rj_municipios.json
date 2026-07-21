@@ -1,0 +1,646 @@
+[
+  {
+    "name": "Angra dos Reis",
+    "state_code": "RJ",
+    "neighborhood_count": 120,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aperibé",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araruama",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Areal",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Armação dos Búzios",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arraial do Cabo",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra Mansa",
+    "state_code": "RJ",
+    "neighborhood_count": 98,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barra do Piraí",
+    "state_code": "RJ",
+    "neighborhood_count": 53,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Belford Roxo",
+    "state_code": "RJ",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Jardim",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus do Itabapoana",
+    "state_code": "RJ",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cabo Frio",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeiras de Macacu",
+    "state_code": "RJ",
+    "neighborhood_count": 37,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cambuci",
+    "state_code": "RJ",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campos dos Goytacazes",
+    "state_code": "RJ",
+    "neighborhood_count": 95,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cantagalo",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carapebus",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cardoso Moreira",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carmo",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Casimiro de Abreu",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Comendador Levy Gasparian",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição de Macabu",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cordeiro",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Duas Barras",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Duque de Caxias",
+    "state_code": "RJ",
+    "neighborhood_count": 42,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Engenheiro Paulo de Frontin",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guapimirim",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iguaba Grande",
+    "state_code": "RJ",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaboraí",
+    "state_code": "RJ",
+    "neighborhood_count": 73,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaguaí",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Italva",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaocara",
+    "state_code": "RJ",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaperuna",
+    "state_code": "RJ",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itatiaia",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Japeri",
+    "state_code": "RJ",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Laje do Muriaé",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Macaé",
+    "state_code": "RJ",
+    "neighborhood_count": 51,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Macuco",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Magé",
+    "state_code": "RJ",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mangaratiba",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maricá",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mendes",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mesquita",
+    "state_code": "RJ",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Miguel Pereira",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Miracema",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Natividade",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nilópolis",
+    "state_code": "RJ",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Niterói",
+    "state_code": "RJ",
+    "neighborhood_count": 52,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Friburgo",
+    "state_code": "RJ",
+    "neighborhood_count": 43,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Iguaçu",
+    "state_code": "RJ",
+    "neighborhood_count": 70,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paracambi",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraty",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraíba do Sul",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paty do Alferes",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Petrópolis",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinheiral",
+    "state_code": "RJ",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Piraí",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porciúncula",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Real",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quatis",
+    "state_code": "RJ",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Queimados",
+    "state_code": "RJ",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quissamã",
+    "state_code": "RJ",
+    "neighborhood_count": 22,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Resende",
+    "state_code": "RJ",
+    "neighborhood_count": 73,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Bonito",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Claro",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio das Flores",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio das Ostras",
+    "state_code": "RJ",
+    "neighborhood_count": 14,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio de Janeiro",
+    "state_code": "RJ",
+    "neighborhood_count": 162,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Maria Madalena",
+    "state_code": "RJ",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio de Pádua",
+    "state_code": "RJ",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sapucaia",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Saquarema",
+    "state_code": "RJ",
+    "neighborhood_count": 44,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Seropédica",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Silva Jardim",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sumidouro",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Fidélis",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco de Itabapoana",
+    "state_code": "RJ",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gonçalo",
+    "state_code": "RJ",
+    "neighborhood_count": 111,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José de Ubá",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Vale do Rio Preto",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Barra",
+    "state_code": "RJ",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João de Meriti",
+    "state_code": "RJ",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Pedro da Aldeia",
+    "state_code": "RJ",
+    "neighborhood_count": 41,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Sebastião do Alto",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tanguá",
+    "state_code": "RJ",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Teresópolis",
+    "state_code": "RJ",
+    "neighborhood_count": 52,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Trajano de Moraes",
+    "state_code": "RJ",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Três Rios",
+    "state_code": "RJ",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Valença",
+    "state_code": "RJ",
+    "neighborhood_count": 82,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Varre-Sai",
+    "state_code": "RJ",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vassouras",
+    "state_code": "RJ",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Volta Redonda",
+    "state_code": "RJ",
+    "neighborhood_count": 59,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

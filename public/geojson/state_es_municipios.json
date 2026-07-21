@@ -1,0 +1,548 @@
+[
+  {
+    "name": "Afonso Cláudio",
+    "state_code": "ES",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alegre",
+    "state_code": "ES",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alfredo Chaves",
+    "state_code": "ES",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Rio Novo",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anchieta",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Apiacá",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aracruz",
+    "state_code": "ES",
+    "neighborhood_count": 48,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Atílio Vivácqua",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Baixo Guandu",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra de São Francisco",
+    "state_code": "ES",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Boa Esperança",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus do Norte",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brejetuba",
+    "state_code": "ES",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cachoeiro de Itapemirim",
+    "state_code": "ES",
+    "neighborhood_count": 80,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cariacica",
+    "state_code": "ES",
+    "neighborhood_count": 101,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Castelo",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colatina",
+    "state_code": "ES",
+    "neighborhood_count": 67,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Conceição da Barra",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição do Castelo",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Divino de São Lourenço",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Domingos Martins",
+    "state_code": "ES",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dores do Rio Preto",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ecoporanga",
+    "state_code": "ES",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Fundão",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Governador Lindenberg",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guarapari",
+    "state_code": "ES",
+    "neighborhood_count": 54,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guaçuí",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibatiba",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibiraçu",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibitirama",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iconha",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irupi",
+    "state_code": "ES",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaguaçu",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapemirim",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itarana",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iúna",
+    "state_code": "ES",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguaré",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jerônimo Monteiro",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "João Neiva",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Laranja da Terra",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Linhares",
+    "state_code": "ES",
+    "neighborhood_count": 32,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mantenópolis",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marataízes",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marechal Floriano",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marilândia",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mimoso do Sul",
+    "state_code": "ES",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Montanha",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mucurici",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muniz Freire",
+    "state_code": "ES",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Muqui",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Venécia",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pancas",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedro Canário",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinheiros",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piúma",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponto Belo",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Kennedy",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Bananal",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Novo do Sul",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Leopoldina",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria de Jetibá",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Teresa",
+    "state_code": "ES",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra",
+    "state_code": "ES",
+    "neighborhood_count": 134,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sooretama",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos do Norte",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Gabriel da Palha",
+    "state_code": "ES",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José do Calçado",
+    "state_code": "ES",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Mateus",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Roque do Canaã",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Alta",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Venda Nova do Imigrante",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viana",
+    "state_code": "ES",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vila Pavão",
+    "state_code": "ES",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Valério",
+    "state_code": "ES",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Velha",
+    "state_code": "ES",
+    "neighborhood_count": 96,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vitória",
+    "state_code": "ES",
+    "neighborhood_count": 87,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Água Doce do Norte",
+    "state_code": "ES",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águia Branca",
+    "state_code": "ES",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

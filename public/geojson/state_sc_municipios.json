@@ -1,0 +1,2067 @@
+[
+  {
+    "name": "Abdon Batista",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Abelardo Luz",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Agrolândia",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Agronômica",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alfredo Wagner",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Bela Vista",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anchieta",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Angelina",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anita Garibaldi",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anitápolis",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Antônio Carlos",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Apiúna",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arabutã",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araquari",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araranguá",
+    "state_code": "SC",
+    "neighborhood_count": 32,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Armazém",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arroio Trinta",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arvoredo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ascurra",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Atalanta",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aurora",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balneário Arroio do Silva",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balneário Barra do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Balneário Camboriú",
+    "state_code": "SC",
+    "neighborhood_count": 14,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Balneário Gaivota",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balneário Piçarras",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Balneário Rincão",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bandeirante",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra Bonita",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra Velha",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bela Vista do Toldo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belmonte",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Benedito Novo",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Biguaçu",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Blumenau",
+    "state_code": "SC",
+    "neighborhood_count": 37,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bocaina do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jardim da Serra",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Jesus do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Retiro",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bombinhas",
+    "state_code": "SC",
+    "neighborhood_count": 9,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Botuverá",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Braço do Norte",
+    "state_code": "SC",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Braço do Trombudo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brunópolis",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brusque",
+    "state_code": "SC",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caibi",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Calmon",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Camboriú",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Alegre",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Belo do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Campo Erê",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campos Novos",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canelinha",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canoinhas",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Capinzal",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capivari de Baixo",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Capão Alto",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Catanduvas",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caxambu do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caçador",
+    "state_code": "SC",
+    "neighborhood_count": 24,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Celso Ramos",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerro Negro",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chapadão do Lageado",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chapecó",
+    "state_code": "SC",
+    "neighborhood_count": 55,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cocal do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Concórdia",
+    "state_code": "SC",
+    "neighborhood_count": 46,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cordilheira Alta",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Coronel Freitas",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Coronel Martins",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Correia Pinto",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Corupá",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Criciúma",
+    "state_code": "SC",
+    "neighborhood_count": 97,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cunha Porã",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cunhataí",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curitibanos",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Descanso",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dionísio Cerqueira",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dona Emma",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Doutor Pedrinho",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Entre Rios",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ermo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Erval Velho",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Faxinal dos Guedes",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Flor do Sertão",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Florianópolis",
+    "state_code": "SC",
+    "neighborhood_count": 92,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Formosa do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Forquilhinha",
+    "state_code": "SC",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Fraiburgo",
+    "state_code": "SC",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Frei Rogério",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Galvão",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Garopaba",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Garuva",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Gaspar",
+    "state_code": "SC",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Governador Celso Ramos",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gravatal",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Grão-Pará",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guabiruba",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaraciaba",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guaramirim",
+    "state_code": "SC",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guarujá do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guatambú",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Herval d'Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ibiam",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibicaré",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ibirama",
+    "state_code": "SC",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ilhota",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Imaruí",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Imbituba",
+    "state_code": "SC",
+    "neighborhood_count": 31,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Imbuia",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Indaial",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Iomerê",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipira",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iporã do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipuaçu",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipumirim",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iraceminha",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irani",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irati",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irineópolis",
+    "state_code": "SC",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaiópolis",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itajaí",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapema",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapiranga",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itapoá",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ituporanga",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itá",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Içara",
+    "state_code": "SC",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaborá",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacinto Machado",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jaguaruna",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaraguá do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 38,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jardinópolis",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Joaçaba",
+    "state_code": "SC",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Joinville",
+    "state_code": "SC",
+    "neighborhood_count": 44,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "José Boiteux",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jupiá",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lacerdópolis",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lages",
+    "state_code": "SC",
+    "neighborhood_count": 72,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Laguna",
+    "state_code": "SC",
+    "neighborhood_count": 22,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lajeado Grande",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Laurentino",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lauro Müller",
+    "state_code": "SC",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lebon Régis",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Leoberto Leal",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lindóia do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lontras",
+    "state_code": "SC",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Luiz Alves",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Luzerna",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Macieira",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mafra",
+    "state_code": "SC",
+    "neighborhood_count": 20,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Major Gercino",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Major Vieira",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maracajá",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maravilha",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Marema",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Massaranduba",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Matos Costa",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Meleiro",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mirim Doce",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Modelo",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mondaí",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Monte Carlo",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Monte Castelo",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro Grande",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Morro da Fumaça",
+    "state_code": "SC",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Navegantes",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Erechim",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Itaberaba",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Trento",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Veneza",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Horizonte",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Orleans",
+    "state_code": "SC",
+    "neighborhood_count": 25,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Otacílio Costa",
+    "state_code": "SC",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ouro",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Verde",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paial",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Painel",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palhoça",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Palma Sola",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmeira",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Palmitos",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Papanduva",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paraíso",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passo de Torres",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Passos Maia",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paulo Lopes",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedras Grandes",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Penha",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Peritiba",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pescaria Brava",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Petrolândia",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pinhalzinho",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pinheiro Preto",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Piratuba",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Planalto Alegre",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pomerode",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ponte Alta",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponte Alta do Norte",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponte Serrada",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Belo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto União",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pouso Redondo",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Praia Grande",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Castello Branco",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Getúlio",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Presidente Nereu",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Princesa",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quilombo",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rancho Queimado",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Fortuna",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Negrinho",
+    "state_code": "SC",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Rufino",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio das Antas",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio do Campo",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio dos Cedros",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Riqueza",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rodeio",
+    "state_code": "SC",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Romelândia",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salete",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Saltinho",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Salto Veloso",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sangão",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cecília",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Helena",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rosa de Lima",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Rosa do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Terezinha",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Terezinha do Progresso",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santiago do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Amaro da Imperatriz",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Saudades",
+    "state_code": "SC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Schroeder",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Seara",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Serra Alta",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Siderópolis",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sombrio",
+    "state_code": "SC",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sul Brasil",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Bento do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Bernardino",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Bonifácio",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Carlos",
+    "state_code": "SC",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Cristóvão do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 17,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Joaquim",
+    "state_code": "SC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José",
+    "state_code": "SC",
+    "neighborhood_count": 28,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José do Cedro",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Cerrito",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João Batista",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Itaperiú",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São João do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Lourenço do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Ludgero",
+    "state_code": "SC",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Martinho",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel da Boa Vista",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Pedro de Alcântara",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Taió",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tangará",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tigrinhos",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tijucas",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Timbé do Sul",
+    "state_code": "SC",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Timbó",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Timbó Grande",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Treviso",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Treze Tílias",
+    "state_code": "SC",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Treze de Maio",
+    "state_code": "SC",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Trombudo Central",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Três Barras",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tubarão",
+    "state_code": "SC",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tunápolis",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Turvo",
+    "state_code": "SC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "União do Oeste",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urubici",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urupema",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urussanga",
+    "state_code": "SC",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vargem",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargem Bonita",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vargeão",
+    "state_code": "SC",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vidal Ramos",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Videira",
+    "state_code": "SC",
+    "neighborhood_count": 34,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vitor Meireles",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Witmarsum",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Xanxerê",
+    "state_code": "SC",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Xavantina",
+    "state_code": "SC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Xaxim",
+    "state_code": "SC",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Zortéa",
+    "state_code": "SC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Água Doce",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Águas Frias",
+    "state_code": "SC",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Águas Mornas",
+    "state_code": "SC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Águas de Chapecó",
+    "state_code": "SC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]
