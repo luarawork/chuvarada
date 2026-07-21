@@ -17,7 +17,8 @@ Input: https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM/ — diretório HTTPS
        (hora em UTC, 2 dígitos, 00-23)
 
 Output: linhas em merge_cache (1 por célula de grade de 0.1° dentro do bbox
-        do Nordeste, por dia) — rain_72h (soma dos 3 arquivos DAILY mais
+        do Brasil coberto pelo app -- Nordeste + Sul + Sudeste, ver
+        BRASIL_BBOX --, por dia) — rain_72h (soma dos 3 arquivos DAILY mais
         recentes disponíveis) e rain_peak_3h (máximo dos 3 arquivos
         HOURLY_NOW mais recentes disponíveis).
 
@@ -60,9 +61,13 @@ load_env_local()
 BASE_URL = "https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Chuvarada MERGE fetcher)"}
 
-# Bbox do Nordeste usado no diagnóstico de lacunas (scripts/diagnostico_estados_lacunas.md)
-# — mesma margem de segurança já validada pra cobrir os 9 estados sem cortar borda.
-NORDESTE_BBOX = (-49.5, -19.0, -31.5, -1.5)  # min_lon, min_lat, max_lon, max_lat
+# Bbox do Nordeste original (scripts/diagnostico_estados_lacunas.md) — mesma
+# margem de segurança já validada pra cobrir os 9 estados sem cortar borda.
+# Alargado em 21/07/2026 pra cobrir também Sul + Sudeste (expansão nacional):
+# união do retângulo do Nordeste com o retângulo que cobre PR/SC/RS/SP/RJ/MG/ES
+# (mesmos 7 bboxes usados em process_state_neighborhoods.py/OpenTopography)
+# -- min/max dos 2 bboxes, não um recorte por estado.
+BRASIL_BBOX = (-57.7, -33.8, -31.5, -1.5)  # min_lon, min_lat, max_lon, max_lat
 
 DAILY_LOOKBACK_DAYS = 4  # busca hoje + até 3 dias atrás, precisa de 3 válidos pra somar 72h
 HOURLY_LOOKBACK_HOURS = 12  # busca até 12h atrás, precisa de 3 válidas pra o pico de 3h
@@ -256,7 +261,8 @@ def save_rows(rows: list[dict]) -> int:
         )
 
         # Insert em lote (1 round-trip de rede por lote, não 1 por célula) —
-        # com ~31 mil células no bbox do Nordeste, inserir linha a linha
+        # com dezenas de milhares de células no bbox (Nordeste + Sul + Sudeste),
+        # inserir linha a linha
         # levaria dezenas de minutos só em latência de rede até o Supabase.
         batch_size = 500
         for i in range(0, len(rows), batch_size):
@@ -298,8 +304,8 @@ def save_rows(rows: list[dict]) -> int:
 
 
 def main():
-    rows, daily_dates, hourly_times = build_cache_rows(NORDESTE_BBOX)
-    print(f"\n{len(rows)} células dentro do bbox do Nordeste ({NORDESTE_BBOX}).")
+    rows, daily_dates, hourly_times = build_cache_rows(BRASIL_BBOX)
+    print(f"\n{len(rows)} células dentro do bbox ({BRASIL_BBOX}).")
     print(f"Arquivos DAILY usados (rain_72h, soma de até 3): {daily_dates}")
     print(f"Arquivos HOURLY_NOW usados (rain_peak_3h, máximo de até 3): {hourly_times}")
 
