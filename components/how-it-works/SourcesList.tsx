@@ -6,6 +6,7 @@ const SOURCES = [
   { name: "NASA SRTM — altimetria do terreno", url: "https://www.earthdata.nasa.gov" },
   { name: "IBGE — malha de bairros", url: "https://www.ibge.gov.br" },
   { name: "Open-Meteo — clima em tempo real e histórico", url: "https://open-meteo.com" },
+  { name: "CPTEC/INPE — produto MERGE, precipitação (satélite + pluviômetros)", url: "https://ftp.cptec.inpe.br/modelos/tempo/MERGE/" },
   { name: "Prefeitura do Recife — hidrografia municipal", url: "https://dados.recife.pe.gov.br" },
   { name: "Codevasf — bacias hidrográficas do RN", url: "https://www.codevasf.gov.br" },
 ];

@@ -9,20 +9,20 @@ const VARIABLES = [
     title: "Pico de chuva (3h)",
     weight: 0.25,
     description:
-      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas o instante atual. Um pico forte de 30mm/h que já passou ainda pesa no risco, porque picos de chuva forte costumam durar menos que os 20 minutos entre atualizações do mapa.",
+      "O maior volume de chuva em uma hora só, dentro das últimas 3 horas — não apenas o instante atual. Um pico forte de 30mm/h que já passou ainda pesa no risco, porque picos de chuva forte costumam durar menos que os 20 minutos entre atualizações do mapa. Vem do produto MERGE do CPTEC/INPE (satélite + pluviômetros reais) quando disponível; usa a Open-Meteo como alternativa quando não.",
   },
   {
     emoji: "🌧",
     title: "Chuva na última hora",
     weight: 0.2,
-    description: "Volume total de chuva na última hora. Mesmo sem ser intensa, chuva contínua acumula.",
+    description: "Volume total de chuva na última hora, direto da Open-Meteo. Mesmo sem ser intensa, chuva contínua acumula.",
   },
   {
     emoji: "🌧",
     title: "Chuva nos últimos 3 dias",
     weight: 0.2,
     description:
-      "Se já choveu muito nos últimos dias, o solo está saturado e não absorve mais água. Qualquer nova chuva vai direto para as ruas.",
+      "Se já choveu muito nos últimos dias, o solo está saturado e não absorve mais água. Qualquer nova chuva vai direto para as ruas. Vem do produto MERGE do CPTEC/INPE (satélite + pluviômetros reais) quando disponível; usa a Open-Meteo como alternativa quando não.",
   },
   {
     emoji: "⛰",
@@ -84,6 +84,11 @@ export default function ComoFuncionaPage() {
               <VariableCard key={v.title} {...v} />
             ))}
           </div>
+          <p className="mt-4 text-sm text-brand-gray-urban/70">
+            Dados de precipitação acumulada fornecidos pelo produto MERGE do CPTEC/INPE, que combina
+            estimativas do satélite GPM/IMERG com a rede de pluviômetros do Brasil. Vento, umidade,
+            pressão e a chuva da última hora continuam vindo da Open-Meteo.
+          </p>
         </section>
 
         {/* Como calculamos */}
