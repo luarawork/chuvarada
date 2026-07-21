@@ -2,7 +2,8 @@ import { getDb } from "./db";
 import { gridCell } from "./grid";
 import { getMergeData } from "./merge";
 import type { MergeData } from "./merge";
-import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, RainSource, WeatherCache } from "@/types";
+import { getWeatherApiReading } from "./weatherapi";
+import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, RainSource, WeatherCache, WeatherSource } from "@/types";
 
 // Acima disso, o MERGE é considerado velho demais mesmo que getMergeData()
 // já não devesse ter devolvido nada nesse caso (mesmo limite de
@@ -451,23 +452,17 @@ export async function getWeatherForPoint(
   }
 
   // MERGE/CPTEC (satélite GPM/IMERG-Late fundido com pluviômetros do INMET,
-  // grade ~10km) é consultado à parte da Open-Meteo, não dentro do mesmo
-  // try/catch — os dois têm falhas independentes (cota/rate-limit da
-  // Open-Meteo não tem nada a ver com o merge_cache estar desatualizado, e
-  // vice-versa). Se ficassem no mesmo bloco, um limite interno da Open-Meteo
-  // (ex: 500 chamadas/hora já atingido) faria o código pular direto pro
-  // fallback de cache antigo e descartar o MERGE mesmo com dado fresco
-  // disponível. Substitui rain_72h/rain_peak_3h quando há leitura recente o
-  // bastante (<6h, ver lib/merge.ts) — captura eventos convectivos
-  // localizados que o modelo numérico da Open-Meteo (grade ~25km) já
-  // demonstrou subestimar (evento real de Natal, 18/07/2026, ver
-  // scripts/proposta_integracao_merge_cptec.md). rain_1h continua da
-  // Open-Meteo: o MERGE tem ~3,5h de latência, impróprio pra "última hora".
+  // grade ~10km) é consultado à parte do provedor de variáveis secundárias,
+  // não dentro do mesmo try/catch — falhas independentes (cota/rate-limit
+  // da WeatherAPI/Open-Meteo não têm nada a ver com o merge_cache estar
+  // desatualizado, e vice-versa). rain_1h continua de fora do MERGE (que
+  // tem ~3,5h de latência, impróprio pra "última hora") -- ver mais abaixo
+  // pra rain_72h/rain_peak_3h.
   let merge: Awaited<ReturnType<typeof getMergeData>> = null;
   try {
     merge = await getMergeData(lat, lng);
   } catch (mergeErr) {
-    console.warn(`[weather] Falha ao consultar merge_cache pra ${cityId}: ${(mergeErr as Error).message} — usando Open-Meteo`);
+    console.warn(`[weather] Falha ao consultar merge_cache pra ${cityId}: ${(mergeErr as Error).message}`);
   }
 
   // Opções 2+3 (ver comentário acima de mergeShowsSignificantRain): o teto
@@ -483,51 +478,93 @@ export async function getWeatherForPoint(
     }
   }
 
+  // Migração de 21/07/2026: variáveis secundárias (rain_1h, vento, umidade,
+  // pressão) vêm agora da WeatherAPI.com (plano Business, 10M chamadas/mês
+  // -- ver lib/weatherapi.ts), não mais da Open-Meteo. rain_72h/rain_peak_3h
+  // continuam vindo do MERGE sem alteração: como a WeatherAPI não devolve
+  // sem custo extra uma série de 72h pra comparar (só o current.json/
+  // forecast.json do dia, não os 3 dias que a Open-Meteo dava via
+  // past_days), a comparação merge-vs-alternativa de getBestRainData deixa
+  // de rodar no caminho normal -- se o MERGE estiver disponível, usa ele
+  // direto; se não, reaproveita o último valor conhecido em cache em vez de
+  // gastar uma chamada extra à Open-Meteo só pra essa comparação (o objetivo
+  // desta migração é justamente reduzir a dependência dela). Open-Meteo
+  // continua existindo, mas só como fallback de emergência se a WeatherAPI
+  // falhar -- nesse fallback específico, a comparação merge-vs-openmeteo
+  // original é preservada, porque nesse caso a Open-Meteo está sendo
+  // chamada mesmo e o dado de 72h dela sai de graça.
+  const rain72hFromMerge = merge ? merge.rain_72h : (cached?.rain_72h ?? 0);
+  const rainPeak3hFromMerge = merge ? merge.rain_peak_3h : (cached?.rain_peak_3h ?? 0);
+  const rainSourceFromMerge: RainSource = merge ? "merge_cptec" : (cached?.rain_source ?? "openmeteo");
+
   try {
-    const data = await fetchOpenMeteo(cell.lat, cell.lng);
-    const nowMs = Date.parse(`${data.current.time}Z`);
-
-    const rain1h = data.current.precipitation ?? 0;
-    const rain3h = sumPrecipitation(data, nowMs, 3);
-    const rainIntensity = Math.max(rain1h, rain3h / 3);
-
-    const best = getBestRainData(merge, {
-      rain_72h: sumPrecipitation(data, nowMs, 72),
-      rain_peak_3h: peakPrecipitation(data, nowMs, 3),
-    });
-    const rain72h = best.rain_72h;
-    const rainPeak3h = best.rain_peak_3h;
-    const rainSource = best.rain_source;
+    const reading = await getWeatherApiReading(cell.lat, cell.lng);
+    const rainIntensity = Math.max(reading.rain_1h, reading.rain_3h / 3);
 
     const normalized: NormalizedWeather = {
-      rain_1h: rain1h,
-      rain_3h: rain3h,
-      rain_72h: rain72h,
+      rain_1h: reading.rain_1h,
+      rain_3h: reading.rain_3h,
+      rain_72h: rain72hFromMerge,
       rain_intensity: rainIntensity,
-      rain_peak_3h: rainPeak3h,
-      rain_source: rainSource,
-      wind_speed: data.current.wind_speed_10m,
-      wind_direction: data.current.wind_direction_10m,
-      humidity: data.current.relative_humidity_2m,
-      pressure: data.current.surface_pressure,
-      pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
+      rain_peak_3h: rainPeak3hFromMerge,
+      rain_source: rainSourceFromMerge,
+      wind_speed: reading.wind_speed,
+      wind_direction: reading.wind_direction,
+      humidity: reading.humidity,
+      pressure: reading.pressure,
+      pressure_trend: pressureTrend(reading.pressure, cached?.pressure ?? null),
     };
 
-    await saveWeatherCache(cityId, cell.lat, cell.lng, normalized);
+    await saveWeatherCache(cityId, cell.lat, cell.lng, normalized, "weatherapi");
     return normalized;
-  } catch (err) {
-    // Cota diária esgotada (429) ou limite interno de chamadas/hora: usa o
-    // cache expirado em vez de derrubar o bairro inteiro, se houver algo —
-    // mas ainda sobrepõe rain_72h/rain_peak_3h do MERGE se tiver dado fresco,
-    // já que esse problema é só da Open-Meteo, não do MERGE.
-    if (cached) {
-      console.warn(
-        `[weather] Falha ao buscar clima novo pra ${cityId} (${(err as Error).message}) — ` +
-          `usando cache expirado (${Math.round((Date.now() - new Date(cached.fetched_at).getTime()) / 60000)}min)`
-      );
-      return buildFromCacheAndMerge(cached, merge);
+  } catch (weatherApiErr) {
+    console.warn(
+      `[weather] WeatherAPI falhou pra ${cityId} (${(weatherApiErr as Error).message}) — usando Open-Meteo como fallback`
+    );
+
+    try {
+      const data = await fetchOpenMeteo(cell.lat, cell.lng);
+      const nowMs = Date.parse(`${data.current.time}Z`);
+
+      const rain1h = data.current.precipitation ?? 0;
+      const rain3h = sumPrecipitation(data, nowMs, 3);
+      const rainIntensity = Math.max(rain1h, rain3h / 3);
+
+      const best = getBestRainData(merge, {
+        rain_72h: sumPrecipitation(data, nowMs, 72),
+        rain_peak_3h: peakPrecipitation(data, nowMs, 3),
+      });
+
+      const normalized: NormalizedWeather = {
+        rain_1h: rain1h,
+        rain_3h: rain3h,
+        rain_72h: best.rain_72h,
+        rain_intensity: rainIntensity,
+        rain_peak_3h: best.rain_peak_3h,
+        rain_source: best.rain_source,
+        wind_speed: data.current.wind_speed_10m,
+        wind_direction: data.current.wind_direction_10m,
+        humidity: data.current.relative_humidity_2m,
+        pressure: data.current.surface_pressure,
+        pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
+      };
+
+      await saveWeatherCache(cityId, cell.lat, cell.lng, normalized, "openmeteo");
+      return normalized;
+    } catch (openMeteoErr) {
+      // As duas fontes falharam: usa o cache expirado em vez de derrubar o
+      // bairro inteiro, se houver algo — mas ainda sobrepõe rain_72h/
+      // rain_peak_3h do MERGE se tiver dado fresco, já que esse problema é
+      // só das APIs de clima, não do MERGE.
+      if (cached) {
+        console.warn(
+          `[weather] Open-Meteo também falhou pra ${cityId} (${(openMeteoErr as Error).message}) — ` +
+            `usando cache expirado (${Math.round((Date.now() - new Date(cached.fetched_at).getTime()) / 60000)}min)`
+        );
+        return buildFromCacheAndMerge(cached, merge);
+      }
+      throw openMeteoErr;
     }
-    throw err;
   }
 }
 
@@ -535,12 +572,13 @@ export async function saveWeatherCache(
   cityId: string,
   lat: number,
   lng: number,
-  data: NormalizedWeather
+  data: NormalizedWeather,
+  weatherSource: WeatherSource
 ): Promise<void> {
   const db = getDb();
   await db.query(
-    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source, wind_speed, wind_direction, humidity, pressure)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source, weather_source, wind_speed, wind_direction, humidity, pressure)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
     [
       cityId,
       lat,
@@ -550,6 +588,7 @@ export async function saveWeatherCache(
       data.rain_intensity,
       data.rain_peak_3h,
       data.rain_source,
+      weatherSource,
       data.wind_speed,
       data.wind_direction,
       data.humidity,

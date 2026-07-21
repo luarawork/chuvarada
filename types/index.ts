@@ -81,6 +81,13 @@ export interface TideCache {
 
 export type RainSource = "merge_cptec" | "openmeteo" | "merge_cptec_priority" | "max_merge_openmeteo";
 
+// Eixo diferente de RainSource: RainSource rastreia qual fonte deu rain_72h/
+// rain_peak_3h (merge vs openmeteo, ver getBestRainData). WeatherSource
+// rastreia qual provedor deu as variáveis SECUNDÁRIAS desta linha (rain_1h,
+// vento, umidade, pressão) -- weatherapi na maioria dos casos, openmeteo só
+// quando a WeatherAPI falha e o fallback entra em ação (ver lib/weather.ts).
+export type WeatherSource = "weatherapi" | "openmeteo";
+
 export interface WeatherCache {
   id: string;
   city_id: string;
@@ -91,6 +98,7 @@ export interface WeatherCache {
   rain_intensity: number;
   rain_peak_3h: number;
   rain_source: RainSource;
+  weather_source: WeatherSource;
   wind_speed: number;
   wind_direction: number;
   humidity: number;
