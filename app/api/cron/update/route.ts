@@ -155,10 +155,10 @@ async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLevel: num
   const values: string[] = [];
   const params: unknown[] = [];
   rows.forEach(({ neighborhood, weather, result }, idx) => {
-    const base = idx * 16;
+    const base = idx * 17;
     values.push(
       `($${base + 1},$${base + 2},$${base + 3},$${base + 4},$${base + 5},$${base + 6},$${base + 7},` +
-        `$${base + 8},$${base + 9},$${base + 10},$${base + 11},$${base + 12},$${base + 13},$${base + 14},$${base + 15},$${base + 16})`
+        `$${base + 8},$${base + 9},$${base + 10},$${base + 11},$${base + 12},$${base + 13},$${base + 14},$${base + 15},$${base + 16},$${base + 17})`
     );
     params.push(
       neighborhood.id,
@@ -168,6 +168,7 @@ async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLevel: num
       weather.rain_72h,
       weather.rain_intensity,
       weather.rain_peak_3h,
+      weather.rain_source,
       neighborhood.terrain_slope,
       neighborhood.hydro_proximity,
       tideLevel,
@@ -182,7 +183,7 @@ async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLevel: num
 
   await db.query(
     `insert into risk_scores (
-       neighborhood_id, score, level, rain_1h, rain_72h, rain_intensity, rain_peak_3h,
+       neighborhood_id, score, level, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
        terrain_slope, hydro_proximity, tide_level, wind_speed, wind_direction,
        humidity, pressure, auto_critical, auto_critical_reason
      ) values ${values.join(", ")}`,

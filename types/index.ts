@@ -36,6 +36,7 @@ export interface RiskScore {
   rain_72h: number;
   rain_intensity: number;
   rain_peak_3h: number;
+  rain_source: RainSource;
   terrain_slope: number;
   hydro_proximity: number;
   tide_level: number;
