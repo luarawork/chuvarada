@@ -28,6 +28,11 @@ export function MapContainer({ onReady, children }: MapContainerProps) {
       const map = L.map(containerRef.current, {
         zoomControl: false,
         attributionControl: true,
+        // Canvas em vez do SVG padrão do Leaflet -- com milhares de
+        // polígonos de bairro num viewport largo, SVG cria um <path> por
+        // feature (DOM pesado pra estilizar/repintar); Canvas desenha tudo
+        // numa única superfície de bitmap, bem mais rápido nesse volume.
+        preferCanvas: true,
       }).fitBounds(NORDESTE_BOUNDS);
 
       L.tileLayer(DARK_TILE_URL, {

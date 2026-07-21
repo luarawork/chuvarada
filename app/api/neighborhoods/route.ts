@@ -13,13 +13,37 @@ const MAX_NEIGHBORHOODS_PER_REQUEST = 2000;
 // sem filtro, que sempre batia no limite de 1000 linhas do PostgREST (só
 // ~4% do Brasil chegava a aparecer, nenhum bairro de São Paulo entre eles).
 // Ver diagnóstico da investigação "São Paulo não aparece no mapa".
+// geometry_simplified (Douglas-Peucker, tolerância 0.001°/~100m -- ver
+// scripts/backfill_geometry_simplified.js) em vez da geometria original:
+// medido que geometria era 44-84% do payload de resposta dependendo do
+// zoom, e a versão simplificada corta isso em ~37% sem mudar o formato
+// reconhecível do bairro. `coalesce` cobre a raríssima linha sem versão
+// simplificada ainda (ex.: insert manual fora dos scripts de upload).
 const SELECT_COLUMNS = `
-  n.id, n.city_id, n.name, n.name_source, n.geometry, n.terrain_slope,
-  n.hydro_proximity, n.is_coastal, n.created_at,
+  n.id, n.city_id, n.name, n.name_source,
+  coalesce(n.geometry_simplified, n.geometry) as geometry,
+  n.terrain_slope, n.hydro_proximity, n.is_coastal, n.created_at,
   rs.id as score_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h,
   rs.rain_intensity, rs.rain_peak_3h, rs.rain_source, rs.tide_level,
   rs.wind_speed, rs.wind_direction, rs.humidity, rs.pressure,
   rs.auto_critical, rs.auto_critical_reason, rs.calculated_at
+`;
+
+// LATERAL + LIMIT 1 (via índice risk_scores_neighborhood_time) em vez de
+// `join latest_risk_scores` -- confirmado via EXPLAIN ANALYZE que a view
+// (distinct on sem WHERE) força o planner a fazer um Merge Join que
+// des-duplica risk_scores INTEIRA (todos os ~187 mil registros de todo o
+// Brasil, ~220ms/188 mil buffer hits) mesmo pra devolver só ~124 bairros de
+// um viewport. O LATERAL vira um Nested Loop que busca só o score mais
+// recente DE CADA bairro já filtrado pelo bbox (~7ms/620 buffer hits pro
+// mesmo resultado) -- ~28x mais rápido, mesmo índice, mesmo dado.
+const LATEST_SCORE_LATERAL = `
+  left join lateral (
+    select * from risk_scores r
+    where r.neighborhood_id = n.id
+    order by r.calculated_at desc
+    limit 1
+  ) rs on true
 `;
 
 export async function GET(req: NextRequest) {
@@ -50,7 +74,7 @@ export async function GET(req: NextRequest) {
     const { rows } = await db.query(
       `select ${SELECT_COLUMNS}
        from neighborhoods n
-       left join latest_risk_scores rs on rs.neighborhood_id = n.id
+       ${LATEST_SCORE_LATERAL}
        where n.id = $1`,
       [id]
     );
@@ -69,13 +93,10 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Usa a view latest_risk_scores (1 linha por bairro, já resolvida) em vez
-  // de agregar risk_scores aqui -- mesma razão da migração 008: evita
-  // reimplementar a lógica de "pegar o calculated_at mais recente" duas vezes.
   const { rows } = await db.query(
     `select ${SELECT_COLUMNS}
      from neighborhoods n
-     left join latest_risk_scores rs on rs.neighborhood_id = n.id
+     ${LATEST_SCORE_LATERAL}
      where n.centroid_lat between $1 and $2
        and n.centroid_lng between $3 and $4
      limit $5`,
