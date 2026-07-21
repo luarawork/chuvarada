@@ -25,9 +25,9 @@ O modelo calcula um score de 0 a 1 para cada bairro, combinando 6 variáveis:
 
 | Variável | Peso | Fonte |
 |---|---:|---|
-| Pico de chuva nas últimas 3h | 25% | Open-Meteo |
-| Chuva na última hora | 20% | Open-Meteo |
-| Chuva acumulada em 72h | 20% | Open-Meteo |
+| Pico de chuva nas últimas 3h | 25% | MERGE/CPTEC |
+| Chuva na última hora | 20% | WeatherAPI.com |
+| Chuva acumulada em 72h | 20% | MERGE/CPTEC |
 | Declividade do terreno | 15% | NASA SRTM |
 | Proximidade de rios/canais | 12% | ANA/BHO + hidrografia local |
 | Nível de maré | 8% | Marinha do Brasil via CPTEC |
@@ -51,7 +51,7 @@ Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré 
 | Frontend | Next.js 14 + TypeScript + Tailwind CSS |
 | Mapa | Leaflet.js + OpenStreetMap (CartoDB Dark Matter) |
 | Banco | Supabase (PostgreSQL + Auth + Realtime) |
-| Clima | Open-Meteo (histórico observado real, sem chave de API) |
+| Clima | WeatherAPI.com (vento/umidade/pressão/rain_1h) + MERGE/CPTEC (chuva acumulada/pico) |
 | Maré | CPTEC/INPE (scraping da tábua oficial da Marinha do Brasil) |
 | Pré-processamento | Python (geopandas, rasterio, shapely, pyogrio) |
 | PWA | next-pwa |
@@ -64,7 +64,8 @@ Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré 
 | BHO | ANA | Rede hidrográfica nacional |
 | Setores censitários | IBGE | Malha de bairros/distritos |
 | Tábua de marés | Marinha do Brasil via CPTEC | Nível de maré por estação |
-| Clima em tempo real | Open-Meteo | Precipitação, vento, umidade, pressão |
+| Clima em tempo real | WeatherAPI.com | Vento, umidade, pressão, chuva na última hora |
+| Precipitação MERGE/CPTEC | INPE | Chuva acumulada em 72h e pico de 3h (satélite + pluviômetros) |
 | Hidrografia do Recife | Prefeitura do Recife | Refinamento local de hidrografia |
 | Hidrografia da PB | AESA | Rede hídrica da Paraíba |
 | Hidrografia de SE | SERhidro/SEMAC | Rede hídrica de Sergipe |
@@ -84,6 +85,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_DB_PASSWORD=
 SUPABASE_CONNECTION_STRING=
 CRON_SECRET=
+WEATHERAPI_KEY=
 WEATHER_CACHE_ONLY=false
 ```
 
@@ -98,7 +100,7 @@ Forçar o cron manualmente:
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
 ```
 
-Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da Open-Meteo.
+Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da WeatherAPI/Open-Meteo.
 
 ## Documentação
 

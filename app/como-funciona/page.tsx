@@ -15,7 +15,7 @@ const VARIABLES = [
     emoji: "🌧",
     title: "Chuva na última hora",
     weight: 0.2,
-    description: "Volume total de chuva na última hora, direto da Open-Meteo. Mesmo sem ser intensa, chuva contínua acumula.",
+    description: "Volume total de chuva na última hora, direto da WeatherAPI.com. Mesmo sem ser intensa, chuva contínua acumula.",
   },
   {
     emoji: "🌧",
@@ -87,7 +87,7 @@ export default function ComoFuncionaPage() {
           <p className="mt-4 text-sm text-brand-gray-urban/70">
             Dados de precipitação acumulada fornecidos pelo produto MERGE do CPTEC/INPE, que combina
             estimativas do satélite GPM/IMERG com a rede de pluviômetros do Brasil. Vento, umidade,
-            pressão e a chuva da última hora continuam vindo da Open-Meteo.
+            pressão e a chuva da última hora vêm da WeatherAPI.com.
           </p>
         </section>
 

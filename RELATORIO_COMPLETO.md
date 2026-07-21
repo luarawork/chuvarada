@@ -37,7 +37,7 @@ O Chuvarada se posiciona como **complemento** à informação pública, não com
 | Gráficos | **Recharts** | Usado no histórico de score por bairro (`HistoryChart`) — biblioteca React-nativa, evita reimplementar eixos/tooltips/zonas de referência coloridas na mão. |
 | Banco de dados | **Supabase** (Postgres gerenciado + Auth + Realtime + RLS) | Dá banco relacional de verdade (importante pro modelo de risco, que faz joins entre `neighborhoods`, `cities`, `risk_scores`), autenticação pronta (usada em `/auth` e favoritos), e um canal de **Realtime** que notifica o frontend assim que uma nova linha entra em `risk_scores` — sem isso, o mapa precisaria fazer polling manual a cada X segundos em vez de atualizar assim que o cron termina. |
 | Acesso ao banco (server-side) | **`pg`** (Pool direto), não só o client JS do Supabase | As rotas de API (cron, scripts de backfill) escrevem em lote (`insertRiskScoresBatch`, `upload_state_expansion.js`) usando queries SQL diretas via `pg` — mais controle sobre performance de insert em massa (7.117 bairros) do que o client REST do Supabase permitiria com a mesma previsibilidade. |
-| Clima em tempo real | **Open-Meteo** | Ver justificativa detalhada abaixo — trocou a OpenWeatherMap no meio do projeto (19/07) por uma limitação estrutural séria descoberta em produção. |
+| Clima em tempo real | **WeatherAPI.com** (secundárias) + **MERGE/CPTEC** (chuva acumulada/pico) | Ver justificativa detalhada abaixo — a Open-Meteo (que já tinha trocado a OpenWeatherMap em 19/07) foi substituída em 21/07 por uma limitação estrutural de cota; continua integrada só como fallback. |
 | Maré | **CPTEC/INPE** (scraping HTML da tábua de marés da Marinha do Brasil) | Não existe API pública de maré em tempo real gratuita cobrindo o Nordeste inteiro — a alternativa foi extrair a tábua de marés publicada pelo CPTEC (`lib/cptec.ts`, via `cheerio`), que é o dado oficial usado pela própria Marinha. |
 | Pré-processamento geoespacial | **Python** (`geopandas`, `rasterio`, `shapely`, `pyogrio`) | Processar shapefiles do IBGE, GeoTIFFs de elevação (SRTM) e geopackages de hidrografia em escala nacional (a BHO/ANA tem 2,7 milhões de feições) exige ferramentas GIS maduras — não há equivalente prático em Node/TS pra esse volume de geoprocessamento. |
 | PWA | **next-pwa** | Ver justificativa abaixo — app instalável sem passar por loja de aplicativo. |
@@ -93,13 +93,20 @@ Um PWA instala direto do navegador (sem loja de aplicativo, sem processo de apro
 - **Dificuldades encontradas**: (1) o site espera o ano com **2 dígitos**, não 4 — mandar "2026" faz o template do CPTEC concatenar errado e cair num fallback de mês vazio; (2) o domínio só responde de forma confiável em **HTTP puro**, não HTTPS moderno; (3) o catálogo de estações é limitado — só **~23 estações cobrem o Nordeste inteiro** (de 51 no Brasil todo), então a maior parte dos municípios costeiros não tem estação própria e precisou de atribuição por proximidade geográfica (ver seção 8).
 - **Limitação conhecida**: sem dado publicado para meses futuros até o CPTEC divulgar (o cache trata isso como "miss" e tenta de novo, não fica travado).
 
-### Open-Meteo (clima em tempo real e histórico 72h)
+### WeatherAPI.com + MERGE/CPTEC (clima em tempo real e chuva acumulada)
 
-- **O que fornece**: chuva na última hora, chuva acumulada em 72h, pico de chuva nas últimas 3h, vento, umidade, pressão — o núcleo do modelo (65% do peso combinado entre as 3 variáveis de chuva).
+- **O que fornece hoje** (atualizado 21/07/2026): rain_1h, vento, umidade e pressão vêm da **WeatherAPI.com** (plano Business contratado, 10M chamadas/mês); chuva acumulada em 72h e pico de 3h vêm do **MERGE/CPTEC** (satélite GPM/IMERG-Late + pluviômetros do INMET, grade ~10km) — juntas, o núcleo do modelo (65% do peso combinado entre as 3 variáveis de chuva).
+- **Por que a troca**: a Open-Meteo (usada de 19/07 a 21/07, ver histórico abaixo) tem cota gratuita de só 10.000 chamadas/dia — insuficiente mesmo depois de 3 rodadas de otimização de arquitetura (agrupamento por célula, sub-grade só em cidades grandes, refresh sob demanda conforme o MERGE detecta chuva). A WeatherAPI Business dá ~333.000 chamadas/dia, o que sozinho já cobre com folga o Nordeste inteiro e viabiliza a expansão nacional planejada.
+- **URL**: `https://api.weatherapi.com/v1/forecast.json` — usa o endpoint `forecast.json` (não `current.json`) mesmo só precisando do clima atual, porque só ele devolve a série horária do dia (necessária pra `rain_3h`/`rain_intensity`, o pico das últimas 3h em vez do valor pontual — ver "Limitação" abaixo).
+- **Open-Meteo como fallback**: continua integrada (`lib/weather.ts`) e é acionada automaticamente se a WeatherAPI falhar — nesse cenário específico, ainda usa o parâmetro `past_days` pra recuperar rain_72h/rain_peak_3h reais, exatamente como fazia quando era a fonte principal.
+- **Limitação**: como qualquer API meteorológica, é uma estimativa de modelo numérico — não substitui um pluviômetro físico no bairro. `rain_intensity`/`rain_3h` da WeatherAPI usam a série horária do dia local (00h até agora) do próprio `forecast.json`, mesma técnica que a Open-Meteo usava com `past_days`.
+
+#### Histórico: Open-Meteo (19/07 a 21/07/2026)
+
+- **O que fornecia**: as mesmas 6 variáveis acima, todas de uma fonte só.
 - **URL**: `https://api.open-meteo.com/v1/forecast` — gratuita, sem chave de API.
 - **Como foi obtida**: chamada HTTP direta por célula geográfica (grade de ~10km, não por cidade inteira — ver seção 4).
-- **Dificuldades**: cota diária gratuita **esgotada em produção** no fim de semana de 18-19/07/2026, quando o cron rodou ~1.794 cidades repetidas vezes durante testes intensivos, retornando HTTP 429 (mesmo código de um rate-limit transitório, dificultando o diagnóstico — ver seção 7). Corrigido com contador interno de chamadas/hora, cache mais respeitado e um modo `WEATHER_CACHE_ONLY` pra desenvolvimento.
-- **Limitação**: como qualquer API meteorológica, é uma estimativa de modelo numérico — não substitui um pluviômetro físico no bairro.
+- **Dificuldades**: cota diária gratuita **esgotada em produção** no fim de semana de 18-19/07/2026, quando o cron rodou ~1.794 cidades repetidas vezes durante testes intensivos, retornando HTTP 429 (mesmo código de um rate-limit transitório, dificultando o diagnóstico — ver seção 7). Corrigido primeiro com contador interno de chamadas/dia, cache mais respeitado e um modo `WEATHER_CACHE_ONLY` pra desenvolvimento; depois, definitivamente, com a migração pra WeatherAPI.com acima.
 
 ### Cemaden
 
@@ -175,7 +182,7 @@ Scripts complementares: `process_s2id.py` (eventos históricos de desastre), `pr
 4. Busca o nível de maré atual (`getCurrentTideLevel`) para cidades com `tide_code`.
 5. Calcula o score de cada bairro (`calculateScore`, ver seção 5).
 6. Insere os resultados em lote em `risk_scores` e sincroniza `risk_events` (início/fim de um período em determinado nível).
-7. Cidades são processadas em paralelo (4 por vez), e dentro de cada cidade, células também em paralelo (4 por vez) — teto de concorrência calibrado para não estourar o rate limit do Open-Meteo.
+7. Cidades são processadas em paralelo (4 por vez), e dentro de cada cidade, células também em paralelo (4 por vez) — teto de concorrência originalmente calibrado para não estourar o rate limit da Open-Meteo; mantido mesmo após a migração pra WeatherAPI.com (cota bem maior) por throughput previsível.
 
 ### 5. Cálculo do score por bairro
 Ver seção 5 completa abaixo.
@@ -388,7 +395,8 @@ components/
 
 lib/                           Integrações e motor de risco
 ├── score.ts                    Cálculo do score de risco (motor principal)
-├── weather.ts                   Integração Open-Meteo (com cache e rate limiting)
+├── weather.ts                   Orquestração de clima (cache, MERGE, fallback Open-Meteo, rate limiting)
+├── weatherapi.ts                 Integração WeatherAPI.com (fonte primária de rain_1h/vento/umidade/pressão)
 ├── cptec.ts                      Integração CPTEC (maré, via scraping)
 ├── db.ts                          Pool de conexão Postgres direta
 ├── supabase.ts                    Client Supabase (Auth, Realtime)
@@ -440,7 +448,7 @@ OPENTOPOGRAPHY_API_KEY=
 WEATHER_CACHE_ONLY=false
 ```
 
-`WEATHER_CACHE_ONLY=true` força o app a usar sempre o `weather_cache` já existente (mesmo expirado) em vez de chamar o Open-Meteo — útil para testar sem consumir a cota diária gratuita.
+`WEATHER_CACHE_ONLY=true` força o app a usar sempre o `weather_cache` já existente (mesmo expirado) em vez de chamar a WeatherAPI/Open-Meteo — útil para testar sem consumir a cota diária.
 
 ### Instalar e rodar
 ```bash
@@ -468,7 +476,7 @@ python scripts/process_bho.py --input dados-brutos/ana/geoft_bho_curso_dagua.gpk
 ```bash
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
 ```
-Isso recalcula o score de risco de todos os 7.117 bairros — pode levar alguns minutos e consome a cota do Open-Meteo (usar `WEATHER_CACHE_ONLY=true` para testar sem gastar cota).
+Isso recalcula o score de risco de todos os 7.117 bairros — pode levar alguns minutos e consome a cota da WeatherAPI (usar `WEATHER_CACHE_ONLY=true` para testar sem gastar cota).
 
 ---
 
