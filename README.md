@@ -44,6 +44,16 @@ Além do score, 3 regras disparam nível crítico automaticamente:
 
 Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré é redistribuído proporcionalmente entre as demais variáveis.
 
+**Limitação conhecida (22/07/2026):** a fonte de maré do CPTEC está fora
+do ar (confirmado — não é só mudança de layout, a tábua vem vazia pra
+qualquer estação/mês/ano) e o webservice alternativo da Marinha foi
+descontinuado em 2018. Até essa fonte ser restaurada ou substituída,
+`tide_level` fica sempre neutro (0,5) para todas as 22 estações
+cadastradas — o peso de 8% cai no mesmo mecanismo de redistribuição já
+usado para municípios sem estação próxima, então não há dado incorreto
+sendo exibido, só a variável de maré temporariamente fora do cálculo em
+todo o país (ver `lib/cptec.ts`).
+
 ## Stack
 
 | Camada | Tecnologia |

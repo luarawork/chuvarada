@@ -2,6 +2,41 @@ import * as cheerio from "cheerio";
 import { getDb } from "./db";
 import type { TideCacheData, TideDay, TideResult } from "@/types";
 
+// STATUS (22/07/2026): a fonte de maré do CPTEC está confirmadamente fora
+// do ar, não é só uma mudança de markup. Investigação completa:
+//
+// - A página (ondas.cptec.inpe.br/~rondas/mares) responde 200 OK, mas o
+//   `<table>` que este parser espera virou `<div class='tabua'>` com
+//   `<li>` -- E essa div vem sempre vazia (só os cabeçalhos de dia da
+//   semana e o rótulo "Altura(m)", nenhum dado de hora/altura real),
+//   testado direto via curl pra Salvador (código 40140) em múltiplos
+//   meses/anos (07/2026, 06/2026, 01/2020) e variações de parâmetro
+//   (com/sem zero à esquerda, com "dia=", user-agent de navegador,
+//   header Referer) -- sempre o mesmo resultado vazio. Não há chamada
+//   AJAX/fetch na página (só jQuery pra abrir/fechar o dropdown) -- o
+//   dado deveria vir renderizado direto no HTML e simplesmente não vem.
+// - O webservice estruturado que a Marinha usava pra alimentar isso foi
+//   descontinuado em 2018 (ver github.com/LuisAraujo/API-Tabua-Mare/issues/2)
+//   -- a Marinha substituiu por 1 PDF por estação/ano
+//   (marinha.mil.br/chm/sites/www.marinha.mil.br.chm/files/dados_de_mare/).
+//   Confirmei que esse PDF é real e parseável (extraí texto/tabela de um
+//   exemplo de 2023 com pdfplumber -- layout de calendário complexo,
+//   múltiplos dias por célula). Mas: (a) as páginas de listagem pra
+//   descobrir a URL exata de 2026 de cada uma das 22 estações retornam
+//   403 (WAF bloqueando acesso não-navegador), e (b) o padrão de URL do
+//   PDF de 2023 não se estende automaticamente pra 2024-2026 (dá 404).
+//
+// Decisão (22/07/2026): formalizar o fallback neutro em vez de investir
+// numa integração de PDF por ora -- descobrir a URL de cada estação
+// exigiria navegação manual (não programática), e construir o parser de
+// PDF é um projeto novo, não um fix pontual. `getCurrentTideLevel`
+// sempre retorna nível neutro (0.5, estimated=true) até essa fonte ser
+// resolvida -- isso já é o comportamento correto no resto do app (peso
+// da maré é redistribuído quando o dado é neutro/ausente, ver
+// lib/score.ts), então não há dado incorreto sendo mostrado, só a
+// variável de maré ficando de fora do cálculo por enquanto.
+const EMPTY_TIDE_RETRY_HOURS = 24;
+
 const TIDE_CODES: Record<string, string> = {
   Salvador: "40140",
   Recife: "30645",
@@ -122,7 +157,16 @@ export async function getCurrentTideLevel(
   // encontrou tábua publicada para o mês (ex: mês futuro que o CPTEC ainda
   // não divulgou) — trata como cache miss e tenta buscar de novo, em vez de
   // ficar preso nesse estado até o mês virar.
-  if (!cache || cache.days.length === 0) {
+  //
+  // Mas só tenta de novo depois de EMPTY_TIDE_RETRY_HOURS desde a última
+  // tentativa vazia -- sem isso, com a fonte do CPTEC confirmadamente fora
+  // do ar (ver comentário no topo do arquivo), cada chamada desta função
+  // faria uma requisição HTTP nova pro mesmo endpoint morto, pra cada
+  // cidade costeira, em todo ciclo de cron, pra sempre.
+  const cacheAgeHours = cachedAt ? (Date.now() - new Date(cachedAt).getTime()) / 3_600_000 : Infinity;
+  const emptyCacheIsStillFresh = cache && cache.days.length === 0 && cacheAgeHours < EMPTY_TIDE_RETRY_HOURS;
+
+  if ((!cache || cache.days.length === 0) && !emptyCacheIsStillFresh) {
     try {
       const now = new Date();
       cache = await fetchTideTable(cityId, tideCode, now.getMonth() + 1, now.getFullYear());
