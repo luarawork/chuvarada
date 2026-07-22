@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON, LayerGroup } from "leaflet";
+import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON } from "leaflet";
 import type { MunicipalitySummary, RiskLevel } from "@/types";
 
 interface MunicipalityLayerProps {
@@ -37,24 +37,12 @@ const municipalityStyle = (level: RiskLevel) => ({
   opacity: 0.7,
 });
 
-function shouldShowLabel(city: MunicipalitySummary) {
-  return city.worst_level !== "normal" || city.critical_count > 0 || city.attention_count > 0;
-}
-
-function escapeHtml(text: string) {
-  return text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
-}
-
 // Polígonos municipais pros modos heatmap (zoom < 7) e municipality (zoom
-// 7-10) -- ver getMapMode em app/page.tsx. No zoom bem afastado (heatmap) o
-// polígono sozinho é translúcido demais pra comunicar risco, então cidades
-// com algum nível de atenção/crítico ganham um rótulo de texto (DivIcon)
-// com o nome por cima; no zoom intermediário (municipality) o polígono já
-// fica mais opaco/visível e um rótulo fixo por cidade viraria poluição
-// visual, por isso vira tooltip só no hover.
+// 7-10) -- ver getMapMode em app/page.tsx. Heatmap fica só com o polígono
+// bem translúcido; municipality é mais opaco e ganha tooltip com nome/nível
+// no hover (um rótulo fixo por cidade nesse zoom viraria poluição visual).
 export function MunicipalityLayer({ map, municipalities, variant }: MunicipalityLayerProps) {
   const polygonLayerRef = useRef<LeafletGeoJSON | null>(null);
-  const labelGroupRef = useRef<LayerGroup | null>(null);
 
   useEffect(() => {
     if (!map) return;
@@ -64,7 +52,6 @@ export function MunicipalityLayer({ map, municipalities, variant }: Municipality
       if (cancelled) return;
 
       polygonLayerRef.current?.remove();
-      labelGroupRef.current?.remove();
 
       const style = variant === "heatmap" ? heatmapStyle : municipalityStyle;
 
@@ -88,26 +75,11 @@ export function MunicipalityLayer({ map, municipalities, variant }: Municipality
         }
       ).addTo(map);
       polygonLayerRef.current = polygonLayer;
-
-      if (variant === "heatmap") {
-        const labelGroup = L.layerGroup();
-        municipalities.filter(shouldShowLabel).forEach((city) => {
-          const icon = L.divIcon({
-            className: "",
-            html: `<span style="color: white; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: nowrap; pointer-events: none; user-select: none;">${escapeHtml(city.name)}</span>`,
-            iconAnchor: [0, 0],
-          });
-          L.marker([city.centroid_lat, city.centroid_lng], { icon, interactive: false }).addTo(labelGroup);
-        });
-        labelGroup.addTo(map);
-        labelGroupRef.current = labelGroup;
-      }
     });
 
     return () => {
       cancelled = true;
       polygonLayerRef.current?.remove();
-      labelGroupRef.current?.remove();
     };
   }, [map, municipalities, variant]);
 
