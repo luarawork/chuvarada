@@ -12,6 +12,7 @@ import { CityHeader } from "@/components/ui/CityHeader";
 import { AlertCard } from "@/components/ui/AlertCard";
 import { ProfileButton } from "@/components/ui/ProfileButton";
 import { MapLegend } from "@/components/ui/MapLegend";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { DetailPanel } from "@/components/panel/DetailPanel";
 import { useMap, type MapBounds } from "@/hooks/useMap";
 import { useRealtime } from "@/hooks/useRealtime";
@@ -359,6 +360,8 @@ export default function HomePage() {
       </MapContainer>
 
       <ProfileButton />
+
+      <SearchBar onSelect={flyTo} />
 
       <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
 
