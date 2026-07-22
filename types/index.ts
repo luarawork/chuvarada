@@ -15,21 +15,22 @@ export interface City {
   created_at: string;
 }
 
-// Agregado de risco por cidade (view/tabela city_risk_summary) -- usado só
-// pelo modo "pontos" do mapa no zoom-out (ver CityMarkerLayer), não pelo
-// modo bairro normal (que usa RiskScore por bairro).
-export interface CitySummary {
+// Polígono municipal (tabela municipalities, migração 023) com o agregado
+// de risco da cidade (city_risk_summary) já embutido -- usado pelos modos
+// "heatmap" e "municipality" do mapa no zoom-out (ver MunicipalityLayer),
+// não pelo modo bairro normal (que usa RiskScore por bairro).
+export interface MunicipalitySummary {
+  id: string;
   city_id: string;
   name: string;
   state: string;
-  lat: number;
-  lng: number;
-  data_level: DataLevel;
-  max_score: number | null;
+  geometry: GeoJSON.Geometry;
+  centroid_lat: number;
+  centroid_lng: number;
   worst_level: RiskLevel;
+  max_score: number | null;
   critical_count: number;
   attention_count: number;
-  last_updated: string | null;
 }
 
 export interface Neighborhood {

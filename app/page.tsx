@@ -5,7 +5,7 @@ import Link from "next/link";
 import * as turf from "@turf/turf";
 import { MapContainer } from "@/components/map/MapContainer";
 import { NeighborhoodLayer } from "@/components/map/NeighborhoodLayer";
-import { CityMarkerLayer } from "@/components/map/CityMarkerLayer";
+import { MunicipalityLayer } from "@/components/map/MunicipalityLayer";
 import { EmptyStateLayer } from "@/components/map/EmptyStateLayer";
 import { LoadingMap } from "@/components/ui/LoadingMap";
 import { CityHeader } from "@/components/ui/CityHeader";
@@ -20,16 +20,25 @@ import { useRisk } from "@/hooks/useRisk";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/lib/supabase";
-import type { City, CitySummary, Neighborhood, RiskLevel, RiskScore } from "@/types";
+import type { City, MunicipalitySummary, Neighborhood, RiskLevel, RiskScore } from "@/types";
 
-// Abaixo desse zoom o mapa mostra pontos por cidade (CityMarkerLayer) em
-// vez de polígonos de bairro -- num viewport largo o payload de geometria
-// de bairro chega a ~9MB e demora perto de 1s só de transferência (ver
-// diagnóstico de performance), sem contar que os polígonos ficam ilegíveis
-// nessa escala. 10 é aproximadamente "zoom de estado/região" no Leaflet
-// (cidade individual já aparece bem no nível 11-12).
-const ZOOM_THRESHOLD = 10;
-const CITY_MODE_FLY_ZOOM = 12;
+// 3 modos de zoom -- abaixo de 10 o mapa mostra polígonos municipais
+// (MunicipalityLayer) em vez de bairro: num viewport largo o payload de
+// geometria de bairro chega a ~9MB e demora perto de 1s só de transferência
+// (ver diagnóstico de performance), sem contar que os polígonos de bairro
+// ficam ilegíveis nessa escala. Dentro da faixa "município", o zoom bem
+// afastado (< 7, ~país/região) ganha estilo ainda mais translúcido com
+// rótulo de nome (heatmap), e o zoom intermediário (7-10, ~estado) ganha
+// polígono mais opaco sem rótulo fixo (municipality). 10 é aproximadamente
+// "zoom de estado/região" no Leaflet (cidade individual já aparece bem no
+// nível 11-12).
+type MapMode = "heatmap" | "municipality" | "neighborhood";
+
+function getMapMode(zoom: number): MapMode {
+  if (zoom < 7) return "heatmap";
+  if (zoom < 10) return "municipality";
+  return "neighborhood";
+}
 
 // Página do PostgREST -- o projeto Supabase tem um teto rígido de 1000
 // linhas por requisição (confirmado: nem um Range header explícito pedindo
@@ -100,17 +109,17 @@ async function fetchNeighborhoodsForBounds(bounds: MapBounds): Promise<Neighborh
   return res.json();
 }
 
-async function fetchCitiesSummaryForBounds(bounds: MapBounds): Promise<CitySummary[]> {
+async function fetchMunicipalitiesForBounds(bounds: MapBounds): Promise<MunicipalitySummary[]> {
   const params = new URLSearchParams({
     north: bounds.north.toString(),
     south: bounds.south.toString(),
     east: bounds.east.toString(),
     west: bounds.west.toString(),
   });
-  const res = await fetch(`/api/cities-summary?${params}`);
-  if (!res.ok) throw new Error(`Falha ao buscar agregado de cidades: ${res.status}`);
-  const { cities } = await res.json();
-  return cities as CitySummary[];
+  const res = await fetch(`/api/municipalities?${params}`);
+  if (!res.ok) throw new Error(`Falha ao buscar municípios do viewport: ${res.status}`);
+  const { data } = await res.json();
+  return data as MunicipalitySummary[];
 }
 
 export default function HomePage() {
@@ -133,17 +142,17 @@ export default function HomePage() {
   const [emptyCityIds, setEmptyCityIds] = useState<Set<string>>(new Set());
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [latestScores, setLatestScores] = useState<Record<string, RiskScore>>({});
-  const [citySummaries, setCitySummaries] = useState<CitySummary[]>([]);
+  const [municipalities, setMunicipalities] = useState<MunicipalitySummary[]>([]);
   const [selected, setSelected] = useState<Neighborhood | null>(null);
   const [citiesLoaded, setCitiesLoaded] = useState(false);
   const [viewportLoadedOnce, setViewportLoadedOnce] = useState(false);
-  const [citySummaryLoadedOnce, setCitySummaryLoadedOnce] = useState(false);
+  const [municipalitiesLoadedOnce, setMunicipalitiesLoadedOnce] = useState(false);
 
   // Antes do mapa estar pronto (zoom ainda null) assume modo bairro, pra não
   // mudar o comportamento de carregamento inicial existente -- o zoom real
   // chega já no handleMapReady, quase instantâneo.
-  const mode: "city" | "neighborhood" = zoom !== null && zoom < ZOOM_THRESHOLD ? "city" : "neighborhood";
-  const loading = !citiesLoaded || (mode === "city" ? !citySummaryLoadedOnce : !viewportLoadedOnce);
+  const mode: MapMode = zoom !== null ? getMapMode(zoom) : "neighborhood";
+  const loading = !citiesLoaded || (mode === "neighborhood" ? !viewportLoadedOnce : !municipalitiesLoadedOnce);
 
   const citiesById = useMemo(() => Object.fromEntries(cities.map((c) => [c.id, c])), [cities]);
   const neighborhoodIds = useMemo(() => neighborhoods.map((n) => n.id), [neighborhoods]);
@@ -171,10 +180,10 @@ export default function HomePage() {
   // usuário navega o mapa. Substitui o antigo carregamento único de todos
   // os 24.556 bairros, que sempre batia no limite de 1000 linhas do
   // PostgREST (só ~4% do Brasil aparecia, nenhum bairro de São Paulo entre
-  // eles -- ver diagnóstico "São Paulo não aparece no mapa"). Pausado no
-  // modo cidade (zoom < ZOOM_THRESHOLD): nesse zoom os polígonos de bairro
-  // nem aparecem (CityMarkerLayer no lugar), então buscar geometria
-  // completa (MBs por request num viewport largo) seria desperdício.
+  // eles -- ver diagnóstico "São Paulo não aparece no mapa"). Pausado fora
+  // do modo bairro (zoom < 10): nesse zoom os polígonos de bairro nem
+  // aparecem (MunicipalityLayer no lugar), então buscar geometria completa
+  // (MBs por request num viewport largo) seria desperdício.
   useEffect(() => {
     if (!bounds || mode !== "neighborhood") return;
     let cancelled = false;
@@ -201,23 +210,23 @@ export default function HomePage() {
     };
   }, [bounds, mode]);
 
-  // Agregado por cidade pro modo "pontos" no zoom-out -- mesmo debounce e
-  // padrão de cancelamento do efeito de bairros acima, só que contra
-  // /api/cities-summary (tabela pré-agregada pelo cron, ver migração 022)
-  // em vez de recalcular nada na hora.
+  // Polígonos municipais pros modos heatmap/municipality no zoom-out --
+  // mesmo debounce e padrão de cancelamento do efeito de bairros acima, só
+  // que contra /api/municipalities (tabela municipalities + agregado
+  // city_risk_summary, ver migração 023) em vez de recalcular nada na hora.
   useEffect(() => {
-    if (!bounds || mode !== "city") return;
+    if (!bounds || mode === "neighborhood") return;
     let cancelled = false;
 
     const timer = setTimeout(async () => {
       try {
-        const data = await fetchCitiesSummaryForBounds(bounds);
+        const data = await fetchMunicipalitiesForBounds(bounds);
         if (cancelled) return;
-        setCitySummaries(data);
-        setCitySummaryLoadedOnce(true);
+        setMunicipalities(data);
+        setMunicipalitiesLoadedOnce(true);
       } catch (err) {
-        console.error("Erro ao buscar agregado de cidades:", err);
-        setCitySummaryLoadedOnce(true);
+        console.error("Erro ao buscar municípios do viewport:", err);
+        setMunicipalitiesLoadedOnce(true);
       }
     }, 300);
 
@@ -227,16 +236,12 @@ export default function HomePage() {
     };
   }, [bounds, mode]);
 
-  // Ao entrar no modo cidade, fecha o painel de bairro aberto -- não faz
+  // Ao sair do modo bairro, fecha o painel de bairro aberto -- não faz
   // sentido mostrar detalhe de 1 bairro com o mapa zoomado numa escala que
   // nem mostra polígonos de bairro.
   useEffect(() => {
-    if (mode === "city") setSelected(null);
+    if (mode !== "neighborhood") setSelected(null);
   }, [mode]);
-
-  function handleSelectCity(city: CitySummary) {
-    flyTo(city.lat, city.lng, CITY_MODE_FLY_ZOOM);
-  }
 
   useEffect(() => {
     setLatestScores((prev) => mergeNewerScores(prev, realtimeUpdates));
@@ -355,7 +360,7 @@ export default function HomePage() {
             <EmptyStateLayer map={map} cities={cities} emptyCityIds={emptyCityIds} />
           </>
         ) : (
-          <CityMarkerLayer map={map} cities={citySummaries} onSelectCity={handleSelectCity} />
+          <MunicipalityLayer map={map} municipalities={municipalities} variant={mode} />
         )}
       </MapContainer>
 

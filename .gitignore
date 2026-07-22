@@ -93,6 +93,17 @@ next-env.d.ts
 # estações (Salvador/Recife/Natal) já extraídos ficam versionados.
 /dados-brutos/inmet/*.zip
 
+# Malha municipal nacional do IBGE (BR_Municipios_2022) -- shapefile
+# descompactado (~260MB) e o GeoJSON intermediário exportado por
+# process_municipalities.py (~360MB, geometria original + simplificada de
+# 4.650 municípios) passam muito do limite de 100MB do GitHub. Só o que
+# de fato precisa ser servido ao frontend está no banco (tabela
+# municipalities, ver migração 023) -- este GeoJSON é só um artefato de
+# transporte entre o script Python e o upload_municipalities.js,
+# recriável rodando os dois de novo.
+/dados-brutos/ibge/br/BR_Municipios_2022/
+/public/geojson/municipalities.geojson
+
 # cache de bytecode Python
 __pycache__/
 *.pyc
