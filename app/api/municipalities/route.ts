@@ -7,7 +7,15 @@ import { getDb } from "@/lib/db";
 // cidade (city_risk_summary puro) não dá pra desenhar como área. Igual ao
 // endpoint de bairros: filtra por centroide (índice dedicado,
 // municipalities_centroid) e serve geometry_simplified.
-const MAX_MUNICIPALITIES_PER_REQUEST = 1500;
+// 4.653 municípios cabem nesse teto (ver scripts/process_municipalities.py) --
+// bem acima do necessário mesmo pro viewport de "Brasil inteiro" no modo
+// heatmap, que é o único caso realista de aproximar do total. Só existe
+// como salvaguarda contra bbox absurdo (ex: 0,0 a 0,0 do mundo todo). Antes
+// de aumentar a tolerância de simplificação (ver process_municipalities.py),
+// um teto de 1.500 cobria só ~32% do país de uma vez no zoom mais afastado
+// -- de forma arbitrária, sem ORDER BY -- então o Brasil inteiro nunca
+// aparecia completo no modo heatmap.
+const MAX_MUNICIPALITIES_PER_REQUEST = 5000;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
