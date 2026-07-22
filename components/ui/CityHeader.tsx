@@ -28,7 +28,7 @@ export function CityHeader({ cityName, level, updatedAt }: CityHeaderProps) {
     >
       <div className="flex items-center gap-2">
         <h1 className="font-heading text-lg font-bold" style={{ color: "#f0f4f8" }}>
-          {cityName ?? "Nordeste"}
+          {cityName ?? "Brasil"}
         </h1>
         <RiskBadge level={level} />
       </div>

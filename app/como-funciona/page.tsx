@@ -70,7 +70,7 @@ export default function ComoFuncionaPage() {
         <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
           <p className="leading-relaxed text-brand-gray-urban">
             O Chuvarada cruza dados públicos disponibilizados pelo governo para estimar, em tempo
-            real, o risco de alagamento por bairro nas cidades do Nordeste. Nosso modelo não é
+            real, o risco de alagamento por bairro em cidades de 16 estados brasileiros. Nosso modelo não é
             perfeito — nenhum é — mas é transparente, honesto e atualizado a cada hora. Use
             como apoio para suas decisões. Não substitui alertas oficiais da Defesa Civil.
           </p>

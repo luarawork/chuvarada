@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Chuvarada",
-  description: "Mapa de risco de alagamento em tempo real para o Nordeste",
+  description: "Mapa de risco de alagamento em tempo real no Brasil",
   manifest: "/manifest.json",
 };
 

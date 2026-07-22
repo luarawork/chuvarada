@@ -1,7 +1,7 @@
 {
   "name": "Chuvarada",
   "short_name": "Chuvarada",
-  "description": "Mapa de risco de alagamento em tempo real para o Nordeste",
+  "description": "Mapa de risco de alagamento em tempo real no Brasil",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a3a5c",
