@@ -398,7 +398,7 @@ app/                          Rotas Next.js (App Router)
 └── page.tsx                        Página principal (mapa)
 
 components/
-├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, EmptyStateLayer, LocationButton
+├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, EmptyStateLayer
 ├── panel/                        DetailPanel, ScoreBreakdown, ForecastStrip, HistoryChart
 ├── ui/                            AlertCard, CityHeader, MapLegend, InfoButton/Modal, WeatherIcons etc.
 └── how-it-works/                    RiskDiagram, VariableCard, SourcesList (usados em /como-funciona)
@@ -416,7 +416,7 @@ lib/                             Integrações e motor de risco
 ├── neighborhoodName.ts                       Lógica de nome real vs. fallback
 └── metricInfo.ts                               Textos explicativos das métricas (botões de "?")
 
-hooks/                           useAuth, useFavorites, useForecast, useMap, useRealtime, useRisk, useLocation, useIsDesktop
+hooks/                           useAuth, useFavorites, useForecast, useMap, useRealtime, useRisk, useIsDesktop
 
 scripts/                         Pré-processamento Python + upload + diagnósticos
 ├── process_neighborhoods.py / process_state_neighborhoods.py    Setores censitários → polígonos de bairro

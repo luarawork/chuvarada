@@ -51,24 +51,6 @@ export function neighborhoodsInBounds(
   });
 }
 
-// Encontra o bairro cujo polígono contém o ponto do usuário (localização por GPS).
-export function findNeighborhoodAtPoint(
-  neighborhoods: Neighborhood[],
-  lat: number,
-  lng: number
-): Neighborhood | null {
-  const point = turf.point([lng, lat]);
-  for (const n of neighborhoods) {
-    const geometry = n.geometry as GeoJSON.Geometry;
-    if (geometry.type === "Polygon" || geometry.type === "MultiPolygon") {
-      if (turf.booleanPointInPolygon(point, geometry as GeoJSON.Polygon | GeoJSON.MultiPolygon)) {
-        return n;
-      }
-    }
-  }
-  return null;
-}
-
 export function distanceKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   return turf.distance(turf.point([lng1, lat1]), turf.point([lng2, lat2]), { units: "kilometers" });
 }

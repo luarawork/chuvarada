@@ -3,11 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import * as turf from "@turf/turf";
-import { motion, AnimatePresence } from "framer-motion";
 import { MapContainer } from "@/components/map/MapContainer";
 import { NeighborhoodLayer } from "@/components/map/NeighborhoodLayer";
 import { CityMarkerLayer } from "@/components/map/CityMarkerLayer";
-import { LocationButton } from "@/components/map/LocationButton";
 import { EmptyStateLayer } from "@/components/map/EmptyStateLayer";
 import { LoadingMap } from "@/components/ui/LoadingMap";
 import { CityHeader } from "@/components/ui/CityHeader";
@@ -16,13 +14,11 @@ import { ProfileButton } from "@/components/ui/ProfileButton";
 import { MapLegend } from "@/components/ui/MapLegend";
 import { DetailPanel } from "@/components/panel/DetailPanel";
 import { useMap, type MapBounds } from "@/hooks/useMap";
-import { useLocation } from "@/hooks/useLocation";
 import { useRealtime } from "@/hooks/useRealtime";
 import { useRisk } from "@/hooks/useRisk";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/lib/supabase";
-import { findNeighborhoodAtPoint } from "@/lib/geojson";
 import type { City, CitySummary, Neighborhood, RiskLevel, RiskScore } from "@/types";
 
 // Abaixo desse zoom o mapa mostra pontos por cidade (CityMarkerLayer) em
@@ -118,7 +114,6 @@ async function fetchCitiesSummaryForBounds(bounds: MapBounds): Promise<CitySumma
 
 export default function HomePage() {
   const { map, bounds, zoom, handleMapReady, flyTo } = useMap();
-  const location = useLocation();
   const { user } = useAuth();
   const { orderedIds: favoriteIds, loading: favoritesLoading } = useFavorites();
   const autoOpenedRef = useRef(false);
@@ -139,7 +134,6 @@ export default function HomePage() {
   const [latestScores, setLatestScores] = useState<Record<string, RiskScore>>({});
   const [citySummaries, setCitySummaries] = useState<CitySummary[]>([]);
   const [selected, setSelected] = useState<Neighborhood | null>(null);
-  const [showLocationBanner, setShowLocationBanner] = useState(false);
   const [citiesLoaded, setCitiesLoaded] = useState(false);
   const [viewportLoadedOnce, setViewportLoadedOnce] = useState(false);
   const [citySummaryLoadedOnce, setCitySummaryLoadedOnce] = useState(false);
@@ -244,11 +238,6 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowLocationBanner(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
     setLatestScores((prev) => mergeNewerScores(prev, realtimeUpdates));
   }, [realtimeUpdates]);
 
@@ -257,18 +246,6 @@ export default function HomePage() {
     for (const [id, score] of Object.entries(latestScores)) map[id] = score.level;
     return map;
   }, [latestScores]);
-
-  function handleLocationRequest() {
-    setShowLocationBanner(false);
-    location.requestLocation();
-  }
-
-  useEffect(() => {
-    if (location.status !== "granted" || location.lat === null || location.lng === null) return;
-    flyTo(location.lat, location.lng, 14);
-    const nearby = findNeighborhoodAtPoint(neighborhoods, location.lat, location.lng);
-    if (nearby) setSelected(nearby);
-  }, [location.status, location.lat, location.lng, neighborhoods, flyTo]);
 
   // Abre direto num bairro específico ao chegar via link da página de
   // favoritos (?bairro=<id>). Roda só no mount (deps: []) -- não pode
@@ -385,8 +362,6 @@ export default function HomePage() {
 
       <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
 
-      <LocationButton onClick={handleLocationRequest} loading={location.status === "requesting"} />
-
       {!selected && (
         <AlertCard
           level={overallLevel}
@@ -426,41 +401,6 @@ export default function HomePage() {
       >
         Como funciona
       </Link>
-
-      <AnimatePresence>
-        {showLocationBanner && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            className="pointer-events-auto absolute bottom-60 left-4 right-4 z-[1050] flex items-center justify-between gap-3 rounded-xl border px-4 py-3 shadow-xl backdrop-blur md:bottom-20 md:left-1/2 md:right-auto md:w-[420px] md:-translate-x-1/2"
-            style={{
-              backgroundColor: "rgba(13, 27, 42, 0.95)",
-              borderColor: "rgba(46, 125, 184, 0.3)",
-            }}
-          >
-            <span className="text-sm" style={{ color: "#f0f4f8" }}>
-              Ver risco na minha localização
-            </span>
-            <div className="flex shrink-0 gap-2">
-              <button
-                onClick={() => setShowLocationBanner(false)}
-                className="rounded-lg px-3 py-1.5 text-xs transition hover:text-[#f0f4f8]"
-                style={{ color: "#a8d4f0" }}
-              >
-                Agora não
-              </button>
-              <button
-                onClick={handleLocationRequest}
-                className="rounded-lg border px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#1a3a5c]"
-                style={{ backgroundColor: "#2e7db8", borderColor: "#2e7db8" }}
-              >
-                Permitir
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <DetailPanel
         neighborhood={selected}
