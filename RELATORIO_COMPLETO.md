@@ -43,41 +43,54 @@ O Chuvarada se posiciona como **complemento** à informação pública, não com
 | Nível | Cidades | O que significa |
 |---|---:|---|
 | `full` | 3 | Salvador (BA), Recife (PE), Natal (RN) — bairro real + hidrografia municipal refinada |
-| `partial` | 163 | Cidades com hidrografia local/regional adicional (combinada via `max()` com a BHO nacional, nunca substituindo) OU shapefile municipal de bairro real obtido e integrado, sem o refinamento completo das 3 `full` |
-| `minimal` | 4.487 | Modelo baseado em clima, terreno e hidrografia nacional (BHO), sem refinamento local adicional |
+| `partial` | 162 | Cidades com hidrografia local/regional adicional real e integrada (combinada via `max()` com a BHO nacional, nunca substituindo), sem o refinamento completo das 3 `full` |
+| `minimal` | 4.488 | Modelo baseado em clima, terreno e hidrografia nacional (BHO), sem refinamento local adicional |
 
 Revisado em 21/07/2026: as 91 cidades `partial` originais exigiam ser
 costeira **e** ter shapefile de bairro real ao mesmo tempo — um critério
-que deixava de fora cidades sem litoral com refinamento real. Duas
-correções aplicadas com evidência concreta e documentada (não apenas
+que deixava de fora cidades sem litoral com refinamento real. Uma
+correção aplicada com evidência concreta e documentada (não apenas
 `hydro_proximity` alto, que se mostrou um sinal enganoso — ver nota
 abaixo):
 - **Todos os 71 municípios de Sergipe** que ainda estavam em `minimal`
   passaram a `partial`: têm hidrografia SERhidro integrada via
   `process_hydro_sergipe.py` (estado inteiro, não só Aracaju), refinamento
   real além da BHO nacional que o resto do país usa.
-- **Teresina (PI)** passou a `partial`: tem shapefile municipal de bairro
-  real integrado (123 bairros, 100% `name_source = 'bairro'`), igual
-  Aracaju/MapAju — só nunca tinha batido no critério antigo por não ser
-  costeira.
+
+**Correção sobre correção**: Teresina (PI) tinha sido promovida a
+`partial` numa primeira passada desta mesma revisão, com a justificativa
+de "shapefile municipal de bairro real integrado" — **isso estava
+errado**. A seção 9 deste mesmo relatório já documentava (linha ~350,
+sessão anterior) que a tentativa de obter o shapefile municipal de
+Teresina foi bloqueada por WAF/JS, ou seja, nunca foi integrado nenhum
+dado municipal específico. Os 123 bairros de Teresina com
+`name_source='bairro'` vêm do Censo 2022 puro — mesma categoria dos 384
+municípios abaixo, não um caso de processamento local dedicado.
+Revertido para `minimal`.
 
 **Descoberta que ficou de fora desta atualização, de propósito**: uma
 varredura por "≥80% dos bairros com `name_source = 'bairro'`" (em vez de
 hidrografia) encontra **384 municípios** hoje classificados como
-`minimal` espalhados por quase todo o país (SC, RS, MG, SP, PR, PI, PE...).
-Isso NÃO significa que esses municípios tiveram processamento local
-dedicado — reflete que o próprio Censo 2022 do IBGE já vem com nome de
-bairro real na maioria dos municípios brasileiros (a exceção documentada
-é justamente cidades como São Paulo/Campinas/Sorocaba, que só têm
-distrito). Reclassificar esses 384 pra `partial` misturaria "o Censo
-happened to ser granular aqui" com "fizemos trabalho extra aqui", que são
-afirmações diferentes — por isso não foi aplicado sem antes alinhar com o
-time se `data_level` deve capturar as duas coisas ou só a segunda.
+`minimal` espalhados por quase todo o país (SC, RS, MG, SP, PR, PI, PE...,
+incluindo Teresina depois da correção acima). Isso NÃO significa que
+esses municípios tiveram processamento local dedicado — reflete que o
+próprio Censo 2022 do IBGE já vem com nome de bairro real na maioria dos
+municípios brasileiros (a exceção documentada é justamente cidades como
+São Paulo/Campinas/Sorocaba, que só têm distrito). Foram mantidos em
+`data_level='minimal'` porque a granularidade de bairro por si só não
+justifica upgrade — o critério é qualidade dos dados de risco (hidrografia
+local, maré), não nomenclatura. Reclassificar esses 384 pra `partial`
+misturaria "o Censo happened to ser granular aqui" com "fizemos trabalho
+extra aqui", que são afirmações diferentes — por isso não foi aplicado
+sem antes alinhar com o time se `data_level` deve capturar as duas coisas
+ou só a segunda.
 
-Também confirmado nesta revisão: a hidrografia local da Paraíba (AESA) e
-do Ceará (IPECE) **não foram integradas** ao cálculo (AESA foi baixada mas
-nunca processada; IPECE nunca foi obtida, geoportal inacessível) — nenhum
-dos dois estados foi promovido a `partial` por esse motivo, apesar de
+Também confirmado nesta revisão: a hidrografia local da Paraíba (AESA) foi
+**baixada mas nunca gerou `UPDATE` em `hydro_proximity`** (o cruzamento
+com a BHO nacional, que já cobre 100% de PB, não foi concluído), e a do
+Ceará (IPECE) **nunca foi obtida** — o geoportal ficou inacessível durante
+toda a tentativa. Nenhum dos dois estados foi promovido a `partial` por
+esse motivo, apesar de
 terem sido cogitados como candidatos.
 
 ### Por estado
