@@ -51,19 +51,29 @@ const STATE_FILES = {
 // ver). O código certo de Ilhéus é 40145. Porto Seguro não tem estação
 // cadastrada no CPTEC — fica sem tide_code (fallback neutro, igual outras
 // cidades sem estação).
+//
+// Chave é "Nome::UF", não só o nome — corrigido em 2026-07-21 depois de
+// descobrir que "Candeias" (chave sem estado) atribuiu por engano o
+// tide_code do Porto de Aratu-BA também a Candeias-MG (município do
+// interior de Minas Gerais, sem nenhum bairro costeiro) -- as duas cidades
+// bateram na mesma chave de objeto durante o mesmo upload. Outros nomes
+// duplicados entre estados (Anchieta ES/SC, Areia Branca RN/SE, São
+// Gonçalo do Amarante CE/RN, São Sebastião AL/SP) só não corromperam por
+// sorte de ordem de processamento -- essa chave qualificada evita o
+// problema de vez, não só o caso já encontrado.
 const TIDE_CODE_OVERRIDES = {
-  "Ilhéus": "40145", // Porto de Ilhéus-BA
-  "Madre de Deus": "40118", // Porto de Madre de Deus-BA
-  Candeias: "40135", // Porto de Aratu-BA (fica no território de Candeias)
-  Ipojuca: "30685", // Porto de Suape-PE (fica majoritariamente em Ipojuca)
-  "Areia Branca": "30407", // Porto de Areia Branca-Termisa-RN
-  Guamaré: "30443", // Porto de Guamaré-RN
-  Macau: "30445", // Porto de Macau-RN
-  Cabedelo: "30540", // Porto de Cabedelo-PB
-  "Tutóia": "30140", // Porto de Tutóia-MA
-  "Luís Correia": "30225", // Porto de Luís Correia-PI
-  "Barra dos Coqueiros": "30810", // Terminal Marítimo Inácio Barbosa-SE
-  "São Gonçalo do Amarante": "30337", // Terminal Portuário de Pecém-CE
+  "Ilhéus::BA": "40145", // Porto de Ilhéus-BA
+  "Madre de Deus::BA": "40118", // Porto de Madre de Deus-BA
+  "Candeias::BA": "40135", // Porto de Aratu-BA (fica no território de Candeias)
+  "Ipojuca::PE": "30685", // Porto de Suape-PE (fica majoritariamente em Ipojuca)
+  "Areia Branca::RN": "30407", // Porto de Areia Branca-Termisa-RN
+  "Guamaré::RN": "30443", // Porto de Guamaré-RN
+  "Macau::RN": "30445", // Porto de Macau-RN
+  "Cabedelo::PB": "30540", // Porto de Cabedelo-PB
+  "Tutóia::MA": "30140", // Porto de Tutóia-MA
+  "Luís Correia::PI": "30225", // Porto de Luís Correia-PI
+  "Barra dos Coqueiros::SE": "30810", // Terminal Marítimo Inácio Barbosa-SE
+  "São Gonçalo do Amarante::CE": "30337", // Terminal Portuário de Pecém-CE
   // Itaqui (30110), Terminal da Alumar (30114) e Ponta da Madeira (30149)
   // também aparecem na lista do CPTEC, mas os 3 ficam dentro do território
   // de São Luís (cidade já cadastrada) — não há município novo pra atribuir.
@@ -72,13 +82,13 @@ const TIDE_CODE_OVERRIDES = {
   // http://ondas.cptec.inpe.br/~rondas/mares/index.php (mesma fonte usada
   // acima), cruzando cada nome de porto/terminal com o município real do
   // shapefile IBGE que o contém.
-  Santos: "50225", // Porto de Santos-SP
-  "Rio de Janeiro": "50140", // Porto do Rio de Janeiro-RJ
-  Vitória: "40252", // Porto de Vitória-ES
-  Paranaguá: "60132", // Porto de Paranaguá-PR (há também 60130/60135, códigos
+  "Santos::SP": "50225", // Porto de Santos-SP
+  "Rio de Janeiro::RJ": "50140", // Porto do Rio de Janeiro-RJ
+  "Vitória::ES": "40252", // Porto de Vitória-ES
+  "Paranaguá::PR": "60132", // Porto de Paranaguá-PR (há também 60130/60135, códigos
   // de barra/canal do mesmo porto -- 60132 é a estação do porto em si)
-  Florianópolis: "60245", // Porto de Florianópolis-SC
-  "Rio Grande": "60370", // Porto do Rio Grande-RS
+  "Florianópolis::SC": "60245", // Porto de Florianópolis-SC
+  "Rio Grande::RS": "60370", // Porto do Rio Grande-RS
 
   // Rechecagem completa do catálogo Sul+Sudeste (diagnóstico de cobertura,
   // 21/07/2026) -- 12 estações adicionais confirmadas por pesquisa (nome do
@@ -86,18 +96,18 @@ const TIDE_CODE_OVERRIDES = {
   // UPDATE no banco (municípios já existiam); registradas aqui só como fonte
   // de verdade documentada -- não têm efeito num re-upload (município já
   // existente é pulado, ver loop principal acima).
-  Aracruz: "40240", // Terminal de Barra do Riacho-ES
-  Anchieta: "40280", // Terminal da Ponta do Ubu-ES (Samarco)
-  Macaé: "50116", // Terminal Marítimo de Imbetiba-RJ
-  Itaguaí: "50145", // Porto de Itaguaí-RJ
-  "Arraial do Cabo": "50156", // Porto do Forno-RJ
-  Mangaratiba: "50165", // Terminal da Ilha Guaíba-RJ (Vale)
-  "Angra dos Reis": "50170", // Porto de Angra dos Reis-RJ
-  "São Sebastião": "50210", // Porto de São Sebastião-SP
-  Antonina: "60139", // Terminal Portuário da Ponta do Félix-PR
-  "São Francisco do Sul": "60220", // Porto de São Francisco do Sul-SC
-  Itajaí: "60235", // Porto de Itajaí-SC
-  Imbituba: "60250", // Porto de Imbituba-SC
+  "Aracruz::ES": "40240", // Terminal de Barra do Riacho-ES
+  "Anchieta::ES": "40280", // Terminal da Ponta do Ubu-ES (Samarco)
+  "Macaé::RJ": "50116", // Terminal Marítimo de Imbetiba-RJ
+  "Itaguaí::RJ": "50145", // Porto de Itaguaí-RJ
+  "Arraial do Cabo::RJ": "50156", // Porto do Forno-RJ
+  "Mangaratiba::RJ": "50165", // Terminal da Ilha Guaíba-RJ (Vale)
+  "Angra dos Reis::RJ": "50170", // Porto de Angra dos Reis-RJ
+  "São Sebastião::SP": "50210", // Porto de São Sebastião-SP
+  "Antonina::PR": "60139", // Terminal Portuário da Ponta do Félix-PR
+  "São Francisco do Sul::SC": "60220", // Porto de São Francisco do Sul-SC
+  "Itajaí::SC": "60235", // Porto de Itajaí-SC
+  "Imbituba::SC": "60250", // Porto de Imbituba-SC
   // Porto do Tubarão-ES (40255) fica dentro do território de Vitória (já
   // tem código, 40252) -- sem município novo pra atribuir.
 };
@@ -164,7 +174,7 @@ async function main() {
         const [lng, lat] = turf.centroid(collection).geometry.coordinates;
 
         const dataLevel = computeDataLevel(municipio);
-        const tideCode = TIDE_CODE_OVERRIDES[municipio.name] ?? null;
+        const tideCode = TIDE_CODE_OVERRIDES[`${municipio.name}::${stateUpper}`] ?? null;
         if (tideCode) stats.tide_codes_assigned.push(municipio.name);
 
         const { rows: inserted } = await client.query(
