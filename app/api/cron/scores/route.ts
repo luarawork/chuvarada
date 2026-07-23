@@ -1,0 +1,129 @@
+import { NextRequest, NextResponse } from "next/server";
+import type { Pool } from "pg";
+import { getDb } from "@/lib/db";
+import { getWeatherFromCacheOnly } from "@/lib/weather";
+import { getMergeData } from "@/lib/merge";
+import { getTideLevelCacheOnly } from "@/lib/cptec";
+import { calculateScore } from "@/lib/score";
+import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
+import {
+  runWithConcurrency,
+  mapWithConcurrency,
+  insertRiskScoresBatch,
+  syncRiskEventsBatch,
+  upsertCityRiskSummary,
+  type ScoredRow,
+} from "@/lib/riskScoring";
+import type { City, Neighborhood } from "@/types";
+
+// Cron A -- recalcula risk_scores pra TODOS os bairros a partir do que já
+// está em weather_cache/merge_cache, sem nenhuma chamada externa (ver
+// scripts/diagnostico_cron_arquitetura.md sobre o incidente de rate-limit
+// em cascata de 23/07/2026 que motivou separar isso do Cron B, que é quem
+// de fato mantém weather_cache atualizado). Meta: < 5min pra base nacional
+// inteira -- só leitura de cache + cálculo + insert em lote, sem esperar
+// nenhuma API de clima responder.
+const CITY_CONCURRENCY = 8;
+const CELL_CONCURRENCY = 4;
+
+const LOCK_KEY = "scores_cron_running";
+const LOCK_MAX_AGE_MINUTES = 10;
+
+async function isAlreadyRunning(db: Pool): Promise<boolean> {
+  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [LOCK_KEY]);
+  const lockRow = rows[0];
+  if (!lockRow) return false;
+  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
+  return ageMinutes < LOCK_MAX_AGE_MINUTES;
+}
+
+async function acquireLock(db: Pool): Promise<void> {
+  await db.query(
+    `insert into system_locks (key, locked_at, locked_by) values ($1, now(), 'cron_scores')
+     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
+    [LOCK_KEY]
+  );
+}
+
+async function releaseLock(db: Pool): Promise<void> {
+  await db.query(`delete from system_locks where key = $1`, [LOCK_KEY]);
+}
+
+export async function GET(req: NextRequest) {
+  const authHeader = req.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
+  const start = Date.now();
+  const db = getDb();
+
+  if (await isAlreadyRunning(db)) {
+    return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 10min)" });
+  }
+
+  await acquireLock(db);
+
+  try {
+    const { rows: cities } = await db.query<City>("select * from cities where active = true");
+    const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
+
+    const neighborhoodsByCity = new Map<string, Neighborhood[]>();
+    for (const n of allNeighborhoods) {
+      if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
+      neighborhoodsByCity.get(n.city_id)!.push(n);
+    }
+
+    let totalScored = 0;
+    let citiesWithErrors = 0;
+
+    await runWithConcurrency(cities, CITY_CONCURRENCY, async (city) => {
+      try {
+        totalScored += await scoreCity(db, city, neighborhoodsByCity.get(city.id) ?? []);
+      } catch (err) {
+        citiesWithErrors++;
+        console.error(`[cron/scores] Erro ao processar ${city.name}:`, err);
+      }
+    });
+
+    return NextResponse.json({
+      ok: true,
+      total_cities: cities.length,
+      total_neighborhoods_scored: totalScored,
+      cities_with_errors: citiesWithErrors,
+      duration_ms: Date.now() - start,
+      at: new Date().toISOString(),
+    });
+  } finally {
+    await releaseLock(db);
+  }
+}
+
+async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
+  if (neighborhoods.length === 0) return 0;
+
+  const tide = await getTideLevelCacheOnly(city.id, city.tide_code);
+  const cells = groupNeighborhoodsByCell(city, neighborhoods);
+
+  const weatherByCell = await mapWithConcurrency(cells, CELL_CONCURRENCY, async (cell) => {
+    const merge = await getMergeData(cell.lat, cell.lng).catch(() => null);
+    return getWeatherFromCacheOnly(city.id, cell.lat, cell.lng, merge);
+  });
+
+  const tideLevelForScore = city.tide_code ? tide.level : null;
+
+  const scoredRows: ScoredRow[] = [];
+  for (let i = 0; i < cells.length; i++) {
+    const weather = weatherByCell[i];
+    for (const neighborhood of cells[i].neighborhoods) {
+      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at);
+      scoredRows.push({ neighborhood, weather, result });
+    }
+  }
+
+  await insertRiskScoresBatch(db, scoredRows, tide.level);
+  await syncRiskEventsBatch(db, scoredRows);
+  await upsertCityRiskSummary(db, city, scoredRows);
+
+  return scoredRows.length;
+}

@@ -270,18 +270,25 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
     `&hourly=temperature_2m,precipitation,weather_code,wind_speed_10m,relative_humidity_2m,surface_pressure,precipitation_probability` +
     `&past_days=3&forecast_days=2&timezone=UTC`;
 
-  for (let attempt = 0; attempt <= 5; attempt++) {
+  // Backoff reduzido de 6 tentativas/62s de espera total (2s,4s,8s,16s,32s)
+  // pra 2 tentativas/1s (achado do teste do Cron B de 23/07/2026: com o
+  // Open-Meteo já limitando taxa de forma sustentada -- não uma rajada
+  // momentânea --, o backoff longo original fazia CADA requisição gastar
+  // até ~1min inteira só retentando antes de cair pro fallback da
+  // WeatherAPI, que sempre respondia. 157 requisições nessas condições
+  // levaram o lote inteiro do Cron B a 17min -- ver
+  // scripts/diagnostico_cron_arquitetura.md). Mantém uma retentativa curta
+  // (não zero) pra absorver uma rajada breve de verdade, mas falha rápido
+  // pro fallback quando o limite é persistente.
+  for (let attempt = 0; attempt <= 1; attempt++) {
     if (openMeteoLimiter.isExhausted()) throw new RateLimitExceededError();
     openMeteoLimiter.increment();
     await throttleOpenMeteo();
     const res = await fetch(url);
     if (res.ok) return res.json();
 
-    // 429 = limite de taxa do Open-Meteo (gratuito, sem chave). Espera com
-    // backoff exponencial (2s, 4s, 8s, 16s, 32s) e tenta de novo em vez de
-    // derrubar a cidade inteira por uma rajada momentânea.
-    if (res.status === 429 && attempt < 5) {
-      await new Promise((resolve) => setTimeout(resolve, 2000 * 2 ** attempt));
+    if (res.status === 429 && attempt < 1) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       continue;
     }
     throw new Error(`Open-Meteo falhou: ${res.status}`);
@@ -412,6 +419,48 @@ export async function fetchForecastDisplay(lat: number, lng: number): Promise<Fo
   const result: ForecastResult = { current: currentSlot, next12h };
   forecastMemCache.set(cacheKey, { data: result, fetchedAt: Date.now() });
   return result;
+}
+
+// Versão cache-only de getWeatherForPoint -- usada pelo Cron A (recalcular
+// scores), que precisa terminar em poucos minutos pra toda a base nacional e
+// por isso nunca pode chamar Open-Meteo/WeatherAPI (essa é a causa raiz do
+// incidente de rate-limit em cascata de 23/07/2026: rodar o cálculo de score
+// e a busca de clima no mesmo ciclo faz TODA a base precisar de clima fresco
+// de uma vez quando o cache expira nacionalmente). Se não houver nenhuma
+// linha em weather_cache pra essa célula (cidade nova, ainda não visitada
+// pelo Cron B), devolve valores neutros em vez de travar ou chamar API --
+// a atualização de fato é responsabilidade exclusiva do Cron B
+// (scripts/... ver app/api/cron/weather/route.ts).
+export async function getWeatherFromCacheOnly(
+  cityId: string,
+  lat: number,
+  lng: number,
+  merge: MergeData | null
+): Promise<NormalizedWeather> {
+  const cell = gridCell(lat, lng);
+  const cached = await getCachedWeather(cityId, cell.lat, cell.lng);
+
+  if (cached) {
+    return buildFromCacheAndMerge(cached, merge);
+  }
+
+  const rain72hFromMerge = merge ? merge.rain_72h : 0;
+  const rainPeak3hFromMerge = merge ? merge.rain_peak_3h : 0;
+  const rainSourceFromMerge: RainSource = merge ? "merge_cptec" : "openmeteo";
+
+  return {
+    rain_1h: 0,
+    rain_3h: 0,
+    rain_72h: rain72hFromMerge,
+    rain_intensity: 0,
+    rain_peak_3h: rainPeak3hFromMerge,
+    rain_source: rainSourceFromMerge,
+    wind_speed: 0,
+    wind_direction: 0,
+    humidity: 50,
+    pressure: 1013,
+    pressure_trend: "stable",
+  };
 }
 
 // Busca o clima pra um ponto específico (não pra cidade inteira). Bairros

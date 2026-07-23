@@ -176,6 +176,16 @@ export async function getCurrentTideLevel(
     }
   }
 
+  return tideLevelFromCache(cache, cachedAt);
+}
+
+// Extraído de getCurrentTideLevel pra ser reaproveitado pelo Cron A
+// (recalcular scores): usa só o que já está em tide_cache, sem nunca tentar
+// buscar/atualizar a tábua (isso é trabalho do Cron B/getCurrentTideLevel).
+// Com o CPTEC confirmadamente fora do ar, o resultado na prática é sempre
+// neutro (0.5, estimated=true) de qualquer forma -- ver comentário no topo
+// do arquivo.
+export function tideLevelFromCache(cache: TideCacheData | null, cachedAt: string | null): TideResult {
   if (!cache || cache.days.length === 0) {
     return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
   }
@@ -192,6 +202,17 @@ export async function getCurrentTideLevel(
   const range = cache.max_level - cache.min_level || 1;
   const normalized = (closest.level - cache.min_level) / range;
   return { level: clamp01(normalized), estimated: false, cached_at: cachedAt };
+}
+
+// Versão cache-only de getCurrentTideLevel -- usada pelo Cron A, que não
+// pode fazer nenhuma chamada externa (a atualização da tábua, quando o
+// CPTEC voltar a funcionar, é responsabilidade do Cron B).
+export async function getTideLevelCacheOnly(cityId: string, tideCode: string | null): Promise<TideResult> {
+  if (!tideCode) {
+    return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
+  }
+  const cachedRow = await getCachedTide(cityId);
+  return tideLevelFromCache(cachedRow?.data ?? null, cachedRow?.cached_at ?? null);
 }
 
 function formatDate(date: Date): string {

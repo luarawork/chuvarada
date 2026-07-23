@@ -1,13 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import * as turf from "@turf/turf";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import { calculateScore } from "@/lib/score";
-import { gridCell, gridCellKey } from "@/lib/grid";
-import type { City, Neighborhood, NormalizedWeather } from "@/types";
+import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
+import {
+  runWithConcurrency,
+  mapWithConcurrency,
+  insertRiskScoresBatch,
+  syncRiskEventsBatch,
+  upsertCityRiskSummary,
+  type ScoredRow,
+} from "@/lib/riskScoring";
+import type { City, Neighborhood } from "@/types";
 
+// ATENÇÃO (23/07/2026): este cron está sendo substituído por dois cronos
+// independentes -- app/api/cron/scores (recalcula a partir do cache, rápido)
+// e app/api/cron/weather (atualiza weather_cache aos poucos, sem nunca
+// processar a base inteira de uma vez). Motivo: rodar busca de clima E
+// cálculo de score no mesmo ciclo faz a base INTEIRA precisar de clima
+// fresco de uma vez sempre que o weather_cache expira nacionalmente --
+// nesse cenário o Open-Meteo passa a limitar taxa (HTTP 429) em praticamente
+// toda célula, tornando o ciclo inviável (~900 scores em 40min pra 28.483
+// bairros, ver scripts/diagnostico_cron_arquitetura.md). Mantido por ora
+// (ver plano de depreciação no mesmo diagnóstico) só como fallback manual --
+// os workflows do GitHub Actions já usam os 2 cronos novos.
+//
 // Cidades processadas em paralelo (limitado pelo max do pool em lib/db.ts).
 // Com ~1800 cidades ativas (expansão pro Nordeste inteiro), processar uma
 // cidade de cada vez — como era antes — levava horas: cada bairro fazia 2-3
@@ -20,18 +39,6 @@ import type { City, Neighborhood, NormalizedWeather } from "@/types";
 // tempo e batia no limite de taxa (HTTP 429) da API gratuita.
 const CITY_CONCURRENCY = 4;
 const CELL_CONCURRENCY = 4;
-
-// Antes da expansão nacional: o grid de 0,1° sozinho não reduzia o piso de
-// células como esperado (medido em scripts/relatorio_testes_pos_correcao.md
-// atualizado -- só 14% de queda, não os ~4x esperados de dobrar o lado da
-// célula), porque a maioria das ~1.794 cidades ativas tem poucos bairros
-// espalhados por um município inteiro e já caía em células diferentes
-// mesmo sendo a mesma cidade pequena. Cidades com poucos bairros (a
-// maioria) agora usam 1 célula única centrada no centro da cidade,
-// ignorando onde cada bairro fica dentro dela -- só cidades grandes o
-// bastante pra ter variação real de chuva internamente (Salvador, Recife,
-// Natal etc.) continuam com sub-grade por centróide de bairro.
-const LARGE_CITY_THRESHOLD = 10;
 
 // Lock de execução -- protege contra 2 disparos do cron rodando ao mesmo
 // tempo (ex: disparo manual enquanto o agendado já está no meio do ciclo,
@@ -119,80 +126,14 @@ export async function GET(req: NextRequest) {
   }
 }
 
-async function runWithConcurrency<T>(
-  items: T[],
-  limit: number,
-  worker: (item: T) => Promise<void>
-): Promise<void> {
-  let index = 0;
-  async function next(): Promise<void> {
-    const current = index++;
-    if (current >= items.length) return;
-    await worker(items[current]);
-    return next();
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, () => next()));
-}
-
-async function mapWithConcurrency<T, R>(
-  items: T[],
-  limit: number,
-  worker: (item: T) => Promise<R>
-): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let index = 0;
-  async function next(): Promise<void> {
-    const current = index++;
-    if (current >= items.length) return;
-    results[current] = await worker(items[current]);
-    return next();
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, () => next()));
-  return results;
-}
-
-interface ScoredRow {
-  neighborhood: Neighborhood;
-  weather: NormalizedWeather;
-  result: ReturnType<typeof calculateScore>;
-}
-
 async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
   const tide = await getCurrentTideLevel(city.id, city.tide_code);
-
-  // Bairros próximos caem na mesma célula de ~10km e reaproveitam o mesmo
-  // clima — em vez de um único ponto (centro da cidade) pra todos os
-  // bairros, o que fazia Salvador/Natal inteiras mostrarem a mesma chuva
-  // independente de onde o bairro fica. Cidades pequenas (<= LARGE_CITY_THRESHOLD
-  // bairros, a maioria) usam direto o centro da cidade como célula única --
-  // nelas não há variação de chuva relevante entre bairros pra justificar
-  // sub-grade, e usar sempre o mesmo ponto colapsa a cidade inteira numa
-  // única chamada de clima.
-  const useSubGrid = neighborhoods.length > LARGE_CITY_THRESHOLD;
-  const cellGroups = new Map<string, { lat: number; lng: number; neighborhoods: Neighborhood[] }>();
-  for (const neighborhood of neighborhoods) {
-    let lat: number;
-    let lng: number;
-    if (useSubGrid) {
-      const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
-      [lng, lat] = centroid.geometry.coordinates;
-    } else {
-      lat = city.lat;
-      lng = city.lng;
-    }
-    const cell = gridCell(lat, lng);
-    const key = gridCellKey(cell);
-
-    if (!cellGroups.has(key)) {
-      cellGroups.set(key, { lat: cell.lat, lng: cell.lng, neighborhoods: [] });
-    }
-    cellGroups.get(key)!.neighborhoods.push(neighborhood);
-  }
+  const cells = groupNeighborhoodsByCell(city, neighborhoods);
 
   // Se a cidade não tem bairro nenhum ainda (ex: São Luís), ainda buscamos
   // o clima do centro da cidade pra manter weather_cache populado (usado em
   // telas que mostram o clima da cidade sem bairro).
-  if (cellGroups.size === 0) {
+  if (cells.length === 0) {
     await getWeatherForPoint(city.id, city.lat, city.lng);
     return 0;
   }
@@ -200,7 +141,6 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
   // Busca o clima das células em paralelo (limitado) — antes era sequencial
   // e cidades com muitas células (Salvador tem 19) levavam dezenas de
   // segundos só nessa parte.
-  const cells = Array.from(cellGroups.values());
   const weatherByCell = await mapWithConcurrency(cells, CELL_CONCURRENCY, (cell) =>
     getWeatherForPoint(city.id, cell.lat, cell.lng)
   );
@@ -225,130 +165,4 @@ async function processCity(db: Pool, city: City, neighborhoods: Neighborhood[]):
   await upsertCityRiskSummary(db, city, scoredRows);
 
   return scoredRows.length;
-}
-
-// Atualiza o agregado por cidade usado pelo modo "pontos" do mapa no
-// zoom-out (city_risk_summary, ver migração 022) direto a partir de
-// `scoredRows` -- já temos o score/level de CADA bairro da cidade em
-// memória aqui, então isso não é uma query nova nenhuma, só um upsert de 1
-// linha. Ver comentário da migração: calcular esse agregado ao vivo por
-// request (LATERAL ou merge join sobre risk_scores inteira) media 1-3s pra
-// poucas centenas de cidades -- rápido demais de repetir a cada
-// cron, devagar demais pra manter o mapa interativo.
-async function upsertCityRiskSummary(db: Pool, city: City, rows: ScoredRow[]): Promise<void> {
-  if (rows.length === 0) return;
-
-  const maxScore = Math.max(...rows.map((r) => r.result.score));
-  const hasCritical = rows.some((r) => r.result.level === "critical");
-  const hasAttention = rows.some((r) => r.result.level === "attention");
-  const worstLevel = hasCritical ? "critical" : hasAttention ? "attention" : "normal";
-  const criticalCount = rows.filter((r) => r.result.level === "critical").length;
-  const attentionCount = rows.filter((r) => r.result.level === "attention").length;
-
-  await db.query(
-    `insert into city_risk_summary (
-       city_id, name, state, lat, lng, data_level,
-       max_score, worst_level, critical_count, attention_count, last_updated, refreshed_at
-     ) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, now(), now())
-     on conflict (city_id) do update set
-       name = excluded.name,
-       state = excluded.state,
-       lat = excluded.lat,
-       lng = excluded.lng,
-       data_level = excluded.data_level,
-       max_score = excluded.max_score,
-       worst_level = excluded.worst_level,
-       critical_count = excluded.critical_count,
-       attention_count = excluded.attention_count,
-       last_updated = excluded.last_updated,
-       refreshed_at = excluded.refreshed_at`,
-    [city.id, city.name, city.state, city.lat, city.lng, city.data_level, maxScore, worstLevel, criticalCount, attentionCount]
-  );
-}
-
-async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLevel: number): Promise<void> {
-  if (rows.length === 0) return;
-
-  const values: string[] = [];
-  const params: unknown[] = [];
-  rows.forEach(({ neighborhood, weather, result }, idx) => {
-    const base = idx * 17;
-    values.push(
-      `($${base + 1},$${base + 2},$${base + 3},$${base + 4},$${base + 5},$${base + 6},$${base + 7},` +
-        `$${base + 8},$${base + 9},$${base + 10},$${base + 11},$${base + 12},$${base + 13},$${base + 14},$${base + 15},$${base + 16},$${base + 17})`
-    );
-    params.push(
-      neighborhood.id,
-      result.score,
-      result.level,
-      weather.rain_1h,
-      weather.rain_72h,
-      weather.rain_intensity,
-      weather.rain_peak_3h,
-      weather.rain_source,
-      neighborhood.terrain_slope,
-      neighborhood.hydro_proximity,
-      tideLevel,
-      weather.wind_speed,
-      weather.wind_direction,
-      weather.humidity,
-      weather.pressure,
-      result.auto_critical,
-      result.auto_critical_reason
-    );
-  });
-
-  await db.query(
-    `insert into risk_scores (
-       neighborhood_id, score, level, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
-       terrain_slope, hydro_proximity, tide_level, wind_speed, wind_direction,
-       humidity, pressure, auto_critical, auto_critical_reason
-     ) values ${values.join(", ")}`,
-    params
-  );
-}
-
-async function syncRiskEventsBatch(db: Pool, rows: ScoredRow[]): Promise<void> {
-  if (rows.length === 0) return;
-
-  const neighborhoodIds = rows.map((r) => r.neighborhood.id);
-  const { rows: openEvents } = await db.query(
-    `select * from risk_events where neighborhood_id = any($1::uuid[]) and ended_at is null`,
-    [neighborhoodIds]
-  );
-  const openByNeighborhood = new Map(openEvents.map((e) => [e.neighborhood_id, e]));
-
-  const toInsert: { neighborhoodId: string; level: string; score: number }[] = [];
-  const toClose: string[] = [];
-
-  for (const { neighborhood, result } of rows) {
-    const openEvent = openByNeighborhood.get(neighborhood.id);
-    if (result.level === "critical") {
-      if (!openEvent) {
-        toInsert.push({ neighborhoodId: neighborhood.id, level: result.level, score: result.score });
-      } else if (result.score > (openEvent.peak_score ?? 0)) {
-        await db.query(`update risk_events set peak_score = $1 where id = $2`, [result.score, openEvent.id]);
-      }
-    } else if (openEvent) {
-      toClose.push(openEvent.id);
-    }
-  }
-
-  if (toInsert.length > 0) {
-    const values: string[] = [];
-    const params: unknown[] = [];
-    toInsert.forEach(({ neighborhoodId, level, score }, idx) => {
-      const base = idx * 3;
-      values.push(`($${base + 1}, $${base + 2}, $${base + 3})`);
-      params.push(neighborhoodId, level, score);
-    });
-    await db.query(
-      `insert into risk_events (neighborhood_id, level, peak_score) values ${values.join(", ")}`,
-      params
-    );
-  }
-
-  if (toClose.length > 0) {
-    await db.query(`update risk_events set ended_at = now() where id = any($1::uuid[])`, [toClose]);
-  }
 }
