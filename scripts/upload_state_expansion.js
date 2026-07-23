@@ -42,6 +42,21 @@ const STATE_FILES = {
   rj: { geojson: "neighborhoods_state_rj.geojson", manifest: "state_rj_municipios.json" },
   mg: { geojson: "neighborhoods_state_mg.geojson", manifest: "state_mg_municipios.json" },
   es: { geojson: "neighborhoods_state_es.geojson", manifest: "state_es_municipios.json" },
+
+  // Expansão Centro-Oeste + Norte (22/07/2026) -- cobertura nacional
+  // completa (27 estados). Igual Sul/Sudeste, nenhuma capital desses
+  // estados existia em `cities` antes desta expansão.
+  go: { geojson: "neighborhoods_state_go.geojson", manifest: "state_go_municipios.json" },
+  mt: { geojson: "neighborhoods_state_mt.geojson", manifest: "state_mt_municipios.json" },
+  ms: { geojson: "neighborhoods_state_ms.geojson", manifest: "state_ms_municipios.json" },
+  df: { geojson: "neighborhoods_state_df.geojson", manifest: "state_df_municipios.json" },
+  am: { geojson: "neighborhoods_state_am.geojson", manifest: "state_am_municipios.json" },
+  pa: { geojson: "neighborhoods_state_pa.geojson", manifest: "state_pa_municipios.json" },
+  rr: { geojson: "neighborhoods_state_rr.geojson", manifest: "state_rr_municipios.json" },
+  ap: { geojson: "neighborhoods_state_ap.geojson", manifest: "state_ap_municipios.json" },
+  ac: { geojson: "neighborhoods_state_ac.geojson", manifest: "state_ac_municipios.json" },
+  ro: { geojson: "neighborhoods_state_ro.geojson", manifest: "state_ro_municipios.json" },
+  to: { geojson: "neighborhoods_state_to.geojson", manifest: "state_to_municipios.json" },
 };
 
 // Estações de maré do CPTEC verificadas manualmente em
@@ -110,6 +125,29 @@ const TIDE_CODE_OVERRIDES = {
   "Imbituba::SC": "60250", // Porto de Imbituba-SC
   // Porto do Tubarão-ES (40255) fica dentro do território de Vitória (já
   // tem código, 40252) -- sem município novo pra atribuir.
+
+  // Norte (22/07/2026) -- catálogo do CPTEC verificado na mesma fonte.
+  // Único trecho de costa real da expansão CO+Norte é PA/AP (os demais 9
+  // estados novos não têm litoral).
+  "Belém::PA": "10520", // Porto de Belém-PA
+  "Barcarena::PA": "10566", // Porto de Vila do Conde-PA (distrito industrial de Barcarena)
+  "Breves::PA": "10572", // Trapiche de Breves-PA (Marajó)
+  "Salinópolis::PA": "20520", // Fundeadouro de Salinópolis-PA
+  "Curuçá::PA": "20535", // Ilha dos Guarás-PA (pesquisado: é Curuçá, não um município próprio)
+  // Ilha do Mosqueiro (10525) é um distrito da própria Belém, não um
+  // município separado -- sem entrada própria, já coberta por 10520.
+  "Santana::AP": "10615", // Porto de Santana-Icomi -- o catálogo do CPTEC rotula essa
+  // estação como "-AM" (Amazonas), mas é geograficamente Amapá: ICOMI
+  // (Indústria e Comércio de Minérios) operou a mina de manganês de Serra
+  // do Navio/AP e escoava pelo Porto de Santana, no município de
+  // Santana-AP (confirmado por pesquisa, não é erro nosso de digitação --
+  // é o próprio CPTEC que rotula errado a UF da estação).
+  //
+  // "Barra Norte do Rio Amazonas-Ponta do Céu" (10653) é uma baliza de
+  // navegação em alto-mar na foz do Amazonas, não o porto de uma cidade
+  // específica -- pesquisado, mas sem confiança suficiente pra atribuir a
+  // um único município (candidatos ambíguos: Oiapoque/Chaves/Afuá).
+  // Deixado sem tide_code, mesma lógica de "cidade a >80km de estação real".
 };
 
 function computeDataLevel(municipio) {

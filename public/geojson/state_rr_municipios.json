@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Alto Alegre",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Amajari",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista",
+    "state_code": "RR",
+    "neighborhood_count": 56,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bonfim",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cantá",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caracaraí",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Caroebe",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Iracema",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mucajaí",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Normandia",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacaraima",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rorainópolis",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Baliza",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Luiz",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uiramutã",
+    "state_code": "RR",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

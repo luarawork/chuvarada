@@ -1,0 +1,436 @@
+[
+  {
+    "name": "Alvarães",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Amaturá",
+    "state_code": "AM",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Anamã",
+    "state_code": "AM",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Anori",
+    "state_code": "AM",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Apuí",
+    "state_code": "AM",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Atalaia do Norte",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Autazes",
+    "state_code": "AM",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barcelos",
+    "state_code": "AM",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barreirinha",
+    "state_code": "AM",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Benjamin Constant",
+    "state_code": "AM",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Beruri",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Boa Vista do Ramos",
+    "state_code": "AM",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Boca do Acre",
+    "state_code": "AM",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Borba",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Caapiranga",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canutama",
+    "state_code": "AM",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carauari",
+    "state_code": "AM",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Careiro",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Careiro da Várzea",
+    "state_code": "AM",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Coari",
+    "state_code": "AM",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Codajás",
+    "state_code": "AM",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Eirunepé",
+    "state_code": "AM",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Envira",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Fonte Boa",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Guajará",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Humaitá",
+    "state_code": "AM",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ipixuna",
+    "state_code": "AM",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Iranduba",
+    "state_code": "AM",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itacoatiara",
+    "state_code": "AM",
+    "neighborhood_count": 28,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itamarati",
+    "state_code": "AM",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapiranga",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Japurá",
+    "state_code": "AM",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juruá",
+    "state_code": "AM",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jutaí",
+    "state_code": "AM",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lábrea",
+    "state_code": "AM",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Manacapuru",
+    "state_code": "AM",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Manaquiri",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Manaus",
+    "state_code": "AM",
+    "neighborhood_count": 64,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Manicoré",
+    "state_code": "AM",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Maraã",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maués",
+    "state_code": "AM",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nhamundá",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Olinda do Norte",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Airão",
+    "state_code": "AM",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Aripuanã",
+    "state_code": "AM",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Parintins",
+    "state_code": "AM",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pauini",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Presidente Figueiredo",
+    "state_code": "AM",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Preto da Eva",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Isabel do Rio Negro",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Içá",
+    "state_code": "AM",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Silves",
+    "state_code": "AM",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Gabriel da Cachoeira",
+    "state_code": "AM",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Paulo de Olivença",
+    "state_code": "AM",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Sebastião do Uatumã",
+    "state_code": "AM",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tabatinga",
+    "state_code": "AM",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tapauá",
+    "state_code": "AM",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tefé",
+    "state_code": "AM",
+    "neighborhood_count": 23,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tonantins",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uarini",
+    "state_code": "AM",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urucará",
+    "state_code": "AM",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Urucurituba",
+    "state_code": "AM",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

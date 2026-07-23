@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Acrelândia",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Assis Brasil",
+    "state_code": "AC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Brasiléia",
+    "state_code": "AC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bujari",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capixaba",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cruzeiro do Sul",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Epitaciolândia",
+    "state_code": "AC",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Feijó",
+    "state_code": "AC",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Jordão",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Manoel Urbano",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marechal Thaumaturgo",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mâncio Lima",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Plácido de Castro",
+    "state_code": "AC",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Acre",
+    "state_code": "AC",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Walter",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Branco",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rodrigues Alves",
+    "state_code": "AC",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Rosa do Purus",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sena Madureira",
+    "state_code": "AC",
+    "neighborhood_count": 25,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Senador Guiomard",
+    "state_code": "AC",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tarauacá",
+    "state_code": "AC",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Xapuri",
+    "state_code": "AC",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

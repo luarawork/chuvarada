@@ -1,0 +1,366 @@
+[
+  {
+    "name": "Alta Floresta D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alto Alegre dos Parecis",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Paraíso",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alvorada D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ariquemes",
+    "state_code": "RO",
+    "neighborhood_count": 47,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Buritis",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cabixi",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cacaulândia",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cacoal",
+    "state_code": "RO",
+    "neighborhood_count": 39,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Novo de Rondônia",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Candeias do Jamari",
+    "state_code": "RO",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Castanheiras",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cerejeiras",
+    "state_code": "RO",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Chupinguaia",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colorado do Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Corumbiara",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Costa Marques",
+    "state_code": "RO",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cujubim",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Espigão D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Governador Jorge Teixeira",
+    "state_code": "RO",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guajará-Mirim",
+    "state_code": "RO",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itapuã do Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaru",
+    "state_code": "RO",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ji-Paraná",
+    "state_code": "RO",
+    "neighborhood_count": 45,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Machadinho D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 25,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Ministro Andreazza",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirante da Serra",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Negro",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Brasilândia D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Mamoré",
+    "state_code": "RO",
+    "neighborhood_count": 18,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova União",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Horizonte do Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ouro Preto do Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Parecis",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pimenta Bueno",
+    "state_code": "RO",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Pimenteiras do Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Velho",
+    "state_code": "RO",
+    "neighborhood_count": 73,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Presidente Médici",
+    "state_code": "RO",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Primavera de Rondônia",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Crespo",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rolim de Moura",
+    "state_code": "RO",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Luzia D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Seringueiras",
+    "state_code": "RO",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Felipe D'Oeste",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco do Guaporé",
+    "state_code": "RO",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel do Guaporé",
+    "state_code": "RO",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Teixeirópolis",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Theobroma",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Urupá",
+    "state_code": "RO",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vale do Anari",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vale do Paraíso",
+    "state_code": "RO",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vilhena",
+    "state_code": "RO",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

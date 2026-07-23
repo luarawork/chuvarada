@@ -1,0 +1,1010 @@
+[
+  {
+    "name": "Abaetetuba",
+    "state_code": "PA",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Abel Figueiredo",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Acará",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Afuá",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alenquer",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Almeirim",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Altamira",
+    "state_code": "PA",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Anajás",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ananindeua",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Anapu",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Augusto Corrêa",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aurora do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Aveiro",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bagre",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Baião",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bannach",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barcarena",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belterra",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Belém",
+    "state_code": "PA",
+    "neighborhood_count": 73,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Benevides",
+    "state_code": "PA",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Bom Jesus do Tocantins",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bonito",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bragança",
+    "state_code": "PA",
+    "neighborhood_count": 18,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Brasil Novo",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brejo Grande do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Breu Branco",
+    "state_code": "PA",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Breves",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bujaru",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira do Arari",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cachoeira do Piriá",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cametá",
+    "state_code": "PA",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Canaã dos Carajás",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capanema",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Capitão Poço",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Castanhal",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Chaves",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colares",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conceição do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 19,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Concórdia do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cumaru do Norte",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curionópolis",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curralinho",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Curuá",
+    "state_code": "PA",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Curuçá",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Eliseu",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Eldorado do Carajás",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Faro",
+    "state_code": "PA",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Floresta do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Garrafão do Norte",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Goianésia do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gurupá",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igarapé-Açu",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Igarapé-Miri",
+    "state_code": "PA",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Inhangapi",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipixuna do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Irituia",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaituba",
+    "state_code": "PA",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itupiranga",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacareacanga",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jacundá",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juruti",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Limoeiro do Ajuru",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Magalhães Barata",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marabá",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Maracanã",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marapanim",
+    "state_code": "PA",
+    "neighborhood_count": 5,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marituba",
+    "state_code": "PA",
+    "neighborhood_count": 21,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Medicilândia",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Melgaço",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mocajuba",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Moju",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mojuí dos Campos",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Monte Alegre",
+    "state_code": "PA",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Muaná",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mãe do Rio",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Esperança do Piriá",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Ipixuna",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Timboteua",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Progresso",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Repartimento",
+    "state_code": "PA",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Oeiras do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oriximiná",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ourilândia do Norte",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ourém",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pacajá",
+    "state_code": "PA",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Palestina do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paragominas",
+    "state_code": "PA",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Parauapebas",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pau D'Arco",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Peixe-Boi",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Piçarra",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Placas",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponta de Pedras",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Portel",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto de Moz",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Prainha",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Primavera",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Quatipuru",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Redenção",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rio Maria",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rondon do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rurópolis",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salinópolis",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Salvaterra",
+    "state_code": "PA",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santa Bárbara do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz do Arari",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Izabel do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Luzia do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria das Barreiras",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Maria do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santarém",
+    "state_code": "PA",
+    "neighborhood_count": 53,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santarém Novo",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Tauá",
+    "state_code": "PA",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sapucaia",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Senador José Porfírio",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Soure",
+    "state_code": "PA",
+    "neighborhood_count": 9,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Caetano de Odivelas",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Domingos do Capim",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Francisco do Pará",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Félix do Xingu",
+    "state_code": "PA",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Geraldo do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João da Ponta",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João de Pirabas",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São João do Araguaia",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Miguel do Guamá",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Sebastião da Boa Vista",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tailândia",
+    "state_code": "PA",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Terra Alta",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Terra Santa",
+    "state_code": "PA",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tomé-Açu",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tracuateua",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Trairão",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tucumã",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tucuruí",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ulianópolis",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Uruará",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vigia",
+    "state_code": "PA",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Viseu",
+    "state_code": "PA",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vitória do Xingu",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Xinguara",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Água Azul do Norte",
+    "state_code": "PA",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Óbidos",
+    "state_code": "PA",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]

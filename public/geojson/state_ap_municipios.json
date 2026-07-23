@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Amapá",
+    "state_code": "AP",
+    "neighborhood_count": 2,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Calçoene",
+    "state_code": "AP",
+    "neighborhood_count": 6,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cutias",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ferreira Gomes",
+    "state_code": "AP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itaubal",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Laranjal do Jari",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Macapá",
+    "state_code": "AP",
+    "neighborhood_count": 65,
+    "is_coastal": true,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Mazagão",
+    "state_code": "AP",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Oiapoque",
+    "state_code": "AP",
+    "neighborhood_count": 4,
+    "is_coastal": true,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Branca do Amapari",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Grande",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pracuúba",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santana",
+    "state_code": "AP",
+    "neighborhood_count": 33,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Serra do Navio",
+    "state_code": "AP",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tartarugalzinho",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vitória do Jari",
+    "state_code": "AP",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]
