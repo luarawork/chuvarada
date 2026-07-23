@@ -1,0 +1,91 @@
+{
+  "done": [
+    "srtm_mt_q0",
+    "srtm_mt_q1",
+    "srtm_mt_q2",
+    "srtm_mt_q3",
+    "srtm_df",
+    "srtm_am_q0",
+    "srtm_am_q1",
+    "srtm_am_q2",
+    "srtm_am_q3",
+    "srtm_am_q4",
+    "srtm_am_q5",
+    "srtm_am_q6",
+    "srtm_am_q7",
+    "srtm_am_q8",
+    "srtm_pa_q0",
+    "srtm_pa_q1",
+    "srtm_pa_q2",
+    "srtm_pa_q3",
+    "srtm_pa_q4",
+    "srtm_pa_q5",
+    "srtm_pa_q6",
+    "srtm_pa_q7",
+    "srtm_pa_q8",
+    "srtm_rr",
+    "srtm_ap",
+    "srtm_ac"
+  ],
+  "failed": [
+    {
+      "name": "srtm_go",
+      "uf": "go",
+      "bbox": {
+        "south": -19.5,
+        "north": -12.4,
+        "west": -53.3,
+        "east": -45.9
+      },
+      "reason": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><error>Error: The maximum area for SRTMGL1 is 450,000 km2. The selected area is 622,731 km2.</error>"
+    },
+    {
+      "name": "srtm_ms",
+      "uf": "ms",
+      "bbox": {
+        "south": -24.1,
+        "north": -17.2,
+        "west": -57.9,
+        "east": -51
+      },
+      "reason": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><error>Error: The maximum area for SRTMGL1 is 450,000 km2. The selected area is 549,388 km2.</error>"
+    },
+    {
+      "name": "srtm_ro",
+      "uf": "ro",
+      "bbox": {
+        "south": -13.7,
+        "north": -7.9,
+        "west": -66.8,
+        "east": -59.8
+      },
+      "reason": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><error>Error: The maximum area for SRTMGL1 is 450,000 km2. The selected area is 491,471 km2.</error>"
+    },
+    {
+      "name": "srtm_to",
+      "uf": "to",
+      "bbox": {
+        "south": -13.5,
+        "north": -5.2,
+        "west": -50.8,
+        "east": -45.7
+      },
+      "reason": "HTTP 400: <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><error>Error: The maximum area for SRTMGL1 is 450,000 km2. The selected area is 514,176 km2.</error>"
+    }
+  ],
+  "ufsFullyDone": [
+    "mt",
+    "df",
+    "am",
+    "pa",
+    "rr",
+    "ap",
+    "ac"
+  ],
+  "ufsWithFailure": [
+    "go",
+    "ms",
+    "ro",
+    "to"
+  ]
+}

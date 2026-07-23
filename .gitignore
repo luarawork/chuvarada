@@ -104,6 +104,35 @@ next-env.d.ts
 /dados-brutos/ibge/br/BR_Municipios_2022/
 /public/geojson/municipalities.geojson
 
+# CSV de cities exportado por scripts/export_cities_csv.js -- artefato de
+# transporte pro process_municipalities.py --cities-csv, recriável rodando
+# o script de novo (não é dado bruto nem faz parte do pipeline versionado).
+/dados-brutos/cities_export.csv
+
+# SRTM Centro-Oeste + Norte (expansão nacional, 22/07/2026) -- mesmo motivo
+# das seções acima: passam do limite de 100MB do GitHub. AM/PA/MT/GO/MS/RO/TO
+# precisaram de quadrantes (splitGrid, ver scripts/download_srtm_states.js)
+# mesclados com scripts/merge_srtm_quadrants.py -- os quadrantes
+# intermediários (_q0, _q1...) também ficam de fora, recriáveis rodando os
+# scripts de novo. DF (8,5MB) e AP (77MB) cabem no limite e continuam
+# versionados normalmente, como PR/RJ/RS/ES foram no Sul/Sudeste.
+/dados-brutos/srtm/srtm_ac.tif
+/dados-brutos/srtm/srtm_am.tif
+/dados-brutos/srtm/srtm_am_q*.tif
+/dados-brutos/srtm/srtm_go.tif
+/dados-brutos/srtm/srtm_go_q*.tif
+/dados-brutos/srtm/srtm_ms.tif
+/dados-brutos/srtm/srtm_ms_q*.tif
+/dados-brutos/srtm/srtm_mt.tif
+/dados-brutos/srtm/srtm_mt_q*.tif
+/dados-brutos/srtm/srtm_pa.tif
+/dados-brutos/srtm/srtm_pa_q*.tif
+/dados-brutos/srtm/srtm_ro.tif
+/dados-brutos/srtm/srtm_ro_q*.tif
+/dados-brutos/srtm/srtm_rr.tif
+/dados-brutos/srtm/srtm_to.tif
+/dados-brutos/srtm/srtm_to_q*.tif
+
 # cache de bytecode Python
 __pycache__/
 *.pyc

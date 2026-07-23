@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Brasília",
+    "state_code": "DF",
+    "neighborhood_count": 33,
+    "is_coastal": false,
+    "used_real_bairro": false
+  }
+]

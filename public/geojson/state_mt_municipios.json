@@ -1,0 +1,989 @@
+[
+  {
+    "name": "Acorizal",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alta Floresta",
+    "state_code": "MT",
+    "neighborhood_count": 26,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alto Araguaia",
+    "state_code": "MT",
+    "neighborhood_count": 14,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Alto Boa Vista",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Garças",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Paraguai",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Alto Taquari",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Apiacás",
+    "state_code": "MT",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araguaiana",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Araguainha",
+    "state_code": "MT",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Araputanga",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Arenápolis",
+    "state_code": "MT",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Aripuanã",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barra do Bugres",
+    "state_code": "MT",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Barra do Garças",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Barão de Melgaço",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Bom Jesus do Araguaia",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Brasnorte",
+    "state_code": "MT",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campinápolis",
+    "state_code": "MT",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Novo do Parecis",
+    "state_code": "MT",
+    "neighborhood_count": 10,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campo Verde",
+    "state_code": "MT",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Campos de Júlio",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canabrava do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Canarana",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Carlinda",
+    "state_code": "MT",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Castanheira",
+    "state_code": "MT",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Chapada dos Guimarães",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cláudia",
+    "state_code": "MT",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Cocalinho",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colniza",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Colíder",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Comodoro",
+    "state_code": "MT",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Confresa",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Conquista D'Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cotriguaçu",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cuiabá",
+    "state_code": "MT",
+    "neighborhood_count": 130,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Curvelândia",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Cáceres",
+    "state_code": "MT",
+    "neighborhood_count": 52,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Denise",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Diamantino",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Dom Aquino",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Feliz Natal",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Figueirópolis D'Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Gaúcha do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "General Carneiro",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Glória D'Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guarantã do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Guiratinga",
+    "state_code": "MT",
+    "neighborhood_count": 16,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Indiavaí",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ipiranga do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itanhangá",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Itaúba",
+    "state_code": "MT",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Itiquira",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jaciara",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jangada",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Jauru",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juara",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juruena",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juscimeira",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Juína",
+    "state_code": "MT",
+    "neighborhood_count": 9,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Lambari D'Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Lucas do Rio Verde",
+    "state_code": "MT",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Luciara",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Marcelândia",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Matupá",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Mirassol d'Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nobres",
+    "state_code": "MT",
+    "neighborhood_count": 13,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nortelândia",
+    "state_code": "MT",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nossa Senhora do Livramento",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Bandeirantes",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Brasilândia",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Canaã do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Guarita",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Lacerda",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Marilândia",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Maringá",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Monte Verde",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Mutum",
+    "state_code": "MT",
+    "neighborhood_count": 33,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Nazaré",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Olímpia",
+    "state_code": "MT",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Nova Santa Helena",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Ubiratã",
+    "state_code": "MT",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Nova Xavantina",
+    "state_code": "MT",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Novo Horizonte do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Mundo",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo Santo Antônio",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Novo São Joaquim",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Paranatinga",
+    "state_code": "MT",
+    "neighborhood_count": 11,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Paranaíta",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pedra Preta",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Peixoto de Azevedo",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Planalto da Serra",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poconé",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontal do Araguaia",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ponte Branca",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Pontes e Lacerda",
+    "state_code": "MT",
+    "neighborhood_count": 17,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Porto Alegre do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Esperidião",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto Estrela",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Porto dos Gaúchos",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Poxoréu",
+    "state_code": "MT",
+    "neighborhood_count": 31,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Primavera do Leste",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Querência",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Reserva do Cabaçal",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirão Cascalheira",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Ribeirãozinho",
+    "state_code": "MT",
+    "neighborhood_count": 8,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rio Branco",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rondolândia",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Rondonópolis",
+    "state_code": "MT",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Rosário Oeste",
+    "state_code": "MT",
+    "neighborhood_count": 15,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Salto do Céu",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Carmem",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Cruz do Xingu",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Rita do Trivelato",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santa Terezinha",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Afonso",
+    "state_code": "MT",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Santo Antônio de Leverger",
+    "state_code": "MT",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Santo Antônio do Leste",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sapezal",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Serra Nova Dourada",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Sinop",
+    "state_code": "MT",
+    "neighborhood_count": 22,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Sorriso",
+    "state_code": "MT",
+    "neighborhood_count": 30,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São Félix do Araguaia",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Povo",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José do Rio Claro",
+    "state_code": "MT",
+    "neighborhood_count": 7,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "São José do Xingu",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São José dos Quatro Marcos",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "São Pedro da Cipa",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tabaporã",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tangará da Serra",
+    "state_code": "MT",
+    "neighborhood_count": 32,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Tapurah",
+    "state_code": "MT",
+    "neighborhood_count": 6,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Terra Nova do Norte",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Tesouro",
+    "state_code": "MT",
+    "neighborhood_count": 3,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Torixoréu",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "União do Sul",
+    "state_code": "MT",
+    "neighborhood_count": 4,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Vale de São Domingos",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vera",
+    "state_code": "MT",
+    "neighborhood_count": 1,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Bela da Santíssima Trindade",
+    "state_code": "MT",
+    "neighborhood_count": 2,
+    "is_coastal": false,
+    "used_real_bairro": false
+  },
+  {
+    "name": "Vila Rica",
+    "state_code": "MT",
+    "neighborhood_count": 5,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Várzea Grande",
+    "state_code": "MT",
+    "neighborhood_count": 27,
+    "is_coastal": false,
+    "used_real_bairro": true
+  },
+  {
+    "name": "Água Boa",
+    "state_code": "MT",
+    "neighborhood_count": 12,
+    "is_coastal": false,
+    "used_real_bairro": true
+  }
+]
