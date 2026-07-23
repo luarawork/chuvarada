@@ -13,11 +13,11 @@ O aquecimento global vem tornando eventos de chuva mais intensos e concentrados 
 
 | Métrica | Valor |
 |---|---|
-| Estados | 16 (Nordeste completo + Sul + Sudeste) |
-| Municípios | 4.653 (100% dos municípios IBGE desses estados) |
-| Bairros/distritos/subdistritos | 24.556 |
-| Com score calculado | 100% |
-| Municípios costeiros com dado de maré cadastrado | 110 de 292 (37,7%) |
+| Estados | 27 (Brasil inteiro) |
+| Municípios | 5.570 (100% dos municípios IBGE) |
+| Bairros/distritos/subdistritos | 28.483 |
+| Com score calculado | 4.653 de 5.570 (83,5%) — Centro-Oeste e Norte aguardam o 1º ciclo completo do cron (ver limitação de rate-limit abaixo) |
+| Municípios costeiros com dado de maré cadastrado | 115 de 312 (36,9%) |
 
 ## Como funciona
 
@@ -50,7 +50,9 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 - **Maré**: a fonte CPTEC está fora do ar — confirmado que não é mudança de layout, a tábua vem vazia para qualquer estação/mês/ano testado, e o webservice alternativo da Marinha foi descontinuado em 2018. Até essa fonte ser restaurada ou substituída, `tide_level` fica sempre neutro (0,5) em todo o país (ver `lib/cptec.ts`).
 - **São Paulo, Campinas e Sorocaba**: usam distrito administrativo em vez de bairro — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades (confirmado também no GeoSampa, portal da própria Prefeitura de SP). Afeta ~46% dos registros nacionais no total, mais concentrado no interior.
-- **Centro-Oeste e Norte**: cobertura ainda pendente.
+- **Amazônia (AM, PA, RR, AP, AC, RO, parte de MT)**: o modelo é projetado para alagamento urbano por chuva intensa, não captura cheias sazonais de rio (padrão amazônico de subida/descida do nível dos grandes rios ao longo do ano) — `data_level='minimal'` nesses estados reflete essa limitação, não falta de bairros.
+- **SRTM em floresta densa**: a elevação medida pelo satélite inclui o topo do dossel da vegetação, não o solo — infla a elevação aparente do terreno e pode subestimar a declividade real em áreas de mata fechada (Norte principalmente). Limitação conhecida da fonte, não corrigida nesta expansão.
+- **Rate-limit do Open-Meteo em atualização em massa**: quando o `weather_cache` expira por completo pro país inteiro de uma vez (ex: após um período longo sem o cron rodar), o pico de demanda simultânea excede o limite do plano gratuito do Open-Meteo, forçando fallback em cascata pro WeatherAPI.com e tornando o ciclo muito mais lento que o normal. Em operação contínua (cron horário) a demanda fica distribuída e isso não deveria ocorrer — ver `scripts/diagnostico_expansao_nacional.md`.
 
 ## Stack
 
@@ -86,7 +88,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 Pré-requisitos:
 - Node.js e npm
-- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `022`)
+- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `024`)
 - Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
 
 Variáveis de ambiente (`.env.local`):
