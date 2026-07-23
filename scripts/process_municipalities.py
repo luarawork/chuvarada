@@ -63,6 +63,11 @@ def main():
         simplified = geometry.simplify(SIMPLIFY_TOLERANCE, preserve_topology=True)
         centroid = geometry.centroid
 
+        # Só geometry_simplified é gravada -- a versão em resolução plena
+        # nunca foi lida em lugar nenhum do app (route.ts sempre serviu
+        # geometry_simplified), e pra malha nacional inteira ela sozinha
+        # gera um GeoJSON grande demais pra fs.readFileSync do Node
+        # (ver migração 024).
         features.append(
             {
                 "type": "Feature",
@@ -73,7 +78,6 @@ def main():
                     "centroid_lat": centroid.y,
                     "centroid_lng": centroid.x,
                 },
-                "geometry": json.loads(gpd.GeoSeries([geometry]).to_json())["features"][0]["geometry"],
                 "geometry_simplified": json.loads(gpd.GeoSeries([simplified]).to_json())["features"][0]["geometry"],
             }
         )

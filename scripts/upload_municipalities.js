@@ -33,12 +33,11 @@ async function main() {
       for (const feature of batch) {
         const { city_id, name, state, centroid_lat, centroid_lng } = feature.properties;
         await client.query(
-          `insert into municipalities (city_id, name, state, geometry, geometry_simplified, centroid_lat, centroid_lng)
-           values ($1, $2, $3, $4, $5, $6, $7)
+          `insert into municipalities (city_id, name, state, geometry_simplified, centroid_lat, centroid_lng)
+           values ($1, $2, $3, $4, $5, $6)
            on conflict (city_id) do update set
              name = excluded.name,
              state = excluded.state,
-             geometry = excluded.geometry,
              geometry_simplified = excluded.geometry_simplified,
              centroid_lat = excluded.centroid_lat,
              centroid_lng = excluded.centroid_lng`,
@@ -46,7 +45,6 @@ async function main() {
             city_id,
             name,
             state,
-            JSON.stringify(feature.geometry),
             JSON.stringify(feature.geometry_simplified),
             centroid_lat,
             centroid_lng,
