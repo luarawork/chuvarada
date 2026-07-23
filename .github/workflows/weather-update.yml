@@ -1,0 +1,28 @@
+name: Update Weather Cache
+
+# Cron B (23/07/2026) -- mantém weather_cache atualizado gradualmente, em
+# lotes pequenos (~150 cidades por execução), nunca a base inteira de uma
+# vez. Separado do Cron A (merge-and-scores-update.yml, que só recalcula
+# scores a partir do cache) porque rodar as duas coisas no mesmo ciclo fazia
+# a base INTEIRA precisar de clima fresco de uma vez sempre que o cache
+# expirava nacionalmente -- isso disparava rate-limit (HTTP 429) em cascata
+# no Open-Meteo. Ver scripts/diagnostico_cron_arquitetura.md.
+#
+# Roda a cada 30min, independente do Cron A (não usa "needs" -- os dois são
+# desacoplados de propósito: o Cron A sempre lê o que já estiver em cache,
+# fresco ou não, e o Cron B vai enchendo esse cache no próprio ritmo).
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update_weather:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Atualizar clima gradualmente (Cron B)
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            --max-time 570 \
+            "${{ secrets.APP_URL }}/api/cron/weather"

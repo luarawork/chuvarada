@@ -33,9 +33,15 @@ jobs:
     needs: update_merge
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger cron de risco
+      # Cron A (23/07/2026) -- só recalcula a partir de weather_cache/
+      # merge_cache já existentes, sem chamar nenhuma API de clima. A
+      # atualização de fato do weather_cache é responsabilidade separada do
+      # Cron B (.github/workflows/weather-update.yml, a cada 30min) -- ver
+      # scripts/diagnostico_cron_arquitetura.md sobre por que os dois foram
+      # separados (rate-limit do Open-Meteo em cache frio nacional).
+      - name: Recalcular scores (Cron A)
         run: |
           curl -sf -X GET \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
             --max-time 570 \
-            "${{ secrets.APP_URL }}/api/cron/update"
+            "${{ secrets.APP_URL }}/api/cron/scores"
