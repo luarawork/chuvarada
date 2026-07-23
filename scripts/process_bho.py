@@ -36,25 +36,31 @@ SIMPLIFY_TOLERANCE_DEG = 0.001
 NEAR_THRESHOLD_KM = 0.5
 FAR_THRESHOLD_KM = 5.0
 
-# Bounding box aproximada do Nordeste (min_lon, min_lat, max_lon, max_lat),
-# usada para recortar o GeoPackage nacional no próprio read_file (bbox
-# pushdown), evitando carregar o Brasil inteiro em memória.
+# Bounding box usada para recortar o GeoPackage nacional no próprio
+# read_file (bbox pushdown), evitando carregar o Brasil inteiro em memória.
 #
-# Ampliado em 2026-07-19 (diagnóstico de lacunas): o bbox anterior
-# (-45,-15,-35,-1) cortava os 4 lados da extensão real dos 9 estados —
-# oeste do Maranhão, extremo-sul da Bahia, e a borda leste (Fernando de
-# Noronha e o litoral da própria capital João Pessoa, que fica a -34,8°,
-# além do limite antigo de -35,0°). O geopackage fonte cobre o Brasil
-# inteiro, então não há custo de qualidade em alargar — só um pouco mais
-# de tempo de leitura.
-NORDESTE_BBOX = (-49.5, -19.0, -31.5, -1.5)
+# Ampliado em 2026-07-19 (diagnóstico de lacunas): o bbox anterior, só do
+# Nordeste (-45,-15,-35,-1), cortava os 4 lados da extensão real dos 9
+# estados — oeste do Maranhão, extremo-sul da Bahia, e a borda leste
+# (Fernando de Noronha e o litoral de João Pessoa, -34,8°).
+#
+# Renomeado de NORDESTE_BBOX pra BRASIL_BBOX e ampliado de novo em
+# 22/07/2026 (expansão Centro-Oeste + Norte, 27 estados): nunca tinha sido
+# alargado pra Sul/Sudeste (a expansão de 20-21/07 passou --bbox explícito
+# na linha de comando em vez de mudar o default -- esse hardcode
+# desatualizado ficou como uma pendência silenciosa). Agora cobre o Brasil
+# inteiro: west até -73.8 (fronteira do Acre/Amazonas), north até 5.5
+# (Roraima/Amapá, acima do Equador). O geopackage fonte já cobre o Brasil
+# inteiro, então não há custo de qualidade em alargar — só mais tempo de
+# leitura.
+BRASIL_BBOX = (-74.0, -33.8, -31.5, 5.5)
 
 # Classes de corpo d'água consideradas relevantes, caso a camada tenha uma
 # coluna de classificação (normalmente não tem — "curso_dagua" já é o filtro).
 RELEVANT_CLASSES = ["Rio", "Canal", "Riacho"]
 
 
-def load_and_filter_hydro(gpkg_path: str, bbox: tuple[float, float, float, float] = NORDESTE_BBOX) -> gpd.GeoDataFrame:
+def load_and_filter_hydro(gpkg_path: str, bbox: tuple[float, float, float, float] = BRASIL_BBOX) -> gpd.GeoDataFrame:
     gdf = gpd.read_file(gpkg_path, bbox=bbox)
 
     # A coluna de classificação varia conforme a versão da BHO (ex: "cotrecho", "tipo", "ds_tipo").
@@ -105,8 +111,8 @@ def main():
         nargs=4,
         type=float,
         metavar=("MIN_LON", "MIN_LAT", "MAX_LON", "MAX_LAT"),
-        default=list(NORDESTE_BBOX),
-        help="Bounding box para recortar o GeoPackage nacional (default: Nordeste inteiro)",
+        default=list(BRASIL_BBOX),
+        help="Bounding box para recortar o GeoPackage nacional (default: Brasil inteiro)",
     )
     parser.add_argument(
         "--cache-dir",

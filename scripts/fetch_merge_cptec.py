@@ -67,7 +67,13 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Chuvarada MERGE fetcher)"}
 # união do retângulo do Nordeste com o retângulo que cobre PR/SC/RS/SP/RJ/MG/ES
 # (mesmos 7 bboxes usados em process_state_neighborhoods.py/OpenTopography)
 # -- min/max dos 2 bboxes, não um recorte por estado.
-BRASIL_BBOX = (-57.7, -33.8, -31.5, -1.5)  # min_lon, min_lat, max_lon, max_lat
+#
+# Alargado de novo em 22/07/2026 pra cobrir Centro-Oeste + Norte (expansão
+# nacional completa, 27 estados): west estende até -73.8 (fronteira do
+# Acre/Amazonas com o Peru) e north até 5.5 (Roraima/Amapá, únicos estados
+# do país acima da linha do Equador). south/east não mudam -- RS e o litoral
+# de João Pessoa já eram os extremos nessas direções.
+BRASIL_BBOX = (-74.0, -33.8, -31.5, 5.5)  # min_lon, min_lat, max_lon, max_lat
 
 DAILY_LOOKBACK_DAYS = 4  # busca hoje + até 3 dias atrás, precisa de 3 válidos pra somar 72h
 HOURLY_LOOKBACK_HOURS = 12  # busca até 12h atrás, precisa de 3 válidas pra o pico de 3h
