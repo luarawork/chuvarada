@@ -1,16 +1,18 @@
 # Configuração das GitHub Actions
 
-Este projeto tem uma única GitHub Action agendada:
-`.github/workflows/merge-and-scores-update.yml`, rodando a cada hora
-(`0 * * * *`) e também disparável manualmente (`workflow_dispatch`). Ela
-tem 2 jobs sequenciais:
+Este projeto tem 3 GitHub Actions agendadas:
+
+## 1. `merge-and-scores-update.yml` (a cada hora, `0 * * * *`)
+
+2 jobs sequenciais:
 
 1. `update_merge` — roda `scripts/fetch_merge_cptec.py`, que atualiza
    `merge_cache` com a chuva real do MERGE/CPTEC (ver `README_merge.md`).
 2. `update_scores` — só começa depois que `update_merge` termina com
-   sucesso (`needs: update_merge`) — chama `/api/cron/update`, que
-   recalcula `risk_scores` pra todos os bairros usando o `merge_cache` que
-   acabou de ser atualizado no passo anterior.
+   sucesso (`needs: update_merge`) — chama `/api/cron/scores` (Cron A),
+   que recalcula `risk_scores` pra todos os bairros a partir do
+   `weather_cache`/`merge_cache` já existentes, sem chamar nenhuma API de
+   clima (ver `scripts/diagnostico_cron_arquitetura.md`).
 
 Essa ordem por `needs` (não por horário/offset) é o que evita a race
 condition descrita no incidente de Natal (21/07/2026): rodar os dois jobs
@@ -18,10 +20,23 @@ em paralelo ou fora de ordem fazia parte dos bairros ler célula de
 `merge_cache` já atualizada nessa rodada e parte ler célula ainda não
 tocada, misturando score correto com score subestimado na mesma cidade.
 
-Sem os secrets abaixo configurados no repositório, a Action falha (ou nem
-dispara o passo que precisa deles) silenciosamente — é exatamente esse o
-estado em que o projeto estava até este incidente: o workflow existia no
-código, mas nunca tinha sido de fato ativado em produção.
+## 2. `weather-update.yml` (a cada 30min, `*/30 * * * *`)
+
+Cron B -- mantém `weather_cache` atualizado aos poucos, em lotes pequenos
+(chama `/api/cron/weather`), desacoplado do Cron A de propósito (ver
+`scripts/diagnostico_cron_arquitetura.md`).
+
+## 3. `archive-history.yml` (diário às 02:00 UTC)
+
+Move `risk_scores` com mais de 48h do Supabase pro Backblaze B2
+(comprimido, particionado por data/estado) e gera o snapshot agregado do
+dia anterior (`scripts/archive_to_b2.ts`) -- ver `lib/b2.ts` e
+`/api/history`.
+
+Sem os secrets abaixo configurados no repositório, as Actions falham (ou
+nem disparam o passo que precisa deles) silenciosamente -- foi exatamente
+esse o estado em que o projeto estava até o incidente de Natal: o workflow
+existia no código, mas nunca tinha sido de fato ativado em produção.
 
 ## Secrets necessários
 
@@ -30,9 +45,12 @@ Actions → New repository secret**
 
 | Secret | Usado por | Descrição | Onde obter |
 |---|---|---|---|
-| `SUPABASE_CONNECTION_STRING` | `update_merge` | String de conexão Postgres do Supabase (formato `postgresql://user:senha@host:porta/banco`) | Supabase → Project Settings → Database → Connection string (modo "URI") |
-| `CRON_SECRET` | `update_scores` | Token que autentica a chamada em `/api/cron/update` (o endpoint rejeita qualquer request sem `Authorization: Bearer <CRON_SECRET>` idêntico) | O mesmo valor já usado em `CRON_SECRET` no `.env.local`/nas env vars de produção — não é um valor novo, é o mesmo em todo lugar |
-| `APP_URL` | `update_scores` | URL pública do app em produção (ex: `https://chuvarada.vercel.app`), sem barra final | Definida no momento do deploy (Vercel/Netlify mostram a URL final) |
+| `SUPABASE_CONNECTION_STRING` | `update_merge`, `archive` | String de conexão Postgres do Supabase (formato `postgresql://user:senha@host:porta/banco`) | Supabase → Project Settings → Database → Connection string (modo "URI") |
+| `CRON_SECRET` | `update_scores`, `update_weather` | Token que autentica a chamada em `/api/cron/scores` e `/api/cron/weather` (os endpoints rejeitam qualquer request sem `Authorization: Bearer <CRON_SECRET>` idêntico) | O mesmo valor já usado em `CRON_SECRET` no `.env.local`/nas env vars de produção — não é um valor novo, é o mesmo em todo lugar |
+| `APP_URL` | `update_scores`, `update_weather` | URL pública do app em produção (ex: `https://chuvarada.vercel.app`), sem barra final | Definida no momento do deploy (Vercel/Netlify mostram a URL final) |
+| `B2_ENDPOINT` | `archive` | Endpoint S3-compatible do Backblaze B2 (ex: `https://s3.us-east-005.backblazeb2.com`) | Backblaze → B2 Cloud Storage → Buckets → (nome do bucket) → Endpoint |
+| `B2_BUCKET_NAME` | `archive` | Nome do bucket B2 usado pro histórico | Backblaze → B2 Cloud Storage → Buckets |
+| `B2_KEY_ID` e `B2_APPLICATION_KEY` | `archive` | Credenciais da Application Key do B2 (par usado como `accessKeyId`/`secretAccessKey` no SDK S3) | Backblaze → App Keys → Add a New Application Key -- a `applicationKey` só é mostrada uma vez na criação |
 
 `WEATHERAPI_KEY` **não** é secret desta Action — ela é lida pelo processo
 Next.js em produção (variável de ambiente da plataforma de deploy, não do
