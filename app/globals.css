@@ -12,10 +12,14 @@ body {
   background: var(--background);
 }
 
+/* Sem overflow:hidden aqui -- só a página do mapa (app/page.tsx) precisa
+   travar o scroll do documento, e ela já faz isso no próprio elemento raiz
+   (h-dvh + overflow-hidden). Um overflow:hidden global aqui quebrava o
+   scroll em qualquer página de conteúdo normal (/como-funciona, /analise,
+   /perfil), que são mais altas que a viewport. */
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
 
 .leaflet-container {
