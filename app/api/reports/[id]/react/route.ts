@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getServerSupabase } from "@/lib/supabase";
+import { getUserIdFromAuthHeader } from "@/lib/auth";
 import { calculateExpiresAt } from "@/lib/reports";
 import { getClientIp, hashIp } from "@/lib/reportRateLimit";
 import { handleApiError, rejectIfPayloadTooLarge } from "@/lib/apiError";
@@ -14,15 +14,6 @@ const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9
 // detectar "esse usuário/IP já reagiu a esse relato" sem precisar de um
 // select prévio (evita race condition entre o select e o insert).
 const UNIQUE_VIOLATION = "23505";
-
-async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null> {
-  const authHeader = req.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) return null;
-  const token = authHeader.slice("Bearer ".length);
-  const { data, error } = await getServerSupabase().auth.getUser(token);
-  if (error || !data.user) return null;
-  return data.user.id;
-}
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: reportId } = await params;
@@ -40,7 +31,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "reaction deve ser confirm ou deny" }, { status: 400 });
   }
 
-  const userId = await getUserIdFromAuthHeader(req);
+  const userId = await getUserIdFromAuthHeader(req.headers.get("authorization"));
   const ipHash = hashIp(getClientIp(req));
 
   const db = getDb();

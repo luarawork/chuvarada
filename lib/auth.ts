@@ -1,4 +1,5 @@
 import { timingSafeEqual } from "crypto";
+import { getServerSupabase } from "@/lib/supabase";
 
 // Corrige achado crítico C2 da auditoria de segurança (24/07/2026,
 // scripts/relatorio_vulnerabilidades.md): a comparação antiga
@@ -25,4 +26,16 @@ export function verifyCronSecret(authHeader: string | null): boolean {
   const received = Buffer.from(authHeader);
   if (expected.length !== received.length) return false;
   return timingSafeEqual(expected, received);
+}
+
+// Extrai o user_id do header Authorization (Bearer <jwt do Supabase Auth>).
+// Antes duplicada de forma idêntica em reports/route.ts, reports/[id]/react/
+// route.ts e suggestions/route.ts -- centralizada aqui junto com o resto da
+// lógica de autenticação/autorização dos endpoints.
+export async function getUserIdFromAuthHeader(authHeader: string | null): Promise<string | null> {
+  if (!authHeader?.startsWith("Bearer ")) return null;
+  const token = authHeader.slice("Bearer ".length);
+  const { data, error } = await getServerSupabase().auth.getUser(token);
+  if (error || !data.user) return null;
+  return data.user.id;
 }

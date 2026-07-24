@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getServerSupabase } from "@/lib/supabase";
+import { getUserIdFromAuthHeader } from "@/lib/auth";
 import { calculateExpiresAt } from "@/lib/reports";
 import { getClientIp, hashIp, checkRateLimit, checkAuthenticatedRateLimit } from "@/lib/reportRateLimit";
 import { isValidBrazilState, parseBbox } from "@/lib/geo";
@@ -16,15 +16,6 @@ const MAX_REPORTS_PER_REQUEST = 100;
 // próximo mesmo em áreas de baixa densidade de bairros (interior), sem
 // escanear a tabela inteira.
 const NEAREST_SEARCH_DEGREES = 0.1;
-
-async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null> {
-  const authHeader = req.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) return null;
-  const token = authHeader.slice("Bearer ".length);
-  const { data, error } = await getServerSupabase().auth.getUser(token);
-  if (error || !data.user) return null;
-  return data.user.id;
-}
 
 export async function POST(req: NextRequest) {
   const tooLarge = rejectIfPayloadTooLarge(req);
@@ -56,7 +47,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const userId = await getUserIdFromAuthHeader(req);
+    const userId = await getUserIdFromAuthHeader(req.headers.get("authorization"));
     const isAnonymous = !userId;
     const ip = getClientIp(req);
     const ipHash = hashIp(ip);
