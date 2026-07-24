@@ -3,7 +3,7 @@ import { MERGE_MAX_AGE_HOURS } from "./constants";
 
 // Grade nativa do produto MERGE/CPTEC confirmada no .ctl que acompanha cada
 // arquivo (xdef 1001 linear -120.05 0.1 / ydef 924 linear -60.05 0.1) — ver
-// scripts/proposta_integracao_merge_cptec.md e scripts/fetch_merge_cptec.py,
+// docs/proposta_integracao_merge_cptec.md e scripts/fetch_merge_cptec.py,
 // que é quem efetivamente baixa/processa os GRIB2 e popula merge_cache
 // (GRIB2 não tem parser maduro em Node/TS; esse processamento roda separado
 // do cron, como script Python).

@@ -1,5 +1,5 @@
 // Corrige achados médios M8/M10 da auditoria de segurança (24/07/2026,
-// scripts/relatorio_vulnerabilidades.md): validação de state (UF) e de
+// docs/relatorio_vulnerabilidades.md): validação de state (UF) e de
 // bbox, compartilhada entre os endpoints que recebem esses parâmetros.
 export const BRAZIL_STATES = [
   "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT",

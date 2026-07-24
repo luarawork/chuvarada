@@ -11,7 +11,7 @@ import type { City, Neighborhood } from "@/types";
 
 // Cron B -- mantém weather_cache atualizado gradualmente, em lotes pequenos,
 // nunca a base inteira de uma vez (isso é o que causava o rate-limit em
-// cascata do Open-Meteo, ver scripts/diagnostico_cron_arquitetura.md). Roda
+// cascata do Open-Meteo, ver docs/diagnostico_cron_arquitetura.md). Roda
 // a cada 30min (.github/workflows/weather-update.yml); o Cron A
 // (app/api/cron/scores) só lê o que este cron já deixou em cache.
 //

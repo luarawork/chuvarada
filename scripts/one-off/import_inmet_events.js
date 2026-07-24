@@ -1,5 +1,5 @@
 // Importa os eventos de precipitação extrema identificados pelo INMET
-// (scripts/inmet_extreme_events.json, gerado por process_inmet_extremes.py)
+// (docs/inmet_extreme_events.json, gerado por process_inmet_extremes.py)
 // pra historical_events. Nível de CIDADE, não de bairro — o INMET só tem
 // uma estação automática por cidade, sem granularidade de bairro.
 //

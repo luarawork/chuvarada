@@ -41,7 +41,7 @@ A cobertura de **registro** (município existe em `cities`, tem bairro e tem sco
 
 *"Hidro real" = `hydro_proximity > 0`. Ver seção 3.2 — para MA, boa parte do "não-real" tem causa raiz identificada e corrigível (bbox de recorte), não é limitação de dado.
 
-A tabela completa **por cidade** (todas as 1.794 linhas, mesmas colunas) foi salva em [`scripts/diagnostico_panorama_cidades.csv`](scripts/diagnostico_panorama_cidades.csv) — não reproduzida aqui por tamanho. Abaixo, as cidades com mais bairros por estado, como amostra representativa:
+A tabela completa **por cidade** (todas as 1.794 linhas, mesmas colunas) foi salva em [`diagnostico_panorama_cidades.csv`](diagnostico_panorama_cidades.csv) — não reproduzida aqui por tamanho. Abaixo, as cidades com mais bairros por estado, como amostra representativa:
 
 <details>
 <summary>Top cidades por bairro, por estado (clique para expandir)</summary>
@@ -255,5 +255,5 @@ Não fiz uma varredura completa do catálogo CPTEC (fora do escopo de tempo dest
 
 ## Anexos
 
-- Dados por cidade completos: [`scripts/diagnostico_panorama_cidades.csv`](scripts/diagnostico_panorama_cidades.csv)
+- Dados por cidade completos: [`diagnostico_panorama_cidades.csv`](diagnostico_panorama_cidades.csv)
 - Consultas SQL usadas: reproduzidas nas seções acima; rodadas via script Node ad-hoc (não commitado — usa `pg` direto contra `SUPABASE_CONNECTION_STRING`, sem alterar nenhuma linha)

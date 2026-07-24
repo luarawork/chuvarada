@@ -8,7 +8,7 @@ scripts/README_merge.md) porque GRIB2 não tem parser maduro em Node/TS — este
 script usa rasterio/GDAL, já dependência do pipeline geoespacial.
 
 Input: https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM/ — diretório HTTPS
-       público, sem autenticação (confirmado em scripts/proposta_integracao_merge_cptec.md).
+       público, sem autenticação (confirmado em docs/proposta_integracao_merge_cptec.md).
 
        Estrutura REAL confirmada (o pedido original citava um padrão de nome
        "acum_1dia"/"acum_1hora" que não existe no servidor — os nomes reais são):
@@ -61,7 +61,7 @@ load_env_local()
 BASE_URL = "https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Chuvarada MERGE fetcher)"}
 
-# Bbox do Nordeste original (scripts/diagnostico_estados_lacunas.md) — mesma
+# Bbox do Nordeste original (docs/diagnostico_estados_lacunas.md) — mesma
 # margem de segurança já validada pra cobrir os 9 estados sem cortar borda.
 # Alargado em 21/07/2026 pra cobrir também Sul + Sudeste (expansão nacional):
 # união do retângulo do Nordeste com o retângulo que cobre PR/SC/RS/SP/RJ/MG/ES

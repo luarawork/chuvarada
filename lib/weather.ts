@@ -272,7 +272,7 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
   // até ~1min inteira só retentando antes de cair pro fallback da
   // WeatherAPI, que sempre respondia. 157 requisições nessas condições
   // levaram o lote inteiro do Cron B a 17min -- ver
-  // scripts/diagnostico_cron_arquitetura.md). Mantém uma retentativa curta
+  // docs/diagnostico_cron_arquitetura.md). Mantém uma retentativa curta
   // (não zero) pra absorver uma rajada breve de verdade, mas falha rápido
   // pro fallback quando o limite é persistente.
   for (let attempt = 0; attempt <= 1; attempt++) {

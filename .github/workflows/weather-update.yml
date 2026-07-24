@@ -6,7 +6,7 @@ name: Update Weather Cache
 # scores a partir do cache) porque rodar as duas coisas no mesmo ciclo fazia
 # a base INTEIRA precisar de clima fresco de uma vez sempre que o cache
 # expirava nacionalmente -- isso disparava rate-limit (HTTP 429) em cascata
-# no Open-Meteo. Ver scripts/diagnostico_cron_arquitetura.md.
+# no Open-Meteo. Ver docs/diagnostico_cron_arquitetura.md.
 #
 # Roda a cada 30min, independente do Cron A (não usa "needs" -- os dois são
 # desacoplados de propósito: o Cron A sempre lê o que já estiver em cache,

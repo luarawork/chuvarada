@@ -13,7 +13,7 @@ import { handleApiError } from "@/lib/apiError";
 // justamente por isso: é a única fonte confiável em produção.
 //
 // Corrige achados médios M6/M7 da auditoria de segurança (24/07/2026,
-// scripts/relatorio_vulnerabilidades.md): esse endpoint expunha % de uso
+// docs/relatorio_vulnerabilidades.md): esse endpoint expunha % de uso
 // de cota das APIs de clima e detalhes do ciclo de cron mais recente sem
 // autenticação nenhuma -- não é credencial, mas é informação operacional
 // interna que ajuda a entender timing/estado do sistema. Sem o mesmo

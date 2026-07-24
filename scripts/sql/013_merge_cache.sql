@@ -1,7 +1,7 @@
 -- Cache do produto MERGE/CPTEC (precipitação diária/horária, satélite
 -- GPM/IMERG-Late fundido com a rede de pluviômetros do INMET), grade de
 -- ~10km. Populado por scripts/fetch_merge_cptec.py (script Python separado,
--- rodado fora do cron Node.js) — ver scripts/proposta_integracao_merge_cptec.md
+-- rodado fora do cron Node.js) — ver docs/proposta_integracao_merge_cptec.md
 -- pra motivação e scripts/README_merge.md pra operação.
 create table if not exists merge_cache (
   id uuid primary key default gen_random_uuid(),

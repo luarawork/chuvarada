@@ -2,7 +2,7 @@ import { timingSafeEqual } from "crypto";
 import { getServerSupabase } from "@/lib/supabase";
 
 // Corrige achado crítico C2 da auditoria de segurança (24/07/2026,
-// scripts/relatorio_vulnerabilidades.md): a comparação antiga
+// docs/relatorio_vulnerabilidades.md): a comparação antiga
 // (`authHeader !== \`Bearer ${process.env.CRON_SECRET}\``) falha ABERTA se
 // CRON_SECRET não estiver definida no ambiente -- process.env.CRON_SECRET
 // vira undefined, a string comparada passa a ser literalmente "Bearer

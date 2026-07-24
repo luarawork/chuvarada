@@ -1,5 +1,5 @@
 -- Corrige achado médio M3 da auditoria de segurança (24/07/2026,
--- scripts/relatorio_vulnerabilidades.md): POST /api/suggestions não tinha
+-- docs/relatorio_vulnerabilidades.md): POST /api/suggestions não tinha
 -- rate limit nenhum, pra nenhum chamador -- precisa de uma coluna de
 -- ip_hash pra poder limitar por IP, mesmo padrão já usado em user_reports
 -- (ver lib/reportRateLimit.ts, nunca guarda o IP em texto puro).

@@ -6,7 +6,7 @@ const MAX_REPORTS_PER_HOUR_ANONYMOUS = 3;
 const MAX_REPORTS_PER_HOUR_AUTHENTICATED = 10;
 
 // Corrige achado médio M1 da auditoria de segurança (24/07/2026,
-// scripts/relatorio_vulnerabilidades.md): X-Forwarded-For é um header que
+// docs/relatorio_vulnerabilidades.md): X-Forwarded-For é um header que
 // o CLIENTE controla -- um proxy confiável só ACRESCENTA o IP real ao
 // final da lista, nunca substitui o que já veio. Pegar o primeiro item
 // (como a versão antiga fazia) pega exatamente o valor que um atacante

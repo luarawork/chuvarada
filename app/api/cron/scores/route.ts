@@ -21,7 +21,7 @@ import type { City, Neighborhood } from "@/types";
 
 // Cron A -- recalcula risk_scores pra TODOS os bairros a partir do que já
 // está em weather_cache/merge_cache, sem nenhuma chamada externa (ver
-// scripts/diagnostico_cron_arquitetura.md sobre o incidente de rate-limit
+// docs/diagnostico_cron_arquitetura.md sobre o incidente de rate-limit
 // em cascata de 23/07/2026 que motivou separar isso do Cron B, que é quem
 // de fato mantém weather_cache atualizado). Meta: < 5min pra base nacional
 // inteira -- só leitura de cache + cálculo + insert em lote, sem esperar

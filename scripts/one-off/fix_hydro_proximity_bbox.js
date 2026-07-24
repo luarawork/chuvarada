@@ -1,6 +1,6 @@
 // Corrige hydro_proximity=0 causado pelo NORDESTE_BBOX antigo de
 // scripts/process_bho.py, que cortava os 4 lados da extensão real dos 9
-// estados (ver scripts/diagnostico_estados_lacunas.md, seção 2). Depois de
+// estados (ver docs/diagnostico_estados_lacunas.md, seção 2). Depois de
 // alargar o bbox, reprocessa só os bairros que ainda estão em 0 nos estados
 // afetados (MA, PB, PI, PE — os únicos com hydro_proximity=0 explicado por
 // bbox; AL/SE/CE já estavam OK e não precisam reprocessar).

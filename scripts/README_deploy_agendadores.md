@@ -2,7 +2,7 @@
 
 Documenta as 3 opções de agendamento implementadas pro cron de risco
 (`/api/cron/update`) e pro script do MERGE (`scripts/fetch_merge_cptec.py`),
-depois do achado 🔴 do `scripts/relatorio_testes_pre_deploy.md`: nenhum
+depois do achado 🔴 do `docs/relatorio_testes_pre_deploy.md`: nenhum
 agendador estava configurado, então o cron só rodava quando disparado
 manualmente.
 

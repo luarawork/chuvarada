@@ -37,7 +37,7 @@ jobs:
       # merge_cache já existentes, sem chamar nenhuma API de clima. A
       # atualização de fato do weather_cache é responsabilidade separada do
       # Cron B (.github/workflows/weather-update.yml, a cada 30min) -- ver
-      # scripts/diagnostico_cron_arquitetura.md sobre por que os dois foram
+      # docs/diagnostico_cron_arquitetura.md sobre por que os dois foram
       # separados (rate-limit do Open-Meteo em cache frio nacional).
       - name: Recalcular scores (Cron A)
         run: |

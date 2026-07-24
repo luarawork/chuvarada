@@ -26,7 +26,7 @@ import type { City, Neighborhood } from "@/types";
 // fresco de uma vez sempre que o weather_cache expira nacionalmente --
 // nesse cenário o Open-Meteo passa a limitar taxa (HTTP 429) em praticamente
 // toda célula, tornando o ciclo inviável (~900 scores em 40min pra 28.483
-// bairros, ver scripts/diagnostico_cron_arquitetura.md). Mantido por ora
+// bairros, ver docs/diagnostico_cron_arquitetura.md). Mantido por ora
 // (ver plano de depreciação no mesmo diagnóstico) só como fallback manual --
 // os workflows do GitHub Actions já usam os 2 cronos novos.
 //

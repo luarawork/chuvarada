@@ -2,7 +2,7 @@
 // distância à linha de costa como complemento à distância a rio já
 // calculada por process_bho.py -- ver
 // scripts/coastal_hydro_proximity.py pro motivo (BHO não classifica
-// oceano/baía como curso_dagua) e scripts/diagnostico_cobertura_sul_sudeste.md
+// oceano/baía como curso_dagua) e docs/diagnostico_cobertura_sul_sudeste.md
 // pro achado original (43 bairros em 0, 41 deles costeiros).
 //
 // Só mexe em bairros com is_coastal=true -- os não-costeiros com

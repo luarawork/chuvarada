@@ -20,7 +20,7 @@ const turf = require("@turf/turf");
 const MAX_DISTANCE_KM = 80;
 
 // Escopo desta rodada: só os 7 estados diagnosticados em
-// scripts/diagnostico_estados_lacunas.md. BA e RN não foram analisados aqui
+// docs/diagnostico_estados_lacunas.md. BA e RN não foram analisados aqui
 // e não devem ganhar atribuições por este script sem um diagnóstico próprio.
 const TARGET_STATES = ["MA", "PI", "CE", "AL", "PE", "SE", "PB"];
 

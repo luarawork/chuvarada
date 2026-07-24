@@ -76,7 +76,7 @@ def main():
     parser.add_argument("--years", nargs="+", type=int, required=True)
     parser.add_argument("--inmet-dir", default="dados-brutos/inmet")
     parser.add_argument("--threshold", type=float, default=THRESHOLD_MM)
-    parser.add_argument("--output", default="scripts/inmet_extreme_events.json")
+    parser.add_argument("--output", default="docs/inmet_extreme_events.json")
     args = parser.parse_args()
 
     events = []

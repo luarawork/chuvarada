@@ -3,7 +3,7 @@
 Este documento explica como rodar e manter `scripts/fetch_merge_cptec.py`, que
 popula a tabela `merge_cache` com precipitação real (satélite GPM/IMERG-Late
 fundido com pluviômetros do INMET pelo CPTEC). Motivação e arquitetura
-completa em `scripts/proposta_integracao_merge_cptec.md`.
+completa em `docs/proposta_integracao_merge_cptec.md`.
 
 **Importante**: esse script roda **separado** do cron Node.js
 (`app/api/cron/update`). GRIB2 (o formato dos arquivos do CPTEC) não tem

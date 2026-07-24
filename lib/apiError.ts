@@ -16,7 +16,7 @@ export function rejectIfPayloadTooLarge(req: NextRequest, maxBytes = DEFAULT_MAX
 }
 
 // Corrige achado médio M4 da auditoria de segurança (24/07/2026,
-// scripts/relatorio_vulnerabilidades.md): vários endpoints devolviam
+// docs/relatorio_vulnerabilidades.md): vários endpoints devolviam
 // `(err as Error).message` direto no JSON de resposta -- podia vazar
 // detalhes internos (nome de coluna/constraint do Postgres, mensagem de
 // erro de biblioteca interna) pro cliente. O erro real ainda é logado
