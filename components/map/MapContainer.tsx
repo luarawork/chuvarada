@@ -1,21 +1,20 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap, TileLayer } from "leaflet";
 import { NORDESTE_BOUNDS } from "@/hooks/useMap";
-
-const DARK_TILE_URL = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
-const DARK_TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+import { TILE_LAYERS, type TileLayerKey } from "@/lib/constants";
 
 interface MapContainerProps {
+  tileLayer: TileLayerKey;
   onReady: (map: LeafletMap) => void;
   children?: React.ReactNode;
 }
 
-export function MapContainer({ onReady, children }: MapContainerProps) {
+export function MapContainer({ tileLayer, onReady, children }: MapContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
+  const tileLayerRef = useRef<TileLayer | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -35,8 +34,9 @@ export function MapContainer({ onReady, children }: MapContainerProps) {
         preferCanvas: true,
       }).fitBounds(NORDESTE_BOUNDS);
 
-      L.tileLayer(DARK_TILE_URL, {
-        attribution: DARK_TILE_ATTRIBUTION,
+      const initialLayer = TILE_LAYERS[tileLayer];
+      tileLayerRef.current = L.tileLayer(initialLayer.url, {
+        attribution: initialLayer.attribution,
         subdomains: "abcd",
         maxZoom: 19,
       }).addTo(map);
@@ -51,9 +51,31 @@ export function MapContainer({ onReady, children }: MapContainerProps) {
       cancelled = true;
       mapRef.current?.remove();
       mapRef.current = null;
+      tileLayerRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Troca a camada de tile em runtime (Modo Padrão <-> Modo Rua) -- remove a
+  // anterior e adiciona uma nova em vez de mutar a existente (setUrl troca só
+  // a URL, deixando attribution antiga presa no controle). Não roda antes do
+  // mapa existir (guard abaixo) -- no mount, o efeito acima ainda está no meio
+  // do import() assíncrono do Leaflet quando este roda pela primeira vez.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !tileLayerRef.current) return;
+
+    import("leaflet").then((L) => {
+      if (!mapRef.current) return;
+      tileLayerRef.current?.remove();
+      const layer = TILE_LAYERS[tileLayer];
+      tileLayerRef.current = L.tileLayer(layer.url, {
+        attribution: layer.attribution,
+        subdomains: "abcd",
+        maxZoom: 19,
+      }).addTo(map);
+    });
+  }, [tileLayer]);
 
   return (
     <div ref={containerRef} className="absolute inset-0 h-full w-full">

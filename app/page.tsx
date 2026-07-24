@@ -16,7 +16,9 @@ import { MapLegend } from "@/components/ui/MapLegend";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { ReportButton } from "@/components/ui/ReportButton";
 import { ReportModal } from "@/components/ui/ReportModal";
+import { LayerSwitcher } from "@/components/map/LayerSwitcher";
 import { DetailPanel } from "@/components/panel/DetailPanel";
+import type { TileLayerKey } from "@/lib/constants";
 import { useMap, type MapBounds } from "@/hooks/useMap";
 import { useRealtime } from "@/hooks/useRealtime";
 import { useReports } from "@/hooks/useReports";
@@ -189,6 +191,10 @@ export default function HomePage() {
   const [municipalitiesLoadedOnce, setMunicipalitiesLoadedOnce] = useState(false);
   const [reportMode, setReportMode] = useState(false);
   const [pendingReportLocation, setPendingReportLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [tileLayer, setTileLayer] = useState<TileLayerKey>("default");
+  // Ref, não state -- só é lido dentro do efeito de troca automática abaixo,
+  // nunca precisa disparar um re-render por conta própria.
+  const userOverrodeTileRef = useRef(false);
 
   // Antes do mapa estar pronto (zoom ainda null) assume modo bairro, pra não
   // mudar o comportamento de carregamento inicial existente -- o zoom real
@@ -324,6 +330,21 @@ export default function HomePage() {
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [reportMode]);
+
+  // Modo relato entra automaticamente em Modo Rua (Voyager) -- o tema escuro
+  // do Modo Padrão dificulta reconhecer ruas/pontos de referência na hora de
+  // marcar o local exato do relato. Volta pro Modo Padrão ao sair, a menos
+  // que o usuário tenha trocado de camada manualmente durante o relato (nesse
+  // caso a escolha dele é respeitada e não é revertida).
+  useEffect(() => {
+    if (reportMode) {
+      userOverrodeTileRef.current = false;
+      setTileLayer("street");
+    } else {
+      if (!userOverrodeTileRef.current) setTileLayer("default");
+      userOverrodeTileRef.current = false;
+    }
   }, [reportMode]);
 
   useEffect(() => {
@@ -489,7 +510,7 @@ export default function HomePage() {
     <main className="relative h-dvh w-screen overflow-hidden">
       {loading && <LoadingMap />}
 
-      <MapContainer onReady={handleMapReady}>
+      <MapContainer tileLayer={tileLayer} onReady={handleMapReady}>
         {mode === "neighborhood" ? (
           <>
             <NeighborhoodLayer
@@ -514,6 +535,14 @@ export default function HomePage() {
       </MapContainer>
 
       <ProfileButton />
+
+      <LayerSwitcher
+        currentLayer={tileLayer}
+        onChange={(layer) => {
+          setTileLayer(layer);
+          userOverrodeTileRef.current = true;
+        }}
+      />
 
       <SearchBar onSelect={flyTo} />
 
