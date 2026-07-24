@@ -65,6 +65,8 @@ export async function GET(req: NextRequest) {
   await acquireLock(db);
 
   try {
+    await cleanupExpiredReports(db);
+
     const { rows: cities } = await db.query<City>("select * from cities where active = true");
     const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
 
@@ -97,6 +99,16 @@ export async function GET(req: NextRequest) {
   } finally {
     await releaseLock(db);
   }
+}
+
+// Marca como "expired" relatos cuja expires_at já passou -- roda aqui (Cron
+// A, a cada ciclo curto) em vez de um cron separado só pra isso, já que o
+// custo é um único UPDATE indexado (ver user_reports_status).
+async function cleanupExpiredReports(db: Pool): Promise<void> {
+  await db.query(
+    `update user_reports set status = 'expired'
+     where status = 'active' and expires_at < now()`
+  );
 }
 
 async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
