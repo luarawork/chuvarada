@@ -8,7 +8,7 @@ export function ProfileButton() {
 
   return (
     <Link
-      href={user ? "/favoritos" : "/auth"}
+      href={user ? "/perfil" : "/auth"}
       aria-label={user ? "Meus favoritos" : "Entrar"}
       className={`pointer-events-auto absolute right-4 top-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition ${
         user ? "bg-brand-blue-mid text-white hover:bg-brand-blue-deep" : "bg-white text-brand-blue-mid hover:bg-brand-gray-light"
