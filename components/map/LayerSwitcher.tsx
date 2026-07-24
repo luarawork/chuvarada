@@ -7,11 +7,11 @@ interface LayerSwitcherProps {
   onChange: (layer: TileLayerKey) => void;
 }
 
-// Mostra sempre o modo OPOSTO ao atual -- indica pra onde o clique leva, não
-// o estado atual (mesma convenção de um toggle de tema claro/escuro).
+// Mostra o modo ATUAL (não o destino) -- clicar alterna pro outro. Ícone e
+// label descrevem a camada que já está no mapa agora.
 export function LayerSwitcher({ currentLayer, onChange }: LayerSwitcherProps) {
   const nextLayer: TileLayerKey = currentLayer === "default" ? "street" : "default";
-  const next = TILE_LAYERS[nextLayer];
+  const current = TILE_LAYERS[currentLayer];
 
   // top-16 (64px), não top-14 (56px) -- o ProfileButton (h-11, top-4) já
   // ocupa até 60px de altura; 56px sobrepunha 4px o próprio botão de login
@@ -19,11 +19,11 @@ export function LayerSwitcher({ currentLayer, onChange }: LayerSwitcherProps) {
   return (
     <button
       onClick={() => onChange(nextLayer)}
-      aria-label={`Mudar para ${next.label}`}
+      aria-label={`Camada atual: ${current.label}. Clique para trocar.`}
       className="pointer-events-auto absolute right-4 top-16 z-[1000] rounded-lg border border-brand-blue-mid/30 px-3 py-2 text-[13px] text-brand-gray-light shadow-lg backdrop-blur transition-colors duration-200 hover:border-brand-blue-mid/60"
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)" }}
     >
-      {next.icon} {next.label}
+      {current.icon} {current.label}
     </button>
   );
 }
