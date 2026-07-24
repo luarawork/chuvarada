@@ -1,9 +1,13 @@
 # Relatório de Vulnerabilidades — Chuvarada
 
-Data: 24/07/2026. Escopo: todos os endpoints em `app/api/`, RLS do Supabase,
-exposição da anon key, variáveis de ambiente, sanitização de input e headers
-de segurança. **Diagnóstico apenas — nada foi corrigido.** Aguardando
-aprovação para corrigir os itens abaixo.
+Data do diagnóstico: 24/07/2026. Escopo: todos os endpoints em `app/api/`,
+RLS do Supabase, exposição da anon key, variáveis de ambiente, sanitização
+de input e headers de segurança.
+
+**Status: todos os itens (2 críticos, 10 médios, 5 baixos) foram corrigidos
+e testados ao vivo em 24/07/2026**, exceto B2 (atualização do Next.js),
+tentada e revertida por incompatibilidade real com `next-pwa` — ver seção
+B2 abaixo para o diagnóstico completo do conflito.
 
 Metodologia: leitura de todo o código em `app/api/`, consulta direta a
 `pg_policies`/`pg_class.relrowsecurity` no banco de produção, testes reais
@@ -276,8 +280,40 @@ efeito só em build, não runtime). Confirmei que o projeto **não usa**
 middleware customizado nem Server Actions (`"use server"`) — as
 advisories mais específicas a essas features provavelmente não se
 aplicam, mas várias (DoS genérico, cache poisoning) valem pra qualquer
-app Next.js na versão. Recomendo atualizar quando o projeto puder
-absorver uma major (`npm audit fix --force` sobe pro Next 16).
+app Next.js na versão.
+
+**Tentativa de correção (24/07/2026) — revertida, conflito documentado:**
+tentei `npm install next@latest` (14.2.35 → 16.2.11). `npm install` e
+`tsc --noEmit` passaram limpos, mas `npm run build` falhou:
+
+```
+⨯ ERROR: This build is using Turbopack, with a `webpack` config and no
+   `turbopack` config. [...] As of Next.js 16 Turbopack is enabled by
+   default and custom webpack configurations may need to be migrated
+   to Turbopack.
+```
+
+Causa raiz: `next-pwa` (última versão publicada, 5.6.0 — sem releases
+recentes) funciona injetando uma função `webpack()` customizada em
+`next.config.mjs` pra gerar o service worker; Next.js 16 troca o
+bundler padrão pra Turbopack e recusa buildar com uma config de webpack
+"órfã" sem uma config equivalente de `turbopack` explícita. Não é um
+bug no código deste projeto — é uma incompatibilidade real entre
+`next-pwa` (parado, pré-Turbopack) e a mudança de bundler padrão do
+Next 16.
+
+Revertido: `package.json`/`package-lock.json` restaurados pro estado
+commitado (Next 14.2.35), `.next/` limpo, `npm install` рodado de novo.
+Confirmado depois do revert: `tsc --noEmit` limpo, dev server sobe
+normal, os 5 headers de segurança (commit anterior) continuam
+aparecendo na resposta.
+
+Caminho pra atualizar no futuro: trocar `next-pwa` por uma alternativa
+mantida (ex: `@ducanh2912/next-pwa`, fork ativo com suporte a
+App Router/Turbopack) ou gerar o service worker manualmente, e só
+então revisitar a atualização do Next. Não fazer isso como parte de uma
+sessão de correções de segurança — é uma mudança de infraestrutura de
+build separada, com escopo e teste próprios.
 
 ### B3. Nenhum GET tem rate limit
 `/api/neighborhoods`, `/api/municipalities`, `/api/score`, `/api/weather`,
