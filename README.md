@@ -16,7 +16,7 @@ O aquecimento global vem tornando eventos de chuva mais intensos e concentrados 
 | Estados | 27 (Brasil inteiro) |
 | Municípios | 5.570 (100% dos municípios IBGE) |
 | Bairros/distritos/subdistritos | 28.483 |
-| Com score calculado | 4.653 de 5.570 (83,5%) — Centro-Oeste e Norte aguardam o 1º ciclo completo do cron (ver limitação de rate-limit abaixo) |
+| Com score calculado | 5.570 de 5.570 (100%) |
 | Municípios costeiros com dado de maré cadastrado | 115 de 312 (36,9%) |
 
 ## Como funciona
@@ -45,6 +45,14 @@ Além do score, 3 regras disparam nível crítico automaticamente:
 Para municípios sem estação de maré próxima (>80km), o peso de 8% da maré é redistribuído proporcionalmente entre as demais variáveis.
 
 Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível entre seus bairros) em vez de polígonos — ilegíveis nessa escala e caros de carregar num viewport largo.
+
+## Além do mapa
+
+- **Relatos da comunidade**: qualquer pessoa pode marcar um ponto de alagamento no mapa (leve/moderado/grave), com confirmação/negação por outros usuários — complementa o modelo com observação real, sem depender só do cálculo. Relatos expiram automaticamente e ficam registrados com o score do modelo no momento, pra cruzamento futuro.
+- **Favoritos**: bairros salvos ficam disponíveis em `/favoritos`, com o app abrindo direto no bairro favorito ao entrar.
+- **`/analise`**: comparação entre os relatos da comunidade e o que o modelo calculou pro mesmo local/período.
+- **`/perfil`**: favoritos, relatos feitos e canal de sugestões (bug, funcionalidade, dado, cobertura) do próprio usuário.
+- **PWA instalável**: funciona como app nativo (ícone na tela, sem barra de navegador) em Android/iOS/desktop.
 
 ## Limitações conhecidas
 
@@ -120,7 +128,7 @@ Antes do deploy, configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_ST
 ## Documentação completa
 
 - [RELATORIO_COMPLETO.md](RELATORIO_COMPLETO.md) — histórico completo do projeto, decisões, dificuldades e fontes
-- [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model, Cobertura
+- [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model, Cobertura, Features, Architecture, Security, Testing, Roadmap
 - `/como-funciona` — explicação do modelo em linguagem acessível (dentro do app)
 
 ## Posicionamento

@@ -1,11 +1,16 @@
 import cron from "node-cron";
 
-// Agendador interno, só relevante se o deploy for num servidor persistente
-// (Railway/Render) em vez de serverless (Vercel já tem cron nativo via
-// vercel.json; Netlify via netlify/functions/scheduled-cron.mts) — nesses
-// dois casos, ENABLE_INTERNAL_CRON deve ficar em "false"/ausente, senão o
-// cron rodaria em duplicidade. Ativado via instrumentation.ts, que o
-// Next.js chama uma única vez na subida do processo do servidor.
+// Agendador interno, alternativa ao GitHub Actions (mecanismo decidido do
+// projeto, ver scripts/SETUP_ACTIONS.md) só pra deploy num servidor
+// persistente (Railway/Render) sem acesso a Actions. Com os workflows do
+// GitHub configurados, ENABLE_INTERNAL_CRON deve ficar em "false"/ausente,
+// senão o cron rodaria em duplicidade. Ativado via instrumentation.ts, que
+// o Next.js chama uma única vez na subida do processo do servidor.
+//
+// Nota: este agendador chama /api/cron/update (o cron único original), não
+// os 2 cronos separados que o GitHub Actions usa hoje (/api/cron/scores +
+// /api/cron/weather) — ver o aviso de depreciação no topo de
+// app/api/cron/update/route.ts antes de reativar isso em produção.
 let started = false;
 
 export function startInternalCron(): void {

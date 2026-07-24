@@ -87,39 +87,32 @@ Se `update_scores` falhar com 401: `CRON_SECRET` do secret do GitHub não
 bate com o `CRON_SECRET` configurado na plataforma de deploy — precisam
 ser o mesmo valor nos dois lugares.
 
-## Atenção: outros agendadores do mesmo `/api/cron/update`
+## Decisão: GitHub Actions é a única fonte de agendamento
 
-Este projeto tem **3 outros mecanismos**, independentes desta Action, que
-também podem chamar `/api/cron/update` no mesmo horário `0 * * * *`:
+Este projeto já teve **4 mecanismos** capazes de disparar `/api/cron/update`
+no mesmo horário (`0 * * * *`): esta Action, `vercel.json` (cron nativo do
+Vercel), `netlify/functions/scheduled-cron.mts` (cron nativo do Netlify) e
+`lib/internalScheduler.ts` (agendador em processo via `node-cron`). Rodar
+mais de um ao mesmo tempo causava a mesma classe de race condition do
+incidente de Natal — nenhum deles sabia que os outros existiam, nem
+esperava `update_merge` terminar antes de disparar.
 
-- `vercel.json` (cron nativo do Vercel)
-- `netlify/functions/scheduled-cron.mts` (cron nativo do Netlify)
-- `lib/internalScheduler.ts` (agendador em processo, via `node-cron`, só
-  ativado se `ENABLE_INTERNAL_CRON=true` — pensado pra deploy em servidor
-  persistente tipo Railway/Render)
+**Resolvido**: `vercel.json` e a function do Netlify foram removidos do
+repositório (ver `docs/diagnostico_agendadores_cron.md` pro histórico da
+decisão). Só restam duas fontes possíveis hoje:
 
-Esses 3 existem como alternativas entre si pra cobrir diferentes
-plataformas de deploy — a documentação de cada um já deixa claro que só
-**um** deve estar ativo por vez, senão o cron de scores roda em
-duplicidade.
+- **GitHub Actions** (este workflow) — a fonte real em produção.
+- `lib/internalScheduler.ts` — mantido só como alternativa pra deploy num
+  servidor persistente (Railway/Render) sem acesso a GitHub Actions.
+  Inativo por padrão (`ENABLE_INTERNAL_CRON` ausente/`false`) e, se algum
+  dia for ativado, note que ele chama o `/api/cron/update` antigo (cron
+  único), não os 2 cronos separados que esta Action usa — não são
+  equivalentes, ver aviso de depreciação no topo de
+  `app/api/cron/update/route.ts`.
 
-O ponto que importa aqui: nenhum desses 3 sabe que este workflow do
-GitHub Actions existe, nem espera o `update_merge` terminar antes de
-disparar. Se a plataforma de deploy em uso tiver um desses ativo, ele vai
-continuar chamando `/api/cron/update` direto no `:00` de toda hora,
-**sem** a garantia de ordem que o `needs:` dá dentro desta Action — a
-mesma race condition do incidente de Natal pode voltar a acontecer por
-esse caminho.
-
-É pra isso que serve o lock em `system_locks` (`scripts/sql/
-018_system_locks.sql` + checagem em `lib/merge.ts`): mesmo que
-`/api/cron/update` seja chamado no meio de uma escrita do
-`fetch_merge_cptec.py` por qualquer um desses agendadores alternativos,
-`getMergeData()` detecta o lock ativo e trata `merge_cache` como
-indisponível nesse ciclo (cai pro fallback Open-Meteo) em vez de ler
-metade das células atualizadas e metade não.
-
-Ainda assim, a forma mais robusta de evitar a race é ter só **uma** fonte
-de verdade dessas 4 (esta Action, Vercel, Netlify, agendador interno)
-disparando o cron de scores — vale decidir qual delas é a real em
-produção e desativar as outras 3.
+O lock em `system_locks` (`scripts/sql/018_system_locks.sql` + checagem em
+`lib/merge.ts`) continua como segunda camada de proteção independente da
+decisão acima: mesmo que dois disparos aconteçam por engano, `getMergeData()`
+detecta o lock ativo e trata `merge_cache` como indisponível nesse ciclo
+(cai pro fallback Open-Meteo) em vez de ler metade das células atualizadas
+e metade não.

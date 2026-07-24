@@ -1,10 +1,18 @@
 # Agendadores de cron — Chuvarada
 
-Documenta as 3 opções de agendamento implementadas pro cron de risco
-(`/api/cron/update`) e pro script do MERGE (`scripts/fetch_merge_cptec.py`),
-depois do achado 🔴 do `docs/relatorio_testes_pre_deploy.md`: nenhum
-agendador estava configurado, então o cron só rodava quando disparado
-manualmente.
+**Histórico/decisão já tomada.** Este documento descreve as 3 opções que
+foram exploradas na época em que nenhum agendador estava configurado (ver
+achado 🔴 do `docs/relatorio_testes_pre_deploy.md`). A decisão final foi
+**GitHub Actions** — `vercel.json` (Opção A) e a function do Netlify
+(Opção C) foram removidos do repositório pra eliminar o risco de disparo
+duplicado do cron descrito abaixo. Pra a configuração atual e válida, ver
+[`scripts/SETUP_ACTIONS.md`](../scripts/SETUP_ACTIONS.md).
+
+Documenta as 3 opções de agendamento que foram implementadas pro cron de
+risco (`/api/cron/update`) e pro script do MERGE
+(`scripts/fetch_merge_cptec.py`), depois do achado 🔴 do
+`docs/relatorio_testes_pre_deploy.md`: nenhum agendador estava
+configurado, então o cron só rodava quando disparado manualmente.
 
 ## Opção A — Vercel Cron (`vercel.json`)
 
