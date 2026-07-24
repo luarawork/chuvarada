@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { getServerSupabase } from "@/lib/supabase";
 import { calculateExpiresAt } from "@/lib/reports";
-import { hashIp, checkRateLimit } from "@/lib/reportRateLimit";
+import { getClientIp, hashIp, checkRateLimit, checkAuthenticatedRateLimit } from "@/lib/reportRateLimit";
+import { isValidBrazilState, parseBbox } from "@/lib/geo";
+import { rejectIfPayloadTooLarge } from "@/lib/apiError";
 import type { ReportSeverity, UserReport } from "@/types";
 
 const VALID_SEVERITIES: ReportSeverity[] = ["leve", "moderado", "grave"];
@@ -15,12 +17,6 @@ const MAX_REPORTS_PER_REQUEST = 100;
 // escanear a tabela inteira.
 const NEAREST_SEARCH_DEGREES = 0.1;
 
-function getClientIp(req: NextRequest): string {
-  const forwardedFor = req.headers.get("x-forwarded-for");
-  if (forwardedFor) return forwardedFor.split(",")[0].trim();
-  return req.headers.get("x-real-ip") ?? "unknown";
-}
-
 async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null> {
   const authHeader = req.headers.get("authorization");
   if (!authHeader?.startsWith("Bearer ")) return null;
@@ -31,6 +27,9 @@ async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null>
 }
 
 export async function POST(req: NextRequest) {
+  const tooLarge = rejectIfPayloadTooLarge(req);
+  if (tooLarge) return tooLarge;
+
   const body = await req.json().catch(() => null);
   if (!body) {
     return NextResponse.json({ error: "Corpo da requisição inválido" }, { status: 400 });
@@ -38,8 +37,11 @@ export async function POST(req: NextRequest) {
 
   const { lat, lng, severity, description, app_version } = body;
 
-  if (typeof lat !== "number" || typeof lng !== "number") {
-    return NextResponse.json({ error: "lat/lng são obrigatórios e devem ser numéricos" }, { status: 400 });
+  if (typeof lat !== "number" || lat < -90 || lat > 90) {
+    return NextResponse.json({ error: "lat inválido (deve estar entre -90 e 90)" }, { status: 400 });
+  }
+  if (typeof lng !== "number" || lng < -180 || lng > 180) {
+    return NextResponse.json({ error: "lng inválido (deve estar entre -180 e 180)" }, { status: 400 });
   }
   if (!VALID_SEVERITIES.includes(severity)) {
     return NextResponse.json({ error: "severity deve ser leve, moderado ou grave" }, { status: 400 });
@@ -62,7 +64,15 @@ export async function POST(req: NextRequest) {
     const { allowed, count } = await checkRateLimit(ipHash);
     if (!allowed) {
       return NextResponse.json(
-        { error: `Limite de relatos anônimos atingido (${count} na última hora). Entre numa conta para relatar sem limite.` },
+        { error: `Limite de relatos anônimos atingido (${count} na última hora). Entre numa conta para relatar com um limite maior.` },
+        { status: 429 }
+      );
+    }
+  } else {
+    const { allowed, count } = await checkAuthenticatedRateLimit(userId!);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: `Limite de relatos atingido (${count} na última hora). Tente novamente mais tarde.` },
         { status: 429 }
       );
     }
@@ -136,8 +146,14 @@ export async function GET(req: NextRequest) {
   // expirados/resolvidos, cruzados com o score do modelo na época).
   const state = searchParams.get("state");
   if (state) {
+    if (!isValidBrazilState(state)) {
+      return NextResponse.json({ error: "state deve ser uma UF válida (2 letras maiúsculas)" }, { status: 400 });
+    }
     const start = searchParams.get("start");
     const end = searchParams.get("end");
+    if ((start && !/^\d{4}-\d{2}-\d{2}$/.test(start)) || (end && !/^\d{4}-\d{2}-\d{2}$/.test(end))) {
+      return NextResponse.json({ error: "start/end devem estar no formato YYYY-MM-DD" }, { status: 400 });
+    }
     const { rows } = await db.query(
       `select r.* from user_reports r
        join cities c on c.id = r.city_id
@@ -145,20 +161,16 @@ export async function GET(req: NextRequest) {
          and ($2::date is null or r.created_at >= $2::date)
          and ($3::date is null or r.created_at < ($3::date + interval '1 day'))
        order by r.created_at desc
-       limit ${MAX_REPORTS_PER_REQUEST}`,
-      [state, start, end]
+       limit $4`,
+      [state, start, end, MAX_REPORTS_PER_REQUEST]
     );
     return NextResponse.json({ reports: rows as UserReport[] });
   }
 
-  const north = parseFloat(searchParams.get("north") ?? "");
-  const south = parseFloat(searchParams.get("south") ?? "");
-  const east = parseFloat(searchParams.get("east") ?? "");
-  const west = parseFloat(searchParams.get("west") ?? "");
-
-  if ([north, south, east, west].some((v) => Number.isNaN(v))) {
+  const bbox = parseBbox(searchParams);
+  if (!bbox) {
     return NextResponse.json(
-      { error: "Parâmetros north/south/east/west são obrigatórios e devem ser numéricos, ou use ?state=" },
+      { error: "Parâmetros north/south/east/west são obrigatórios, numéricos e dentro de um bbox razoável, ou use ?state=" },
       { status: 400 }
     );
   }
@@ -171,7 +183,7 @@ export async function GET(req: NextRequest) {
        and lng between $3 and $4
      order by created_at desc
      limit $5`,
-    [south, north, west, east, MAX_REPORTS_PER_REQUEST]
+    [bbox.south, bbox.north, bbox.west, bbox.east, MAX_REPORTS_PER_REQUEST]
   );
 
   return NextResponse.json({ reports: rows as UserReport[] });

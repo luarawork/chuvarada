@@ -2,22 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { getServerSupabase } from "@/lib/supabase";
 import { calculateExpiresAt } from "@/lib/reports";
-import { hashIp } from "@/lib/reportRateLimit";
+import { getClientIp, hashIp } from "@/lib/reportRateLimit";
+import { handleApiError, rejectIfPayloadTooLarge } from "@/lib/apiError";
 import type { ReportSeverity, UserReport } from "@/types";
 
 type Reaction = "confirm" | "deny";
 const VALID_REACTIONS: Reaction[] = ["confirm", "deny"];
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 // Código do Postgres pra violação de unique constraint -- usado aqui pra
 // detectar "esse usuário/IP já reagiu a esse relato" sem precisar de um
 // select prévio (evita race condition entre o select e o insert).
 const UNIQUE_VIOLATION = "23505";
-
-function getClientIp(req: NextRequest): string {
-  const forwardedFor = req.headers.get("x-forwarded-for");
-  if (forwardedFor) return forwardedFor.split(",")[0].trim();
-  return req.headers.get("x-real-ip") ?? "unknown";
-}
 
 async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null> {
   const authHeader = req.headers.get("authorization");
@@ -30,6 +26,13 @@ async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null>
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id: reportId } = await params;
+  if (!UUID_REGEX.test(reportId)) {
+    return NextResponse.json({ error: "ID inválido" }, { status: 400 });
+  }
+
+  const tooLarge = rejectIfPayloadTooLarge(req);
+  if (tooLarge) return tooLarge;
+
   const body = await req.json().catch(() => null);
   const reaction: Reaction | undefined = body?.reaction;
 
@@ -90,7 +93,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ report });
   } catch (err) {
     await client.query("rollback");
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+    return handleApiError(err, "api/reports/[id]/react");
   } finally {
     client.release();
   }

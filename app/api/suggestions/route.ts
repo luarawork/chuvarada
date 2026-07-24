@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { getServerSupabase } from "@/lib/supabase";
+import { getClientIp, hashIp, checkSuggestionRateLimit } from "@/lib/reportRateLimit";
+import { rejectIfPayloadTooLarge } from "@/lib/apiError";
 
 const VALID_TYPES = ["bug", "feature", "data", "coverage", "other"];
 const MAX_DESCRIPTION_LENGTH = 1000;
+// Corrige achado baixo B1 da auditoria de segurança -- checagem simples de
+// formato, não RFC 5322 completo (não precisa ser perfeito, só descartar
+// lixo óbvio antes de gravar).
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null> {
   const authHeader = req.headers.get("authorization");
@@ -15,6 +21,9 @@ async function getUserIdFromAuthHeader(req: NextRequest): Promise<string | null>
 }
 
 export async function POST(req: NextRequest) {
+  const tooLarge = rejectIfPayloadTooLarge(req);
+  if (tooLarge) return tooLarge;
+
   const body = await req.json().catch(() => null);
   if (!body) {
     return NextResponse.json({ error: "Corpo da requisição inválido" }, { status: 400 });
@@ -31,17 +40,28 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-  if (contact_email !== undefined && contact_email !== null && typeof contact_email !== "string") {
-    return NextResponse.json({ error: "contact_email deve ser uma string" }, { status: 400 });
+  if (contact_email !== undefined && contact_email !== null && contact_email !== "") {
+    if (typeof contact_email !== "string" || !EMAIL_REGEX.test(contact_email)) {
+      return NextResponse.json({ error: "contact_email inválido" }, { status: 400 });
+    }
+  }
+
+  const ipHash = hashIp(getClientIp(req));
+  const { allowed, count } = await checkSuggestionRateLimit(ipHash);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: `Limite de sugestões atingido (${count} nas últimas 24h). Tente novamente amanhã.` },
+      { status: 429 }
+    );
   }
 
   const userId = await getUserIdFromAuthHeader(req);
   const db = getDb();
   const { rows } = await db.query(
-    `insert into user_suggestions (user_id, type, description, contact_email)
-     values ($1, $2, $3, $4)
+    `insert into user_suggestions (user_id, type, description, contact_email, ip_hash)
+     values ($1, $2, $3, $4, $5)
      returning *`,
-    [userId, type, description.trim(), contact_email || null]
+    [userId, type, description.trim(), contact_email || null, ipHash]
   );
 
   return NextResponse.json({ suggestion: rows[0] }, { status: 201 });
