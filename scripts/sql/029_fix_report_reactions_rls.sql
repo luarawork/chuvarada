@@ -1,0 +1,12 @@
+-- Corrige achado crítico C1 da auditoria de segurança (24/07/2026,
+-- scripts/relatorio_vulnerabilidades.md): "reactions_public_read" (using
+-- true) expunha user_id/ip_hash de QUALQUER usuário pra qualquer chamador
+-- com a anon key, sem autenticação -- confirmado ao vivo lendo a tabela
+-- direto pela REST API do Supabase.
+--
+-- O app nunca leu essa tabela do cliente (só os contadores já agregados
+-- em user_reports.confirmations/denials), então não precisa de SELECT
+-- público nenhum -- remover a policy deixa a tabela tão inacessível via
+-- REST quanto system_locks/cron_run_stats (RLS habilitado, zero policies
+-- de leitura = sempre [] pra qualquer chamador client-side).
+drop policy if exists "reactions_public_read" on report_reactions;
