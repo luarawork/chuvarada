@@ -9,15 +9,18 @@ import { handleApiError } from "@/lib/apiError";
 // cidade (city_risk_summary puro) não dá pra desenhar como área. Igual ao
 // endpoint de bairros: filtra por centroide (índice dedicado,
 // municipalities_centroid) e serve geometry_simplified.
-// 4.653 municípios cabem nesse teto (ver scripts/process_municipalities.py) --
-// bem acima do necessário mesmo pro viewport de "Brasil inteiro" no modo
-// heatmap, que é o único caso realista de aproximar do total. Só existe
-// como salvaguarda contra bbox absurdo (ex: 0,0 a 0,0 do mundo todo). Antes
-// de aumentar a tolerância de simplificação (ver process_municipalities.py),
-// um teto de 1.500 cobria só ~32% do país de uma vez no zoom mais afastado
-// -- de forma arbitrária, sem ORDER BY -- então o Brasil inteiro nunca
-// aparecia completo no modo heatmap.
-const MAX_MUNICIPALITIES_PER_REQUEST = 5000;
+// O total nacional cresceu pra 5.567 municípios (confirmado direto no banco
+// em 24/07/2026 -- acima da contagem de 4.653 registrada quando esse teto
+// foi escolhido, ver scripts/process_municipalities.py) desde a expansão
+// nacional completa. Um teto de 5000 aqui truncava silenciosamente ~567
+// municípios (10% do país) sempre que app/page.tsx passou a buscar todos de
+// uma vez com um bbox nacional fixo (ver otimização de performance que
+// elimina o refetch a cada moveend) -- antes disso o truncamento quase
+// nunca era visível porque cada requisição só cobria o viewport atual, bem
+// menor que o total. 6000 dá margem confortável acima do total real atual.
+// Só existe como salvaguarda contra bbox absurdo (ex: 0,0 a 0,0 do mundo
+// todo), não como teto pensado pra cortar o país de propósito.
+const MAX_MUNICIPALITIES_PER_REQUEST = 6000;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

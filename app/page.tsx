@@ -109,7 +109,14 @@ function mergeNewerScores(
 // que carrega bem no meio dessa janela ficava permanentemente sem
 // polígonos/scores até o usuário mover o mapa (o que muda `bounds` e
 // dispara um novo fetch) ou recarregar a página.
-async function withRetry<T>(fn: () => Promise<T>, attempts = 3, delayMs = 1200): Promise<T> {
+//
+// delayMs 500 (reduzido de 1200) -- diagnóstico de performance encontrou a
+// causa real da lentidão em lib/db.ts (connect() sem timeout próprio,
+// caindo pro timeout do SO de ~20s pra uma conexão que cai na rota IPv6
+// instável). Com connectionTimeoutMillis=5s lá, cada tentativa falha rápido
+// o bastante pra um delay de retry menor entre elas fazer sentido, em vez
+// de somar mais atraso em cima do que já é uma tentativa de 5s.
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3, delayMs = 500): Promise<T> {
   let lastErr: unknown;
   for (let i = 0; i < attempts; i++) {
     try {
@@ -133,6 +140,14 @@ async function fetchNeighborhoodsForBounds(bounds: MapBounds): Promise<Neighborh
   if (!res.ok) throw new Error(`Falha ao buscar bairros do viewport: ${res.status}`);
   return res.json();
 }
+
+// Bbox fixo cobrindo o Brasil inteiro com folga -- usado só pra buscar
+// municipalities uma vez no boot do modo heatmap/municipality (ver efeito
+// abaixo). Confirmado na auditoria de segurança que essa área (~1.530
+// graus²) fica bem dentro do teto de sanidade de bbox (parseBbox, 10.000
+// graus²) e que uma única requisição com ela devolve os ~4.653 municípios
+// nacionais sem truncar.
+const BRAZIL_BOUNDS: MapBounds = { north: 6, south: -34, east: -28, west: -74 };
 
 async function fetchMunicipalitiesForBounds(bounds: MapBounds): Promise<MunicipalitySummary[]> {
   const params = new URLSearchParams({
@@ -239,30 +254,38 @@ export default function HomePage() {
   }, [bounds, mode]);
 
   // Polígonos municipais pros modos heatmap/municipality no zoom-out --
-  // mesmo debounce e padrão de cancelamento do efeito de bairros acima, só
-  // que contra /api/municipalities (tabela municipalities + agregado
-  // city_risk_summary, ver migração 023) em vez de recalcular nada na hora.
+  // busca UMA VEZ só, com um bbox fixo cobrindo o Brasil inteiro, em vez de
+  // refazer a cada moveend como antes. Municípios cabem folgado no teto de
+  // MAX_MUNICIPALITIES_PER_REQUEST (5.567 municípios nacionais contra um
+  // teto de 6000, ver app/api/municipalities/route.ts) -- uma única
+  // requisição já cobre qualquer viewport possível nesses 2 modos, então
+  // reconsultar o banco a cada pan/zoom era trabalho redundante (medido
+  // como a maior fonte de exposição à flakiness de conectividade do
+  // ambiente -- cada refetch é mais uma chance de bater na rota IPv6
+  // instável, ver lib/db.ts). worst_level/max_score de city_risk_summary
+  // podem ficar levemente desatualizados entre o boot e o próximo reload da
+  // página (o cron recalcula de hora em hora), o que é aceitável pra essa
+  // visão de zoom bem afastado.
   useEffect(() => {
-    if (!bounds || mode === "neighborhood") return;
+    if (mode === "neighborhood" || municipalitiesLoadedOnce) return;
     let cancelled = false;
 
-    const timer = setTimeout(async () => {
+    (async () => {
       try {
-        const data = await withRetry(() => fetchMunicipalitiesForBounds(bounds));
+        const data = await withRetry(() => fetchMunicipalitiesForBounds(BRAZIL_BOUNDS));
         if (cancelled) return;
         setMunicipalities(data);
         setMunicipalitiesLoadedOnce(true);
       } catch (err) {
-        console.error("Erro ao buscar municípios do viewport:", err);
+        console.error("Erro ao buscar municípios:", err);
         setMunicipalitiesLoadedOnce(true);
       }
-    }, 300);
+    })();
 
     return () => {
       cancelled = true;
-      clearTimeout(timer);
     };
-  }, [bounds, mode]);
+  }, [mode, municipalitiesLoadedOnce]);
 
   // Ao sair do modo bairro, fecha o painel de bairro aberto -- não faz
   // sentido mostrar detalhe de 1 bairro com o mapa zoomado numa escala que
