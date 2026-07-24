@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
+import { isLocked, acquireLock, releaseLock } from "@/lib/systemLock";
 import { getWeatherFromCacheOnly } from "@/lib/weather";
 import { getMergeData } from "@/lib/merge";
 import { getTideLevelCacheOnly } from "@/lib/cptec";
@@ -31,26 +32,6 @@ const CELL_CONCURRENCY = 4;
 const LOCK_KEY = "scores_cron_running";
 const LOCK_MAX_AGE_MINUTES = 10;
 
-async function isAlreadyRunning(db: Pool): Promise<boolean> {
-  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [LOCK_KEY]);
-  const lockRow = rows[0];
-  if (!lockRow) return false;
-  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
-  return ageMinutes < LOCK_MAX_AGE_MINUTES;
-}
-
-async function acquireLock(db: Pool): Promise<void> {
-  await db.query(
-    `insert into system_locks (key, locked_at, locked_by) values ($1, now(), 'cron_scores')
-     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
-    [LOCK_KEY]
-  );
-}
-
-async function releaseLock(db: Pool): Promise<void> {
-  await db.query(`delete from system_locks where key = $1`, [LOCK_KEY]);
-}
-
 export async function GET(req: NextRequest) {
   if (!verifyCronSecret(req.headers.get("authorization"))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
@@ -59,11 +40,14 @@ export async function GET(req: NextRequest) {
   const start = Date.now();
   const db = getDb();
 
-  if (await isAlreadyRunning(db)) {
-    return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 10min)" });
+  try {
+    if (await isLocked(db, LOCK_KEY, LOCK_MAX_AGE_MINUTES)) {
+      return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 10min)" });
+    }
+    await acquireLock(db, { key: LOCK_KEY, lockedBy: "cron_scores" });
+  } catch (err) {
+    return handleApiError(err, "api/cron/scores");
   }
-
-  await acquireLock(db);
 
   try {
     await cleanupExpiredReports(db);
@@ -100,7 +84,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return handleApiError(err, "api/cron/scores");
   } finally {
-    await releaseLock(db);
+    await releaseLock(db, LOCK_KEY);
   }
 }
 

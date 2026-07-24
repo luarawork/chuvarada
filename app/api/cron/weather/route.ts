@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
+import { isLocked, acquireLock, releaseLock } from "@/lib/systemLock";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
 import { runWithConcurrency, mapWithConcurrency } from "@/lib/riskScoring";
@@ -37,26 +38,6 @@ function envIntOr(value: string | undefined, fallback: number): number {
   return Number.isFinite(n) && n > 0 ? n : fallback;
 }
 
-async function isAlreadyRunning(db: Pool): Promise<boolean> {
-  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [LOCK_KEY]);
-  const lockRow = rows[0];
-  if (!lockRow) return false;
-  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
-  return ageMinutes < LOCK_MAX_AGE_MINUTES;
-}
-
-async function acquireLock(db: Pool): Promise<void> {
-  await db.query(
-    `insert into system_locks (key, locked_at, locked_by) values ($1, now(), 'cron_weather')
-     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
-    [LOCK_KEY]
-  );
-}
-
-async function releaseLock(db: Pool): Promise<void> {
-  await db.query(`delete from system_locks where key = $1`, [LOCK_KEY]);
-}
-
 interface CandidateCity extends City {
   last_cached: string | null;
 }
@@ -85,11 +66,14 @@ export async function GET(req: NextRequest) {
   const start = Date.now();
   const db = getDb();
 
-  if (await isAlreadyRunning(db)) {
-    return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 25min)" });
+  try {
+    if (await isLocked(db, LOCK_KEY, LOCK_MAX_AGE_MINUTES)) {
+      return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 25min)" });
+    }
+    await acquireLock(db, { key: LOCK_KEY, lockedBy: "cron_weather" });
+  } catch (err) {
+    return handleApiError(err, "api/cron/weather");
   }
-
-  await acquireLock(db);
   resetCycleStats();
 
   try {
@@ -146,6 +130,6 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return handleApiError(err, "api/cron/weather");
   } finally {
-    await releaseLock(db);
+    await releaseLock(db, LOCK_KEY);
   }
 }

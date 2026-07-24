@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
+import { isLocked, acquireLock, releaseLock } from "@/lib/systemLock";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import { calculateScore } from "@/lib/score";
@@ -52,26 +53,6 @@ const CELL_CONCURRENCY = 4;
 const CRON_LOCK_KEY = "cron_running";
 const CRON_LOCK_MAX_AGE_MINUTES = 15;
 
-async function isCronAlreadyRunning(db: Pool): Promise<boolean> {
-  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [CRON_LOCK_KEY]);
-  const lockRow = rows[0];
-  if (!lockRow) return false;
-  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
-  return ageMinutes < CRON_LOCK_MAX_AGE_MINUTES;
-}
-
-async function acquireCronLock(db: Pool): Promise<void> {
-  await db.query(
-    `insert into system_locks (key, locked_at, locked_by) values ($1, now(), 'cron_update')
-     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
-    [CRON_LOCK_KEY]
-  );
-}
-
-async function releaseCronLock(db: Pool): Promise<void> {
-  await db.query(`delete from system_locks where key = $1`, [CRON_LOCK_KEY]);
-}
-
 // Roda a cada hora (configurado externamente — Vercel Cron ou similar).
 // Protegido por CRON_SECRET no header Authorization.
 export async function GET(req: NextRequest) {
@@ -81,11 +62,14 @@ export async function GET(req: NextRequest) {
 
   const db = getDb();
 
-  if (await isCronAlreadyRunning(db)) {
-    return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 15min)" });
+  try {
+    if (await isLocked(db, CRON_LOCK_KEY, CRON_LOCK_MAX_AGE_MINUTES)) {
+      return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 15min)" });
+    }
+    await acquireLock(db, { key: CRON_LOCK_KEY, lockedBy: "cron_update" });
+  } catch (err) {
+    return handleApiError(err, "api/cron/update");
   }
-
-  await acquireCronLock(db);
   resetCycleStats();
 
   try {
@@ -125,7 +109,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     return handleApiError(err, "api/cron/update");
   } finally {
-    await releaseCronLock(db);
+    await releaseLock(db, CRON_LOCK_KEY);
   }
 }
 
