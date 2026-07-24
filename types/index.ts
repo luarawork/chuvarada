@@ -198,3 +198,28 @@ export interface AppNotification {
   message: string | null;
   sent_at: string;
 }
+
+export type ReportSeverity = "leve" | "moderado" | "grave";
+export type ReportStatus = "active" | "resolved" | "expired" | "removed";
+
+export interface UserReport {
+  id: string;
+  lat: number;
+  lng: number;
+  neighborhood_id: string | null;
+  city_id: string | null;
+  severity: ReportSeverity;
+  description: string | null;
+  user_id: string | null;
+  is_anonymous: boolean;
+  confirmations: number;
+  denials: number;
+  status: ReportStatus;
+  resolved_at: string | null;
+  model_score: number | null;
+  model_level: RiskLevel | null;
+  model_rain_72h: number | null;
+  model_rain_peak_3h: number | null;
+  created_at: string;
+  expires_at: string | null;
+}
