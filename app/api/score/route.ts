@@ -4,6 +4,7 @@ import { getServerSupabase } from "@/lib/supabase";
 import { calculateScore } from "@/lib/score";
 import { getWeatherForPoint } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
+import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
 
 export async function GET(req: NextRequest) {
@@ -35,6 +36,6 @@ export async function GET(req: NextRequest) {
     const result = calculateScore(n, weather, tide.level);
     return NextResponse.json(result);
   } catch (err) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+    return handleApiError(err, "api/score");
   }
 }
