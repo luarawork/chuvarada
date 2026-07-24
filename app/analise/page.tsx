@@ -11,13 +11,27 @@ import {
   XAxis,
   YAxis,
   ReferenceArea,
+  ReferenceDot,
   Tooltip,
   Legend,
 } from "recharts";
+import type { ReportSeverity, UserReport } from "@/types";
 
 // Paleta consistente com o resto do app (RISK_COLORS em lib/geojson.ts,
 // mesmo card escuro de components/ui/AlertCard.tsx).
 const COLORS = { normal: "#2a9d72", attention: "#f0a500", critical: "#d64045", line: "#2e7db8" };
+
+const SEVERITY_COLOR: Record<ReportSeverity, string> = {
+  leve: "#a8d4f0",
+  moderado: "#f0a500",
+  grave: "#d64045",
+};
+
+const SEVERITY_LABEL: Record<ReportSeverity, string> = {
+  leve: "Leve",
+  moderado: "Moderado",
+  grave: "Grave",
+};
 
 const STATES = [
   "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT",
@@ -69,12 +83,14 @@ export default function AnalisePage() {
   const [error, setError] = useState<string | null>(null);
   const [daily, setDaily] = useState<DailyAggregate[] | null>(null);
   const [criticalEvents, setCriticalEvents] = useState<HistoryRow[]>([]);
+  const [reports, setReports] = useState<UserReport[]>([]);
 
   async function handleSearch() {
     setLoading(true);
     setError(null);
     setDaily(null);
     setCriticalEvents([]);
+    setReports([]);
 
     try {
       const dates = dateRange(startDate, endDate);
@@ -113,6 +129,16 @@ export default function AnalisePage() {
         .sort((a, b) => b.score - a.score)
         .slice(0, 20);
       setCriticalEvents(allCritical);
+
+      try {
+        const reportsRes = await fetch(`/api/reports?state=${state}&start=${startDate}&end=${endDate}`);
+        if (reportsRes.ok) {
+          const { reports: reportsData } = await reportsRes.json();
+          setReports(reportsData as UserReport[]);
+        }
+      } catch (err) {
+        console.error("Erro ao buscar relatos do período:", err);
+      }
     } catch {
       setError("Falha ao buscar histórico.");
     } finally {
@@ -215,6 +241,21 @@ export default function AnalisePage() {
                     />
                     <Line type="monotone" dataKey="max_score" name="Score máximo" stroke={COLORS.line} strokeWidth={2} dot={{ r: 3 }} />
                     <Line type="monotone" dataKey="avg_score" name="Score médio" stroke="#a8d4f0" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
+                    {reports.map((r) => {
+                      const date = r.created_at.slice(0, 10);
+                      if (!daily.some((d) => d.date === date)) return null;
+                      return (
+                        <ReferenceDot
+                          key={r.id}
+                          x={date}
+                          y={r.model_score ?? 0.05}
+                          r={5}
+                          fill={SEVERITY_COLOR[r.severity]}
+                          stroke="#0d1b2a"
+                          strokeWidth={1.5}
+                        />
+                      );
+                    })}
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -277,12 +318,44 @@ export default function AnalisePage() {
               )}
             </div>
 
-            {/* Placeholder pra relatos futuros */}
+            {/* Lista: relatos de moradores no período */}
             <div
-              className="mt-6 rounded-2xl border border-dashed p-5 text-center text-sm"
-              style={{ borderColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
+              className="mt-6 rounded-2xl border p-5"
+              style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
             >
-              Em breve: relatos de moradores sobre eventos de alagamento nesta área.
+              <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
+                Relatos de moradores no período
+              </h2>
+              {reports.length === 0 ? (
+                <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
+                  Nenhum relato registrado nesse estado/período.
+                </p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {reports.map((r) => (
+                    <li
+                      key={r.id}
+                      className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm"
+                      style={{ backgroundColor: "rgba(240, 244, 248, 0.06)" }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="h-2.5 w-2.5 shrink-0 rounded-full"
+                          style={{ backgroundColor: SEVERITY_COLOR[r.severity] }}
+                        />
+                        <span style={{ color: "#f0f4f8" }}>
+                          {SEVERITY_LABEL[r.severity]}
+                          <span style={{ color: "#a8d4f0" }}> — {new Date(r.created_at).toLocaleString("pt-BR")}</span>
+                        </span>
+                      </div>
+                      <span className="text-xs" style={{ color: "#a8d4f0" }}>
+                        ✓{r.confirmations} ✗{r.denials}
+                        {r.model_level && r.model_level !== "normal" ? ` · modelo em ${r.model_level === "critical" ? "crítico" : "atenção"}` : ""}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </>
         )}
