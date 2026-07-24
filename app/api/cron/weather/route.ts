@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
+import { verifyCronSecret } from "@/lib/auth";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
 import { runWithConcurrency, mapWithConcurrency } from "@/lib/riskScoring";
@@ -76,8 +77,7 @@ async function getCitiesToUpdate(db: Pool, maxBatchSize: number): Promise<Candid
 }
 
 export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!verifyCronSecret(req.headers.get("authorization"))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 

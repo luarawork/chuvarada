@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
+import { verifyCronSecret } from "@/lib/auth";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { getCurrentTideLevel } from "@/lib/cptec";
 import { calculateScore } from "@/lib/score";
@@ -73,8 +74,7 @@ async function releaseCronLock(db: Pool): Promise<void> {
 // Roda a cada hora (configurado externamente — Vercel Cron ou similar).
 // Protegido por CRON_SECRET no header Authorization.
 export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!verifyCronSecret(req.headers.get("authorization"))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 

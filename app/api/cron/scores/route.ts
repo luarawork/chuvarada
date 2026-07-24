@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
+import { verifyCronSecret } from "@/lib/auth";
 import { getWeatherFromCacheOnly } from "@/lib/weather";
 import { getMergeData } from "@/lib/merge";
 import { getTideLevelCacheOnly } from "@/lib/cptec";
@@ -50,8 +51,7 @@ async function releaseLock(db: Pool): Promise<void> {
 }
 
 export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!verifyCronSecret(req.headers.get("authorization"))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
