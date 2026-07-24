@@ -101,6 +101,27 @@ function mergeNewerScores(
   return next;
 }
 
+// Reintenta o fetch do viewport algumas vezes antes de desistir -- este
+// ambiente de dev tem uma falha intermitente de conectividade IPv6 com o
+// Postgres do Supabase (ETIMEDOUT, ~20-30% das requisições numa janela
+// ruim, já documentada em auditorias anteriores) que faz o endpoint
+// responder 500 mesmo com o banco populado e saudável. Sem retry, um mapa
+// que carrega bem no meio dessa janela ficava permanentemente sem
+// polígonos/scores até o usuário mover o mapa (o que muda `bounds` e
+// dispara um novo fetch) ou recarregar a página.
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3, delayMs = 1200): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (i < attempts - 1) await new Promise((resolve) => setTimeout(resolve, delayMs));
+    }
+  }
+  throw lastErr;
+}
+
 async function fetchNeighborhoodsForBounds(bounds: MapBounds): Promise<NeighborhoodsResponse> {
   const params = new URLSearchParams({
     north: bounds.north.toString(),
@@ -197,7 +218,7 @@ export default function HomePage() {
 
     const timer = setTimeout(async () => {
       try {
-        const { neighborhoods: data, scores, truncated } = await fetchNeighborhoodsForBounds(bounds);
+        const { neighborhoods: data, scores, truncated } = await withRetry(() => fetchNeighborhoodsForBounds(bounds));
         if (cancelled) return;
         setNeighborhoods(data);
         setLatestScores((prev) => mergeNewerScores(prev, scores));
@@ -227,7 +248,7 @@ export default function HomePage() {
 
     const timer = setTimeout(async () => {
       try {
-        const data = await fetchMunicipalitiesForBounds(bounds);
+        const data = await withRetry(() => fetchMunicipalitiesForBounds(bounds));
         if (cancelled) return;
         setMunicipalities(data);
         setMunicipalitiesLoadedOnce(true);
