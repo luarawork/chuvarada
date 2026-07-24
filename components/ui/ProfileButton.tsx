@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 
+// Sem posicionamento próprio -- renderizado dentro da pilha flex-col do
+// canto superior direito (junto com ReportButton), ver app/page.tsx.
 export function ProfileButton() {
   const { user, loading } = useAuth();
 
@@ -10,9 +12,10 @@ export function ProfileButton() {
     <Link
       href={user ? "/perfil" : "/auth"}
       aria-label={user ? "Meus favoritos" : "Entrar"}
-      className={`pointer-events-auto absolute right-4 top-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition ${
-        user ? "bg-brand-blue-mid text-white hover:bg-brand-blue-deep" : "bg-white text-brand-blue-mid hover:bg-brand-gray-light"
-      } ${loading ? "opacity-0" : "opacity-100"}`}
+      className={`pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border text-brand-blue-light shadow-lg backdrop-blur transition ${
+        loading ? "opacity-0" : "opacity-100"
+      }`}
+      style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
     >
       {user ? (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

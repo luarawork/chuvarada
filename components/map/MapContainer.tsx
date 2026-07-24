@@ -41,7 +41,7 @@ export function MapContainer({ tileLayer, onReady, children }: MapContainerProps
         maxZoom: 19,
       }).addTo(map);
 
-      L.control.zoom({ position: "bottomleft" }).addTo(map);
+      L.control.zoom({ position: "bottomright" }).addTo(map);
 
       mapRef.current = map;
       onReady(map);

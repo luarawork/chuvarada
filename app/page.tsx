@@ -16,7 +16,7 @@ import { MapLegend } from "@/components/ui/MapLegend";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { ReportButton } from "@/components/ui/ReportButton";
 import { ReportModal } from "@/components/ui/ReportModal";
-import { LayerSwitcher } from "@/components/map/LayerSwitcher";
+import { LayerToggle } from "@/components/map/LayerToggle";
 import { DetailPanel } from "@/components/panel/DetailPanel";
 import type { TileLayerKey } from "@/lib/constants";
 import { useMap, type MapBounds } from "@/hooks/useMap";
@@ -534,19 +534,17 @@ export default function HomePage() {
         />
       </MapContainer>
 
-      <ProfileButton />
-
-      <LayerSwitcher
-        currentLayer={tileLayer}
-        onChange={(layer) => {
-          setTileLayer(layer);
-          userOverrodeTileRef.current = true;
-        }}
-      />
+      <div className="absolute right-4 top-4 z-[1000] flex flex-col gap-2">
+        <ReportButton active={reportMode} onToggle={() => setReportMode((v) => !v)} />
+        <ProfileButton />
+      </div>
 
       <SearchBar onSelect={flyTo} />
 
-      <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
+      <div className="absolute left-4 top-4 z-[1000] flex flex-col gap-2">
+        <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
+        <MapLegend />
+      </div>
 
       {!selected && (
         <AlertCard
@@ -579,20 +577,27 @@ export default function HomePage() {
         />
       )}
 
-      <MapLegend />
-
-      <ReportButton active={reportMode} onToggle={() => setReportMode((v) => !v)} />
-
       {pendingReportLocation && (
         <ReportModal onClose={() => setPendingReportLocation(null)} onSubmit={handleReportSubmit} />
       )}
 
-      <Link
-        href="/como-funciona"
-        className="pointer-events-auto absolute bottom-4 right-4 z-[1000] rounded-full bg-brand-blue-deep/80 px-3 py-1.5 text-xs text-brand-blue-light shadow backdrop-blur-sm hover:bg-brand-blue-deep"
-      >
-        Como funciona
-      </Link>
+      <div className="absolute bottom-4 right-4 z-[1000] flex flex-col items-end gap-2">
+        <Link
+          href="/como-funciona"
+          className="pointer-events-auto rounded-full border px-3 py-2 text-[13px] shadow-lg backdrop-blur"
+          style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
+        >
+          Como funciona
+        </Link>
+
+        <LayerToggle
+          currentLayer={tileLayer}
+          onChange={(layer) => {
+            setTileLayer(layer);
+            userOverrodeTileRef.current = true;
+          }}
+        />
+      </div>
 
       <DetailPanel
         neighborhood={selected}

@@ -7,24 +7,26 @@ interface ReportButtonProps {
   onToggle: () => void;
 }
 
-// Botão flutuante que ativa o "modo relato" -- enquanto ativo, o clique no
-// mapa (ver app/page.tsx) marca o local do relato em vez do comportamento
-// normal, e um banner no topo instrui o usuário (Esc cancela, ver o listener
-// de keydown em page.tsx).
+// Sem posicionamento próprio -- renderizado dentro da pilha flex-col do
+// canto superior direito (junto com ProfileButton), ver app/page.tsx.
+// Enquanto ativo, o clique no mapa (ver app/page.tsx) marca o local do
+// relato em vez do comportamento normal, e um banner no topo instrui o
+// usuário (Esc cancela, ver o listener de keydown em page.tsx). O vermelho
+// no estado ativo é intencional (semântica de "cancelar"), diferente do
+// vidro escuro padrão dos outros botões circulares.
 export function ReportButton({ active, onToggle }: ReportButtonProps) {
   return (
     <>
       <button
         onClick={onToggle}
         aria-label={active ? "Cancelar relato" : "Fazer um relato"}
-        className={`pointer-events-auto absolute bottom-28 right-4 z-[1000] flex h-11 w-11 items-center justify-center rounded-full shadow-lg transition ${
-          active
-            ? "bg-brand-red-alert text-white hover:bg-brand-red-alert/90"
-            : "bg-brand-blue-mid text-white hover:bg-brand-blue-deep"
+        className={`pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border shadow-lg backdrop-blur transition ${
+          active ? "border-brand-red-alert bg-brand-red-alert text-white" : "text-brand-blue-light"
         }`}
+        style={active ? undefined : { backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
       >
         {active ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         ) : (

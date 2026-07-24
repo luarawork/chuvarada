@@ -27,7 +27,7 @@ export function AlertCard({ level, weather, tideLevel, onClick }: AlertCardProps
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", damping: 20, stiffness: 200 }}
-        className="pointer-events-auto w-full rounded-2xl border px-5 py-4 text-left shadow-xl backdrop-blur md:w-[420px]"
+        className="pointer-events-auto w-full rounded-xl border px-4 py-3 text-left shadow-xl backdrop-blur md:w-[420px]"
         style={{
           backgroundColor: "rgba(13, 27, 42, 0.92)",
           borderColor: "rgba(46, 125, 184, 0.3)",

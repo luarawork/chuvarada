@@ -28,6 +28,17 @@ body {
   background: #0d1b2a;
 }
 
+/* Empurra o zoom nativo do Leaflet (bottomright) pra cima da pilha React
+   "Como funciona" + LayerToggle (ver app/page.tsx) -- ambos os controles
+   competem pelo mesmo canto, e o Leaflet injeta o seu via DOM próprio
+   (.leaflet-bottom.leaflet-right), fora da árvore React, então não dá pra
+   resolver isso só com a ordem dos elementos JSX. 112px = 16px (bottom-4 do
+   container React) + ~80px (altura de Como Funciona + gap + LayerToggle) +
+   16px de respiro. */
+.leaflet-bottom.leaflet-right {
+  bottom: 112px;
+}
+
 /* Popups de relato (ReportLayer) -- tema escuro pra combinar com o resto do
    mapa (o popup branco padrão do Leaflet destoava do fundo #0d1b2a). */
 .leaflet-popup-content-wrapper,

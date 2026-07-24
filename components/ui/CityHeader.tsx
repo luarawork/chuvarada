@@ -20,10 +20,12 @@ function timeAgo(iso: string | null): string {
   return `Atualizado há ${hours}h`;
 }
 
+// Sem posicionamento próprio -- renderizado dentro da pilha flex-col do
+// canto superior esquerdo (junto com MapLegend), ver app/page.tsx.
 export function CityHeader({ cityName, level, updatedAt }: CityHeaderProps) {
   return (
     <div
-      className="pointer-events-auto absolute left-4 top-4 z-[1000] rounded-2xl border px-4 py-3 shadow-lg backdrop-blur"
+      className="pointer-events-auto rounded-xl border px-4 py-3 shadow-lg backdrop-blur"
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
     >
       <div className="flex items-center gap-2">
