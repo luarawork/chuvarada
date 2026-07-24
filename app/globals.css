@@ -32,11 +32,24 @@ body {
    "Como funciona" + LayerToggle (ver app/page.tsx) -- ambos os controles
    competem pelo mesmo canto, e o Leaflet injeta o seu via DOM próprio
    (.leaflet-bottom.leaflet-right), fora da árvore React, então não dá pra
-   resolver isso só com a ordem dos elementos JSX. 112px = 16px (bottom-4 do
+   resolver isso só com a ordem dos elementos JSX. 136px = 36px (bottom-9 do
    container React) + ~80px (altura de Como Funciona + gap + LayerToggle) +
-   16px de respiro. */
+   20px de respiro (esse container agora só tem o zoom -- a atribuição foi
+   destacada pra regra isolada abaixo, então não conta mais nessa conta).
+*/
 .leaflet-bottom.leaflet-right {
-  bottom: 112px;
+  bottom: 136px;
+}
+
+/* A atribuição (.leaflet-control-attribution) normalmente é filha do MESMO
+   .leaflet-bottom.leaflet-right acima, então herdaria o mesmo bottom:136px
+   do zoom -- destacada aqui com position:fixed (escapa do offset do pai)
+   pra ficar isolada no canto, abaixo da pilha "Como funciona" + LayerToggle
+   inteira, em vez de empilhada junto do zoom lá em cima. */
+.leaflet-control-attribution {
+  position: fixed;
+  right: 16px;
+  bottom: 4px;
 }
 
 /* Popups de relato (ReportLayer) -- tema escuro pra combinar com o resto do

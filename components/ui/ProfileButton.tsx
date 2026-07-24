@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 
-// Sem posicionamento próprio -- renderizado dentro da pilha flex-col do
+// Sem posicionamento próprio -- renderizado dentro da pilha flex-row do
 // canto superior direito (junto com ReportButton), ver app/page.tsx.
 export function ProfileButton() {
   const { user, loading } = useAuth();
+
+  // Prioriza o nome (user_metadata.name, se o cadastro/login social
+  // preencher isso) sobre o e-mail -- e-mail é o único dado garantido, mas
+  // um nome de verdade é mais reconhecível que a inicial de um endereço de
+  // e-mail qualquer.
+  const initial = user?.user_metadata?.name?.[0]?.toUpperCase() ?? user?.email?.[0]?.toUpperCase() ?? "?";
 
   return (
     <Link
@@ -18,13 +24,11 @@ export function ProfileButton() {
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
     >
       {user ? (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4.5 5.5 4 8 3.6 10 5 12 7.5 14 5 16 3.6 18.5 4 22 4.5 23.5 8 22 11.7 19.5 16.4 12 21 12 21Z" />
-        </svg>
+        <span className="text-sm font-semibold text-white">{initial}</span>
       ) : (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" strokeLinecap="round" />
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
         </svg>
       )}
     </Link>

@@ -156,20 +156,17 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   return (
     <div
       ref={containerRef}
-      // Só no mobile (abaixo do breakpoint sm): left-4/right-16 (64px) em vez
-      // de centralizar -- reserva espaço pra pilha de botões circulares do
-      // canto superior direito (ReportButton + ProfileButton, 40px +
-      // right-4), que passou a ocupar essa faixa vertical também (antes só
-      // o ProfileButton estava lá, e o SearchBar quase-full-width
-      // centralizado ficava embaixo dele sem conflito -- com o ReportButton
-      // entrando na mesma coluna, um SearchBar de 320px centrado em telas
-      // ~375px sobrepunha os botões). Sem width explícita aqui -- "w-full"
-      // conflitava com "right-16" (over-constrained: com left+width+right
-      // todos explícitos o CSS ignora "right" e usa left+width), então a
-      // largura fica "auto", resolvida a partir de left+right normalmente.
-      // sm+ (telas maiores, sem risco de sobreposição) mantém o design
-      // original centralizado.
-      className="pointer-events-auto absolute left-4 right-16 z-[1000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
+      // Só no mobile (abaixo do breakpoint sm): left-4/right-28 (112px) em
+      // vez de centralizar -- reserva espaço pra pilha de botões circulares
+      // do canto superior direito, agora lado a lado (ReportButton +
+      // ProfileButton, 40px cada + gap-2 + right-4 = ~104px de largura
+      // total a partir da borda direita; 112px dá uma folga de 8px). Sem
+      // width explícita aqui -- "w-full" conflitava com "right-28"
+      // (over-constrained: com left+width+right todos explícitos o CSS
+      // ignora "right" e usa left+width), então a largura fica "auto",
+      // resolvida a partir de left+right normalmente. sm+ (telas maiores,
+      // sem risco de sobreposição) mantém o design original centralizado.
+      className="pointer-events-auto absolute left-4 right-28 z-[1000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
       style={{ top: 16 }}
     >
       <div

@@ -534,7 +534,7 @@ export default function HomePage() {
         />
       </MapContainer>
 
-      <div className="absolute right-4 top-4 z-[1000] flex flex-col gap-2">
+      <div className="absolute right-4 top-4 z-[1000] flex flex-row gap-2">
         <ReportButton active={reportMode} onToggle={() => setReportMode((v) => !v)} />
         <ProfileButton />
       </div>
@@ -581,7 +581,11 @@ export default function HomePage() {
         <ReportModal onClose={() => setPendingReportLocation(null)} onSubmit={handleReportSubmit} />
       )}
 
-      <div className="absolute bottom-4 right-4 z-[1000] flex flex-col items-end gap-2">
+      {/* bottom-9 (36px), não bottom-4 (16px) -- reserva espaço pra
+          atribuição do Leaflet (.leaflet-control-attribution em
+          globals.css), destacada do controle de zoom e fixada isolada bem
+          no canto, abaixo desta pilha inteira. */}
+      <div className="absolute bottom-9 right-4 z-[1000] flex flex-col items-end gap-2">
         <Link
           href="/como-funciona"
           className="pointer-events-auto rounded-full border px-3 py-2 text-[13px] shadow-lg backdrop-blur"
