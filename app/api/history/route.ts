@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { readFromB2, getRiskScoresKey } from "@/lib/b2";
 import { isValidBrazilState } from "@/lib/geo";
+import { handleApiError } from "@/lib/apiError";
 
 // Consulta histórico de risk_scores -- dados com menos de 48h ainda estão
 // no Supabase (mesmo corte usado por scripts/archive_to_b2.ts pra decidir o
@@ -53,36 +54,40 @@ export async function GET(req: NextRequest) {
   const cutoff = new Date(Date.now() - ARCHIVE_CUTOFF_HOURS * 3_600_000);
   const requestedDate = new Date(`${date}T23:59:59Z`);
   const isRecent = requestedDate > cutoff;
-
-  let data: HistoryRow[] | null = null;
   const source = isRecent ? "supabase" : "b2";
 
-  if (isRecent) {
-    const db = getDb();
-    const { rows } = await db.query<HistoryRow>(
-      `select rs.neighborhood_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
-              rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.calculated_at,
-              n.name as neighborhood_name, n.centroid_lat, n.centroid_lng
-       from risk_scores rs
-       join neighborhoods n on n.id = rs.neighborhood_id
-       join cities c on c.id = n.city_id
-       where c.state = $1
-         and rs.calculated_at >= $2::date
-         and rs.calculated_at < ($2::date + interval '1 day')
-       order by rs.calculated_at asc
-       limit $3`,
-      [state, date, MAX_HISTORY_ROWS]
-    );
-    data = rows;
-  } else {
-    data = await readFromB2<HistoryRow[]>(getRiskScoresKey(date, state));
+  try {
+    let data: HistoryRow[] | null = null;
+
+    if (isRecent) {
+      const db = getDb();
+      const { rows } = await db.query<HistoryRow>(
+        `select rs.neighborhood_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
+                rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.calculated_at,
+                n.name as neighborhood_name, n.centroid_lat, n.centroid_lng
+         from risk_scores rs
+         join neighborhoods n on n.id = rs.neighborhood_id
+         join cities c on c.id = n.city_id
+         where c.state = $1
+           and rs.calculated_at >= $2::date
+           and rs.calculated_at < ($2::date + interval '1 day')
+         order by rs.calculated_at asc
+         limit $3`,
+        [state, date, MAX_HISTORY_ROWS]
+      );
+      data = rows;
+    } else {
+      data = await readFromB2<HistoryRow[]>(getRiskScoresKey(date, state));
+    }
+
+    if (!data) {
+      return NextResponse.json({ error: "Dados não encontrados para este período" }, { status: 404 });
+    }
+
+    const filtered = neighborhoodId ? data.filter((d) => d.neighborhood_id === neighborhoodId) : data;
+
+    return NextResponse.json({ data: filtered, source });
+  } catch (err) {
+    return handleApiError(err, "api/history");
   }
-
-  if (!data) {
-    return NextResponse.json({ error: "Dados não encontrados para este período" }, { status: 404 });
-  }
-
-  const filtered = neighborhoodId ? data.filter((d) => d.neighborhood_id === neighborhoodId) : data;
-
-  return NextResponse.json({ data: filtered, source });
 }

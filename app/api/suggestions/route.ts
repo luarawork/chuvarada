@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { getServerSupabase } from "@/lib/supabase";
 import { getClientIp, hashIp, checkSuggestionRateLimit } from "@/lib/reportRateLimit";
-import { rejectIfPayloadTooLarge } from "@/lib/apiError";
+import { rejectIfPayloadTooLarge, handleApiError } from "@/lib/apiError";
 
 const VALID_TYPES = ["bug", "feature", "data", "coverage", "other"];
 const MAX_DESCRIPTION_LENGTH = 1000;
@@ -46,23 +46,27 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const ipHash = hashIp(getClientIp(req));
-  const { allowed, count } = await checkSuggestionRateLimit(ipHash);
-  if (!allowed) {
-    return NextResponse.json(
-      { error: `Limite de sugestões atingido (${count} nas últimas 24h). Tente novamente amanhã.` },
-      { status: 429 }
+  try {
+    const ipHash = hashIp(getClientIp(req));
+    const { allowed, count } = await checkSuggestionRateLimit(ipHash);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: `Limite de sugestões atingido (${count} nas últimas 24h). Tente novamente amanhã.` },
+        { status: 429 }
+      );
+    }
+
+    const userId = await getUserIdFromAuthHeader(req);
+    const db = getDb();
+    const { rows } = await db.query(
+      `insert into user_suggestions (user_id, type, description, contact_email, ip_hash)
+       values ($1, $2, $3, $4, $5)
+       returning *`,
+      [userId, type, description.trim(), contact_email || null, ipHash]
     );
+
+    return NextResponse.json({ suggestion: rows[0] }, { status: 201 });
+  } catch (err) {
+    return handleApiError(err, "api/suggestions POST");
   }
-
-  const userId = await getUserIdFromAuthHeader(req);
-  const db = getDb();
-  const { rows } = await db.query(
-    `insert into user_suggestions (user_id, type, description, contact_email, ip_hash)
-     values ($1, $2, $3, $4, $5)
-     returning *`,
-    [userId, type, description.trim(), contact_email || null, ipHash]
-  );
-
-  return NextResponse.json({ suggestion: rows[0] }, { status: 201 });
 }

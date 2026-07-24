@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { parseBbox } from "@/lib/geo";
+import { handleApiError } from "@/lib/apiError";
 import type { Neighborhood, RiskScore } from "@/types";
 
 // Teto por requisição -- viewport normal (1 cidade, mesmo grande como São
@@ -49,7 +50,6 @@ const LATEST_SCORE_LATERAL = `
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const db = getDb();
 
   // Lista (pequena, tipicamente vazia) de cidades sem NENHUM bairro ainda --
   // usado só pelo EmptyStateLayer pra desenhar o placeholder "cobertura em
@@ -57,13 +57,18 @@ export async function GET(req: NextRequest) {
   // `neighborhoods` (agora só o viewport atual) -- toda cidade fora do
   // viewport pareceria "vazia" incorretamente.
   if (searchParams.get("emptyCities") === "true") {
-    const { rows } = await db.query(
-      `select c.id
-       from cities c
-       left join neighborhoods n on n.city_id = c.id
-       where c.active = true and n.id is null`
-    );
-    return NextResponse.json({ cityIds: rows.map((r) => r.id) });
+    try {
+      const db = getDb();
+      const { rows } = await db.query(
+        `select c.id
+         from cities c
+         left join neighborhoods n on n.city_id = c.id
+         where c.active = true and n.id is null`
+      );
+      return NextResponse.json({ cityIds: rows.map((r) => r.id) });
+    } catch (err) {
+      return handleApiError(err, "api/neighborhoods (emptyCities)");
+    }
   }
 
   // Lookup direto por id, sem passar pelo filtro de bbox -- usado quando o
@@ -72,14 +77,19 @@ export async function GET(req: NextRequest) {
   // Paulo com o mapa abrindo no Nordeste). Ver app/page.tsx.
   const id = searchParams.get("id");
   if (id) {
-    const { rows } = await db.query(
-      `select ${SELECT_COLUMNS}
-       from neighborhoods n
-       ${LATEST_SCORE_LATERAL}
-       where n.id = $1`,
-      [id]
-    );
-    return NextResponse.json(buildResponse(rows));
+    try {
+      const db = getDb();
+      const { rows } = await db.query(
+        `select ${SELECT_COLUMNS}
+         from neighborhoods n
+         ${LATEST_SCORE_LATERAL}
+         where n.id = $1`,
+        [id]
+      );
+      return NextResponse.json(buildResponse(rows));
+    } catch (err) {
+      return handleApiError(err, "api/neighborhoods (id)");
+    }
   }
 
   const bbox = parseBbox(searchParams);
@@ -90,17 +100,21 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const { rows } = await db.query(
-    `select ${SELECT_COLUMNS}
-     from neighborhoods n
-     ${LATEST_SCORE_LATERAL}
-     where n.centroid_lat between $1 and $2
-       and n.centroid_lng between $3 and $4
-     limit $5`,
-    [bbox.south, bbox.north, bbox.west, bbox.east, MAX_NEIGHBORHOODS_PER_REQUEST + 1]
-  );
-
-  return NextResponse.json(buildResponse(rows));
+  try {
+    const db = getDb();
+    const { rows } = await db.query(
+      `select ${SELECT_COLUMNS}
+       from neighborhoods n
+       ${LATEST_SCORE_LATERAL}
+       where n.centroid_lat between $1 and $2
+         and n.centroid_lng between $3 and $4
+       limit $5`,
+      [bbox.south, bbox.north, bbox.west, bbox.east, MAX_NEIGHBORHOODS_PER_REQUEST + 1]
+    );
+    return NextResponse.json(buildResponse(rows));
+  } catch (err) {
+    return handleApiError(err, "api/neighborhoods (bbox)");
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

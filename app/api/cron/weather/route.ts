@@ -5,6 +5,7 @@ import { verifyCronSecret } from "@/lib/auth";
 import { getWeatherForPoint, resetCycleStats, getCycleStats } from "@/lib/weather";
 import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
 import { runWithConcurrency, mapWithConcurrency } from "@/lib/riskScoring";
+import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
 
 // Cron B -- mantém weather_cache atualizado gradualmente, em lotes pequenos,
@@ -142,6 +143,8 @@ export async function GET(req: NextRequest) {
       duration_ms: Date.now() - start,
       at: new Date().toISOString(),
     });
+  } catch (err) {
+    return handleApiError(err, "api/cron/weather");
   } finally {
     await releaseLock(db);
   }

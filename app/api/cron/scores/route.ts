@@ -15,6 +15,7 @@ import {
   upsertCityRiskSummary,
   type ScoredRow,
 } from "@/lib/riskScoring";
+import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
 
 // Cron A -- recalcula risk_scores pra TODOS os bairros a partir do que já
@@ -96,6 +97,8 @@ export async function GET(req: NextRequest) {
       duration_ms: Date.now() - start,
       at: new Date().toISOString(),
     });
+  } catch (err) {
+    return handleApiError(err, "api/cron/scores");
   } finally {
     await releaseLock(db);
   }

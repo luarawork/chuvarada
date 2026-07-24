@@ -14,6 +14,7 @@ import {
   upsertCityRiskSummary,
   type ScoredRow,
 } from "@/lib/riskScoring";
+import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
 
 // ATENÇÃO (23/07/2026): este cron está sendo substituído por dois cronos
@@ -121,6 +122,8 @@ export async function GET(req: NextRequest) {
     );
 
     return NextResponse.json({ ok: true, processed: summary, weatherSources: stats, at: new Date().toISOString() });
+  } catch (err) {
+    return handleApiError(err, "api/cron/update");
   } finally {
     await releaseCronLock(db);
   }
