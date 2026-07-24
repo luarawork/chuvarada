@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { parseBbox } from "@/lib/geo";
 
 // Polígonos municipais pros modos heatmap/municipality no zoom afastado
 // (zoom < 10, ver ZOOM_THRESHOLDS em app/page.tsx) -- nesse zoom, bairro é
@@ -21,14 +22,10 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const db = getDb();
 
-  const north = parseFloat(searchParams.get("north") ?? "");
-  const south = parseFloat(searchParams.get("south") ?? "");
-  const east = parseFloat(searchParams.get("east") ?? "");
-  const west = parseFloat(searchParams.get("west") ?? "");
-
-  if ([north, south, east, west].some((v) => Number.isNaN(v))) {
+  const bbox = parseBbox(searchParams);
+  if (!bbox) {
     return NextResponse.json(
-      { error: "Parâmetros north/south/east/west são obrigatórios e devem ser numéricos" },
+      { error: "Parâmetros north/south/east/west são obrigatórios, numéricos e dentro de um bbox razoável" },
       { status: 400 }
     );
   }
@@ -48,7 +45,7 @@ export async function GET(req: NextRequest) {
      where m.centroid_lat between $1 and $2
        and m.centroid_lng between $3 and $4
      limit $5`,
-    [south, north, west, east, MAX_MUNICIPALITIES_PER_REQUEST + 1]
+    [bbox.south, bbox.north, bbox.west, bbox.east, MAX_MUNICIPALITIES_PER_REQUEST + 1]
   );
 
   const truncated = rows.length > MAX_MUNICIPALITIES_PER_REQUEST;

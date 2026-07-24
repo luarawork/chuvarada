@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { parseBbox } from "@/lib/geo";
 import type { Neighborhood, RiskScore } from "@/types";
 
 // Teto por requisição -- viewport normal (1 cidade, mesmo grande como São
@@ -81,14 +82,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(buildResponse(rows));
   }
 
-  const north = parseFloat(searchParams.get("north") ?? "");
-  const south = parseFloat(searchParams.get("south") ?? "");
-  const east = parseFloat(searchParams.get("east") ?? "");
-  const west = parseFloat(searchParams.get("west") ?? "");
-
-  if ([north, south, east, west].some((v) => Number.isNaN(v))) {
+  const bbox = parseBbox(searchParams);
+  if (!bbox) {
     return NextResponse.json(
-      { error: "Parâmetros north/south/east/west são obrigatórios e devem ser numéricos (ou use ?id=)" },
+      { error: "Parâmetros north/south/east/west são obrigatórios, numéricos e dentro de um bbox razoável (ou use ?id=)" },
       { status: 400 }
     );
   }
@@ -100,7 +97,7 @@ export async function GET(req: NextRequest) {
      where n.centroid_lat between $1 and $2
        and n.centroid_lng between $3 and $4
      limit $5`,
-    [south, north, west, east, MAX_NEIGHBORHOODS_PER_REQUEST + 1]
+    [bbox.south, bbox.north, bbox.west, bbox.east, MAX_NEIGHBORHOODS_PER_REQUEST + 1]
   );
 
   return NextResponse.json(buildResponse(rows));
