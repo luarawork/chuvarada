@@ -4,13 +4,8 @@ import { getMergeData } from "./merge";
 import type { MergeData } from "./merge";
 import { getWeatherApiReading, isWeatherApiExhausted } from "./weatherapi";
 import { DailyRateLimiter, envIntOr, type RateLimiterStats } from "./rateLimiter";
+import { MERGE_MAX_AGE_HOURS } from "./constants";
 import type { ForecastResult, ForecastSlot, NormalizedWeather, PressureTrend, RainSource, WeatherCache, WeatherSource } from "@/types";
-
-// Acima disso, o MERGE é considerado velho demais mesmo que getMergeData()
-// já não devesse ter devolvido nada nesse caso (mesmo limite de
-// lib/merge.ts) — checado de novo aqui como defesa, não só confiança cega
-// no que getMergeData já filtrou.
-const MERGE_MAX_AGE_HOURS = 6;
 
 interface RainReading {
   rain_72h: number;

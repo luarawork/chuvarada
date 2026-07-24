@@ -1,4 +1,5 @@
 import { getDb } from "./db";
+import { MERGE_MAX_AGE_HOURS } from "./constants";
 
 // Grade nativa do produto MERGE/CPTEC confirmada no .ctl que acompanha cada
 // arquivo (xdef 1001 linear -120.05 0.1 / ydef 924 linear -60.05 0.1) — ver
@@ -17,11 +18,6 @@ const MERGE_GRID_STEP = 0.1;
 // (canonical_grid) pros dois lados baterem.
 const MERGE_GRID_ORIGIN_LON = -120.05;
 const MERGE_GRID_ORIGIN_LAT = -60.05;
-
-// Acima disso, o dado em merge_cache é considerado velho demais pra
-// representar "agora" — melhor cair pro fallback da Open-Meteo do que usar
-// um MERGE de meio dia atrás sem sinalizar (ver lib/weather.ts).
-const MERGE_MAX_AGE_HOURS = 6;
 
 export interface MergeData {
   rain_72h: number;
