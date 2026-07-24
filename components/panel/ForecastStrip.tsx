@@ -143,7 +143,7 @@ export function ForecastStrip({ forecast, loading, neighborhood, currentScore, h
         </div>
       )}
       <p className="mt-1.5 text-[10px] text-brand-gray-urban/45">
-        "% chuva" é a chance de chover no período. O selo colorido é uma estimativa do risco com base na
+        &quot;% chuva&quot; é a chance de chover no período. O selo colorido é uma estimativa do risco com base na
         previsão — o score principal do bairro usa dado observado, não previsto.
       </p>
     </div>
