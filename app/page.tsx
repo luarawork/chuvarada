@@ -7,20 +7,24 @@ import { MapContainer } from "@/components/map/MapContainer";
 import { NeighborhoodLayer } from "@/components/map/NeighborhoodLayer";
 import { MunicipalityLayer } from "@/components/map/MunicipalityLayer";
 import { EmptyStateLayer } from "@/components/map/EmptyStateLayer";
+import { ReportLayer } from "@/components/map/ReportLayer";
 import { LoadingMap } from "@/components/ui/LoadingMap";
 import { CityHeader } from "@/components/ui/CityHeader";
 import { AlertCard } from "@/components/ui/AlertCard";
 import { ProfileButton } from "@/components/ui/ProfileButton";
 import { MapLegend } from "@/components/ui/MapLegend";
 import { SearchBar } from "@/components/ui/SearchBar";
+import { ReportButton } from "@/components/ui/ReportButton";
+import { ReportModal } from "@/components/ui/ReportModal";
 import { DetailPanel } from "@/components/panel/DetailPanel";
 import { useMap, type MapBounds } from "@/hooks/useMap";
 import { useRealtime } from "@/hooks/useRealtime";
+import { useReports } from "@/hooks/useReports";
 import { useRisk } from "@/hooks/useRisk";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/lib/supabase";
-import type { City, MunicipalitySummary, Neighborhood, RiskLevel, RiskScore } from "@/types";
+import type { City, MunicipalitySummary, Neighborhood, ReportSeverity, RiskLevel, RiskScore } from "@/types";
 
 // 3 modos de zoom -- abaixo de 10 o mapa mostra polígonos municipais
 // (MunicipalityLayer) em vez de bairro: num viewport largo o payload de
@@ -147,6 +151,8 @@ export default function HomePage() {
   const [citiesLoaded, setCitiesLoaded] = useState(false);
   const [viewportLoadedOnce, setViewportLoadedOnce] = useState(false);
   const [municipalitiesLoadedOnce, setMunicipalitiesLoadedOnce] = useState(false);
+  const [reportMode, setReportMode] = useState(false);
+  const [pendingReportLocation, setPendingReportLocation] = useState<{ lat: number; lng: number } | null>(null);
 
   // Antes do mapa estar pronto (zoom ainda null) assume modo bairro, pra não
   // mudar o comportamento de carregamento inicial existente -- o zoom real
@@ -157,6 +163,7 @@ export default function HomePage() {
   const citiesById = useMemo(() => Object.fromEntries(cities.map((c) => [c.id, c])), [cities]);
   const neighborhoodIds = useMemo(() => neighborhoods.map((n) => n.id), [neighborhoods]);
   const realtimeUpdates = useRealtime(neighborhoodIds);
+  const reports = useReports(bounds);
   const { current: selectedCurrent, history: selectedHistory, justUpdated: selectedJustUpdated } = useRisk(
     selected?.id ?? null
   );
@@ -242,6 +249,38 @@ export default function HomePage() {
   useEffect(() => {
     if (mode !== "neighborhood") setSelected(null);
   }, [mode]);
+
+  // Modo relato -- enquanto ativo, o próximo clique no mapa marca o local do
+  // relato (abre o ReportModal) em vez de qualquer seleção normal. Cursor
+  // crosshair dá o mesmo feedback visual de "modo especial" que outros apps
+  // de mapa usam pra marcação de ponto.
+  useEffect(() => {
+    if (!map) return;
+    const container = map.getContainer();
+    container.style.cursor = reportMode ? "crosshair" : "";
+
+    if (!reportMode) return;
+
+    function handleMapClick(e: { latlng: { lat: number; lng: number } }) {
+      setPendingReportLocation({ lat: e.latlng.lat, lng: e.latlng.lng });
+      setReportMode(false);
+    }
+
+    map.on("click", handleMapClick);
+    return () => {
+      map.off("click", handleMapClick);
+    };
+  }, [map, reportMode]);
+
+  // Esc cancela o modo relato (ver banner em ReportButton).
+  useEffect(() => {
+    if (!reportMode) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setReportMode(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [reportMode]);
 
   useEffect(() => {
     setLatestScores((prev) => mergeNewerScores(prev, realtimeUpdates));
@@ -343,6 +382,65 @@ export default function HomePage() {
   const previewNeighborhood = neighborhoods[0] ?? null;
   const previewScore = previewNeighborhood ? latestScores[previewNeighborhood.id] ?? null : null;
 
+  async function handleReportSubmit(severity: ReportSeverity, description: string) {
+    if (!pendingReportLocation) return;
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    const res = await fetch("/api/reports", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+      },
+      body: JSON.stringify({
+        lat: pendingReportLocation.lat,
+        lng: pendingReportLocation.lng,
+        severity,
+        description: description || undefined,
+      }),
+    });
+
+    if (!res.ok) {
+      const { error } = await res.json().catch(() => ({ error: "Falha ao enviar relato" }));
+      throw new Error(error);
+    }
+
+    setPendingReportLocation(null);
+  }
+
+  async function handleReportReact(reportId: string, reaction: "confirm" | "deny") {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    await fetch(`/api/reports/${reportId}/react`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+      },
+      body: JSON.stringify({ reaction }),
+    }).catch((err) => console.error("Erro ao reagir ao relato:", err));
+  }
+
+  // Diferente de handleReportReact (que precisa atualizar confirmations/
+  // denials de OUTRO usuário, por isso passa pela rota server-side com pg
+  // cru -- ver app/api/reports/[id]/react/route.ts), resolver o próprio
+  // relato é uma escrita simples do dono sobre a própria linha, exatamente
+  // o caso que a policy "reports_owner_update" (auth.uid() = user_id) já
+  // cobre -- dá pra ir direto pelo supabase-js client-side, sem endpoint.
+  async function handleReportResolve(reportId: string) {
+    if (!user) return;
+    const { error } = await supabase
+      .from("user_reports")
+      .update({ status: "resolved", resolved_at: new Date().toISOString() })
+      .eq("id", reportId)
+      .eq("user_id", user.id);
+    if (error) console.error("Erro ao resolver relato:", error);
+  }
+
   return (
     <main className="relative h-dvh w-screen overflow-hidden">
       {loading && <LoadingMap />}
@@ -362,6 +460,13 @@ export default function HomePage() {
         ) : (
           <MunicipalityLayer map={map} municipalities={municipalities} variant={mode} />
         )}
+        <ReportLayer
+          map={map}
+          reports={reports}
+          currentUserId={user?.id ?? null}
+          onReact={handleReportReact}
+          onResolve={handleReportResolve}
+        />
       </MapContainer>
 
       <ProfileButton />
@@ -402,6 +507,12 @@ export default function HomePage() {
       )}
 
       <MapLegend />
+
+      <ReportButton active={reportMode} onToggle={() => setReportMode((v) => !v)} />
+
+      {pendingReportLocation && (
+        <ReportModal onClose={() => setPendingReportLocation(null)} onSubmit={handleReportSubmit} />
+      )}
 
       <Link
         href="/como-funciona"

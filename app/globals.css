@@ -24,6 +24,42 @@ body {
   background: #0d1b2a;
 }
 
+/* Popups de relato (ReportLayer) -- tema escuro pra combinar com o resto do
+   mapa (o popup branco padrão do Leaflet destoava do fundo #0d1b2a). */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(13, 27, 42, 0.96);
+  color: #f0f4f8;
+}
+
+.report-popup {
+  font-size: 13px;
+}
+
+.report-popup-description {
+  margin: 4px 0;
+  opacity: 0.9;
+}
+
+.report-popup button {
+  border: 1px solid rgba(240, 244, 248, 0.25);
+  background: rgba(240, 244, 248, 0.08);
+  color: #f0f4f8;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.report-popup button:hover {
+  background: rgba(240, 244, 248, 0.16);
+}
+
+.report-popup-resolve {
+  margin-top: 8px;
+  width: 100%;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
