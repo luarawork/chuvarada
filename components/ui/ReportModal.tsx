@@ -15,6 +15,13 @@ const SEVERITY_OPTIONS: { value: ReportSeverity; label: string; color: string }[
   { value: "grave", label: "Grave", color: "#d64045" },
 ];
 
+// Mesma duração base de calculateExpiresAt em lib/reports.ts (30/90/180min).
+const SEVERITY_DURATION: Record<ReportSeverity, string> = {
+  leve: "30 minutos",
+  moderado: "1h30",
+  grave: "3 horas",
+};
+
 const MAX_DESCRIPTION_LENGTH = 280;
 
 export function ReportModal({ onClose, onSubmit }: ReportModalProps) {
@@ -87,6 +94,27 @@ export function ReportModal({ onClose, onSubmit }: ReportModalProps) {
               </button>
             ))}
           </div>
+
+          {/* motion.p com key (não AnimatePresence + mode="wait") -- "wait"
+              só monta o texto novo depois que a animação de SAÍDA do texto
+              antigo termina; sem isso, a troca de severidade nunca aparece
+              até a exit-animation completar. Só key+initial/animate anima a
+              ENTRADA do novo texto imediatamente, sem depender de nada saindo
+              primeiro -- a troca é instantânea e ainda fica suave. */}
+          <motion.p
+            key={severity}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.15 }}
+            className="mt-2 text-xs"
+            style={{ color: "#a8d4f0" }}
+          >
+            Este relato ficará visível por {SEVERITY_DURATION[severity]}
+          </motion.p>
+          <p className="mt-1 text-xs" style={{ color: "#a8d4f0" }}>
+            Outros usuários podem confirmar seu relato — cada confirmação estende o tempo de
+            visibilidade em +15 minutos.
+          </p>
 
           <textarea
             value={description}

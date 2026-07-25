@@ -231,10 +231,70 @@ export default function ComoFuncionaPage() {
             ))}
           </div>
 
-          <p className="mt-4 text-xs" style={{ color: "#a8d4f0" }}>
-            Relatos expiram automaticamente. Entre com uma conta para que seus relatos tenham mais
-            peso na calibração.
+          <div className="mt-4 space-y-1 text-xs" style={{ color: "#a8d4f0" }}>
+            <p>Relatos expiram automaticamente baseado na gravidade:</p>
+            <p>🔵 Leve → visível por 30 minutos</p>
+            <p>🟡 Moderado → visível por 1h30</p>
+            <p>🔴 Grave → visível por 3 horas</p>
+            <p>
+              Cada confirmação de outro usuário estende o tempo em +15 minutos (máximo de 2 horas
+              extras).
+            </p>
+            <p className="pt-1">Entre com uma conta para que seus relatos tenham mais peso na calibração.</p>
+          </div>
+        </FadeInSection>
+
+        {/* Confirmações de relatos */}
+        <FadeInSection className="mt-14">
+          <h2 className="font-heading text-2xl font-bold">Como funcionam as confirmações</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+            Ao ver um pin de alagamento no mapa, você pode:
           </p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
+              <span className="text-2xl">👍</span>
+              <h3 className="mt-2 font-heading text-base font-semibold">Confirmar</h3>
+              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                Você também viu o alagamento nesse local. Cada confirmação estende o tempo do
+                relato em +15 minutos e aumenta o peso desse relato na calibração do modelo.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
+              <span className="text-2xl">👎</span>
+              <h3 className="mt-2 font-heading text-base font-semibold">Não vi isso</h3>
+              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                Você passou pelo local e não havia alagamento. Ajuda a identificar relatos
+                incorretos.
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-xs" style={{ color: "#a8d4f0" }}>
+            Você pode reagir uma vez por relato.
+          </p>
+        </FadeInSection>
+
+        {/* Instalar como PWA */}
+        <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
+          <h2 className="font-heading text-2xl font-bold">💡 Instale o Chuvarada no seu celular</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+            Adicione o Chuvarada à tela inicial para acessar mais rápido:
+          </p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
+              <h3 className="font-heading text-sm font-semibold">iPhone (Safari)</h3>
+              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                Toque no ícone de compartilhar (□↑) na barra inferior → role até &ldquo;Adicionar à
+                Tela de Início&rdquo; → toque em &ldquo;Adicionar&rdquo;.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
+              <h3 className="font-heading text-sm font-semibold">Android (Chrome)</h3>
+              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                Toque nos três pontinhos (⋮) no canto superior direito → toque em &ldquo;Adicionar à
+                tela inicial&rdquo; → confirme.
+              </p>
+            </div>
+          </div>
         </FadeInSection>
 
         {/* Limitações honestas */}
