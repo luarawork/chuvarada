@@ -37,20 +37,56 @@ export function ReportButton({ active, onToggle }: ReportButtonProps) {
         )}
       </button>
 
+      {/* fixed, não absolute -- este banner é renderizado (via Fragment) DENTRO
+          do stack pequeno de 80px do ReportButton+ProfileButton (ver
+          app/page.tsx, className="absolute right-4 top-4..."), que é um
+          ancestral posicionado. Com "absolute" o inset-x-0 resolvia contra
+          esse container de 80px (containing block), não contra a viewport --
+          o banner ficava espremido perto do canto superior direito em vez de
+          centralizado no topo. "fixed" ignora ancestrais posicionados sem
+          transform e sempre resolve contra a viewport.
+          top-[72px] no mobile -- mesmo motivo do stack CityHeader/MapLegend:
+          abaixo da SearchBar, que só centraliza a partir do sm. */}
       <AnimatePresence>
         {active && (
           <motion.div
-            initial={{ y: -20, opacity: 0 }}
+            initial={{ y: -24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            className="pointer-events-none absolute inset-x-0 top-4 z-[1000] flex justify-center px-4"
+            exit={{ y: -24, opacity: 0 }}
+            transition={{ type: "spring", damping: 22, stiffness: 300 }}
+            className="pointer-events-none fixed inset-x-0 top-[72px] z-[1000] flex justify-center px-4 sm:top-4"
           >
             <div
-              className="pointer-events-auto rounded-full px-4 py-2 text-sm shadow-lg backdrop-blur"
-              style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", color: "#f0f4f8" }}
+              className="pointer-events-auto flex w-full max-w-[400px] items-center gap-2.5 rounded-xl px-5 py-3 shadow-lg backdrop-blur sm:w-auto sm:max-w-[480px]"
+              style={{ backgroundColor: "rgba(46, 125, 184, 0.95)" }}
             >
-              Toque no mapa para marcar o local do relato{" "}
-              <span style={{ color: "#a8d4f0" }}>· Esc para cancelar</span>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0"
+              >
+                <path d="M12 3s6 6.8 6 11a6 6 0 1 1-12 0c0-4.2 6-11 6-11Z" />
+                <circle cx="12" cy="13" r="2" fill="white" stroke="none" />
+              </svg>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-white">Clique no mapa para marcar o alagamento</p>
+                <p className="text-xs text-white/70">Pressione Esc para cancelar</p>
+              </div>
+              <button
+                onClick={onToggle}
+                aria-label="Cancelar relato"
+                className="shrink-0 rounded-full p-1 text-white/70 transition hover:text-white"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
             </div>
           </motion.div>
         )}
