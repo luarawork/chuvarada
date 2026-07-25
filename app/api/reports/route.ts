@@ -3,7 +3,7 @@ import { getDb } from "@/lib/db";
 import { getUserIdFromAuthHeader } from "@/lib/auth";
 import { calculateExpiresAt } from "@/lib/reports";
 import { getClientIp, hashIp, checkRateLimit, checkAuthenticatedRateLimit } from "@/lib/reportRateLimit";
-import { isValidBrazilState, parseBbox } from "@/lib/geo";
+import { resolveStatesFilter, parseBbox } from "@/lib/geo";
 import { rejectIfPayloadTooLarge, handleApiError } from "@/lib/apiError";
 import type { ReportSeverity, UserReport } from "@/types";
 
@@ -135,13 +135,19 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
-  // Modo histórico (página /analise) -- por estado/período, sem filtro de
-  // status/expires_at (o objetivo ali é ver relatos passados, inclusive já
-  // expirados/resolvidos, cruzados com o score do modelo na época).
-  const state = searchParams.get("state");
-  if (state) {
-    if (!isValidBrazilState(state)) {
-      return NextResponse.json({ error: "state deve ser uma UF válida (2 letras maiúsculas)" }, { status: 400 });
+  // Modo histórico (página /analise) -- por estado/região/período, sem
+  // filtro de status/expires_at (o objetivo ali é ver relatos passados,
+  // inclusive já expirados/resolvidos, cruzados com o score do modelo na
+  // época). ?region= aceita UF, "BR" ou uma região (ver lib/geo.ts);
+  // ?state= continua funcionando como fallback do contrato antigo.
+  const region = searchParams.get("region") ?? searchParams.get("state");
+  if (region) {
+    const states = resolveStatesFilter(region);
+    if (!states) {
+      return NextResponse.json(
+        { error: "Parâmetro region/state inválido -- use uma UF, 'BR', ou uma região (norte/nordeste/sudeste/sul/centro-oeste)" },
+        { status: 400 }
+      );
     }
     const start = searchParams.get("start");
     const end = searchParams.get("end");
@@ -153,12 +159,12 @@ export async function GET(req: NextRequest) {
       const { rows } = await db.query(
         `select r.* from user_reports r
          join cities c on c.id = r.city_id
-         where c.state = $1
+         where c.state = any($1::text[])
            and ($2::date is null or r.created_at >= $2::date)
            and ($3::date is null or r.created_at < ($3::date + interval '1 day'))
          order by r.created_at desc
          limit $4`,
-        [state, start, end, MAX_REPORTS_PER_REQUEST]
+        [states, start, end, MAX_REPORTS_PER_REQUEST]
       );
       return NextResponse.json({ reports: rows as UserReport[] });
     } catch (err) {

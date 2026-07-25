@@ -10,6 +10,29 @@ export function isValidBrazilState(value: string | null): boolean {
   return !!value && /^[A-Z]{2}$/.test(value) && BRAZIL_STATES.includes(value);
 }
 
+// Agrupamento oficial do IBGE por região -- usado no filtro de /analise pra
+// permitir "Brasil inteiro" e as 5 regiões além de UF individual.
+export const BRAZIL_REGIONS: Record<string, string[]> = {
+  norte: ["AM", "PA", "RR", "AP", "AC", "RO", "TO"],
+  nordeste: ["AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE"],
+  sudeste: ["SP", "RJ", "MG", "ES"],
+  sul: ["PR", "SC", "RS"],
+  "centro-oeste": ["GO", "MT", "MS", "DF"],
+};
+
+// Resolve o valor de ?region= (ou ?state= como fallback, pro contrato antigo
+// de UF única continuar funcionando) pra lista de UFs a consultar. "BR"
+// devolve o país inteiro, uma chave de BRAZIL_REGIONS devolve os estados
+// daquela região, e uma UF de 2 letras devolve ela mesma numa lista de 1.
+// Retorna null se o valor não for reconhecido em nenhum desses 3 formatos.
+export function resolveStatesFilter(value: string | null): string[] | null {
+  if (!value) return null;
+  if (value === "BR") return BRAZIL_STATES;
+  if (BRAZIL_REGIONS[value]) return BRAZIL_REGIONS[value];
+  if (isValidBrazilState(value)) return [value];
+  return null;
+}
+
 export interface Bbox {
   north: number;
   south: number;

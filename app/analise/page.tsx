@@ -47,6 +47,18 @@ const STATES = [
   "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO",
 ];
 
+// Opções especiais do seletor -- "BR" e as 5 regiões do IBGE, resolvidas pro
+// mesmo parâmetro ?region= tanto em /api/history quanto /api/reports (ver
+// BRAZIL_REGIONS em lib/geo.ts, fonte única compartilhada com o backend).
+const REGION_OPTIONS = [
+  { value: "BR", label: "🇧🇷 Brasil inteiro" },
+  { value: "norte", label: "🌿 Norte" },
+  { value: "nordeste", label: "☀️ Nordeste" },
+  { value: "sudeste", label: "🏙️ Sudeste" },
+  { value: "sul", label: "🌲 Sul" },
+  { value: "centro-oeste", label: "🌾 Centro-Oeste" },
+];
+
 interface HistoryRow {
   neighborhood_id: string;
   score: number;
@@ -244,7 +256,7 @@ export default function AnalisePage() {
       const dates = dateRange(startDate, endDate);
       const results = await Promise.all(
         dates.map(async (date) => {
-          const res = await fetch(`/api/history?state=${state}&date=${date}`);
+          const res = await fetch(`/api/history?region=${state}&date=${date}`);
           if (!res.ok) return { date, rows: [] as HistoryRow[] };
           const body = await res.json();
           return { date, rows: (body.data ?? []) as HistoryRow[] };
@@ -253,7 +265,7 @@ export default function AnalisePage() {
 
       const anyFound = results.some((r) => r.rows.length > 0);
       if (!anyFound) {
-        setError("Nenhum dado encontrado pra esse estado/período.");
+        setError("Nenhum dado encontrado pra essa seleção/período.");
         setLoading(false);
         return;
       }
@@ -279,7 +291,7 @@ export default function AnalisePage() {
       setCriticalEvents(allCritical);
 
       try {
-        const reportsRes = await fetch(`/api/reports?state=${state}&start=${startDate}&end=${endDate}`);
+        const reportsRes = await fetch(`/api/reports?region=${state}&start=${startDate}&end=${endDate}`);
         if (reportsRes.ok) {
           const { reports: reportsData } = (await reportsRes.json()) as { reports: UserReport[] };
           setReports(reportsData);
@@ -334,11 +346,20 @@ export default function AnalisePage() {
               className="rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
               style={{ color: "#f0f4f8" }}
             >
-              {STATES.map((s) => (
-                <option key={s} value={s} style={{ color: "#1a3a5c" }}>
-                  {s}
-                </option>
-              ))}
+              <optgroup label="Regiões">
+                {REGION_OPTIONS.map((r) => (
+                  <option key={r.value} value={r.value} style={{ color: "#1a3a5c" }}>
+                    {r.label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Estados">
+                {STATES.map((s) => (
+                  <option key={s} value={s} style={{ color: "#1a3a5c" }}>
+                    {s}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </label>
           <label className="flex flex-col gap-1 text-xs" style={{ color: "#a8d4f0" }}>
