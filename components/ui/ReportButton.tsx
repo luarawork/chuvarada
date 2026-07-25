@@ -20,7 +20,7 @@ export function ReportButton({ active, onToggle }: ReportButtonProps) {
       <button
         onClick={onToggle}
         aria-label={active ? "Cancelar relato" : "Fazer um relato"}
-        className={`pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border shadow-lg backdrop-blur transition sm:h-10 sm:w-10 ${
+        className={`pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border shadow-lg backdrop-blur transition before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] sm:h-10 sm:w-10 ${
           active ? "border-brand-red-alert bg-brand-red-alert text-white" : "text-brand-blue-light"
         }`}
         style={active ? undefined : { backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}

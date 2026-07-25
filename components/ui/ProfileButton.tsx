@@ -18,7 +18,7 @@ export function ProfileButton() {
     <Link
       href={user ? "/perfil" : "/auth"}
       aria-label={user ? "Meus favoritos" : "Entrar"}
-      className={`pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border text-brand-blue-light shadow-lg backdrop-blur transition sm:h-10 sm:w-10 ${
+      className={`pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border text-brand-blue-light shadow-lg backdrop-blur transition before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] sm:h-10 sm:w-10 ${
         loading ? "opacity-0" : "opacity-100"
       }`}
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}

@@ -34,7 +34,7 @@ export function LayerToggle({ currentLayer, onChange }: LayerToggleProps) {
             key={key}
             onClick={() => onChange(key)}
             aria-pressed={active}
-            className={`relative z-10 flex h-8 flex-1 items-center justify-center gap-1 text-[13px] transition-colors ${
+            className={`relative z-10 flex h-8 flex-1 items-center justify-center gap-1 text-[13px] transition-colors before:absolute before:inset-x-0 before:top-1/2 before:h-11 before:-translate-y-1/2 before:content-[''] ${
               active ? "font-semibold text-white" : "font-normal text-brand-blue-light"
             }`}
           >
