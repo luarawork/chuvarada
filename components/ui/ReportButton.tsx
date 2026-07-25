@@ -45,8 +45,23 @@ export function ReportButton({ active, onToggle }: ReportButtonProps) {
           o banner ficava espremido perto do canto superior direito em vez de
           centralizado no topo. "fixed" ignora ancestrais posicionados sem
           transform e sempre resolve contra a viewport.
-          top-[72px] no mobile -- mesmo motivo do stack CityHeader/MapLegend:
-          abaixo da SearchBar, que só centraliza a partir do sm. */}
+
+          top-20 (80px) fixo em qualquer breakpoint -- o valor anterior
+          (top-[72px] no mobile, sm:top-4 no desktop) colidia exatamente com
+          outros dois elementos que usam essas MESMAS posições: o stack
+          CityHeader/MapLegend (também top-[72px] no mobile) e a SearchBar
+          (também top-4 a partir do sm), fazendo o banner aparecer atrás de
+          um ou outro dependendo da ordem no DOM. z-[2000] (creal acima do
+          z-[1000] usado por CityHeader/SearchBar/LayerToggle etc.) garante
+          que o banner sempre pinta por cima, independente da ordem no DOM.
+
+          Centralização via flex+justify-center no wrapper (não
+          left-1/2+translate-x-1/2 no cartão) -- esse elemento já tem uma
+          animação de entrada baseada em transform (y: -24 -> 0via Framer
+          Motion), e Framer Motion escreve o "transform" inteiro via inline
+          style; uma classe estática de translateX no mesmo elemento seria
+          sobrescrita por esse inline style a cada frame. flexbox centraliza
+          sem depender de transform, então não conflita com a animação. */}
       <AnimatePresence>
         {active && (
           <motion.div
@@ -54,10 +69,10 @@ export function ReportButton({ active, onToggle }: ReportButtonProps) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -24, opacity: 0 }}
             transition={{ type: "spring", damping: 22, stiffness: 300 }}
-            className="pointer-events-none fixed inset-x-0 top-[72px] z-[1000] flex justify-center px-4 sm:top-4"
+            className="pointer-events-none fixed inset-x-0 top-20 z-[2000] flex justify-center"
           >
             <div
-              className="pointer-events-auto flex w-full max-w-[400px] items-center gap-2.5 rounded-xl px-5 py-3 shadow-lg backdrop-blur sm:w-auto sm:max-w-[480px]"
+              className="pointer-events-auto flex w-[calc(100%-32px)] max-w-[480px] items-center gap-2.5 rounded-xl px-5 py-3 shadow-lg backdrop-blur"
               style={{ backgroundColor: "rgba(46, 125, 184, 0.95)" }}
             >
               <svg
