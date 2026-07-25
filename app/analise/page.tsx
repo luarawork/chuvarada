@@ -79,7 +79,36 @@ interface DailyAggregate {
   critical: number;
 }
 
-type Alignment = "aligns" | "diverges" | "no_reports";
+type Alignment =
+  | "aligns"
+  | "diverges_slightly"
+  | "diverges_much"
+  | "model_conservative"
+  | "false_alarm"
+  | "no_reports";
+
+const ALIGNMENT_INFO: Record<Alignment, { label: string; icon: string; color: string }> = {
+  aligns: { label: "Alinha", icon: "✅", color: COLORS.normal },
+  diverges_slightly: { label: "Diverge levemente", icon: "⚠️", color: COLORS.attention },
+  diverges_much: { label: "Diverge muito", icon: "🔴", color: COLORS.critical },
+  model_conservative: { label: "Modelo mais conservador", icon: "🔵", color: "#a8d4f0" },
+  false_alarm: { label: "Possível falso alarme", icon: "🔵", color: "#a8d4f0" },
+  no_reports: { label: "Sem relatos", icon: "🔵", color: "#a8d4f0" },
+};
+
+// diff = nível do relato - nível do modelo, nos dois na mesma escala 0-2
+// (SEVERITY_ORDER/LEVEL_ORDER acima). diff=0 é o único caso de alinhamento
+// real -- ex: modelo Normal + relato Leve tem diff=+1 (relato acima do
+// modelo), uma divergência de verdade, não um "Alinha" como a lógica antiga
+// tratava ao comparar os dois índices só com > em vez da diferença exata.
+function getAlignment(modelLevel: RiskLevel, reportSeverity: ReportSeverity): Alignment {
+  const diff = SEVERITY_ORDER[reportSeverity] - LEVEL_ORDER[modelLevel];
+  if (diff === 0) return "aligns";
+  if (diff === 1) return "diverges_slightly";
+  if (diff >= 2) return "diverges_much";
+  if (diff === -1) return "model_conservative";
+  return "false_alarm";
+}
 
 interface HourlyComparison {
   hourKey: string; // "2026-07-18T14"
@@ -192,9 +221,7 @@ function buildHourlyComparison(
       const reportBucket = reportsByHour.get(hourKey);
       const alignment: Alignment = !reportBucket
         ? "no_reports"
-        : SEVERITY_ORDER[reportBucket.maxSeverity] > LEVEL_ORDER[model.level]
-          ? "diverges"
-          : "aligns";
+        : getAlignment(model.level, reportBucket.maxSeverity);
 
       const [datePart, hourPart] = hourKey.split("T");
       const [, month, day] = datePart.split("-");
@@ -545,6 +572,14 @@ export default function AnalisePage() {
                 Relatos vs Modelo
               </h2>
 
+              <ul className="mt-2 space-y-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                <li>✅ Alinha: modelo e relato no mesmo nível</li>
+                <li>⚠️ Diverge levemente: relato 1 nível acima do modelo</li>
+                <li>🔴 Diverge muito: relato 2 níveis acima (modelo subestimou)</li>
+                <li>🔵 Modelo mais conservador: modelo acima do relato</li>
+                <li>🔵 Possível falso alarme: modelo muito acima do relato</li>
+              </ul>
+
               {hourlyComparison.length === 0 ? (
                 <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
                   Sem horas com relato ou alerta do modelo nesse estado/período pra comparar.
@@ -597,9 +632,9 @@ export default function AnalisePage() {
                             )}
                           </td>
                           <td className="py-2">
-                            {row.alignment === "no_reports" && <span style={{ color: "#a8d4f0" }}>🔵 Sem relatos</span>}
-                            {row.alignment === "aligns" && <span style={{ color: COLORS.normal }}>✅ Alinha</span>}
-                            {row.alignment === "diverges" && <span style={{ color: COLORS.attention }}>⚠️ Diverge</span>}
+                            <span style={{ color: ALIGNMENT_INFO[row.alignment].color }}>
+                              {ALIGNMENT_INFO[row.alignment].icon} {ALIGNMENT_INFO[row.alignment].label}
+                            </span>
                           </td>
                         </tr>
                       ))}
