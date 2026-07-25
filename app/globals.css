@@ -28,17 +28,23 @@ body {
   background: #0d1b2a;
 }
 
-/* Empurra o zoom nativo do Leaflet (bottomright) pra cima da pilha React
-   "Como funciona" + LayerToggle (ver app/page.tsx) -- ambos os controles
-   competem pelo mesmo canto, e o Leaflet injeta o seu via DOM próprio
+/* Empurra o zoom nativo do Leaflet (bottomright, só existe em telas >=640px --
+   ver MapContainer.tsx) pra cima da pilha React "Como funciona" + LayerToggle
+   (ver app/page.tsx), com o MESMO gap de 8px que já existe entre os dois
+   elementos React. O Leaflet injeta esse controle via DOM próprio
    (.leaflet-bottom.leaflet-right), fora da árvore React, então não dá pra
-   resolver isso só com a ordem dos elementos JSX. 136px = 36px (bottom-9 do
-   container React) + ~80px (altura de Como Funciona + gap + LayerToggle) +
-   20px de respiro (esse container agora só tem o zoom -- a atribuição foi
-   destacada pra regra isolada abaixo, então não conta mais nessa conta).
+   resolver isso só com a ordem dos elementos JSX -- e por padrão ele aplica
+   margin:10px no controle (.leaflet-control), que a regra abaixo zera pra dar
+   um número previsível: 126px = 36px (bottom-9 do container React) + 36px
+   (altura do LayerToggle) + 8px (gap) + 38px (altura do pill "Como funciona"
+   no desktop) + 8px (gap final até o zoom).
 */
 .leaflet-bottom.leaflet-right {
-  bottom: 136px;
+  bottom: 126px;
+}
+
+.leaflet-control-zoom {
+  margin: 0 !important;
 }
 
 /* A atribuição (.leaflet-control-attribution) normalmente é filha do MESMO

@@ -41,7 +41,11 @@ export function MapContainer({ tileLayer, onReady, children }: MapContainerProps
         maxZoom: 19,
       }).addTo(map);
 
-      L.control.zoom({ position: "bottomright" }).addTo(map);
+      // Sem zoom control no mobile -- pinça já é nativa lá, e o controle só
+      // ocupa espaço e disputa a mesma esquina que "Como funciona"/LayerToggle.
+      if (window.innerWidth >= 640) {
+        L.control.zoom({ position: "bottomright" }).addTo(map);
+      }
 
       mapRef.current = map;
       onReady(map);
