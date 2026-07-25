@@ -194,13 +194,16 @@ const ALIGNMENT_INFO: Record<Alignment, { label: string; icon: string; color: st
   no_reports: { label: "Sem relatos", icon: "🔵", color: "#a8d4f0" },
 };
 
-// diff = nível do relato - nível do modelo, nos dois na mesma escala 0-2
-// (SEVERITY_ORDER/LEVEL_ORDER acima). diff=0 é o único caso de alinhamento
-// real -- ex: modelo Normal + relato Leve tem diff=+1 (relato acima do
-// modelo), uma divergência de verdade, não um "Alinha" como a lógica antiga
-// tratava ao comparar os dois índices só com > em vez da diferença exata.
+// REPORT_SCORE começa em 1 (não 0 como SEVERITY_ORDER) -- um relato, mesmo
+// "Leve", é sempre um evento real acontecendo, então nunca deveria "empatar"
+// com o modelo em Normal (score 0) só por estarem ambos no índice mais
+// baixo da própria escala. Com essa escala deslocada, diff = relato -
+// modelo: Normal+Leve dá diff=+1 ("Diverge levemente", o modelo subestimou),
+// e só Crítico+Grave (as duas escalas no topo) dá diff=0 ("Alinha").
+const REPORT_SCORE: Record<ReportSeverity, number> = { leve: 1, moderado: 2, grave: 3 };
+
 function getAlignment(modelLevel: RiskLevel, reportSeverity: ReportSeverity): Alignment {
-  const diff = SEVERITY_ORDER[reportSeverity] - LEVEL_ORDER[modelLevel];
+  const diff = REPORT_SCORE[reportSeverity] - LEVEL_ORDER[modelLevel];
   if (diff === 0) return "aligns";
   if (diff === 1) return "diverges_slightly";
   if (diff >= 2) return "diverges_much";
