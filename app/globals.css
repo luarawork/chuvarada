@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #1a3a5c;
+  /* #0d1b2a -- mesmo fundo escuro usado em todas as páginas (mapa via
+     .leaflet-container abaixo, /perfil, /favoritos, /como-funciona,
+     /analise, /auth) -- esse var só aparece como fallback do <body>
+     antes do conteúdo de cada página pintar por cima. */
+  --background: #0d1b2a;
   --foreground: #f0f4f8;
 }
 

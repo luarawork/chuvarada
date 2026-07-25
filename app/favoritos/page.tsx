@@ -16,6 +16,11 @@ interface FavoriteNeighborhood {
   score: number | null;
 }
 
+// Mesmo padrão visual de app/perfil/page.tsx -- essa página usava tema claro
+// (bg-brand-gray-light + cards brancos) enquanto todo o resto do app (mapa,
+// /auth, /perfil, /como-funciona) é escuro; destoava.
+const CARD_STYLE = { backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.2)" };
+
 const LEVEL_ORDER: Record<RiskLevel | "sem_dado", number> = {
   critical: 0,
   attention: 1,
@@ -72,14 +77,14 @@ export default function FavoritosPage() {
   }, [user, authLoading, router]);
 
   if (authLoading || !user) {
-    return <div className="min-h-dvh bg-brand-gray-light" />;
+    return <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }} />;
   }
 
   return (
-    <div className="min-h-dvh bg-brand-gray-light">
+    <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a", color: "#f0f4f8" }}>
       <div className="mx-auto max-w-2xl px-6 py-10">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm text-brand-blue-mid hover:underline">
+          <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
             ← Voltar para o mapa
           </Link>
           <button
@@ -91,20 +96,22 @@ export default function FavoritosPage() {
               await signOut();
               router.push("/");
             }}
-            className="text-sm text-brand-gray-urban/60 hover:text-brand-gray-urban hover:underline"
+            className="text-sm opacity-60 hover:opacity-100 hover:underline"
           >
             Sair
           </button>
         </div>
 
-        <h1 className="mt-4 font-heading text-2xl font-bold text-brand-blue-deep md:text-3xl">
-          Seus bairros salvos
-        </h1>
+        <h1 className="mt-4 font-heading text-2xl font-bold md:text-3xl">Seus bairros salvos</h1>
 
-        {favorites === null && <p className="mt-8 text-sm text-brand-gray-urban/60">Carregando...</p>}
+        {favorites === null && (
+          <p className="mt-8 text-sm" style={{ color: "#a8d4f0" }}>
+            Carregando...
+          </p>
+        )}
 
         {favorites?.length === 0 && (
-          <div className="mt-8 rounded-2xl bg-white p-6 text-sm text-brand-gray-urban/70 shadow-sm">
+          <div className="mt-8 rounded-2xl border p-6 text-sm backdrop-blur-sm" style={{ ...CARD_STYLE, color: "#a8d4f0" }}>
             Você ainda não salvou nenhum bairro. Navegue pelo mapa e salve os que quer monitorar.
           </div>
         )}
@@ -115,16 +122,19 @@ export default function FavoritosPage() {
               <li key={fav.id}>
                 <Link
                   href={`/?bairro=${fav.id}`}
-                  className="flex items-center justify-between rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md"
+                  className="flex items-center justify-between rounded-2xl border p-5 backdrop-blur-sm transition hover:bg-white/5"
+                  style={CARD_STYLE}
                 >
                   <div>
-                    <p className="font-heading font-semibold text-brand-gray-urban">{fav.name}</p>
-                    <p className="text-sm text-brand-gray-urban/60">{fav.cityName}</p>
+                    <p className="font-heading font-semibold">{fav.name}</p>
+                    <p className="text-sm" style={{ color: "#a8d4f0" }}>
+                      {fav.cityName}
+                    </p>
                   </div>
                   {fav.level ? (
                     <RiskBadge level={fav.level} score={fav.score ?? undefined} />
                   ) : (
-                    <span className="text-xs text-brand-gray-urban/40">Sem dados ainda</span>
+                    <span className="text-xs opacity-40">Sem dados ainda</span>
                   )}
                 </Link>
               </li>

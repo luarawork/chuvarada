@@ -52,7 +52,7 @@ function AuthForm() {
   }
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-brand-blue-deep px-4">
+    <div className="flex min-h-dvh items-center justify-center px-4" style={{ backgroundColor: "#0d1b2a" }}>
       <div className="w-full max-w-sm rounded-3xl bg-white p-8 shadow-2xl">
         <Link href="/" className="text-sm text-brand-blue-mid hover:underline">
           ← Voltar para o mapa
@@ -142,7 +142,7 @@ function AuthForm() {
 
 export default function AuthPage() {
   return (
-    <Suspense fallback={<div className="min-h-dvh bg-brand-blue-deep" />}>
+    <Suspense fallback={<div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }} />}>
       <AuthForm />
     </Suspense>
   );

@@ -122,7 +122,7 @@ function ScoreChartTooltip({
 }) {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ backgroundColor: "#1a3a5c", border: "1px solid rgba(46,125,184,0.3)", borderRadius: 8, padding: "8px 10px" }}>
+    <div style={{ backgroundColor: "rgba(13, 27, 42, 0.95)", border: "1px solid rgba(46,125,184,0.3)", borderRadius: 8, padding: "8px 10px" }}>
       <p style={{ color: "#f0f4f8", fontSize: 12, marginBottom: 4, fontWeight: 600 }}>{label}</p>
       {payload.map((entry, i) => {
         if (entry.dataKey === "report_score") {
@@ -320,7 +320,7 @@ export default function AnalisePage() {
   const alignmentMetrics = computeAlignmentMetrics(reports);
 
   return (
-    <div className="min-h-dvh" style={{ backgroundColor: "#1a3a5c" }}>
+    <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
       <div className="mx-auto max-w-4xl px-6 py-10">
         <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
           ← Voltar para o mapa
@@ -452,7 +452,7 @@ export default function AnalisePage() {
                   <BarChart data={daily} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                     <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#a8d4f0" }} />
                     <YAxis tick={{ fontSize: 11, fill: "#a8d4f0" }} />
-                    <Tooltip contentStyle={{ backgroundColor: "#1a3a5c", border: "1px solid rgba(46,125,184,0.3)" }} labelStyle={{ color: "#f0f4f8" }} />
+                    <Tooltip contentStyle={{ backgroundColor: "rgba(13, 27, 42, 0.95)", border: "1px solid rgba(46,125,184,0.3)" }} labelStyle={{ color: "#f0f4f8" }} />
                     <Legend wrapperStyle={{ fontSize: 12, color: "#a8d4f0" }} />
                     <Bar dataKey="normal" name="Normal" stackId="a" fill={COLORS.normal} />
                     <Bar dataKey="attention" name="Atenção" stackId="a" fill={COLORS.attention} />
