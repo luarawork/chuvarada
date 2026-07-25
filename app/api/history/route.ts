@@ -31,6 +31,8 @@ interface HistoryRow {
   auto_critical_reason: string | null;
   calculated_at: string;
   neighborhood_name?: string;
+  city_name?: string;
+  state?: string;
   centroid_lat?: number | null;
   centroid_lng?: number | null;
 }
@@ -74,7 +76,8 @@ export async function GET(req: NextRequest) {
       const { rows } = await db.query<HistoryRow>(
         `select rs.neighborhood_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
                 rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.calculated_at,
-                n.name as neighborhood_name, n.centroid_lat, n.centroid_lng
+                n.name as neighborhood_name, n.centroid_lat, n.centroid_lng,
+                c.name as city_name, c.state
          from risk_scores rs
          join neighborhoods n on n.id = rs.neighborhood_id
          join cities c on c.id = n.city_id

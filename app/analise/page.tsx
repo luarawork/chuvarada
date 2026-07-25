@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ResponsiveContainer,
@@ -68,6 +68,104 @@ interface HistoryRow {
   auto_critical_reason: string | null;
   calculated_at: string;
   neighborhood_name?: string;
+  city_name?: string;
+  state?: string;
+}
+
+interface ActiveUser {
+  usuario: string;
+  total_relatos: number;
+  confirmacoes_recebidas: number;
+  taxa_confirmacao: number | null;
+  confiabilidade: number;
+}
+
+interface GlobalMetrics {
+  total_relatos: number;
+  taxa_media_confirmacao: number | null;
+  cidades_com_relatos: number;
+  cobertura_dados: number | null;
+}
+
+interface RiskyNeighborhood {
+  neighborhood_id: string;
+  name: string;
+  city: string;
+  state: string;
+  critical_count: number;
+  last_event: string;
+}
+
+// Ícone ℹ️ com tooltip explicativo -- CSS puro (group-hover), sem estado nem
+// dependência nova, só pra dar contexto ao lado do título de cada seção
+// (ver Item 6.1 do pedido).
+function InfoTooltip({ text }: { text: string }) {
+  return (
+    <span className="group relative ml-1.5 inline-flex cursor-help align-middle" style={{ color: "#a8d4f0" }}>
+      <span aria-hidden="true">ℹ️</span>
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute left-1/2 top-full z-10 mt-1.5 w-64 -translate-x-1/2 rounded-lg border px-2.5 py-2 text-xs font-normal opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+        style={{ backgroundColor: "rgba(13, 27, 42, 0.98)", borderColor: "rgba(46, 125, 184, 0.4)", color: "#f0f4f8" }}
+      >
+        {text}
+      </span>
+    </span>
+  );
+}
+
+function MetricCard({ icon, label, value }: { icon: string; label: string; value: string }) {
+  return (
+    <div className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(240, 244, 248, 0.06)" }}>
+      <div className="text-lg">{icon}</div>
+      <div className="mt-1 font-heading text-lg font-bold tabular-nums" style={{ color: "#f0f4f8" }}>
+        {value}
+      </div>
+      <div className="mt-0.5 text-[11px]" style={{ color: "#a8d4f0" }}>
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function relativeTime(iso: string): string {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const minutes = Math.floor(diffMs / 60_000);
+  if (minutes < 1) return "agora";
+  if (minutes < 60) return `há ${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `há ${hours}h`;
+  const days = Math.floor(hours / 24);
+  return `há ${days} dia${days > 1 ? "s" : ""}`;
+}
+
+// Top 10 bairros por eventos críticos no período -- deriva dos mesmos
+// `results` já buscados pelo handleSearch (um por dia/estado), sem endpoint
+// próprio (ver Item 6.4 do pedido).
+function buildRiskyNeighborhoods(results: { rows: HistoryRow[] }[]): RiskyNeighborhood[] {
+  const map = new Map<string, RiskyNeighborhood>();
+  for (const { rows } of results) {
+    for (const row of rows) {
+      if (row.level !== "critical") continue;
+      const existing = map.get(row.neighborhood_id);
+      if (existing) {
+        existing.critical_count++;
+        if (row.calculated_at > existing.last_event) existing.last_event = row.calculated_at;
+      } else {
+        map.set(row.neighborhood_id, {
+          neighborhood_id: row.neighborhood_id,
+          name: row.neighborhood_name ?? "Bairro",
+          city: row.city_name ?? "—",
+          state: row.state ?? "",
+          critical_count: 1,
+          last_event: row.calculated_at,
+        });
+      }
+    }
+  }
+  return Array.from(map.values())
+    .sort((a, b) => b.critical_count - a.critical_count)
+    .slice(0, 10);
 }
 
 interface DailyAggregate {
@@ -270,6 +368,19 @@ export default function AnalisePage() {
   const [criticalEvents, setCriticalEvents] = useState<HistoryRow[]>([]);
   const [reports, setReports] = useState<UserReport[]>([]);
   const [hourlyComparison, setHourlyComparison] = useState<HourlyComparison[]>([]);
+  const [activeUsers, setActiveUsers] = useState<ActiveUser[]>([]);
+  const [totalActiveUsers, setTotalActiveUsers] = useState(0);
+  const [riskyNeighborhoods, setRiskyNeighborhoods] = useState<RiskyNeighborhood[]>([]);
+  const [globalMetrics, setGlobalMetrics] = useState<GlobalMetrics | null>(null);
+
+  // Cards "sem filtro de período" -- carregam uma vez, independente do
+  // estado/período selecionado nos filtros abaixo (ver Item 6.3).
+  useEffect(() => {
+    fetch("/api/analise/metrics")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => data && setGlobalMetrics(data))
+      .catch((err) => console.error("Erro ao buscar métricas gerais:", err));
+  }, []);
 
   async function handleSearch() {
     setLoading(true);
@@ -278,6 +389,9 @@ export default function AnalisePage() {
     setCriticalEvents([]);
     setReports([]);
     setHourlyComparison([]);
+    setActiveUsers([]);
+    setTotalActiveUsers(0);
+    setRiskyNeighborhoods([]);
 
     try {
       const dates = dateRange(startDate, endDate);
@@ -316,6 +430,7 @@ export default function AnalisePage() {
         .sort((a, b) => b.score - a.score)
         .slice(0, 20);
       setCriticalEvents(allCritical);
+      setRiskyNeighborhoods(buildRiskyNeighborhoods(results));
 
       try {
         const reportsRes = await fetch(`/api/reports?region=${state}&start=${startDate}&end=${endDate}`);
@@ -326,6 +441,20 @@ export default function AnalisePage() {
         }
       } catch (err) {
         console.error("Erro ao buscar relatos do período:", err);
+      }
+
+      try {
+        const activeUsersRes = await fetch(`/api/analise/active-users?region=${state}&start=${startDate}&end=${endDate}`);
+        if (activeUsersRes.ok) {
+          const { users, totalActiveUsers: total } = (await activeUsersRes.json()) as {
+            users: ActiveUser[];
+            totalActiveUsers: number;
+          };
+          setActiveUsers(users);
+          setTotalActiveUsers(total);
+        }
+      } catch (err) {
+        console.error("Erro ao buscar usuários ativos do período:", err);
       }
     } catch {
       setError("Falha ao buscar histórico.");
@@ -345,6 +474,9 @@ export default function AnalisePage() {
     }));
 
   const alignmentMetrics = computeAlignmentMetrics(reports);
+  const divergenceCount = hourlyComparison.filter(
+    (row) => row.alignment !== "aligns" && row.alignment !== "no_reports"
+  ).length;
 
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
@@ -359,6 +491,48 @@ export default function AnalisePage() {
         <p className="mt-1 text-sm" style={{ color: "#a8d4f0" }}>
           Evolução do risco de alagamento por estado e período.
         </p>
+
+        {/* Métricas do produto */}
+        <div
+          className="mt-6 rounded-2xl border p-5"
+          style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+        >
+          <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
+            Métricas do produto
+          </h2>
+
+          <div className="mt-3 grid gap-2 sm:grid-cols-4">
+            <MetricCard
+              icon="📍"
+              label="Total de relatos"
+              value={globalMetrics ? globalMetrics.total_relatos.toLocaleString("pt-BR") : "—"}
+            />
+            <MetricCard
+              icon="✅"
+              label="Taxa média de confirmação"
+              value={globalMetrics?.taxa_media_confirmacao != null ? `${globalMetrics.taxa_media_confirmacao}%` : "—"}
+            />
+            <MetricCard
+              icon="🗺️"
+              label="Cidades com relatos"
+              value={globalMetrics ? globalMetrics.cidades_com_relatos.toLocaleString("pt-BR") : "—"}
+            />
+            <MetricCard
+              icon="📊"
+              label="Cobertura de dados"
+              value={globalMetrics?.cobertura_dados != null ? `${globalMetrics.cobertura_dados}%` : "—"}
+            />
+          </div>
+
+          {daily && daily.length > 0 && (
+            <div className="mt-2 grid gap-2 sm:grid-cols-4">
+              <MetricCard icon="📍" label="Relatos no período" value={reports.length.toLocaleString("pt-BR")} />
+              <MetricCard icon="⚠️" label="Divergências encontradas" value={divergenceCount.toLocaleString("pt-BR")} />
+              <MetricCard icon="🔴" label="Eventos críticos" value={criticalEvents.length.toLocaleString("pt-BR")} />
+              <MetricCard icon="👥" label="Usuários ativos" value={totalActiveUsers.toLocaleString("pt-BR")} />
+            </div>
+          )}
+        </div>
 
         {/* Filtros */}
         <div
@@ -434,6 +608,7 @@ export default function AnalisePage() {
             >
               <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
                 Score máximo por dia
+                <InfoTooltip text="Evolução do score de risco ao longo do tempo. Score acima de 0,30 indica atenção; acima de 0,60 indica crítico." />
               </h2>
               <div className="mt-3 h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -473,6 +648,7 @@ export default function AnalisePage() {
             >
               <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
                 Distribuição de risco por dia
+                <InfoTooltip text="Proporção de bairros em cada nível de risco ao longo do período selecionado." />
               </h2>
               <div className="mt-3 h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -570,6 +746,7 @@ export default function AnalisePage() {
             >
               <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
                 Relatos vs Modelo
+                <InfoTooltip text="Compara o que o modelo calculou com o que os usuários relataram. Divergências indicam onde o modelo pode estar subestimando o risco real." />
               </h2>
 
               <ul className="mt-2 space-y-0.5 text-xs" style={{ color: "#a8d4f0" }}>
@@ -665,6 +842,129 @@ export default function AnalisePage() {
                 Esta comparação é experimental. Estamos usando os relatos para calibrar o modelo —
                 divergências nos ajudam a identificar onde o Chuvarada precisa melhorar.
               </p>
+            </div>
+
+            {/* Usuários mais ativos no período */}
+            <div
+              className="mt-6 rounded-2xl border p-5"
+              style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+            >
+              <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
+                Usuários mais ativos no período
+              </h2>
+              {activeUsers.length === 0 ? (
+                <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
+                  Nenhum relato registrado nesse estado/período.
+                </p>
+              ) : (
+                <div className="mt-3 overflow-x-auto">
+                  <table className="w-full min-w-[520px] text-sm">
+                    <thead>
+                      <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Usuário
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Relatos
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Confirmações recebidas
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Taxa de confirmação
+                        </th>
+                        <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Confiabilidade
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {activeUsers.map((u, i) => (
+                        <tr key={`${u.usuario}-${i}`} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                          <td className="py-2 pr-4" style={{ color: "#f0f4f8" }}>
+                            {u.usuario}
+                          </td>
+                          <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>
+                            {u.total_relatos}
+                          </td>
+                          <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>
+                            {u.confirmacoes_recebidas}
+                          </td>
+                          <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>
+                            {u.taxa_confirmacao !== null ? `${u.taxa_confirmacao}%` : "—"}
+                          </td>
+                          <td className="py-2" style={{ color: "#f0a500" }}>
+                            {u.confiabilidade > 0 ? "⭐".repeat(u.confiabilidade) : <span style={{ color: "#a8d4f0" }}>—</span>}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Pontos de risco recorrentes */}
+            <div
+              className="mt-6 rounded-2xl border p-5"
+              style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+            >
+              <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
+                Pontos de risco recorrentes
+              </h2>
+              <p className="mt-1 text-xs" style={{ color: "#a8d4f0" }}>
+                Top 10 bairros com mais eventos críticos no período selecionado.
+              </p>
+              {riskyNeighborhoods.length === 0 ? (
+                <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
+                  Nenhum bairro em nível crítico nesse estado/período.
+                </p>
+              ) : (
+                <div className="mt-3 overflow-x-auto">
+                  <table className="w-full min-w-[520px] text-sm">
+                    <thead>
+                      <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Bairro
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Cidade
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Estado
+                        </th>
+                        <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Eventos críticos
+                        </th>
+                        <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>
+                          Último evento
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {riskyNeighborhoods.map((n) => (
+                        <tr key={n.neighborhood_id} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                          <td className="py-2 pr-4" style={{ color: "#f0f4f8" }}>
+                            {n.name}
+                          </td>
+                          <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>
+                            {n.city}
+                          </td>
+                          <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>
+                            {n.state}
+                          </td>
+                          <td className="py-2 pr-4 tabular-nums font-semibold" style={{ color: COLORS.critical }}>
+                            {n.critical_count}
+                          </td>
+                          <td className="py-2" style={{ color: "#a8d4f0" }}>
+                            {relativeTime(n.last_event)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </>
         )}
