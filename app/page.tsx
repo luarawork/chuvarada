@@ -475,19 +475,29 @@ export default function HomePage() {
     setPendingReportLocation(null);
   }
 
-  async function handleReportReact(reportId: string, reaction: "confirm" | "deny") {
+  // Devolve se o servidor aceitou a reação -- ReportLayer só marca "já
+  // votou" (feedback visual + botões desabilitados) depois de confirmado
+  // aqui, nunca de forma otimista (o servidor rejeita com 409 se essa
+  // conta/IP já reagiu a esse relato).
+  async function handleReportReact(reportId: string, reaction: "confirm" | "deny"): Promise<boolean> {
     const {
       data: { session },
     } = await supabase.auth.getSession();
 
-    await fetch(`/api/reports/${reportId}/react`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
-      },
-      body: JSON.stringify({ reaction }),
-    }).catch((err) => console.error("Erro ao reagir ao relato:", err));
+    try {
+      const res = await fetch(`/api/reports/${reportId}/react`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+        },
+        body: JSON.stringify({ reaction }),
+      });
+      return res.ok;
+    } catch (err) {
+      console.error("Erro ao reagir ao relato:", err);
+      return false;
+    }
   }
 
   // Diferente de handleReportReact (que precisa atualizar confirmations/

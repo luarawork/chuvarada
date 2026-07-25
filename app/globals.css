@@ -110,6 +110,22 @@ body {
   background: rgba(240, 244, 248, 0.16);
 }
 
+/* Estado pós-voto (ver ReportLayer.tsx) -- os 2 botões ficam disabled;
+   opacity:0.5 do disabled sozinho já cobre o botão NÃO escolhido, e
+   .report-popup-btn-selected sobrescreve isso de volta pro escolhido, que
+   fica destacado em vez de acinzentado junto com o outro. */
+.report-popup button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.report-popup-btn-selected {
+  border-color: #2a9d72 !important;
+  background: rgba(42, 157, 114, 0.2) !important;
+  color: #2a9d72 !important;
+  opacity: 1 !important;
+}
+
 .report-popup-resolve {
   margin-top: 8px;
   width: 100%;
