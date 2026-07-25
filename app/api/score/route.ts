@@ -15,9 +15,14 @@ export async function GET(req: NextRequest) {
 
   const db = getServerSupabase();
 
+  // geometry:geometry_simplified (não a coluna geometry original, removida
+  // na migração 032_remove_raw_geometry.sql) -- mesma convenção de alias das
+  // outras rotas que servem bairro/município (app/api/neighborhoods,
+  // app/api/municipalities). Diferença de tolerância (~100m) é irrelevante
+  // pro centroide usado aqui só como ponto de consulta de clima.
   const { data: neighborhood, error: nError } = await db
     .from("neighborhoods")
-    .select("*, cities(*)")
+    .select("id, city_id, name, name_source, geometry:geometry_simplified, terrain_slope, hydro_proximity, is_coastal, created_at, cities(*)")
     .eq("id", neighborhoodId)
     .single();
 
@@ -25,7 +30,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Bairro não encontrado" }, { status: 404 });
   }
 
-  const city = neighborhood.cities as City;
+  const city = neighborhood.cities as unknown as City;
   const n = neighborhood as Neighborhood;
 
   try {

@@ -19,11 +19,13 @@ const MAX_NEIGHBORHOODS_PER_REQUEST = 2000;
 // scripts/backfill_geometry_simplified.js) em vez da geometria original:
 // medido que geometria era 44-84% do payload de resposta dependendo do
 // zoom, e a versão simplificada corta isso em ~37% sem mudar o formato
-// reconhecível do bairro. `coalesce` cobre a raríssima linha sem versão
-// simplificada ainda (ex.: insert manual fora dos scripts de upload).
+// reconhecível do bairro. Sem coalesce com n.geometry (removida na
+// migração 032_remove_raw_geometry.sql) -- confirmado direto no banco que
+// as 28.483 linhas de neighborhoods já tinham geometry_simplified
+// preenchida antes da coluna original ser derrubada.
 const SELECT_COLUMNS = `
   n.id, n.city_id, n.name, n.name_source,
-  coalesce(n.geometry_simplified, n.geometry) as geometry,
+  n.geometry_simplified as geometry,
   n.terrain_slope, n.hydro_proximity, n.is_coastal, n.created_at,
   rs.id as score_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h,
   rs.rain_intensity, rs.rain_peak_3h, rs.rain_source, rs.tide_level,
