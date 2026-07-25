@@ -62,7 +62,16 @@ export function useAuth(): UseAuthResult {
   }, []);
 
   const signUp = useCallback(async (email: string, password: string): Promise<SignUpResult> => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    // Sem isso, o link do e-mail de confirmação usa o "Site URL" configurado
+    // no dashboard do Supabase (Authentication -> URL Configuration) --
+    // que fica em http://localhost:3000 se nunca foi atualizado pra produção.
+    // window.location.origin resolve certo em qualquer ambiente (local ou
+    // Vercel) sem depender desse valor fixo no dashboard.
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: window.location.origin },
+    });
     if (error) return { error: translateAuthError(error.message), needsEmailConfirmation: false };
     return { error: null, needsEmailConfirmation: !data.session };
   }, []);
