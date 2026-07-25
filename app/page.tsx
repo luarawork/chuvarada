@@ -541,7 +541,10 @@ export default function HomePage() {
 
       <SearchBar onSelect={flyTo} />
 
-      <div className="absolute left-4 top-4 z-[1000] flex flex-col gap-2">
+      {/* top-[72px] no mobile -- abaixo da SearchBar (que só centraliza a
+          partir do breakpoint sm, ver SearchBar.tsx), senão os dois ficavam
+          empilhados no mesmo left-4/top-4 e o CityHeader cobria a busca. */}
+      <div className="absolute left-4 top-[72px] z-[1000] flex flex-col gap-2 sm:top-4">
         <CityHeader cityName={selectedCity?.name ?? null} level={overallLevel} updatedAt={mostRecentUpdate} />
         <MapLegend />
       </div>
@@ -588,10 +591,12 @@ export default function HomePage() {
       <div className="absolute bottom-9 right-4 z-[1000] flex flex-col items-end gap-2">
         <Link
           href="/como-funciona"
-          className="pointer-events-auto rounded-full border px-3 py-2 text-[13px] shadow-lg backdrop-blur"
+          aria-label="Como funciona"
+          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full border text-[13px] shadow-lg backdrop-blur sm:h-auto sm:w-auto sm:px-3 sm:py-2"
           style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
         >
-          Como funciona
+          <span className="sm:hidden" aria-hidden>?</span>
+          <span className="hidden sm:inline">Como funciona</span>
         </Link>
 
         <LayerToggle
