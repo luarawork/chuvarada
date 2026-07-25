@@ -52,6 +52,7 @@ export default function PerfilPage() {
   const [totalReports, setTotalReports] = useState(0);
   const [totalConfirmations, setTotalConfirmations] = useState(0);
   const [suggestionOpen, setSuggestionOpen] = useState(false);
+  const [installOpen, setInstallOpen] = useState(false);
 
   useEffect(() => {
     if (authLoading || signingOutRef.current) return;
@@ -302,24 +303,59 @@ export default function PerfilPage() {
           )}
         </section>
 
-        {/* Preferências de notificação */}
+        {/* Preferências de notificação -- push em si não está implementado
+            ainda (ver docs/diagnostico_push_notifications.md pro que falta),
+            então o badge "Em breve" fica visível sempre, não só no hover de
+            um title, e a instalação como PWA é oferecida como alternativa
+            parcial (funciona hoje, cobre parte do caso de uso). */}
         <section className="mt-8">
           <h2 className="font-heading text-lg font-bold">Preferências de notificação</h2>
-          <div className="mt-3 space-y-2 rounded-2xl border p-4 backdrop-blur-sm" style={CARD_STYLE}>
-            <label
-              className="flex cursor-not-allowed items-center justify-between gap-3 py-1.5 text-sm opacity-50"
-              title="Em breve — notificações push em desenvolvimento"
-            >
-              Notificar quando risco aumentar nos meus bairros salvos
-              <input type="checkbox" disabled className="h-4 w-4" />
-            </label>
-            <label
-              className="flex cursor-not-allowed items-center justify-between gap-3 py-1.5 text-sm opacity-50"
-              title="Em breve — notificações push em desenvolvimento"
-            >
-              Notificar quando meu relato for confirmado
-              <input type="checkbox" disabled className="h-4 w-4" />
-            </label>
+          <div className="mt-3 space-y-3 rounded-2xl border p-4 backdrop-blur-sm" style={CARD_STYLE}>
+            <div className="flex cursor-not-allowed items-center justify-between gap-3 opacity-50">
+              <span className="flex flex-wrap items-center gap-2 text-sm">
+                Notificar quando risco aumentar nos meus bairros salvos
+                <span
+                  className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                  style={{ backgroundColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
+                >
+                  Em breve
+                </span>
+              </span>
+              <input type="checkbox" disabled className="h-4 w-4 shrink-0" />
+            </div>
+            <div className="flex cursor-not-allowed items-center justify-between gap-3 opacity-50">
+              <span className="flex flex-wrap items-center gap-2 text-sm">
+                Notificar quando meu relato for confirmado
+                <span
+                  className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                  style={{ backgroundColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
+                >
+                  Em breve
+                </span>
+              </span>
+              <input type="checkbox" disabled className="h-4 w-4 shrink-0" />
+            </div>
+
+            <div className="mt-1 border-t pt-3" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+              <p className="text-xs" style={{ color: "#a8d4f0" }}>
+                💡 Instale o Chuvarada na tela inicial do seu celular pra receber alertas de risco mesmo com o app fechado.{" "}
+                <button onClick={() => setInstallOpen((v) => !v)} className="font-medium underline hover:opacity-80">
+                  Como instalar →
+                </button>
+              </p>
+              {installOpen && (
+                <div className="mt-2 space-y-1.5 text-xs" style={{ color: "#a8d4f0" }}>
+                  <p>
+                    <strong style={{ color: "#f0f4f8" }}>iOS:</strong> toque em Compartilhar → &ldquo;Adicionar à Tela de
+                    Início&rdquo;
+                  </p>
+                  <p>
+                    <strong style={{ color: "#f0f4f8" }}>Android:</strong> toque em ⋮ (menu) → &ldquo;Adicionar à tela
+                    inicial&rdquo;
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
