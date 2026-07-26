@@ -236,6 +236,17 @@ def build_cache_rows(bbox):
     return rows, [d.isoformat() for d, _ in daily_files], [dt.isoformat() for dt, _ in hourly_files]
 
 
+def load_near_cells(conn) -> set[tuple[float, float]]:
+    """Carrega o conjunto de células (grid_lat, grid_lng) marcadas como
+    próximas de bairro em merge_cache_cells (ver migração
+    034_merge_cache_retention.sql) -- recarregado a cada execução, não em
+    memória entre rodadas, então reflete bairros novos assim que a tabela
+    estática for repopulada (re-rodar o INSERT ON CONFLICT DO NOTHING da
+    migração é seguro a qualquer momento)."""
+    rows = conn.run("select grid_lat, grid_lng from merge_cache_cells where is_near_neighborhood = true")
+    return {(float(r[0]), float(r[1])) for r in rows}
+
+
 def save_rows(rows: list[dict]) -> int:
     import pg8000.native as pg8000
 
@@ -255,6 +266,8 @@ def save_rows(rows: list[dict]) -> int:
 
     inserted = 0
     try:
+        near_cells = load_near_cells(conn)
+        print(f"  {len(near_cells)} células marcadas como próximas de bairro (merge_cache_cells).")
         # Lock de escrita -- sinaliza pro cron Node.js (lib/merge.ts) que
         # merge_cache está sendo gravado agora, pra ele não ler uma célula
         # já atualizada e outra ainda não nessa mesma rodada (ver
@@ -278,7 +291,7 @@ def save_rows(rows: list[dict]) -> int:
             for j, row in enumerate(batch):
                 values_clauses.append(
                     f"(:lat{j}, :lng{j}, :grid_lat{j}, :grid_lng{j}, :rain_72h{j}, "
-                    f":rain_peak_3h{j}, :data_date{j}, :data_hour{j}, 'merge_cptec', now())"
+                    f":rain_peak_3h{j}, :data_date{j}, :data_hour{j}, :is_near{j}, 'merge_cptec', now())"
                 )
                 params[f"lat{j}"] = row["lat"]
                 params[f"lng{j}"] = row["lng"]
@@ -288,14 +301,16 @@ def save_rows(rows: list[dict]) -> int:
                 params[f"rain_peak_3h{j}"] = row["rain_peak_3h"]
                 params[f"data_date{j}"] = row["data_date"]
                 params[f"data_hour{j}"] = row["data_hour"]
+                params[f"is_near{j}"] = (row["grid_lat"], row["grid_lng"]) in near_cells
 
             sql = (
-                "insert into merge_cache (lat, lng, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, data_hour, source, fetched_at) "
+                "insert into merge_cache (lat, lng, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, data_hour, is_near_neighborhood, source, fetched_at) "
                 "values " + ",".join(values_clauses) + " "
                 "on conflict (grid_lat, grid_lng, data_date) "
                 "do update set rain_72h = excluded.rain_72h, "
                 "rain_peak_3h = excluded.rain_peak_3h, "
                 "data_hour = excluded.data_hour, "
+                "is_near_neighborhood = excluded.is_near_neighborhood, "
                 "fetched_at = excluded.fetched_at"
             )
             conn.run(sql, **params)
