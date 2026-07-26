@@ -194,9 +194,17 @@ export function SearchBar({ onSelect }: SearchBarProps) {
         )}
       </div>
 
+      {/* absolute + z-[3000] (não só mt-1.5 em fluxo normal) -- este
+          dropdown e o stack do CityHeader/MapLegend (ver app/page.tsx)
+          têm o MESMO z-[1000] no container pai; em fluxo normal, quem
+          vier depois no DOM (CityHeader, renderizado após o SearchBar)
+          pinta por cima independente de sobreposição espacial. absolute
+          tira o dropdown do fluxo (não empurra irmãos) e z-[3000] (acima
+          até do banner de relato, z-[2000]) garante que ele sempre
+          aparece por cima, não só quando a ordem do DOM favorece. */}
       {open && (
         <div
-          className="mt-1.5 max-h-72 overflow-y-auto rounded-xl backdrop-blur-md"
+          className="absolute inset-x-0 top-full z-[3000] mt-1.5 max-h-72 overflow-y-auto rounded-xl backdrop-blur-md"
           style={{
             backgroundColor: "rgba(13, 27, 42, 0.92)",
             border: "1px solid rgba(46, 125, 184, 0.3)",
