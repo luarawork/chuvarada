@@ -265,6 +265,7 @@ def save_rows(rows: list[dict]) -> int:
     )
 
     inserted = 0
+    changed = 0
     try:
         near_cells = load_near_cells(conn)
         print(f"  {len(near_cells)} células marcadas como próximas de bairro (merge_cache_cells).")
@@ -303,6 +304,21 @@ def save_rows(rows: list[dict]) -> int:
                 params[f"data_hour{j}"] = row["data_hour"]
                 params[f"is_near{j}"] = (row["grid_lat"], row["grid_lng"]) in near_cells
 
+            # WHERE no DO UPDATE -- pula a atualização (e a tupla morta que ela
+            # geraria) quando nenhum valor observável realmente mudou desde a
+            # última gravação. Com o cron rodando de hora em hora mas o MERGE
+            # DAILY só publicando 1x/dia, a maior parte das ~167k células tem
+            # rain_72h/rain_peak_3h idênticos de uma hora pra outra -- sem essa
+            # cláusula, o UPSERT reescrevia as 167k linhas TODA hora mesmo sem
+            # mudança nenhuma (confirmado via pg_stat_user_tables: n_tup_upd
+            # ~7x n_live_tup, só ~10% HOT, ver diagnóstico de 26/07/2026), e
+            # essa era a principal fonte de bloat entre os VACUUM FULL manuais.
+            # `excluded.fetched_at` só é escrito quando a linha realmente muda
+            # -- fetched_at passa a significar "última vez que o valor mudou",
+            # não "última vez que o cron rodou"; isso é aceitável (e mais
+            # correto) pra retenção baseada em fetched_at, já que cada dia novo
+            # já cria uma linha nova por causa do conflict target incluir
+            # data_date (não fica linha de dia antigo "presa" por isso).
             sql = (
                 "insert into merge_cache (lat, lng, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, data_hour, is_near_neighborhood, source, fetched_at) "
                 "values " + ",".join(values_clauses) + " "
@@ -311,13 +327,19 @@ def save_rows(rows: list[dict]) -> int:
                 "rain_peak_3h = excluded.rain_peak_3h, "
                 "data_hour = excluded.data_hour, "
                 "is_near_neighborhood = excluded.is_near_neighborhood, "
-                "fetched_at = excluded.fetched_at"
+                "fetched_at = excluded.fetched_at "
+                "where merge_cache.rain_72h is distinct from excluded.rain_72h "
+                "or merge_cache.rain_peak_3h is distinct from excluded.rain_peak_3h "
+                "or merge_cache.is_near_neighborhood is distinct from excluded.is_near_neighborhood "
+                "returning id"
             )
-            conn.run(sql, **params)
+            result = conn.run(sql, **params)
             inserted += len(batch)
-            print(f"  gravadas {min(i + batch_size, len(rows))}/{len(rows)} células...")
+            changed += len(result)
+            print(f"  gravadas {min(i + batch_size, len(rows))}/{len(rows)} células ({len(result)} inseridas/alteradas, {len(batch) - len(result)} sem mudança)...")
         # pg8000.native.Connection já faz autocommit por statement (sem
         # transação explícita) — não existe/precisa de conn.commit() aqui.
+        print(f"\n  Resumo: {changed}/{inserted} células realmente inseridas ou alteradas ({inserted - changed} puladas por não ter mudado).")
     finally:
         conn.run("delete from system_locks where key = 'merge_cache_write'")
         conn.close()
