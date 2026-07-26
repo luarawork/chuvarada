@@ -1,6 +1,6 @@
 # Configuração das GitHub Actions
 
-Este projeto tem 3 GitHub Actions agendadas:
+Este projeto tem 4 GitHub Actions agendadas:
 
 ## 1. `merge-and-scores-update.yml` (a cada hora, `0 * * * *`)
 
@@ -31,7 +31,20 @@ Cron B -- mantém `weather_cache` atualizado aos poucos, em lotes pequenos
 Move `risk_scores` com mais de 48h do Supabase pro Backblaze B2
 (comprimido, particionado por data/estado) e gera o snapshot agregado do
 dia anterior (`scripts/archive_to_b2.ts`) -- ver `lib/b2.ts` e
-`/api/history`.
+`/api/history`. Também arquiva `merge_cache` (retenção 7 dias perto de
+bairro / 3 dias longe, ver `scripts/sql/034_merge_cache_retention.sql`),
+`weather_cache` (24h) e `cron_run_stats` (14 dias), e limpa do próprio B2
+qualquer arquivo arquivado há mais de 1 ano (`cleanB2OldFiles`).
+
+## 4. `monitor-database.yml` (diário às 08:00 UTC)
+
+Chama a função `get_db_size()` (RPC do Postgres, ver
+`scripts/sql/035_db_size_function.sql`) via REST usando a anon key e falha
+o workflow (`exit 1`, dispara notificação do GitHub por e-mail/Actions) se
+o banco passar de 400MB -- o limite gratuito do Supabase é 500MB, então
+400MB é margem pra reagir antes de bater no teto (ver o incidente de
+25/07/2026 em `scripts/maintenance.sql`, quando o banco chegou a 135% do
+limite sem nenhum alerta prévio).
 
 Sem os secrets abaixo configurados no repositório, as Actions falham (ou
 nem disparam o passo que precisa deles) silenciosamente -- foi exatamente
@@ -51,10 +64,18 @@ Actions → New repository secret**
 | `B2_ENDPOINT` | `archive` | Endpoint S3-compatible do Backblaze B2 (ex: `https://s3.us-east-005.backblazeb2.com`) | Backblaze → B2 Cloud Storage → Buckets → (nome do bucket) → Endpoint |
 | `B2_BUCKET_NAME` | `archive` | Nome do bucket B2 usado pro histórico | Backblaze → B2 Cloud Storage → Buckets |
 | `B2_KEY_ID` e `B2_APPLICATION_KEY` | `archive` | Credenciais da Application Key do B2 (par usado como `accessKeyId`/`secretAccessKey` no SDK S3) | Backblaze → App Keys → Add a New Application Key -- a `applicationKey` só é mostrada uma vez na criação |
+| `SUPABASE_URL` | `monitor-database` | URL REST do projeto Supabase (ex: `https://kskogxhujmqmfdgwpeph.supabase.co`), usada pra montar `${SUPABASE_URL}/rest/v1/rpc/get_db_size` | Supabase → Project Settings → API → **Project URL** (mesmo valor de `NEXT_PUBLIC_SUPABASE_URL` no `.env.local`) |
+| `SUPABASE_ANON_KEY` | `monitor-database` | Chave anon do Supabase, usada como `apikey`/`Authorization` na chamada REST -- `get_db_size()` tem `grant execute` pra `anon` de propósito, então não precisa da service key | Supabase → Project Settings → API → **anon public** (mesmo valor de `NEXT_PUBLIC_SUPABASE_ANON_KEY` no `.env.local`) |
 
 `WEATHERAPI_KEY` **não** é secret desta Action — ela é lida pelo processo
 Next.js em produção (variável de ambiente da plataforma de deploy, não do
 GitHub Actions), usada só em runtime pelo fallback em `lib/weatherapi.ts`.
+
+`ADMIN_PASSWORD` **também não** é secret do GitHub Actions -- protege a
+página `/sugestoes` (ver `lib/auth.ts`, `verifyAdminPassword`), que roda no
+processo Next.js em produção, não em nenhuma Action. Configurar como
+variável de ambiente na plataforma de deploy (Vercel/Netlify), do mesmo
+jeito que `CRON_SECRET` já é configurada lá -- ver `.env.local.example`.
 
 ## Como testar se a Action está funcionando
 
