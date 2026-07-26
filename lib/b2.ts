@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, GetObjectCommand, ListObjectsV2Command, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { gzip, gunzip } from "zlib";
 import { promisify } from "util";
 
@@ -67,6 +67,10 @@ export async function listB2Files(prefix: string): Promise<string[]> {
   return (response.Contents ?? []).map((obj) => obj.Key).filter((key): key is string => !!key);
 }
 
+export async function deleteFromB2(key: string): Promise<void> {
+  await getB2Client().send(new DeleteObjectCommand({ Bucket: getBucket(), Key: key }));
+}
+
 // Keys padronizadas -- mesmo esquema de particionamento por ano/mês/dia
 // pros 3 tipos de dado arquivado.
 export function getRiskScoresKey(date: string, state: string): string {
@@ -82,4 +86,17 @@ export function getSnapshotKey(date: string): string {
 export function getMergeCacheKey(date: string): string {
   const [year, month, day] = date.split("-");
   return `merge_cache/${year}/${month}/${day}/merge_${date}.json.gz`;
+}
+
+export function getWeatherCacheKey(date: string): string {
+  const [year, month, day] = date.split("-");
+  return `weather_cache/${year}/${month}/${day}/weather_${date}.json.gz`;
+}
+
+// Particionado só por mês (não por dia) -- cron_run_stats é 1 linha por
+// ciclo de cron (a cada hora), bem mais leve que os outros tipos arquivados
+// aqui, não precisa de granularidade diária.
+export function getCronStatsKey(month: string): string {
+  const [year, monthPart] = month.split("-");
+  return `cron_stats/${year}/${monthPart}/stats_${month}.json.gz`;
 }
