@@ -324,6 +324,49 @@ def save_rows(rows: list[dict]) -> int:
     return inserted
 
 
+INTENSE_RAIN_72H_MM = 100
+INTENSE_RAIN_PEAK_3H_MM = 30
+EMERGENCY_MAX_CELLS_PER_REQUEST = 500  # mesmo teto de app/api/cron/scores/emergency/route.ts
+
+
+def notify_intense_rain(rows: list[dict]) -> None:
+    """Dispara recálculo imediato pros bairros perto de células com chuva
+    intensa, sem esperar o próximo ciclo horário do Cron A (que só roda
+    depois que este script termina, ver .github/workflows/
+    merge-and-scores-update.yml) -- ver app/api/cron/scores/emergency/route.ts."""
+    intense_cells = [
+        r for r in rows
+        if r.get("rain_72h", 0) > INTENSE_RAIN_72H_MM or r.get("rain_peak_3h", 0) > INTENSE_RAIN_PEAK_3H_MM
+    ]
+    if not intense_cells:
+        return
+
+    app_url = os.environ.get("APP_URL")
+    cron_secret = os.environ.get("CRON_SECRET")
+    if not app_url or not cron_secret:
+        print(
+            f"[aviso] {len(intense_cells)} células com chuva intensa detectadas, mas "
+            "APP_URL/CRON_SECRET não configurados -- recálculo de emergência não disparado."
+        )
+        return
+
+    for i in range(0, len(intense_cells), EMERGENCY_MAX_CELLS_PER_REQUEST):
+        batch = intense_cells[i : i + EMERGENCY_MAX_CELLS_PER_REQUEST]
+        try:
+            response = requests.post(
+                f"{app_url}/api/cron/scores/emergency",
+                headers={"Authorization": f"Bearer {cron_secret}"},
+                json={"cells": [{"grid_lat": c["grid_lat"], "grid_lng": c["grid_lng"]} for c in batch]},
+                timeout=30,
+            )
+            print(
+                f"🚨 Chuva intensa detectada em {len(batch)} células — "
+                f"recálculo imediato disparado (status {response.status_code})."
+            )
+        except requests.RequestException as e:
+            print(f"[aviso] falha ao disparar recálculo de emergência: {e}")
+
+
 def main():
     rows, daily_dates, hourly_times = build_cache_rows(BRASIL_BBOX)
     print(f"\n{len(rows)} células dentro do bbox ({BRASIL_BBOX}).")
@@ -332,6 +375,8 @@ def main():
 
     inserted = save_rows(rows)
     print(f"\n{inserted} células gravadas/atualizadas em merge_cache.")
+
+    notify_intense_rain(rows)
 
 
 if __name__ == "__main__":

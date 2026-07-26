@@ -98,7 +98,10 @@ async function cleanupExpiredReports(db: Pool): Promise<void> {
   );
 }
 
-async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
+// Exportada pra app/api/cron/scores/emergency/route.ts reaproveitar sem
+// duplicar a pipeline (clima -> score -> insert em lote -> risk_events ->
+// city_risk_summary) -- mesmo padrão de extração de lib/riskScoring.ts.
+export async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
   if (neighborhoods.length === 0) return 0;
 
   const tide = await getTideLevelCacheOnly(city.id, city.tide_code);
