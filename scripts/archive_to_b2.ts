@@ -181,15 +181,16 @@ async function createDailySnapshot(db: Pool): Promise<void> {
 }
 
 // Retenção em 2 níveis (ver migração 034_merge_cache_retention.sql): célula
-// perto de bairro (lida de verdade pelo score, ver lib/merge.ts) guarda 7
+// perto de bairro (lida de verdade pelo score, ver lib/merge.ts) guarda 4
 // dias; o resto do bbox nacional (grade retangular que nunca é lida por
-// nenhum bairro real) guarda só 3. is_near_neighborhood default é `false`
-// pra qualquer linha gravada antes dessa migração/antes do
-// fetch_merge_cptec.py passar a marcar a coluna -- tratada aqui como "far"
-// (retenção mais curta), um default conservador razoável pra dado ainda
-// não classificado.
-const MERGE_CACHE_NEAR_RETENTION_DAYS = 7;
-const MERGE_CACHE_FAR_RETENTION_DAYS = 3;
+// nenhum bairro real) guarda só 1 (reduzido de 7/3 em 26/07/2026 -- o banco
+// bateu 502MB de novo com a retenção original, ver scripts/maintenance.sql).
+// is_near_neighborhood default é `false` pra qualquer linha gravada antes
+// dessa migração/antes do fetch_merge_cptec.py passar a marcar a coluna --
+// tratada aqui como "far" (retenção mais curta), um default conservador
+// razoável pra dado ainda não classificado.
+const MERGE_CACHE_NEAR_RETENTION_DAYS = 4;
+const MERGE_CACHE_FAR_RETENTION_DAYS = 1;
 
 async function archiveMergeCache(db: Pool): Promise<void> {
   const { rows } = await db.query(
