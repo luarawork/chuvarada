@@ -3,19 +3,7 @@ import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
 import { isLocked, acquireLock, releaseLock } from "@/lib/systemLock";
-import { getWeatherFromCacheOnly } from "@/lib/weather";
-import { getMergeData } from "@/lib/merge";
-import { getTideLevelCacheOnly } from "@/lib/cptec";
-import { calculateScore } from "@/lib/score";
-import { groupNeighborhoodsByCell } from "@/lib/cellGrouping";
-import {
-  runWithConcurrency,
-  mapWithConcurrency,
-  insertRiskScoresBatch,
-  syncRiskEventsBatch,
-  upsertCityRiskSummary,
-  type ScoredRow,
-} from "@/lib/riskScoring";
+import { runWithConcurrency, scoreCity } from "@/lib/riskScoring";
 import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
 
@@ -25,9 +13,9 @@ import type { City, Neighborhood } from "@/types";
 // em cascata de 23/07/2026 que motivou separar isso do Cron B, que é quem
 // de fato mantém weather_cache atualizado). Meta: < 5min pra base nacional
 // inteira -- só leitura de cache + cálculo + insert em lote, sem esperar
-// nenhuma API de clima responder.
+// nenhuma API de clima responder. scoreCity mora em lib/riskScoring.ts
+// (reaproveitada por app/api/cron/scores/emergency/route.ts).
 const CITY_CONCURRENCY = 8;
-const CELL_CONCURRENCY = 4;
 
 const LOCK_KEY = "scores_cron_running";
 const LOCK_MAX_AGE_MINUTES = 10;
@@ -98,34 +86,3 @@ async function cleanupExpiredReports(db: Pool): Promise<void> {
   );
 }
 
-// Exportada pra app/api/cron/scores/emergency/route.ts reaproveitar sem
-// duplicar a pipeline (clima -> score -> insert em lote -> risk_events ->
-// city_risk_summary) -- mesmo padrão de extração de lib/riskScoring.ts.
-export async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
-  if (neighborhoods.length === 0) return 0;
-
-  const tide = await getTideLevelCacheOnly(city.id, city.tide_code);
-  const cells = groupNeighborhoodsByCell(city, neighborhoods);
-
-  const weatherByCell = await mapWithConcurrency(cells, CELL_CONCURRENCY, async (cell) => {
-    const merge = await getMergeData(cell.lat, cell.lng).catch(() => null);
-    return getWeatherFromCacheOnly(city.id, cell.lat, cell.lng, merge);
-  });
-
-  const tideLevelForScore = city.tide_code ? tide.level : null;
-
-  const scoredRows: ScoredRow[] = [];
-  for (let i = 0; i < cells.length; i++) {
-    const weather = weatherByCell[i];
-    for (const neighborhood of cells[i].neighborhoods) {
-      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at);
-      scoredRows.push({ neighborhood, weather, result });
-    }
-  }
-
-  await insertRiskScoresBatch(db, scoredRows, tide.level);
-  await syncRiskEventsBatch(db, scoredRows);
-  await upsertCityRiskSummary(db, city, scoredRows);
-
-  return scoredRows.length;
-}

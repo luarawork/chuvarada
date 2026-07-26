@@ -1,5 +1,9 @@
 import type { Pool } from "pg";
 import { calculateScore } from "./score";
+import { getWeatherFromCacheOnly } from "./weather";
+import { getMergeData } from "./merge";
+import { getTideLevelCacheOnly } from "./cptec";
+import { groupNeighborhoodsByCell } from "./cellGrouping";
 import type { City, Neighborhood, NormalizedWeather } from "@/types";
 
 // Extraído de app/api/cron/update/route.ts pra ser reaproveitado pelo Cron A
@@ -168,4 +172,41 @@ export async function syncRiskEventsBatch(db: Pool, rows: ScoredRow[]): Promise<
   if (toClose.length > 0) {
     await db.query(`update risk_events set ended_at = now() where id = any($1::uuid[])`, [toClose]);
   }
+}
+
+// Extraído de app/api/cron/scores/route.ts (Cron A) pra ser reaproveitado
+// por app/api/cron/scores/emergency/route.ts sem duplicar a pipeline
+// (clima -> score -> insert em lote -> risk_events -> city_risk_summary).
+// Precisou virar lib/ (não só um export a mais no route.ts) porque rotas
+// do App Router só podem exportar handlers HTTP reconhecidos (GET, POST
+// etc.) -- exportar uma função qualquer quebra a checagem de tipos gerada
+// pelo Next.js pra arquivos route.ts.
+export async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhood[]): Promise<number> {
+  if (neighborhoods.length === 0) return 0;
+
+  const tide = await getTideLevelCacheOnly(city.id, city.tide_code);
+  const cells = groupNeighborhoodsByCell(city, neighborhoods);
+
+  const CELL_CONCURRENCY = 4;
+  const weatherByCell = await mapWithConcurrency(cells, CELL_CONCURRENCY, async (cell) => {
+    const merge = await getMergeData(cell.lat, cell.lng).catch(() => null);
+    return getWeatherFromCacheOnly(city.id, cell.lat, cell.lng, merge);
+  });
+
+  const tideLevelForScore = city.tide_code ? tide.level : null;
+
+  const scoredRows: ScoredRow[] = [];
+  for (let i = 0; i < cells.length; i++) {
+    const weather = weatherByCell[i];
+    for (const neighborhood of cells[i].neighborhoods) {
+      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at);
+      scoredRows.push({ neighborhood, weather, result });
+    }
+  }
+
+  await insertRiskScoresBatch(db, scoredRows, tide.level);
+  await syncRiskEventsBatch(db, scoredRows);
+  await upsertCityRiskSummary(db, city, scoredRows);
+
+  return scoredRows.length;
 }

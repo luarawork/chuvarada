@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
 import { rejectIfPayloadTooLarge, handleApiError } from "@/lib/apiError";
-import { scoreCity } from "../route";
+import { scoreCity } from "@/lib/riskScoring";
 import type { City, Neighborhood } from "@/types";
 
 // Recálculo imediato pra bairros perto de células com chuva intensa (ver

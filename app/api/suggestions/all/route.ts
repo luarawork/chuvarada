@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { maskEmail } from "@/lib/mask";
+import { verifyAdminPassword } from "@/lib/auth";
 import { handleApiError } from "@/lib/apiError";
 
 // Leitura completa de user_suggestions pra página interna /sugestoes --
@@ -15,7 +16,11 @@ import { handleApiError } from "@/lib/apiError";
 // também nunca é selecionado.
 //
 // GET /api/suggestions/all
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (!verifyAdminPassword(req.headers.get("x-admin-password"))) {
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
   try {
     const admin = getSupabaseAdmin();
     const { data, error } = await admin

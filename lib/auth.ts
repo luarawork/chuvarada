@@ -28,6 +28,24 @@ export function verifyCronSecret(authHeader: string | null): boolean {
   return timingSafeEqual(expected, received);
 }
 
+// Mesmo padrão fail-closed + timing-safe de verifyCronSecret acima, pra
+// proteger a página interna /sugestoes (ver app/api/suggestions/all e
+// app/api/suggestions/[id]) -- comparação simples com !== vazaria, pelo
+// tempo de resposta, quantos caracteres da senha bateram antes de divergir.
+export function verifyAdminPassword(passwordHeader: string | null): boolean {
+  const expected = process.env.ADMIN_PASSWORD;
+  if (!expected) {
+    console.error("[auth] ADMIN_PASSWORD não configurada -- negando acesso (fail-closed)");
+    return false;
+  }
+  if (!passwordHeader) return false;
+
+  const expectedBuf = Buffer.from(expected);
+  const receivedBuf = Buffer.from(passwordHeader);
+  if (expectedBuf.length !== receivedBuf.length) return false;
+  return timingSafeEqual(expectedBuf, receivedBuf);
+}
+
 // Extrai o user_id do header Authorization (Bearer <jwt do Supabase Auth>).
 // Antes duplicada de forma idêntica em reports/route.ts, reports/[id]/react/
 // route.ts e suggestions/route.ts -- centralizada aqui junto com o resto da

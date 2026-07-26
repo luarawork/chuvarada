@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 // Página interna de acompanhamento de sugestões (ver Item 7 do pedido) --
@@ -62,22 +62,59 @@ function relativeTime(iso: string): string {
   return `há ${days} dia${days > 1 ? "s" : ""}`;
 }
 
+// sessionStorage guarda a senha em si (não só um booleano "autenticado") --
+// precisa dela pra mandar em CADA chamada protegida (load/updateStatus/
+// remove), não só na tentativa inicial de login. É a mesma senha de
+// ADMIN_PASSWORD no servidor, então não é um segredo novo sendo exposto,
+// só reaproveitado -- some ao fechar a aba (sessionStorage, não localStorage).
+const ADMIN_AUTH_STORAGE_KEY = "chuvarada_admin_password";
+
 export default function SugestoesPage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const passwordRef = useRef("");
+
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [typeFilter, setTypeFilter] = useState<SuggestionType | "todos">("todos");
   const [statusFilter, setStatusFilter] = useState<SuggestionStatus | "todos">("todos");
 
   useEffect(() => {
-    load();
+    const stored = sessionStorage.getItem(ADMIN_AUTH_STORAGE_KEY);
+    if (stored) {
+      passwordRef.current = stored;
+      setAuthenticated(true);
+      load();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function authHeaders(): HeadersInit {
+    return { "x-admin-password": passwordRef.current };
+  }
+
+  // Se o servidor devolver 401 em qualquer chamada (senha mudou, sessão
+  // antiga) volta pra tela de login em vez de deixar a página num estado
+  // inconsistente (autenticada na UI mas todo request falhando quieto).
+  function handleUnauthorized() {
+    setAuthenticated(false);
+    passwordRef.current = "";
+    sessionStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+    setAuthError("Sessão expirada -- entre com a senha de novo.");
+  }
 
   async function load() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/suggestions/all");
+      const res = await fetch("/api/suggestions/all", { headers: authHeaders() });
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
       if (!res.ok) throw new Error("Falha ao buscar sugestões");
       const { data } = (await res.json()) as { data: Suggestion[] };
       setSuggestions(data);
@@ -88,15 +125,51 @@ export default function SugestoesPage() {
     }
   }
 
+  async function handleAuth() {
+    if (!passwordInput) return;
+    setAuthLoading(true);
+    setAuthError("");
+    passwordRef.current = passwordInput;
+    try {
+      const res = await fetch("/api/suggestions/all", { headers: authHeaders() });
+      if (res.status === 401) {
+        setAuthError("Senha incorreta.");
+        passwordRef.current = "";
+        return;
+      }
+      if (!res.ok) {
+        // Senha certa (passou do 401), mas algo mais falhou do lado do
+        // servidor (ex: SUPABASE_SERVICE_KEY ausente) -- não é a mesma
+        // coisa que senha errada, não deveria dizer "senha incorreta".
+        setAuthError("Falha ao verificar senha (erro do servidor).");
+        return;
+      }
+      sessionStorage.setItem(ADMIN_AUTH_STORAGE_KEY, passwordInput);
+      setAuthenticated(true);
+      const { data } = (await res.json()) as { data: Suggestion[] };
+      setSuggestions(data);
+    } catch {
+      setAuthError("Falha ao verificar senha.");
+      passwordRef.current = "";
+    } finally {
+      setAuthLoading(false);
+    }
+  }
+
   async function updateStatus(id: string, status: SuggestionStatus) {
     const previous = suggestions;
     setSuggestions((prev) => prev.map((s) => (s.id === id ? { ...s, status } : s)));
     try {
       const res = await fetch(`/api/suggestions/${id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ status }),
       });
+      if (res.status === 401) {
+        setSuggestions(previous);
+        handleUnauthorized();
+        return;
+      }
       if (!res.ok) throw new Error();
     } catch {
       setSuggestions(previous);
@@ -109,7 +182,12 @@ export default function SugestoesPage() {
     const previous = suggestions;
     setSuggestions((prev) => prev.filter((s) => s.id !== id));
     try {
-      const res = await fetch(`/api/suggestions/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/suggestions/${id}`, { method: "DELETE", headers: authHeaders() });
+      if (res.status === 401) {
+        setSuggestions(previous);
+        handleUnauthorized();
+        return;
+      }
       if (!res.ok) throw new Error();
     } catch {
       setSuggestions(previous);
@@ -127,6 +205,44 @@ export default function SugestoesPage() {
     in_review: suggestions.filter((s) => s.status === "in_review").length,
     resolved: suggestions.filter((s) => s.status === "resolved").length,
   };
+
+  if (!authenticated) {
+    return (
+      <div className="flex min-h-dvh items-center justify-center px-4" style={{ backgroundColor: "#0d1b2a" }}>
+        <div
+          className="w-full max-w-sm rounded-2xl border p-8"
+          style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+        >
+          <h1 className="font-heading text-xl font-bold" style={{ color: "#f0f4f8" }}>
+            🔒 Área restrita
+          </h1>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAuth()}
+            autoFocus
+            className="mt-6 w-full rounded-lg border bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-[#a8d4f0]/60"
+            style={{ borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
+          />
+          {authError && (
+            <p className="mt-3 text-sm" style={{ color: "#d64045" }}>
+              {authError}
+            </p>
+          )}
+          <button
+            onClick={handleAuth}
+            disabled={authLoading || !passwordInput}
+            className="mt-4 w-full rounded-lg py-3 text-sm font-semibold transition disabled:opacity-50"
+            style={{ backgroundColor: "#2e7db8", color: "#f0f4f8" }}
+          >
+            {authLoading ? "Entrando..." : "Entrar"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
