@@ -96,18 +96,24 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 Pré-requisitos:
 - Node.js e npm
-- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `024`)
+- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `035`)
 - Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
 
-Variáveis de ambiente (`.env.local`):
+Variáveis de ambiente (`.env.local`) — ver [`.env.local.example`](.env.local.example) para a lista completa e comentada:
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_DB_PASSWORD=
 SUPABASE_CONNECTION_STRING=
+SUPABASE_SERVICE_KEY=
 CRON_SECRET=
+ADMIN_PASSWORD=
 WEATHERAPI_KEY=
 WEATHER_CACHE_ONLY=false
+B2_ENDPOINT=
+B2_BUCKET_NAME=
+B2_KEY_ID=
+B2_APPLICATION_KEY=
 ```
 
 Instalar e rodar:
@@ -123,7 +129,11 @@ curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/upda
 
 Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da Open-Meteo/WeatherAPI.
 
-Antes do deploy, configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver [`scripts/SETUP_ACTIONS.md`](scripts/SETUP_ACTIONS.md).
+Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`, secrets do Backblaze B2, `SUPABASE_URL`/`SUPABASE_ANON_KEY` do monitor de banco) — ver [`scripts/SETUP_ACTIONS.md`](scripts/SETUP_ACTIONS.md).
+
+## Em produção
+
+[chuvarada.vercel.app](https://chuvarada.vercel.app) — PWA instalável (Android, iOS, desktop). As 4 GitHub Actions (MERGE + scores, clima, arquivamento pro B2, monitoramento de tamanho de banco) rodam de forma independente da plataforma de hospedagem do Next.js em si.
 
 ## Documentação completa
 
