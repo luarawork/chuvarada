@@ -753,7 +753,6 @@ export default function AnalisePage() {
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
-  const passwordRef = useRef("");
 
   const [state, setState] = useState("RN");
   const [startDate, setStartDate] = useState(todayMinus(6));
