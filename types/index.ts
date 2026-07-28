@@ -222,4 +222,8 @@ export interface UserReport {
   model_rain_peak_3h: number | null;
   created_at: string;
   expires_at: string | null;
+  // Só presentes quando /api/reports?state= faz o join (ver Item 4 da
+  // página /analise) -- ausentes na busca por bbox (mapa), que não precisa.
+  neighborhood_name?: string;
+  city_name?: string;
 }

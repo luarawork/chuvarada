@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import {
   ResponsiveContainer,
@@ -80,11 +81,21 @@ interface ActiveUser {
   confiabilidade: number;
 }
 
+interface CoverageByState {
+  state: string;
+  municipios: number;
+  bairros: number;
+  pct_com_score: number | null;
+  data_level_predominante: "full" | "partial" | "minimal";
+  ultima_atualizacao: string | null;
+}
+
 interface GlobalMetrics {
   total_relatos: number;
   taxa_media_confirmacao: number | null;
   cidades_com_relatos: number;
   cobertura_dados: number | null;
+  coverage_by_state: CoverageByState[];
 }
 
 interface RiskyNeighborhood {
@@ -94,6 +105,21 @@ interface RiskyNeighborhood {
   state: string;
   critical_count: number;
   last_event: string;
+}
+
+// Episódio contínuo de nível crítico num bairro -- construído client-side
+// agrupando as leituras horárias já buscadas (não é uma tabela própria; ver
+// risk_events pra um conceito parecido gravado direto pelo cron, mas essa
+// página trabalha em cima do histórico já carregado, não requisita de novo).
+interface CriticalEpisode {
+  neighborhood_id: string;
+  neighborhood_name: string;
+  city_name: string;
+  started_at: string;
+  ended_at: string;
+  duration_hours: number;
+  max_score: number;
+  confirmed_by_report: boolean;
 }
 
 // Ícone ℹ️ com tooltip explicativo -- CSS puro (group-hover), sem estado nem
@@ -114,17 +140,39 @@ function InfoTooltip({ text }: { text: string }) {
   );
 }
 
-function MetricCard({ icon, label, value }: { icon: string; label: string; value: string }) {
+function MetricCard({
+  icon,
+  label,
+  value,
+  onClick,
+  active,
+}: {
+  icon: string;
+  label: string;
+  value: string;
+  onClick?: () => void;
+  active?: boolean;
+}) {
+  const Tag = onClick ? "button" : "div";
   return (
-    <div className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(240, 244, 248, 0.06)" }}>
+    <Tag
+      onClick={onClick}
+      className="w-full rounded-xl p-3 text-center transition"
+      style={{
+        backgroundColor: active ? "rgba(46, 125, 184, 0.25)" : "rgba(240, 244, 248, 0.06)",
+        cursor: onClick ? "pointer" : "default",
+        border: active ? "1px solid rgba(46, 125, 184, 0.5)" : "1px solid transparent",
+      }}
+    >
       <div className="text-lg">{icon}</div>
       <div className="mt-1 font-heading text-lg font-bold tabular-nums" style={{ color: "#f0f4f8" }}>
         {value}
       </div>
-      <div className="mt-0.5 text-[11px]" style={{ color: "#a8d4f0" }}>
+      <div className="mt-0.5 flex items-center justify-center gap-1 text-[11px]" style={{ color: "#a8d4f0" }}>
         {label}
+        {onClick && <span aria-hidden="true">{active ? "▲" : "▼"}</span>}
       </div>
-    </div>
+    </Tag>
   );
 }
 
@@ -168,6 +216,79 @@ function buildRiskyNeighborhoods(results: { rows: HistoryRow[] }[]): RiskyNeighb
     .slice(0, 10);
 }
 
+// Agrupa leituras críticas consecutivas do MESMO bairro em episódios (gap
+// de até 2h entre leituras ainda conta como o mesmo episódio -- cobre o caso
+// de o cron pular um ciclo, ver diagnóstico de cron intermitente). Não lê
+// risk_events (que já grava isso no servidor) porque esta página já tem o
+// histórico completo em memória do handleSearch -- evita 1 requisição extra
+// só pra duplicar o que já foi buscado.
+const EPISODE_GAP_HOURS = 2;
+
+function buildCriticalEpisodes(
+  results: { rows: HistoryRow[] }[],
+  reports: UserReport[]
+): CriticalEpisode[] {
+  const byNeighborhood = new Map<string, HistoryRow[]>();
+  for (const { rows } of results) {
+    for (const row of rows) {
+      if (row.level !== "critical") continue;
+      if (!byNeighborhood.has(row.neighborhood_id)) byNeighborhood.set(row.neighborhood_id, []);
+      byNeighborhood.get(row.neighborhood_id)!.push(row);
+    }
+  }
+
+  const episodes: CriticalEpisode[] = [];
+  for (const [neighborhoodId, rows] of Array.from(byNeighborhood)) {
+    rows.sort((a, b) => a.calculated_at.localeCompare(b.calculated_at));
+    let current: HistoryRow[] = [];
+
+    const flush = () => {
+      if (current.length === 0) return;
+      const started = current[0].calculated_at;
+      const ended = current[current.length - 1].calculated_at;
+      const durationHours = (new Date(ended).getTime() - new Date(started).getTime()) / 3_600_000;
+      const windowStart = new Date(started).getTime() - 3_600_000;
+      const windowEnd = new Date(ended).getTime() + 3_600_000;
+      const confirmed = reports.some(
+        (r) =>
+          r.neighborhood_id === neighborhoodId &&
+          new Date(r.created_at).getTime() >= windowStart &&
+          new Date(r.created_at).getTime() <= windowEnd
+      );
+      episodes.push({
+        neighborhood_id: neighborhoodId,
+        neighborhood_name: current[0].neighborhood_name ?? "Bairro",
+        city_name: current[0].city_name ?? "—",
+        started_at: started,
+        ended_at: ended,
+        duration_hours: durationHours,
+        max_score: Math.max(...current.map((r) => r.score)),
+        confirmed_by_report: confirmed,
+      });
+      current = [];
+    };
+
+    for (const row of rows) {
+      if (current.length === 0) {
+        current.push(row);
+        continue;
+      }
+      const gapHours =
+        (new Date(row.calculated_at).getTime() - new Date(current[current.length - 1].calculated_at).getTime()) /
+        3_600_000;
+      if (gapHours <= EPISODE_GAP_HOURS) {
+        current.push(row);
+      } else {
+        flush();
+        current.push(row);
+      }
+    }
+    flush();
+  }
+
+  return episodes.sort((a, b) => b.duration_hours - a.duration_hours);
+}
+
 interface DailyAggregate {
   date: string;
   max_score: number;
@@ -192,6 +313,17 @@ const ALIGNMENT_INFO: Record<Alignment, { label: string; icon: string; color: st
   model_conservative: { label: "Modelo mais conservador", icon: "🔵", color: "#a8d4f0" },
   false_alarm: { label: "Possível falso alarme", icon: "🔵", color: "#a8d4f0" },
   no_reports: { label: "Sem relatos", icon: "🔵", color: "#a8d4f0" },
+};
+
+// Ordem de gravidade da divergência em si (não do nível) -- usada só na
+// lista expandida do card "Divergências encontradas" (ver Item 4).
+const DIVERGENCE_SEVERITY_ORDER: Record<Alignment, number> = {
+  diverges_much: 3,
+  diverges_slightly: 2,
+  false_alarm: 1,
+  model_conservative: 1,
+  aligns: 0,
+  no_reports: 0,
 };
 
 // REPORT_SCORE começa em 1 (não 0 como SEVERITY_ORDER) -- um relato, mesmo
@@ -361,7 +493,267 @@ function computeAlignmentMetrics(reports: UserReport[]) {
   return { pctGraveCritical, pctModeradoAtencaoOuCritico, pctNormalModel };
 }
 
+// Painel de detalhe compartilhado pelos 4 cards que expandem (Item 4) --
+// mesmo card escuro do resto da página, só com título + botão de fechar.
+function ExpandedPanel({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="mt-3 rounded-xl border p-4" style={{ backgroundColor: "rgba(240, 244, 248, 0.04)", borderColor: "rgba(46, 125, 184, 0.2)" }}>
+      <h3 className="font-heading text-xs font-semibold uppercase tracking-wide" style={{ color: "#a8d4f0" }}>
+        {title}
+      </h3>
+      <div className="mt-2">{children}</div>
+    </div>
+  );
+}
+
+function ExpandedTotalRelatos({
+  reports,
+  page,
+  onPageChange,
+  pageSize,
+}: {
+  reports: UserReport[];
+  page: number;
+  onPageChange: (page: number) => void;
+  pageSize: number;
+}) {
+  const sorted = [...reports].sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const pageRows = sorted.slice(page * pageSize, page * pageSize + pageSize);
+
+  return (
+    <ExpandedPanel title="Relatos no período selecionado">
+      {sorted.length === 0 ? (
+        <p className="text-sm" style={{ color: "#a8d4f0" }}>
+          Nenhum relato no período/estado selecionado nos filtros abaixo — busque um período pra ver a lista.
+        </p>
+      ) : (
+        <>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[540px] text-sm">
+              <thead>
+                <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                  <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Data/hora</th>
+                  <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Gravidade</th>
+                  <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Bairro/Cidade</th>
+                  <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Status</th>
+                  <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>Confirmações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pageRows.map((r) => (
+                  <tr key={r.id} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                    <td className="py-2 pr-4 tabular-nums" style={{ color: "#f0f4f8" }}>
+                      {new Date(r.created_at).toLocaleString("pt-BR")}
+                    </td>
+                    <td className="py-2 pr-4">
+                      <span
+                        className="rounded-full px-2 py-0.5 text-xs font-medium"
+                        style={{ backgroundColor: `${SEVERITY_COLOR[r.severity]}26`, color: SEVERITY_COLOR[r.severity] }}
+                      >
+                        {SEVERITY_LABEL[r.severity]}
+                      </span>
+                    </td>
+                    <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>
+                      {r.neighborhood_name ?? "—"}{r.city_name ? ` — ${r.city_name}` : ""}
+                    </td>
+                    <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>{r.status}</td>
+                    <td className="py-2 tabular-nums" style={{ color: "#a8d4f0" }}>
+                      ✓{r.confirmations} ✗{r.denials}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {totalPages > 1 && (
+            <div className="mt-3 flex items-center justify-between text-xs" style={{ color: "#a8d4f0" }}>
+              <button
+                onClick={() => onPageChange(Math.max(0, page - 1))}
+                disabled={page === 0}
+                className="rounded-lg border px-3 py-1.5 disabled:opacity-40"
+                style={{ borderColor: "rgba(240, 244, 248, 0.2)", color: "#f0f4f8" }}
+              >
+                ← Anterior
+              </button>
+              <span>Página {page + 1} de {totalPages}</span>
+              <button
+                onClick={() => onPageChange(Math.min(totalPages - 1, page + 1))}
+                disabled={page >= totalPages - 1}
+                className="rounded-lg border px-3 py-1.5 disabled:opacity-40"
+                style={{ borderColor: "rgba(240, 244, 248, 0.2)", color: "#f0f4f8" }}
+              >
+                Próxima →
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </ExpandedPanel>
+  );
+}
+
+function ExpandedDivergencias({ rows }: { rows: HourlyComparison[] }) {
+  const filtered = rows
+    .filter((row) => row.alignment !== "aligns" && row.alignment !== "no_reports")
+    .sort((a, b) => DIVERGENCE_SEVERITY_ORDER[b.alignment] - DIVERGENCE_SEVERITY_ORDER[a.alignment]);
+
+  return (
+    <ExpandedPanel title="Divergências entre relatos e modelo">
+      {filtered.length === 0 ? (
+        <p className="text-sm" style={{ color: "#a8d4f0" }}>
+          Nenhuma divergência no período/estado selecionado.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] text-sm">
+            <thead>
+              <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Horário</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Score modelo</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Nível</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Relatos</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Gravidade máx.</th>
+                <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>Tipo de divergência</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((row) => (
+                <tr key={row.hourKey} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#f0f4f8" }}>{row.label}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>{row.model_score.toFixed(2)}</td>
+                  <td className="py-2 pr-4">{LEVEL_LABEL[row.model_level]}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>{row.report_count}</td>
+                  <td className="py-2 pr-4">
+                    {row.max_severity ? (
+                      <span style={{ color: SEVERITY_COLOR[row.max_severity] }}>{SEVERITY_LABEL[row.max_severity]}</span>
+                    ) : (
+                      <span style={{ color: "#a8d4f0" }}>—</span>
+                    )}
+                  </td>
+                  <td className="py-2">
+                    <span style={{ color: ALIGNMENT_INFO[row.alignment].color }}>
+                      {ALIGNMENT_INFO[row.alignment].icon} {ALIGNMENT_INFO[row.alignment].label}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </ExpandedPanel>
+  );
+}
+
+function ExpandedEventosCriticos({ episodes }: { episodes: CriticalEpisode[] }) {
+  return (
+    <ExpandedPanel title="Episódios em nível crítico no período">
+      {episodes.length === 0 ? (
+        <p className="text-sm" style={{ color: "#a8d4f0" }}>
+          Nenhum bairro em nível crítico no período/estado selecionado.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] text-sm">
+            <thead>
+              <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Bairro</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Cidade</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Duração</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Score máximo</th>
+                <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>Relato confirmando?</th>
+              </tr>
+            </thead>
+            <tbody>
+              {episodes.map((ep, i) => (
+                <tr key={`${ep.neighborhood_id}-${ep.started_at}-${i}`} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                  <td className="py-2 pr-4" style={{ color: "#f0f4f8" }}>{ep.neighborhood_name}</td>
+                  <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>{ep.city_name}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>
+                    {ep.duration_hours < 1 ? "< 1h" : `${Math.round(ep.duration_hours)}h`}
+                  </td>
+                  <td className="py-2 pr-4 tabular-nums font-semibold" style={{ color: COLORS.critical }}>
+                    {ep.max_score.toFixed(2)}
+                  </td>
+                  <td className="py-2">
+                    {ep.confirmed_by_report ? (
+                      <span style={{ color: COLORS.normal }}>✅ Sim</span>
+                    ) : (
+                      <span style={{ color: "#a8d4f0" }}>— Não</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </ExpandedPanel>
+  );
+}
+
+const DATA_LEVEL_LABEL: Record<CoverageByState["data_level_predominante"], string> = {
+  full: "Full",
+  partial: "Partial",
+  minimal: "Minimal",
+};
+
+function ExpandedCobertura({ rows }: { rows: CoverageByState[] }) {
+  return (
+    <ExpandedPanel title="Cobertura de dados por estado">
+      {rows.length === 0 ? (
+        <p className="text-sm" style={{ color: "#a8d4f0" }}>Carregando...</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] text-sm">
+            <thead>
+              <tr className="border-b" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Estado</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Municípios</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>Bairros</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>% com score</th>
+                <th className="py-2 pr-4 text-left font-medium" style={{ color: "#f0f4f8" }}>data_level predominante</th>
+                <th className="py-2 text-left font-medium" style={{ color: "#f0f4f8" }}>Última atualização</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.state} className="border-b last:border-0" style={{ borderColor: "rgba(46, 125, 184, 0.1)" }}>
+                  <td className="py-2 pr-4 font-semibold" style={{ color: "#f0f4f8" }}>{r.state}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>{r.municipios}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>{r.bairros.toLocaleString("pt-BR")}</td>
+                  <td className="py-2 pr-4 tabular-nums" style={{ color: "#a8d4f0" }}>
+                    {r.pct_com_score != null ? `${r.pct_com_score}%` : "—"}
+                  </td>
+                  <td className="py-2 pr-4" style={{ color: "#a8d4f0" }}>{DATA_LEVEL_LABEL[r.data_level_predominante]}</td>
+                  <td className="py-2" style={{ color: "#a8d4f0" }}>
+                    {r.ultima_atualizacao ? relativeTime(r.ultima_atualizacao) : "—"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </ExpandedPanel>
+  );
+}
+
+// sessionStorage guarda a senha em si (mesmo padrão de app/sugestoes/page.tsx)
+// -- some ao fechar a aba. A validação em si só confirma a senha contra
+// ADMIN_PASSWORD (/api/analise/verify-password); as chamadas de dado da
+// página (/api/history, /api/reports, etc.) continuam sem exigir o header,
+// porque são compartilhadas com outras partes públicas do app.
+const ANALISE_AUTH_STORAGE_KEY = "analise_auth";
+
 export default function AnalisePage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const passwordRef = useRef("");
+
   const [state, setState] = useState("RN");
   const [startDate, setStartDate] = useState(todayMinus(6));
   const [endDate, setEndDate] = useState(todayMinus(0));
@@ -375,15 +767,70 @@ export default function AnalisePage() {
   const [totalActiveUsers, setTotalActiveUsers] = useState(0);
   const [riskyNeighborhoods, setRiskyNeighborhoods] = useState<RiskyNeighborhood[]>([]);
   const [globalMetrics, setGlobalMetrics] = useState<GlobalMetrics | null>(null);
+  const [historyResults, setHistoryResults] = useState<{ date: string; rows: HistoryRow[] }[]>([]);
+
+  // Item 4: cards clicáveis com painel de detalhe expansível na mesma
+  // página (não navega pra outra rota).
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
+  const [reportsPage, setReportsPage] = useState(0);
+  const activeUsersSectionRef = useRef<HTMLDivElement>(null);
+  const REPORTS_PAGE_SIZE = 20;
+
+  function handleCardClick(cardId: string) {
+    if (cardId === "usuarios_ativos") {
+      // "auto" (instantâneo), não "smooth" -- smooth scroll depende de frames
+      // de animação sendo processados, que navegadores throttleam/pulam em
+      // abas em segundo plano (confirmado ao vivo: scrollIntoView com
+      // behavior:"smooth" não avançava a página nesse cenário, "auto" sim).
+      activeUsersSectionRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
+      return;
+    }
+    setReportsPage(0);
+    setExpandedCard((prev) => (prev === cardId ? null : cardId));
+  }
+
+  useEffect(() => {
+    if (sessionStorage.getItem(ANALISE_AUTH_STORAGE_KEY)) {
+      setAuthenticated(true);
+    }
+  }, []);
+
+  async function handleAuth() {
+    if (!passwordInput) return;
+    setAuthLoading(true);
+    setAuthError("");
+    try {
+      const res = await fetch("/api/analise/verify-password", {
+        method: "POST",
+        headers: { "x-admin-password": passwordInput },
+      });
+      if (res.status === 401) {
+        setAuthError("Senha incorreta.");
+        return;
+      }
+      if (!res.ok) {
+        setAuthError("Falha ao verificar senha (erro do servidor).");
+        return;
+      }
+      sessionStorage.setItem(ANALISE_AUTH_STORAGE_KEY, "1");
+      setAuthenticated(true);
+    } catch {
+      setAuthError("Falha ao verificar senha.");
+    } finally {
+      setAuthLoading(false);
+    }
+  }
 
   // Cards "sem filtro de período" -- carregam uma vez, independente do
-  // estado/período selecionado nos filtros abaixo (ver Item 6.3).
+  // estado/período selecionado nos filtros abaixo (ver Item 6.3). Só depois
+  // de autenticado, senão dispara antes do gate de senha renderizar o form.
   useEffect(() => {
+    if (!authenticated) return;
     fetch("/api/analise/metrics")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => data && setGlobalMetrics(data))
       .catch((err) => console.error("Erro ao buscar métricas gerais:", err));
-  }, []);
+  }, [authenticated]);
 
   async function handleSearch() {
     setLoading(true);
@@ -395,6 +842,8 @@ export default function AnalisePage() {
     setActiveUsers([]);
     setTotalActiveUsers(0);
     setRiskyNeighborhoods([]);
+    setHistoryResults([]);
+    setExpandedCard(null);
 
     try {
       const dates = dateRange(startDate, endDate);
@@ -413,6 +862,8 @@ export default function AnalisePage() {
         setLoading(false);
         return;
       }
+
+      setHistoryResults(results);
 
       const aggregates: DailyAggregate[] = results.map(({ date, rows }) => {
         const scores = rows.map((r) => r.score);
@@ -481,6 +932,44 @@ export default function AnalisePage() {
     (row) => row.alignment !== "aligns" && row.alignment !== "no_reports"
   ).length;
 
+  if (!authenticated) {
+    return (
+      <div className="flex min-h-dvh items-center justify-center px-4" style={{ backgroundColor: "#0d1b2a" }}>
+        <div
+          className="w-full max-w-sm rounded-2xl border p-8"
+          style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
+        >
+          <h1 className="font-heading text-xl font-bold" style={{ color: "#f0f4f8" }}>
+            🔒 Área restrita
+          </h1>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAuth()}
+            autoFocus
+            className="mt-6 w-full rounded-lg border bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-[#a8d4f0]/60"
+            style={{ borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
+          />
+          {authError && (
+            <p className="mt-3 text-sm" style={{ color: "#d64045" }}>
+              {authError}
+            </p>
+          )}
+          <button
+            onClick={handleAuth}
+            disabled={authLoading || !passwordInput}
+            className="mt-4 w-full rounded-lg py-3 text-sm font-semibold transition disabled:opacity-50"
+            style={{ backgroundColor: "#2e7db8", color: "#f0f4f8" }}
+          >
+            {authLoading ? "Entrando..." : "Entrar"}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
       <div className="mx-auto max-w-4xl px-6 py-10">
@@ -509,6 +998,8 @@ export default function AnalisePage() {
               icon="📍"
               label="Total de relatos"
               value={globalMetrics ? globalMetrics.total_relatos.toLocaleString("pt-BR") : "—"}
+              onClick={() => handleCardClick("total_relatos")}
+              active={expandedCard === "total_relatos"}
             />
             <MetricCard
               icon="✅"
@@ -524,16 +1015,45 @@ export default function AnalisePage() {
               icon="📊"
               label="Cobertura de dados"
               value={globalMetrics?.cobertura_dados != null ? `${globalMetrics.cobertura_dados}%` : "—"}
+              onClick={() => handleCardClick("cobertura_dados")}
+              active={expandedCard === "cobertura_dados"}
             />
           </div>
 
           {daily && daily.length > 0 && (
             <div className="mt-2 grid gap-2 sm:grid-cols-4">
               <MetricCard icon="📍" label="Relatos no período" value={reports.length.toLocaleString("pt-BR")} />
-              <MetricCard icon="⚠️" label="Divergências encontradas" value={divergenceCount.toLocaleString("pt-BR")} />
-              <MetricCard icon="🔴" label="Eventos críticos" value={criticalEvents.length.toLocaleString("pt-BR")} />
-              <MetricCard icon="👥" label="Usuários ativos" value={totalActiveUsers.toLocaleString("pt-BR")} />
+              <MetricCard
+                icon="⚠️"
+                label="Divergências encontradas"
+                value={divergenceCount.toLocaleString("pt-BR")}
+                onClick={() => handleCardClick("divergencias")}
+                active={expandedCard === "divergencias"}
+              />
+              <MetricCard
+                icon="🔴"
+                label="Eventos críticos"
+                value={criticalEvents.length.toLocaleString("pt-BR")}
+                onClick={() => handleCardClick("eventos_criticos")}
+                active={expandedCard === "eventos_criticos"}
+              />
+              <MetricCard
+                icon="👥"
+                label="Usuários ativos"
+                value={totalActiveUsers.toLocaleString("pt-BR")}
+                onClick={() => handleCardClick("usuarios_ativos")}
+              />
             </div>
+          )}
+
+          {/* Painéis de detalhe expansíveis (Item 4) -- mesma página, sem navegação. */}
+          {expandedCard === "total_relatos" && (
+            <ExpandedTotalRelatos reports={reports} page={reportsPage} onPageChange={setReportsPage} pageSize={REPORTS_PAGE_SIZE} />
+          )}
+          {expandedCard === "cobertura_dados" && <ExpandedCobertura rows={globalMetrics?.coverage_by_state ?? []} />}
+          {expandedCard === "divergencias" && <ExpandedDivergencias rows={hourlyComparison} />}
+          {expandedCard === "eventos_criticos" && (
+            <ExpandedEventosCriticos episodes={buildCriticalEpisodes(historyResults, reports)} />
           )}
         </div>
 
@@ -849,6 +1369,7 @@ export default function AnalisePage() {
 
             {/* Usuários mais ativos no período */}
             <div
+              ref={activeUsersSectionRef}
               className="mt-6 rounded-2xl border p-5"
               style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
             >

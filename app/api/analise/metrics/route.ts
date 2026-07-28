@@ -30,12 +30,40 @@ export async function GET() {
           ) from cities where active) as cobertura_dados`
     );
 
+    // Cobertura por estado -- expansão do card "Cobertura de dados" (ver
+    // Item 4 da página /analise). city_risk_summary já tem state/data_level/
+    // last_updated por cidade (mantida pelo próprio cron, ver
+    // lib/riskScoring.ts), então não precisa agregar direto de risk_scores.
+    const { rows: coverageRows } = await db.query(
+      `select
+         c.state,
+         count(*) as municipios,
+         coalesce(sum(nb.bairros), 0) as bairros,
+         round(count(*) filter (where crs.city_id is not null)::float / nullif(count(*), 0) * 100) as pct_com_score,
+         mode() within group (order by c.data_level) as data_level_predominante,
+         max(crs.last_updated) as ultima_atualizacao
+       from cities c
+       left join city_risk_summary crs on crs.city_id = c.id
+       left join (select city_id, count(*) as bairros from neighborhoods group by city_id) nb on nb.city_id = c.id
+       where c.active
+       group by c.state
+       order by c.state`
+    );
+
     const row = rows[0];
     return NextResponse.json({
       total_relatos: Number(row.total_relatos ?? 0),
       taxa_media_confirmacao: row.taxa_media_confirmacao === null ? null : Number(row.taxa_media_confirmacao),
       cidades_com_relatos: Number(row.cidades_com_relatos ?? 0),
       cobertura_dados: row.cobertura_dados === null ? null : Number(row.cobertura_dados),
+      coverage_by_state: coverageRows.map((r) => ({
+        state: r.state,
+        municipios: Number(r.municipios),
+        bairros: Number(r.bairros),
+        pct_com_score: r.pct_com_score === null ? null : Number(r.pct_com_score),
+        data_level_predominante: r.data_level_predominante,
+        ultima_atualizacao: r.ultima_atualizacao,
+      })),
     });
   } catch (err) {
     return handleApiError(err, "api/analise/metrics");

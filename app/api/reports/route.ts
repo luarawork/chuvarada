@@ -157,8 +157,10 @@ export async function GET(req: NextRequest) {
     try {
       const db = getDb();
       const { rows } = await db.query(
-        `select r.* from user_reports r
+        `select r.*, n.name as neighborhood_name, c.name as city_name
+         from user_reports r
          join cities c on c.id = r.city_id
+         left join neighborhoods n on n.id = r.neighborhood_id
          where c.state = any($1::text[])
            and ($2::date is null or r.created_at >= $2::date)
            and ($3::date is null or r.created_at < ($3::date + interval '1 day'))
