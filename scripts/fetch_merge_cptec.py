@@ -29,6 +29,7 @@ Uso: python scripts/fetch_merge_cptec.py
 """
 
 import os
+import time
 from datetime import date, datetime, timedelta, timezone
 
 import numpy as np
@@ -79,15 +80,42 @@ DAILY_LOOKBACK_DAYS = 4  # busca hoje + até 3 dias atrás, precisa de 3 válido
 HOURLY_LOOKBACK_HOURS = 12  # busca até 12h atrás, precisa de 3 válidas pra o pico de 3h
 
 
-def fetch_grib2(url: str) -> bytes | None:
-    try:
-        res = requests.get(url, headers=HEADERS, timeout=30)
-        if res.status_code != 200 or not res.content:
-            return None
-        return res.content
-    except requests.RequestException as e:
-        print(f"[aviso] falha ao buscar {url}: {e}")
-        return None
+# Tamanho mínimo esperado de um GRIB2 válido, calibrado contra arquivos reais
+# do servidor (DAILY: 420-520KB, HOURLY_NOW: 60-75KB no bbox Brasil inteiro,
+# medido em 28/07/2026) -- bem abaixo do observado pra não rejeitar arquivo
+# válido, alto o bastante pra pegar download truncado/corrompido (o caso que
+# derrubava sample_grid() com um erro de rasterio sem contexto nenhum, ver
+# docs/investigacao_falha_merge_natal.md).
+MIN_DAILY_GRIB2_BYTES = 100_000
+MIN_HOURLY_GRIB2_BYTES = 20_000
+MAX_DOWNLOAD_RETRIES = 3
+
+
+def fetch_grib2(url: str, min_size: int) -> bytes | None:
+    """Baixa um GRIB2 com retry exponencial (30s/60s/120s) em falha de rede
+    ou arquivo suspeito de truncado -- não faz retry pra 404 (arquivo ainda
+    não publicado é esperado e tratado por collect_daily_grids/
+    collect_hourly_grids tentando o dia/hora anterior, não é motivo pra
+    esperar)."""
+    for attempt in range(MAX_DOWNLOAD_RETRIES):
+        try:
+            res = requests.get(url, headers=HEADERS, timeout=30)
+            if res.status_code != 200 or not res.content:
+                return None
+            if len(res.content) < min_size:
+                raise ValueError(
+                    f"GRIB2 suspeito: {len(res.content) / 1024:.1f}KB "
+                    f"(esperado >={min_size / 1024:.0f}KB)"
+                )
+            return res.content
+        except (requests.RequestException, ValueError) as e:
+            if attempt == MAX_DOWNLOAD_RETRIES - 1:
+                print(f"[aviso] falha ao buscar {url} após {MAX_DOWNLOAD_RETRIES} tentativas: {e}")
+                return None
+            wait = 2**attempt * 30
+            print(f"[aviso] tentativa {attempt + 1} falhou ({e}) em {url} -- aguardando {wait}s...")
+            time.sleep(wait)
+    return None
 
 
 # Origem e passo da grade nativa do MERGE, confirmados no .ctl que acompanha
@@ -161,7 +189,7 @@ def collect_daily_grids(bbox, max_files: int = 3):
     for i in range(DAILY_LOOKBACK_DAYS):
         d = today - timedelta(days=i)
         url = daily_url(d)
-        content = fetch_grib2(url)
+        content = fetch_grib2(url, MIN_DAILY_GRIB2_BYTES)
         if content is None:
             print(f"[DAILY] {d.isoformat()}: indisponível ({url})")
             continue
@@ -181,7 +209,7 @@ def collect_hourly_grids(bbox, max_files: int = 3):
     for i in range(HOURLY_LOOKBACK_HOURS):
         dt = now - timedelta(hours=i)
         url = hourly_url(dt)
-        content = fetch_grib2(url)
+        content = fetch_grib2(url, MIN_HOURLY_GRIB2_BYTES)
         if content is None:
             print(f"[HOURLY_NOW] {dt.isoformat()}: indisponível ({url})")
             continue
