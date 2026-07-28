@@ -83,12 +83,26 @@ export async function GET(req: NextRequest) {
     }
 
     const cityIds = candidates.map((c) => c.id);
+    // geometry:geometry_simplified -- mesmo motivo do Cron A
+    // (app/api/cron/scores/route.ts): coluna geometry crua não existe mais
+    // desde a migração 032_remove_raw_geometry.sql; um `select *` aqui deixa
+    // neighborhood.geometry undefined e derruba groupNeighborhoodsByCell
+    // (turf.centroid) pra toda cidade com mais de LARGE_CITY_THRESHOLD
+    // bairros -- este cron (B, clima) tinha o mesmo bug do Cron A, só que
+    // aqui o efeito era weather_cache nunca atualizado pras cidades grandes
+    // (confirmado: 604 cidades com semanas de clima parado).
     const { rows: neighborhoods } = await db.query<Neighborhood>(
-      `select * from neighborhoods where city_id = any($1::uuid[])`,
+      `select id, city_id, name, name_source, geometry_simplified as geometry,
+              terrain_slope, hydro_proximity, is_coastal, created_at
+       from neighborhoods
+       where city_id = any($1::uuid[])`,
       [cityIds]
     );
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of neighborhoods) {
+      // geometry_simplified pode voltar como string dependendo do driver --
+      // mesma normalização de app/api/neighborhoods/route.ts.
+      if (typeof n.geometry === "string") n.geometry = JSON.parse(n.geometry);
       if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
       neighborhoodsByCity.get(n.city_id)!.push(n);
     }

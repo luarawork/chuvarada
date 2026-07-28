@@ -74,10 +74,20 @@ export async function GET(req: NextRequest) {
 
   try {
     const { rows: cities } = await db.query<City>("select * from cities where active = true");
-    const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
+    // geometry:geometry_simplified -- mesmo motivo do Cron A/B (ver
+    // app/api/cron/scores/route.ts): coluna geometry crua não existe mais
+    // desde a migração 032_remove_raw_geometry.sql. Esta rota é fallback
+    // legado (não faz parte do fluxo automatizado), mas corrigida pra não
+    // deixar uma 3ª cópia do mesmo bug se algum dia for disparada manualmente.
+    const { rows: allNeighborhoods } = await db.query<Neighborhood>(
+      `select id, city_id, name, name_source, geometry_simplified as geometry,
+              terrain_slope, hydro_proximity, is_coastal, created_at
+       from neighborhoods`
+    );
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of allNeighborhoods) {
+      if (typeof n.geometry === "string") n.geometry = JSON.parse(n.geometry);
       if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
       neighborhoodsByCity.get(n.city_id)!.push(n);
     }
