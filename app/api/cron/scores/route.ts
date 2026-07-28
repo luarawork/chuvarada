@@ -41,10 +41,23 @@ export async function GET(req: NextRequest) {
     await cleanupExpiredReports(db);
 
     const { rows: cities } = await db.query<City>("select * from cities where active = true");
-    const { rows: allNeighborhoods } = await db.query<Neighborhood>("select * from neighborhoods");
+    // geometry:geometry_simplified -- coluna geometry crua foi removida na
+    // migração 032_remove_raw_geometry.sql; um `select *` aqui deixa
+    // neighborhood.geometry undefined e derruba groupNeighborhoodsByCell
+    // (turf.centroid) pra toda cidade com mais de LARGE_CITY_THRESHOLD
+    // bairros -- mesma convenção de alias usada em app/api/neighborhoods e
+    // app/api/score.
+    const { rows: allNeighborhoods } = await db.query<Neighborhood>(
+      `select id, city_id, name, name_source, geometry_simplified as geometry,
+              terrain_slope, hydro_proximity, is_coastal, created_at
+       from neighborhoods`
+    );
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of allNeighborhoods) {
+      // geometry_simplified pode voltar como string dependendo do driver --
+      // mesma normalização de app/api/neighborhoods/route.ts.
+      if (typeof n.geometry === "string") n.geometry = JSON.parse(n.geometry);
       if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
       neighborhoodsByCity.get(n.city_id)!.push(n);
     }

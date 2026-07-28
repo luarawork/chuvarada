@@ -47,8 +47,12 @@ export async function POST(req: NextRequest) {
     const glats = cells.map((c) => c.grid_lat);
     const glngs = cells.map((c) => c.grid_lng);
 
+    // geometry:geometry_simplified -- mesmo motivo do Cron A
+    // (app/api/cron/scores/route.ts): coluna geometry crua não existe mais
+    // desde a migração 032_remove_raw_geometry.sql.
     const { rows: neighborhoods } = await db.query<Neighborhood>(
-      `select distinct n.*
+      `select distinct n.id, n.city_id, n.name, n.name_source, n.geometry_simplified as geometry,
+              n.terrain_slope, n.hydro_proximity, n.is_coastal, n.created_at
        from neighborhoods n
        join unnest($1::float[], $2::float[]) as ic(glat, glng)
          on round((round(((n.centroid_lat - (-60.05)) / 0.1)::numeric) * 0.1 + (-60.05))::numeric, 4)::float = ic.glat
@@ -65,6 +69,9 @@ export async function POST(req: NextRequest) {
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of neighborhoods) {
+      // geometry_simplified pode voltar como string dependendo do driver --
+      // mesma normalização de app/api/neighborhoods/route.ts.
+      if (typeof n.geometry === "string") n.geometry = JSON.parse(n.geometry);
       if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
       neighborhoodsByCity.get(n.city_id)!.push(n);
     }
