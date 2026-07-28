@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     const [centroidLng, centroidLat] = centroid.geometry.coordinates;
     const weather = await getWeatherForPoint(city.id, centroidLat, centroidLng);
     const tide = await getCurrentTideLevel(city.id, city.tide_code);
-    const result = calculateScore(n, weather, tide.level);
+    const result = calculateScore(n, weather, tide.level, undefined, city.state);
     return NextResponse.json(result);
   } catch (err) {
     return handleApiError(err, "api/score");

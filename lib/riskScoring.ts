@@ -199,7 +199,7 @@ export async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhoo
   for (let i = 0; i < cells.length; i++) {
     const weather = weatherByCell[i];
     for (const neighborhood of cells[i].neighborhoods) {
-      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at);
+      const result = calculateScore(neighborhood, weather, tideLevelForScore, tide.cached_at, city.state);
       scoredRows.push({ neighborhood, weather, result });
     }
   }

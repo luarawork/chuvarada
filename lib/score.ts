@@ -1,29 +1,23 @@
 import type { Neighborhood, NormalizedWeather, RiskLevel, ScoreResult } from "@/types";
-
-const WEIGHTS = {
-  rain_peak_3h: 0.25,
-  rain_1h: 0.2,
-  rain_72h: 0.2,
-  terrain_slope: 0.15,
-  hydro_proximity: 0.12,
-  tide_level: 0.08,
-};
+import { getWeightsByState, type ScoreWeights } from "@/lib/scoreConfig";
 
 // Municípios sem estação de maré nas proximidades (city.tide_code null) não
 // entram no cálculo com um "meio-termo" de 0.5 fingindo neutralidade — isso
 // distorceria o score pra mais ou pra menos sem nenhum dado real por trás.
 // Em vez disso, o peso de 8% da maré é redistribuído proporcionalmente entre
-// as demais variáveis, mantendo a soma em 1.0.
-const WEIGHT_WITHOUT_TIDE = (() => {
-  const remaining = 1 - WEIGHTS.tide_level;
+// as demais variáveis, mantendo a soma em 1.0. Calculado a partir dos pesos
+// da região (não mais uma constante fixa), já que cada região pode ter um
+// peso de maré diferente uma vez calibrada (ver lib/scoreConfig.ts).
+function weightsWithoutTide(weights: ScoreWeights): Omit<ScoreWeights, "tide_level"> {
+  const remaining = 1 - weights.tide_level;
   return {
-    rain_peak_3h: WEIGHTS.rain_peak_3h / remaining,
-    rain_1h: WEIGHTS.rain_1h / remaining,
-    rain_72h: WEIGHTS.rain_72h / remaining,
-    terrain_slope: WEIGHTS.terrain_slope / remaining,
-    hydro_proximity: WEIGHTS.hydro_proximity / remaining,
+    rain_peak_3h: weights.rain_peak_3h / remaining,
+    rain_1h: weights.rain_1h / remaining,
+    rain_72h: weights.rain_72h / remaining,
+    terrain_slope: weights.terrain_slope / remaining,
+    hydro_proximity: weights.hydro_proximity / remaining,
   };
-})();
+}
 
 function normalizeLinear(value: number, mid: number, max: number): number {
   if (value <= 0) return 0;
@@ -65,10 +59,12 @@ export function calculateScore(
   neighborhood: Pick<Neighborhood, "terrain_slope" | "hydro_proximity" | "is_coastal">,
   weather: NormalizedWeather,
   tideLevel: number | null,
-  tideLastUpdated: string | null = null
+  tideLastUpdated: string | null = null,
+  state?: string
 ): ScoreResult {
   const hasTide = tideLevel !== null;
-  const weights = hasTide ? WEIGHTS : WEIGHT_WITHOUT_TIDE;
+  const regionWeights = getWeightsByState(state ?? "");
+  const weights = hasTide ? regionWeights : weightsWithoutTide(regionWeights);
 
   const breakdown = {
     rain_peak_3h: normalizeLinear(weather.rain_peak_3h, 10, 30),
@@ -86,7 +82,7 @@ export function calculateScore(
     breakdown.terrain_slope * weights.terrain_slope +
     breakdown.hydro_proximity * weights.hydro_proximity;
 
-  if (hasTide) score += breakdown.tide_level * WEIGHTS.tide_level;
+  if (hasTide) score += breakdown.tide_level * regionWeights.tide_level;
 
   let level = levelFromScore(score);
   let autoCritical = false;
