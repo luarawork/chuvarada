@@ -13,20 +13,25 @@ export interface LockOptions {
   maxAgeMinutes: number;
 }
 
-export async function isLocked(db: Pool, key: string, maxAgeMinutes: number): Promise<boolean> {
-  const { rows } = await db.query(`select locked_at from system_locks where key = $1`, [key]);
-  const lockRow = rows[0];
-  if (!lockRow) return false;
-  const ageMinutes = (Date.now() - new Date(lockRow.locked_at).getTime()) / 60000;
-  return ageMinutes < maxAgeMinutes;
-}
-
-export async function acquireLock(db: Pool, options: Pick<LockOptions, "key" | "lockedBy">): Promise<void> {
-  await db.query(
+// Atômico: um único INSERT ... ON CONFLICT ... DO UPDATE ... WHERE ...
+// RETURNING -- antes era um SELECT (isLocked) seguido de um INSERT
+// separado (acquireLock), o que deixava uma janela de corrida entre as
+// duas queries onde 2 chamadas quase simultâneas podiam ambas ver "sem
+// lock" e ambas prosseguirem. A cláusula WHERE no DO UPDATE só deixa a
+// atualização (e o RETURNING) acontecer quando o lock existente já
+// expirou; um lock ainda válido faz o conflito virar no-op e a query
+// não retorna linha nenhuma -- o Postgres serializa isso a nível de
+// linha, então só uma chamada concorrente pode "vencer".
+export async function acquireLock(db: Pool, options: LockOptions): Promise<boolean> {
+  const { rows } = await db.query(
     `insert into system_locks (key, locked_at, locked_by) values ($1, now(), $2)
-     on conflict (key) do update set locked_at = excluded.locked_at, locked_by = excluded.locked_by`,
-    [options.key, options.lockedBy]
+     on conflict (key) do update
+       set locked_at = excluded.locked_at, locked_by = excluded.locked_by
+       where system_locks.locked_at < now() - ($3 * interval '1 minute')
+     returning key`,
+    [options.key, options.lockedBy, options.maxAgeMinutes]
   );
+  return rows.length > 0;
 }
 
 export async function releaseLock(db: Pool, key: string): Promise<void> {

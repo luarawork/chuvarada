@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
-import { isLocked, acquireLock, releaseLock } from "@/lib/systemLock";
+import { acquireLock, releaseLock } from "@/lib/systemLock";
 import { runWithConcurrency, scoreCity } from "@/lib/riskScoring";
 import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
@@ -29,10 +29,10 @@ export async function GET(req: NextRequest) {
   const db = getDb();
 
   try {
-    if (await isLocked(db, LOCK_KEY, LOCK_MAX_AGE_MINUTES)) {
+    const acquired = await acquireLock(db, { key: LOCK_KEY, lockedBy: "cron_scores", maxAgeMinutes: LOCK_MAX_AGE_MINUTES });
+    if (!acquired) {
       return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 10min)" });
     }
-    await acquireLock(db, { key: LOCK_KEY, lockedBy: "cron_scores" });
   } catch (err) {
     return handleApiError(err, "api/cron/scores");
   }
