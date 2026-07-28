@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { RISK_COLORS } from "@/lib/constants";
 
 const ITEMS = [
-  { color: "#2a9d72", label: "Normal" },
-  { color: "#f0a500", label: "Atenção" },
-  { color: "#d64045", label: "Crítico" },
+  { color: RISK_COLORS.normal, label: "Normal" },
+  { color: RISK_COLORS.attention, label: "Atenção" },
+  { color: RISK_COLORS.critical, label: "Crítico" },
 ];
 
 // Sem posicionamento próprio -- renderizado dentro da pilha flex-col do

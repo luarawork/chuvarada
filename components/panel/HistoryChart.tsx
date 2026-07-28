@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import type { RiskLevel, RiskScore } from "@/types";
-import { RISK_COLORS } from "@/lib/geojson";
+import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
 const LEVEL_LABELS: Record<RiskLevel, string> = {
   normal: "normal",
@@ -98,9 +98,14 @@ export function HistoryChart({ history }: HistoryChartProps) {
     <div className="h-40 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-          <ReferenceArea y1={0} y2={0.3} fill={RISK_COLORS.normal} fillOpacity={0.08} />
-          <ReferenceArea y1={0.3} y2={0.6} fill={RISK_COLORS.attention} fillOpacity={0.08} />
-          <ReferenceArea y1={0.6} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
+          <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={RISK_COLORS.normal} fillOpacity={0.08} />
+          <ReferenceArea
+            y1={SCORE_THRESHOLDS.ATTENTION}
+            y2={SCORE_THRESHOLDS.CRITICAL}
+            fill={RISK_COLORS.attention}
+            fillOpacity={0.08}
+          />
+          <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
           <XAxis dataKey="time" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
           <YAxis domain={[0, 1]} tick={{ fontSize: 10 }} />
           <Tooltip content={<HistoryTooltip />} />

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { Map as LeafletMap, GeoJSON as LeafletGeoJSON } from "leaflet";
 import type { MunicipalitySummary, RiskLevel } from "@/types";
+import { RISK_COLORS } from "@/lib/constants";
 
 interface MunicipalityLayerProps {
   map: LeafletMap | null;
@@ -10,11 +11,7 @@ interface MunicipalityLayerProps {
   variant: "heatmap" | "municipality";
 }
 
-const LEVEL_COLOR: Record<RiskLevel, string> = {
-  critical: "#d64045",
-  attention: "#f0a500",
-  normal: "#2a9d72",
-};
+const LEVEL_COLOR = RISK_COLORS;
 
 const LEVEL_LABELS: Record<RiskLevel, string> = {
   normal: "normal",

@@ -1,3 +1,5 @@
+import { RISK_COLORS } from "@/lib/constants";
+
 const VARIABLES = [
   "🌧️ Pico de chuva (3h)",
   "🌧️ Chuva última hora",
@@ -46,13 +48,13 @@ export function RiskDiagram() {
         </div>
 
         <div className="flex flex-col gap-2 text-sm">
-          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(42, 157, 114, 0.12)", color: "#2a9d72" }}>
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(42, 157, 114, 0.12)", color: RISK_COLORS.normal }}>
             🟢 Normal
           </span>
-          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(240, 165, 0, 0.12)", color: "#f0a500" }}>
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(240, 165, 0, 0.12)", color: RISK_COLORS.attention }}>
             🟡 Atenção
           </span>
-          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(214, 64, 69, 0.12)", color: "#d64045" }}>
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(214, 64, 69, 0.12)", color: RISK_COLORS.critical }}>
             🔴 Crítico
           </span>
         </div>

@@ -1,26 +1,39 @@
 import * as turf from "@turf/turf";
 import type { Neighborhood, RiskLevel } from "@/types";
+import { RISK_COLORS } from "@/lib/constants";
 
-export const RISK_COLORS: Record<RiskLevel, string> = {
-  normal: "#2a9d72",
-  attention: "#f0a500",
-  critical: "#d64045",
-};
+// Re-exportado -- lib/constants.ts é a fonte única (ver
+// docs/revisao_qualidade.md, achado 🟡 #4); mantido aqui também porque
+// lib/geojson.ts é onde outros helpers de mapa/risco já vivem.
+export { RISK_COLORS };
 
 // Bordas mais claras que o fill separam visualmente bairros vizinhos do
 // mesmo nível de risco — um problema visível na Bahia, onde vários bairros
 // adjacentes ficam no mesmo nível e o polígono antigo (fill=stroke, mesma
 // opacidade) os fundia numa mancha só. Cores e opacidades separadas (em vez
 // de rgba() já compostas) evitam a opacidade dobrar quando o hover soma seu
-// próprio fillOpacity por cima.
+// próprio fillOpacity por cima. fillColor/color derivados de RISK_COLORS
+// (não mais hex duplicado aqui) -- só fillOpacity/opacity/weight variam
+// por nível.
+const NEIGHBORHOOD_FILL_OPACITY: Record<RiskLevel, number> = { normal: 0.35, attention: 0.4, critical: 0.45 };
+const NEIGHBORHOOD_STROKE_OPACITY: Record<RiskLevel, number> = { normal: 0.7, attention: 0.75, critical: 0.8 };
+
 export const NEIGHBORHOOD_STYLES: Record<
   RiskLevel,
   { fillColor: string; fillOpacity: number; color: string; opacity: number; weight: number }
-> = {
-  normal: { fillColor: "#2a9d72", fillOpacity: 0.35, color: "#2a9d72", opacity: 0.7, weight: 0.8 },
-  attention: { fillColor: "#f0a500", fillOpacity: 0.4, color: "#f0a500", opacity: 0.75, weight: 0.8 },
-  critical: { fillColor: "#d64045", fillOpacity: 0.45, color: "#d64045", opacity: 0.8, weight: 0.8 },
-};
+> = (Object.keys(RISK_COLORS) as RiskLevel[]).reduce(
+  (acc, level) => {
+    acc[level] = {
+      fillColor: RISK_COLORS[level],
+      fillOpacity: NEIGHBORHOOD_FILL_OPACITY[level],
+      color: RISK_COLORS[level],
+      opacity: NEIGHBORHOOD_STROKE_OPACITY[level],
+      weight: 0.8,
+    };
+    return acc;
+  },
+  {} as Record<RiskLevel, { fillColor: string; fillOpacity: number; color: string; opacity: number; weight: number }>
+);
 
 export const NEIGHBORHOOD_HOVER_STYLE = { fillOpacity: 0.65, weight: 1.5 };
 

@@ -1,5 +1,6 @@
-import type { Neighborhood, NormalizedWeather, RiskLevel, ScoreResult } from "@/types";
+import type { Neighborhood, NormalizedWeather, ScoreResult } from "@/types";
 import { getWeightsByState, type ScoreWeights } from "@/lib/scoreConfig";
+import { getLevelFromScore } from "@/lib/constants";
 
 // Municípios sem estação de maré nas proximidades (city.tide_code null) não
 // entram no cálculo com um "meio-termo" de 0.5 fingindo neutralidade — isso
@@ -27,16 +28,12 @@ function normalizeLinear(value: number, mid: number, max: number): number {
   return 0.5 + ((value - mid) / (max - mid)) * 0.5;
 }
 
-// Limiares recalibrados em 2026-07-20 (achado do diagnóstico do fim de
-// semana 18-19/07): um evento real de chuva em Recife, com rain_72h de
-// 56,74mm no bairro de maior risco (Nova Descoberta), gerou score 0,380 —
-// abaixo do limiar antigo de 0,4 pra "atenção". Os limiares de 0,4/0,7
-// estavam conservadores demais pra esse tipo de evento real.
-function levelFromScore(score: number): RiskLevel {
-  if (score < 0.3) return "normal";
-  if (score < 0.6) return "attention";
-  return "critical";
-}
+// Limiares (SCORE_THRESHOLDS em lib/constants.ts) recalibrados em
+// 2026-07-20 (achado do diagnóstico do fim de semana 18-19/07): um evento
+// real de chuva em Recife, com rain_72h de 56,74mm no bairro de maior risco
+// (Nova Descoberta), gerou score 0,380 — abaixo do limiar antigo de 0,4 pra
+// "atenção". Os limiares de 0,4/0,7 estavam conservadores demais pra esse
+// tipo de evento real.
 
 // Regra 2 (maré alta + chuva costeira) só dispara se o dado de maré usado
 // tiver menos de 26h — a tábua de maré muda de ciclo a cada ~6h, e 26h é
@@ -84,7 +81,6 @@ export function calculateScore(
 
   if (hasTide) score += breakdown.tide_level * regionWeights.tide_level;
 
-  let level = levelFromScore(score);
   let autoCritical = false;
   let autoCriticalReason: string | null = null;
 
@@ -99,7 +95,7 @@ export function calculateScore(
     autoCriticalReason = "Solo saturado com nova precipitação";
   }
 
-  if (autoCritical) level = "critical";
+  const level = getLevelFromScore(score, autoCritical);
 
   return {
     score: Math.min(1, Math.max(0, score)),

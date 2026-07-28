@@ -17,10 +17,11 @@ import {
   Legend,
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
+import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
-// Paleta consistente com o resto do app (RISK_COLORS em lib/geojson.ts,
-// mesmo card escuro de components/ui/AlertCard.tsx).
-const COLORS = { normal: "#2a9d72", attention: "#f0a500", critical: "#d64045", line: "#2e7db8" };
+// normal/attention/critical vêm de RISK_COLORS (lib/constants.ts, fonte
+// única) -- line é específico deste gráfico, não faz parte da paleta de risco.
+const COLORS = { ...RISK_COLORS, line: "#2e7db8" };
 
 const SEVERITY_COLOR: Record<ReportSeverity, string> = {
   leve: "#a8d4f0",
@@ -1136,9 +1137,14 @@ export default function AnalisePage() {
               <div className="mt-3 h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={daily} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-                    <ReferenceArea y1={0} y2={0.3} fill={COLORS.normal} fillOpacity={0.08} />
-                    <ReferenceArea y1={0.3} y2={0.6} fill={COLORS.attention} fillOpacity={0.08} />
-                    <ReferenceArea y1={0.6} y2={1} fill={COLORS.critical} fillOpacity={0.08} />
+                    <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={COLORS.normal} fillOpacity={0.08} />
+                    <ReferenceArea
+                      y1={SCORE_THRESHOLDS.ATTENTION}
+                      y2={SCORE_THRESHOLDS.CRITICAL}
+                      fill={COLORS.attention}
+                      fillOpacity={0.08}
+                    />
+                    <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={COLORS.critical} fillOpacity={0.08} />
                     <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#a8d4f0" }} />
                     <YAxis domain={[0, 1]} tick={{ fontSize: 11, fill: "#a8d4f0" }} />
                     <Tooltip content={<ScoreChartTooltip />} />

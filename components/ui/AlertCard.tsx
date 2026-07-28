@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 import { RainIcon, DropIcon, WaveIcon } from "./WeatherIcons";
 import type { NormalizedWeather, RiskLevel } from "@/types";
+import { RISK_COLORS } from "@/lib/constants";
 
 const MESSAGES: Record<RiskLevel, { emoji: string; text: string; color: string }> = {
-  normal: { emoji: "🟢", text: "Sem risco no momento", color: "#2a9d72" },
-  attention: { emoji: "🟡", text: "Fique atento à chuva", color: "#f0a500" },
-  critical: { emoji: "🔴", text: "Evite áreas alagáveis", color: "#d64045" },
+  normal: { emoji: "🟢", text: "Sem risco no momento", color: RISK_COLORS.normal },
+  attention: { emoji: "🟡", text: "Fique atento à chuva", color: RISK_COLORS.attention },
+  critical: { emoji: "🔴", text: "Evite áreas alagáveis", color: RISK_COLORS.critical },
 };
 
 interface AlertCardProps {

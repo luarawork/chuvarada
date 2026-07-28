@@ -7,6 +7,9 @@ import { VariableCard } from "@/components/how-it-works/VariableCard";
 import { RiskDiagram } from "@/components/how-it-works/RiskDiagram";
 import { SourcesList } from "@/components/how-it-works/SourcesList";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
+import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
+
+const fmtScoreBr = (n: number) => n.toFixed(2).replace(".", ",");
 
 const PILLS = [
   { icon: "🕐", label: "Atualizado a cada hora" },
@@ -55,9 +58,27 @@ const VARIABLES = [
 ];
 
 const LEVELS = [
-  { emoji: "🟢", label: "Normal", range: "score < 0,30", text: "Condições seguras", color: "#2a9d72" },
-  { emoji: "🟡", label: "Atenção", range: "0,30 – 0,60", text: "Fique atento, evite áreas de risco", color: "#f0a500" },
-  { emoji: "🔴", label: "Crítico", range: "score > 0,60", text: "Evite áreas alagáveis agora", color: "#d64045" },
+  {
+    emoji: "🟢",
+    label: "Normal",
+    range: `score < ${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)}`,
+    text: "Condições seguras",
+    color: RISK_COLORS.normal,
+  },
+  {
+    emoji: "🟡",
+    label: "Atenção",
+    range: `${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)} – ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
+    text: "Fique atento, evite áreas de risco",
+    color: RISK_COLORS.attention,
+  },
+  {
+    emoji: "🔴",
+    label: "Crítico",
+    range: `score > ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
+    text: "Evite áreas alagáveis agora",
+    color: RISK_COLORS.critical,
+  },
 ];
 
 const AUTO_ALERTS = [
