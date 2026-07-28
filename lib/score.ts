@@ -94,7 +94,7 @@ export function calculateScore(
   } else if (hasTide && tideLevel > 0.8 && weather.rain_3h > 20 && neighborhood.is_coastal && isTideDataRecent(tideLastUpdated)) {
     autoCritical = true;
     autoCriticalReason = "Maré alta com chuva em zona costeira";
-  } else if (weather.rain_72h > 100 && weather.rain_1h > 0) {
+  } else if (weather.rain_72h > 100 && weather.rain_1h > 1) {
     autoCritical = true;
     autoCriticalReason = "Solo saturado com nova precipitação";
   }
