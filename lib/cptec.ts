@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { getDb } from "./db";
+import { getCurrentTideLevel as getWorldTidesLevel } from "./worldtides";
 import type { TideCacheData, TideDay, TideResult } from "@/types";
 
 // STATUS (22/07/2026): a fonte de maré do CPTEC está confirmadamente fora
@@ -177,6 +178,37 @@ export async function getCurrentTideLevel(
   }
 
   return tideLevelFromCache(cache, cachedAt);
+}
+
+// PENDENTE -- não usado por nenhum cron ainda. Estrutura preparada pra
+// quando WORLDTIDES_API_KEY estiver configurada (ver lib/worldtides.ts);
+// só então trocar as chamadas de getCurrentTideLevel/getTideLevelCacheOnly
+// nos crons por getTideLevel(city.id, city.tide_code, city.lat, city.lng).
+//
+// Ordem de fallback: 1) CPTEC (via getCurrentTideLevel acima -- se
+// `estimated: false`, o CPTEC teve dado real, usa direto); 2) WorldTides,
+// só se a chave estiver configurada; 3) neutro (0.5).
+export async function getTideLevel(
+  cityId: string,
+  tideCode: string | null,
+  lat: number,
+  lng: number
+): Promise<TideResult> {
+  if (tideCode) {
+    const cptecResult = await getCurrentTideLevel(cityId, tideCode);
+    if (!cptecResult.estimated) return cptecResult;
+  }
+
+  if (process.env.WORLDTIDES_API_KEY) {
+    try {
+      const level = await getWorldTidesLevel(lat, lng);
+      return { level, estimated: false, cached_at: new Date().toISOString() };
+    } catch (err) {
+      console.warn("[cptec] WorldTides indisponível, usando fallback neutro:", err);
+    }
+  }
+
+  return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
 }
 
 // Extraído de getCurrentTideLevel pra ser reaproveitado pelo Cron A
