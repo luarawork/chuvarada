@@ -9,35 +9,109 @@ import {
   ReferenceArea,
   Tooltip,
 } from "recharts";
-import type { RiskScore } from "@/types";
+import type { RiskLevel, RiskScore } from "@/types";
+import { RISK_COLORS } from "@/lib/geojson";
+
+const LEVEL_LABELS: Record<RiskLevel, string> = {
+  normal: "normal",
+  attention: "atenção",
+  critical: "crítico",
+};
 
 interface HistoryChartProps {
   history: RiskScore[];
 }
 
+interface HistoryPoint {
+  time: string;
+  score: number;
+  level: RiskLevel;
+  auto_critical: boolean;
+  auto_critical_reason: string | null;
+}
+
+// Ponto colorido pelo `level` gravado (que pode ser 'critical' por regra de
+// auto-crítico mesmo com score moderado, ver lib/score.ts) -- não pelo valor
+// de score, que sozinho classificaria por faixa e esconderia esses casos.
+// Auto-crítico ganha um anel extra pra ficar visualmente distinto de um
+// crítico "normal" (score alto).
+function HistoryDot(props: { cx?: number; cy?: number; payload?: HistoryPoint }) {
+  const { cx, cy, payload } = props;
+  if (cx === undefined || cy === undefined || !payload) return null;
+  const color = RISK_COLORS[payload.level];
+  if (payload.auto_critical) {
+    return (
+      <g>
+        <circle cx={cx} cy={cy} r={6} fill="none" stroke={color} strokeWidth={1.5} opacity={0.5} />
+        <circle cx={cx} cy={cy} r={3} fill={color} stroke="#0d1b2a" strokeWidth={1} />
+      </g>
+    );
+  }
+  return <circle cx={cx} cy={cy} r={3} fill={color} stroke="#0d1b2a" strokeWidth={1} />;
+}
+
+function HistoryTooltip({
+  active,
+  payload,
+}: {
+  active?: boolean;
+  payload?: { payload: HistoryPoint }[];
+}) {
+  if (!active || !payload?.length) return null;
+  const point = payload[0].payload;
+  return (
+    <div
+      style={{
+        backgroundColor: "rgba(13, 27, 42, 0.95)",
+        border: "1px solid rgba(46,125,184,0.3)",
+        borderRadius: 6,
+        padding: "6px 10px",
+        fontSize: 12,
+        color: "#f0f4f8",
+      }}
+    >
+      <div>{point.time}</div>
+      <div>
+        score {point.score.toFixed(2)} ·{" "}
+        <span style={{ color: RISK_COLORS[point.level] }}>{LEVEL_LABELS[point.level]}</span>
+      </div>
+      {point.auto_critical && point.auto_critical_reason && (
+        <div style={{ color: "#a8d4f0", marginTop: 2 }}>{point.auto_critical_reason}</div>
+      )}
+    </div>
+  );
+}
+
 export function HistoryChart({ history }: HistoryChartProps) {
-  const data = history.map((h) => ({
+  const data: HistoryPoint[] = history.map((h) => ({
     time: new Date(h.calculated_at).toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
     }),
     score: h.score,
+    level: h.level,
+    auto_critical: h.auto_critical,
+    auto_critical_reason: h.auto_critical_reason,
   }));
 
   return (
     <div className="h-40 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-          <ReferenceArea y1={0} y2={0.3} fill="#2a9d72" fillOpacity={0.08} />
-          <ReferenceArea y1={0.3} y2={0.6} fill="#f0a500" fillOpacity={0.08} />
-          <ReferenceArea y1={0.6} y2={1} fill="#d64045" fillOpacity={0.08} />
+          <ReferenceArea y1={0} y2={0.3} fill={RISK_COLORS.normal} fillOpacity={0.08} />
+          <ReferenceArea y1={0.3} y2={0.6} fill={RISK_COLORS.attention} fillOpacity={0.08} />
+          <ReferenceArea y1={0.6} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
           <XAxis dataKey="time" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
           <YAxis domain={[0, 1]} tick={{ fontSize: 10 }} />
-          <Tooltip
-            formatter={(value) => (typeof value === "number" ? value.toFixed(2) : value)}
-            labelStyle={{ fontSize: 12 }}
+          <Tooltip content={<HistoryTooltip />} />
+          <Line
+            type="monotone"
+            dataKey="score"
+            stroke="#2e7db8"
+            strokeWidth={2}
+            dot={<HistoryDot />}
+            activeDot={{ r: 5 }}
           />
-          <Line type="monotone" dataKey="score" stroke="#2e7db8" strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
