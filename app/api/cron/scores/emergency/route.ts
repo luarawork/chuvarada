@@ -3,7 +3,17 @@ import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
 import { rejectIfPayloadTooLarge, handleApiError } from "@/lib/apiError";
 import { scoreCity } from "@/lib/riskScoring";
+import { acquireLock, releaseLock, SCORES_CRON_LOCK_KEY } from "@/lib/systemLock";
 import type { City, Neighborhood } from "@/types";
+
+// Adquire o MESMO lock do Cron A (scores/route.ts) -- sem isso, uma chuva
+// intensa detectada bem no meio do ciclo horário disparava scoreCity() pros
+// mesmos bairros em paralelo com o cron regular, arriscando intercalar
+// escritas em risk_scores/risk_events (ver docs/revisao_qualidade.md,
+// achado 🟡 #5). maxAgeMinutes curto (5min) porque uma emergência real
+// precisa ser rápida -- se o lock não solta em 5min, algo travou e vale
+// mais deixar a próxima chamada tentar de novo do que ficar bloqueado.
+const EMERGENCY_LOCK_MAX_AGE_MINUTES = 5;
 
 // Recálculo imediato pra bairros perto de células com chuva intensa (ver
 // scripts/fetch_merge_cptec.py) -- disparado pelo próprio fetch, sem
@@ -43,6 +53,17 @@ export async function POST(req: NextRequest) {
   }
 
   const db = getDb();
+
+  const acquired = await acquireLock(db, {
+    key: SCORES_CRON_LOCK_KEY,
+    lockedBy: "cron_scores_emergency",
+    maxAgeMinutes: EMERGENCY_LOCK_MAX_AGE_MINUTES,
+  });
+  if (!acquired) {
+    console.log("[cron/scores/emergency] Cron horário em execução -- emergência adiada");
+    return NextResponse.json({ ok: true, deferred: true });
+  }
+
   try {
     const glats = cells.map((c) => c.grid_lat);
     const glngs = cells.map((c) => c.grid_lng);
@@ -84,5 +105,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, affected: neighborhoods.length, cities_affected: cities.length, scored: totalScored });
   } catch (err) {
     return handleApiError(err, "api/cron/scores/emergency");
+  } finally {
+    await releaseLock(db, SCORES_CRON_LOCK_KEY);
   }
 }

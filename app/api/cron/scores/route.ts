@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { Pool } from "pg";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
-import { acquireLock, releaseLock } from "@/lib/systemLock";
+import { acquireLock, releaseLock, SCORES_CRON_LOCK_KEY } from "@/lib/systemLock";
 import { runWithConcurrency, scoreCity } from "@/lib/riskScoring";
 import { handleApiError } from "@/lib/apiError";
 import type { City, Neighborhood } from "@/types";
@@ -17,7 +17,13 @@ import type { City, Neighborhood } from "@/types";
 // (reaproveitada por app/api/cron/scores/emergency/route.ts).
 const CITY_CONCURRENCY = 8;
 
-const LOCK_KEY = "scores_cron_running";
+// SCORES_CRON_LOCK_KEY (lib/systemLock.ts) -- app/api/cron/scores/emergency/
+// route.ts adquire o MESMO lock antes de rodar scoreCity(), pra não competir
+// com este cron horário escrevendo risk_scores/risk_events pros mesmos
+// bairros ao mesmo tempo. Não exportado direto daqui porque route.ts só
+// pode exportar handlers HTTP reconhecidos (GET, POST etc.) -- exportar uma
+// const comum quebra a checagem de tipos gerada pelo Next.js pra esse arquivo.
+const LOCK_KEY = SCORES_CRON_LOCK_KEY;
 const LOCK_MAX_AGE_MINUTES = 10;
 
 export async function GET(req: NextRequest) {

@@ -13,6 +13,13 @@ export interface LockOptions {
   maxAgeMinutes: number;
 }
 
+// Chave do lock do Cron A (app/api/cron/scores/route.ts) -- centralizada
+// aqui (não exportada de dentro do route.ts, que só pode exportar handlers
+// HTTP reconhecidos) pra app/api/cron/scores/emergency/route.ts adquirir o
+// MESMO lock antes de rodar scoreCity(), evitando competir com o cron
+// horário sobre os mesmos bairros.
+export const SCORES_CRON_LOCK_KEY = "scores_cron_running";
+
 // Atômico: um único INSERT ... ON CONFLICT ... DO UPDATE ... WHERE ...
 // RETURNING -- antes era um SELECT (isLocked) seguido de um INSERT
 // separado (acquireLock), o que deixava uma janela de corrida entre as
