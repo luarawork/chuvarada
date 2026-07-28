@@ -705,7 +705,9 @@ export async function saveWeatherCache(
 async function getCachedWeather(cityId: string, lat: number, lng: number): Promise<WeatherCache | null> {
   const db = getDb();
   const { rows } = await db.query(
-    `select * from weather_cache where city_id = $1 and lat = $2 and lng = $3 order by fetched_at desc limit 1`,
+    `select id, city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
+            weather_source, wind_speed, wind_direction, humidity, pressure, fetched_at
+     from weather_cache where city_id = $1 and lat = $2 and lng = $3 order by fetched_at desc limit 1`,
     [cityId, lat, lng]
   );
   return rows[0] ?? null;

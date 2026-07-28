@@ -134,7 +134,8 @@ export async function syncRiskEventsBatch(db: Pool, rows: ScoredRow[]): Promise<
 
   const neighborhoodIds = rows.map((r) => r.neighborhood.id);
   const { rows: openEvents } = await db.query(
-    `select * from risk_events where neighborhood_id = any($1::uuid[]) and ended_at is null`,
+    `select id, neighborhood_id, level, peak_score, started_at, ended_at, confirmed
+     from risk_events where neighborhood_id = any($1::uuid[]) and ended_at is null`,
     [neighborhoodIds]
   );
   const openByNeighborhood = new Map(openEvents.map((e) => [e.neighborhood_id, e]));

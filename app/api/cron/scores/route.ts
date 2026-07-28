@@ -46,7 +46,9 @@ export async function GET(req: NextRequest) {
   try {
     await cleanupExpiredReports(db);
 
-    const { rows: cities } = await db.query<City>("select * from cities where active = true");
+    const { rows: cities } = await db.query<City>(
+      "select id, name, state, lat, lng, tide_code, data_level, active, created_at from cities where active = true"
+    );
     // geometry:geometry_simplified -- coluna geometry crua foi removida na
     // migração 032_remove_raw_geometry.sql; um `select *` aqui deixa
     // neighborhood.geometry undefined e derruba groupNeighborhoodsByCell

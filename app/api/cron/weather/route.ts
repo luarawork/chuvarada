@@ -44,7 +44,8 @@ interface CandidateCity extends City {
 
 async function getCitiesToUpdate(db: Pool, maxBatchSize: number): Promise<CandidateCity[]> {
   const { rows } = await db.query<CandidateCity>(
-    `select c.*, (select max(fetched_at) from weather_cache w where w.city_id = c.id) as last_cached
+    `select c.id, c.name, c.state, c.lat, c.lng, c.tide_code, c.data_level, c.active, c.created_at,
+            (select max(fetched_at) from weather_cache w where w.city_id = c.id) as last_cached
      from cities c
      where c.active = true
        and (

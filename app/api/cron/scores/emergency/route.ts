@@ -86,7 +86,11 @@ export async function POST(req: NextRequest) {
     }
 
     const cityIds = Array.from(new Set(neighborhoods.map((n) => n.city_id)));
-    const { rows: cities } = await db.query<City>(`select * from cities where id = any($1::uuid[])`, [cityIds]);
+    const { rows: cities } = await db.query<City>(
+      `select id, name, state, lat, lng, tide_code, data_level, active, created_at
+       from cities where id = any($1::uuid[])`,
+      [cityIds]
+    );
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of neighborhoods) {

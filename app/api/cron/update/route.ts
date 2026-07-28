@@ -73,7 +73,9 @@ export async function GET(req: NextRequest) {
   resetCycleStats();
 
   try {
-    const { rows: cities } = await db.query<City>("select * from cities where active = true");
+    const { rows: cities } = await db.query<City>(
+      "select id, name, state, lat, lng, tide_code, data_level, active, created_at from cities where active = true"
+    );
     // geometry:geometry_simplified -- mesmo motivo do Cron A/B (ver
     // app/api/cron/scores/route.ts): coluna geometry crua não existe mais
     // desde a migração 032_remove_raw_geometry.sql. Esta rota é fallback

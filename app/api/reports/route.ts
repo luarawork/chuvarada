@@ -17,6 +17,20 @@ const MAX_REPORTS_PER_REQUEST = 100;
 // escanear a tabela inteira.
 const NEAREST_SEARCH_DEGREES = 0.1;
 
+// Colunas explícitas de user_reports (não select *) -- ver
+// docs/revisao_qualidade.md, achado 🟡 #7. REPORT_COLUMNS_R é a mesma
+// lista com alias "r." (usada no join com cities/neighborhoods).
+const REPORT_COLUMNS = `
+  id, lat, lng, neighborhood_id, city_id, severity, description, user_id,
+  is_anonymous, confirmations, denials, status, resolved_at, model_score,
+  model_level, model_rain_72h, model_rain_peak_3h, created_at, expires_at
+`;
+const REPORT_COLUMNS_R = `
+  r.id, r.lat, r.lng, r.neighborhood_id, r.city_id, r.severity, r.description, r.user_id,
+  r.is_anonymous, r.confirmations, r.denials, r.status, r.resolved_at, r.model_score,
+  r.model_level, r.model_rain_72h, r.model_rain_peak_3h, r.created_at, r.expires_at
+`;
+
 export async function POST(req: NextRequest) {
   const tooLarge = rejectIfPayloadTooLarge(req);
   if (tooLarge) return tooLarge;
@@ -157,7 +171,7 @@ export async function GET(req: NextRequest) {
     try {
       const db = getDb();
       const { rows } = await db.query(
-        `select r.*, n.name as neighborhood_name, c.name as city_name
+        `select ${REPORT_COLUMNS_R}, n.name as neighborhood_name, c.name as city_name
          from user_reports r
          join cities c on c.id = r.city_id
          left join neighborhoods n on n.id = r.neighborhood_id
@@ -185,7 +199,7 @@ export async function GET(req: NextRequest) {
   try {
     const db = getDb();
     const { rows } = await db.query(
-      `select * from user_reports
+      `select ${REPORT_COLUMNS} from user_reports
        where status = 'active'
          and expires_at > now()
          and lat between $1 and $2
