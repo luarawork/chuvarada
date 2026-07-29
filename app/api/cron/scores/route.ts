@@ -5,7 +5,44 @@ import { verifyCronSecret } from "@/lib/auth";
 import { acquireLock, releaseLock, SCORES_CRON_LOCK_KEY } from "@/lib/systemLock";
 import { runWithConcurrency, scoreCity } from "@/lib/riskScoring";
 import { handleApiError } from "@/lib/apiError";
+import { readFromB2, getNeighborhoodsCacheKey } from "@/lib/b2";
 import type { City, Neighborhood } from "@/types";
+
+interface NeighborhoodsCache {
+  generated_at: string;
+  count: number;
+  neighborhoods: Neighborhood[];
+}
+
+// Cache de neighborhoods no B2 em vez de ler a tabela inteira do Postgres
+// toda hora (diagnóstico de egress de 29/07/2026 -- essa query sozinha
+// custava ~240MB/dia mesmo já só com as 10 colunas do fix anterior).
+// Regenerado 1x/dia (scripts/generate_neighborhoods_cache.ts, ver
+// .github/workflows/regenerate-neighborhoods-cache.yml) -- bairro/cidade
+// recém-cadastrado só aparece aqui depois da próxima regeneração ou de um
+// workflow_dispatch manual. Sem cache em memória de módulo: este endpoint só
+// roda 1x/hora via GitHub Actions, então cada invocação bate num cold start
+// (ou numa instância serverless diferente) de qualquer forma -- um cache em
+// memória nunca teria hit na prática, só complicaria o código à toa.
+async function getNeighborhoods(db: Pool): Promise<Neighborhood[]> {
+  try {
+    const cached = await readFromB2<NeighborhoodsCache>(getNeighborhoodsCacheKey());
+    if (cached) {
+      console.log(`[cron/scores] neighborhoods do cache B2: ${cached.count} bairros (gerado em ${cached.generated_at})`);
+      return cached.neighborhoods;
+    }
+  } catch (err) {
+    console.warn("[cron/scores] Falha ao ler cache B2 -- fallback pro banco:", err);
+  }
+
+  console.warn("[cron/scores] Cache B2 indisponível ou vazio -- lendo neighborhoods do Postgres");
+  const { rows } = await db.query<Neighborhood>(
+    `select id, city_id, name, name_source, centroid_lat, centroid_lng,
+            terrain_slope, hydro_proximity, is_coastal, created_at
+     from neighborhoods`
+  );
+  return rows;
+}
 
 // Cron A -- recalcula risk_scores pra TODOS os bairros a partir do que já
 // está em weather_cache/merge_cache, sem nenhuma chamada externa (ver
@@ -49,17 +86,7 @@ export async function GET(req: NextRequest) {
     const { rows: cities } = await db.query<City>(
       "select id, name, state, lat, lng, tide_code, data_level, active, created_at from cities where active = true"
     );
-    // centroid_lat/centroid_lng (migração 019) em vez de geometry_simplified
-    // -- groupNeighborhoodsByCell só precisa de um ponto por bairro pra
-    // agrupar em célula de clima, e essas 2 colunas já dão isso pré-computado
-    // sem precisar transportar o GeoJSON inteiro. Buscar geometry_simplified
-    // aqui (todos os 28.483 bairros, toda hora) media 67,7MB/execução --
-    // ~1,65GB/dia só desta query (ver diagnóstico de egress de 29/07/2026).
-    const { rows: allNeighborhoods } = await db.query<Neighborhood>(
-      `select id, city_id, name, name_source, centroid_lat, centroid_lng,
-              terrain_slope, hydro_proximity, is_coastal, created_at
-       from neighborhoods`
-    );
+    const allNeighborhoods = await getNeighborhoods(db);
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of allNeighborhoods) {

@@ -100,3 +100,12 @@ export function getCronStatsKey(month: string): string {
   const [year, monthPart] = month.split("-");
   return `cron_stats/${year}/${monthPart}/stats_${month}.json.gz`;
 }
+
+// Chave fixa (não particionada por data) -- ao contrário do histórico
+// arquivado acima, isso é um snapshot único sempre-atual de neighborhoods,
+// regenerado 1x/dia (ver .github/workflows/regenerate-neighborhoods-cache.yml)
+// pra evitar que o Cron A/B leiam a tabela inteira do Postgres toda hora
+// (diagnóstico de egress de 29/07/2026).
+export function getNeighborhoodsCacheKey(): string {
+  return "cache/neighborhoods_cache.json.gz";
+}
