@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
         className={`${plusJakarta.variable} ${inter.variable} font-body antialiased bg-brand-blue-deep`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
