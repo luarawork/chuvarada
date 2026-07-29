@@ -26,7 +26,7 @@ import type { City, Neighborhood } from "@/types";
 // fresco de uma vez sempre que o weather_cache expira nacionalmente --
 // nesse cenário o Open-Meteo passa a limitar taxa (HTTP 429) em praticamente
 // toda célula, tornando o ciclo inviável (~900 scores em 40min pra 28.483
-// bairros, ver docs/diagnostico_cron_arquitetura.md). Mantido por ora
+// bairros, ver docs/architecture/diagnostico_cron_arquitetura.md). Mantido por ora
 // (ver plano de depreciação no mesmo diagnóstico) só como fallback manual --
 // os workflows do GitHub Actions já usam os 2 cronos novos.
 //
@@ -49,7 +49,7 @@ const CELL_CONCURRENCY = 4;
 // expansão Sul+Sudeste). Sem isso, 2 ciclos concorrentes dobrariam o
 // consumo de cota das APIs de clima à toa e poderiam gravar risk_scores
 // inconsistentes (mesma classe de race condition do lock em merge_cache,
-// ver lib/merge.ts e scripts/fetch_merge_cptec.py).
+// ver lib/merge.ts e scripts/python/fetch_merge_cptec.py).
 const CRON_LOCK_KEY = "cron_running";
 const CRON_LOCK_MAX_AGE_MINUTES = 15;
 

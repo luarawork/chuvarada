@@ -14,7 +14,7 @@ modos heatmap/municipality do mapa no zoom afastado.
    upload_municipalities.js inserir na tabela `municipalities`.
 
 Uso:
-  python scripts/process_municipalities.py \
+  python scripts/python/process_municipalities.py \
     --shapefile dados-brutos/ibge/br/BR_Municipios_2022/BR_Municipios_2022.shp \
     --cities-csv <caminho para um CSV com id,name,state de `cities`>
 """

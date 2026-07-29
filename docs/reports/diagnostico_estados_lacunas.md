@@ -96,7 +96,7 @@ Nenhum dos 7 estados tem score idêntico ou "travado" — a proporção de valor
 
 ## 2. Bbox do `process_bho.py`
 
-Bbox atual (`NORDESTE_BBOX` em `scripts/process_bho.py`):
+Bbox atual (`NORDESTE_BBOX` em `scripts/python/process_bho.py`):
 ```python
 NORDESTE_BBOX = (-45.0, -15.0, -35.0, -1.0)  # min_lon, min_lat, max_lon, max_lat
 ```

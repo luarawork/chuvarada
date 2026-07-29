@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install rasterio numpy requests pg8000
-      - run: python scripts/fetch_merge_cptec.py
+      - run: python scripts/python/fetch_merge_cptec.py
         env:
           SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
 
@@ -37,7 +37,7 @@ jobs:
       # merge_cache já existentes, sem chamar nenhuma API de clima. A
       # atualização de fato do weather_cache é responsabilidade separada do
       # Cron B (.github/workflows/weather-update.yml, a cada 30min) -- ver
-      # docs/diagnostico_cron_arquitetura.md sobre por que os dois foram
+      # docs/architecture/diagnostico_cron_arquitetura.md sobre por que os dois foram
       # separados (rate-limit do Open-Meteo em cache frio nacional).
       - name: Recalcular scores (Cron A)
         run: |

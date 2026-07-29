@@ -4,7 +4,7 @@ import { promisify } from "util";
 
 // Backblaze B2 (S3-compatible) -- arquivamento de histórico fora do
 // Supabase (23/07/2026). Mesmo SDK usado pra AWS S3, só muda endpoint e
-// credenciais -- ver scripts/SETUP_ACTIONS.md pros secrets necessários.
+// credenciais -- ver docs/SETUP_ACTIONS.md pros secrets necessários.
 const gzipAsync = promisify(gzip);
 const gunzipAsync = promisify(gunzip);
 

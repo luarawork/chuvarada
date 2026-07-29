@@ -24,7 +24,7 @@ export const SCORE_THRESHOLDS = {
 // Cores de risco -- fonte única pro mapa (lib/geojson.ts), gráfico de
 // histórico, legenda, alerta e demais telas que mostram nível de risco.
 // Antes duplicado como hex literal em pelo menos 6 arquivos (ver
-// docs/revisao_qualidade.md, achado 🟡 #4).
+// docs/reports/revisao_qualidade.md, achado 🟡 #4).
 export const RISK_COLORS: Record<RiskLevel, string> = {
   normal: "#2a9d72",
   attention: "#f0a500",

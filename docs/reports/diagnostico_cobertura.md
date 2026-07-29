@@ -117,7 +117,7 @@ Não é falta de dado do IBGE nem erro geométrico — é um **bug de upload sil
 | RN | 375 | 0 | 335 | 0,168 | 1,000 | 0,934 | 1,000 |
 | SE | 275 | 0 | 257 | 0,475 | 1,000 | 0,960 | 1,000 |
 
-**Achado #1 — os zeros de MA, BA, PB e PI têm causa raiz identificada, não são "dado real de longe da água"**: `scripts/process_bho.py` recorta a camada hidrográfica nacional (2,9GB) usando `NORDESTE_BBOX = (-45.0, -15.0, -35.0, -1.0)` antes de calcular a distância de cada bairro ao curso d'água mais próximo. Esse bbox **corta o oeste do Maranhão e o sul/extremo-sul da Bahia**, que ficam fora dessa caixa:
+**Achado #1 — os zeros de MA, BA, PB e PI têm causa raiz identificada, não são "dado real de longe da água"**: `scripts/python/process_bho.py` recorta a camada hidrográfica nacional (2,9GB) usando `NORDESTE_BBOX = (-45.0, -15.0, -35.0, -1.0)` antes de calcular a distância de cada bairro ao curso d'água mais próximo. Esse bbox **corta o oeste do Maranhão e o sul/extremo-sul da Bahia**, que ficam fora dessa caixa:
 
 | Estado | Bairros com `hydro_proximity=0` | ...dos quais fora do bbox nacional |
 |---|---:|---:|

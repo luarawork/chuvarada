@@ -22,7 +22,7 @@ Output: dados-brutos/S2ID/s2id_filtered.json — só os eventos de
 
 Dependências: xlrd
 
-Uso: python scripts/process_s2id.py
+Uso: python scripts/python/process_s2id.py
 """
 
 import glob

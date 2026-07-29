@@ -17,7 +17,7 @@ O que foi possível obter via API pública (`/actions/runs/{id}/jobs`):
 | `actions/checkout@v4` | success | 84s |
 | `actions/setup-python@v5` | success | 0s |
 | `pip install rasterio numpy requests pg8000` | success | 7s |
-| `python scripts/fetch_merge_cptec.py` | **failure** | **152s** |
+| `python scripts/python/fetch_merge_cptec.py` | **failure** | **152s** |
 | `update_scores` (job seguinte) | skipped (`needs: update_merge`) | — |
 
 ### 1.2 Padrão de falhas
@@ -53,7 +53,7 @@ Resultado: **74.166 células gravadas** de ~167.025 esperadas (~44%). Confirma a
 
 Sem o log exato, a conclusão é por eliminação de evidências:
 
-- **Hipótese A (timeout de rede) — parcialmente correta, mas não do jeito descrito.** O código **já tem** `timeout=30` configurado em `requests.get()` (`scripts/fetch_merge_cptec.py:84`) — não é "sem timeout". Só que um timeout de rede em `fetch_grib2()` é tratado (`except requests.RequestException`, devolve `None`, o arquivo é tratado como indisponível) — isso **não derruba o script**. O que **não é tratado**: se a conexão devolver HTTP 200 mas o corpo vier truncado/corrompido (conexão caiu no meio da transferência dos ~139MB, sem erro de timeout formal), `fetch_grib2()` aceita esse conteúdo como válido (só checa `status_code != 200 or not res.content`, não valida tamanho/integridade). O byte corrompido só quebra depois, ao abrir com `rasterio.MemoryFile(...)` (`sample_grid()`, linha 131) — **sem nenhum `try/except` ao redor**. Uma exceção do rasterio/GDAL aí propaga até o topo e derruba o script inteiro, sem gravar nada do que sobrou.
+- **Hipótese A (timeout de rede) — parcialmente correta, mas não do jeito descrito.** O código **já tem** `timeout=30` configurado em `requests.get()` (`scripts/python/fetch_merge_cptec.py:84`) — não é "sem timeout". Só que um timeout de rede em `fetch_grib2()` é tratado (`except requests.RequestException`, devolve `None`, o arquivo é tratado como indisponível) — isso **não derruba o script**. O que **não é tratado**: se a conexão devolver HTTP 200 mas o corpo vier truncado/corrompido (conexão caiu no meio da transferência dos ~139MB, sem erro de timeout formal), `fetch_grib2()` aceita esse conteúdo como válido (só checa `status_code != 200 or not res.content`, não valida tamanho/integridade). O byte corrompido só quebra depois, ao abrir com `rasterio.MemoryFile(...)` (`sample_grid()`, linha 131) — **sem nenhum `try/except` ao redor**. Uma exceção do rasterio/GDAL aí propaga até o topo e derruba o script inteiro, sem gravar nada do que sobrou.
   - **Isso já tinha acontecido antes**: a Wiki (`APIs.md`) documenta um incidente idêntico — "um quadrante do Maranhão baixou truncado uma vez (HTTP 200 mas arquivo cortado)" — e afirma que foi **"corrigido com validação completa do raster antes de mesclar"**. **Essa correção não existe no código atual** (confirmado por leitura direta — nenhuma validação de raster, nenhum try/except ao redor do `MemoryFile`). Ou a correção nunca foi de fato aplicada, ou foi perdida em algum momento. Isso é uma inconsistência real entre documentação e código.
   - As durações muito variáveis das 4 falhas (67s a 305s) são consistentes com essa teoria — o ponto de corrupção depende de QUAL arquivo (DAILY ou HOURLY_NOW, qual dia) sofreu o problema de rede naquele momento específico, não é um ponto fixo determinístico no processamento.
 - **Hipótese B (GRIB2 corrompido)** — é essencially a mesma causa acima, só sem passar por uma falha de rede identificável (o arquivo do CPTEC em si pode vir malformado do lado do servidor).
@@ -142,4 +142,4 @@ As outras 2 melhorias documentadas na seção 2.4 (proposta de melhoria) também
 - **Item 3** (limiar mínimo de materialidade na Regra 3): `lib/score.ts` mudado de `rain_1h > 0` para `rain_1h > 1` — confirmado que não existe equivalente em Python (`fetch_merge_cptec.py` só grava `rain_72h`/`rain_peak_3h`, nunca `rain_1h` nem lógica de auto-crítico).
 - **Item 2** (decaimento de `rain_72h`): permanece não implementado, como recomendado — depende de validação com hidrólogo.
 
-Adicionalmente, `scripts/fetch_merge_cptec.py` ganhou validação de integridade (tamanho mínimo do corpo baixado, calibrado contra arquivos reais do CPTEC: ~100KB DAILY, ~20KB HOURLY_NOW) e retry com backoff exponencial (30s/60s/120s) em falha de rede ou integridade — a lacuna que a Wiki (`APIs.md`) já afirmava (incorretamente) estar corrigida.
+Adicionalmente, `scripts/python/fetch_merge_cptec.py` ganhou validação de integridade (tamanho mínimo do corpo baixado, calibrado contra arquivos reais do CPTEC: ~100KB DAILY, ~20KB HOURLY_NOW) e retry com backoff exponencial (30s/60s/120s) em falha de rede ou integridade — a lacuna que a Wiki (`APIs.md`) já afirmava (incorretamente) estar corrigida.

@@ -24,7 +24,7 @@ Nenhum problema novo bloqueador foi introduzido pelas correções. Um achado nov
 **Implementado**: as 3 opções pedidas, mais o workflow do MERGE.
 
 - `.github/workflows/cron-update.yml` — GitHub Actions, `*/20 * * * *`, `workflow_dispatch` pra teste manual.
-- `.github/workflows/merge-cache-update.yml` — idem, horário (`0 * * * *`), roda `scripts/fetch_merge_cptec.py`.
+- `.github/workflows/merge-cache-update.yml` — idem, horário (`0 * * * *`), roda `scripts/python/fetch_merge_cptec.py`.
 - `vercel.json` — já existia e já estava correto, não precisou de mudança.
 - `netlify/functions/scheduled-cron.mts` — Netlify Scheduled Functions (mecanismo real verificado na documentação oficial, não a solução baseada em plugin fictício sugerida no pedido original).
 - `instrumentation.ts` + `lib/internalScheduler.ts` — `node-cron` interno, opt-in via `ENABLE_INTERNAL_CRON=true`, pra deploys em servidor persistente.

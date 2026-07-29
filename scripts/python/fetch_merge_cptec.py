@@ -4,11 +4,11 @@ fetch_merge_cptec.py
 Busca o produto MERGE/CPTEC (precipitação diária/horária, satélite GPM/IMERG-Late
 fundido com a rede de pluviômetros do INMET pelo CPTEC) e popula a tabela
 merge_cache no Supabase. Roda separado do cron Node.js (ver
-scripts/README_merge.md) porque GRIB2 não tem parser maduro em Node/TS — este
+scripts/python/README_merge.md) porque GRIB2 não tem parser maduro em Node/TS — este
 script usa rasterio/GDAL, já dependência do pipeline geoespacial.
 
 Input: https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM/ — diretório HTTPS
-       público, sem autenticação (confirmado em docs/proposta_integracao_merge_cptec.md).
+       público, sem autenticação (confirmado em docs/architecture/proposta_integracao_merge_cptec.md).
 
        Estrutura REAL confirmada (o pedido original citava um padrão de nome
        "acum_1dia"/"acum_1hora" que não existe no servidor — os nomes reais são):
@@ -25,7 +25,7 @@ Output: linhas em merge_cache (1 por célula de grade de 0.1° dentro do bbox
 Dependências: rasterio, numpy, pg8000 (driver Postgres puro-Python — psycopg2
 não está disponível neste ambiente; pg8000 não precisa de compilador).
 
-Uso: python scripts/fetch_merge_cptec.py
+Uso: python scripts/python/fetch_merge_cptec.py
 """
 
 import os
@@ -38,11 +38,11 @@ import requests
 
 
 def load_env_local() -> None:
-    """Lê scripts/../.env.local manualmente (sem depender de python-dotenv,
-    que não está instalado no Python embutido do projeto) — só preenche
-    variáveis que ainda não estão no ambiente, pra não sobrescrever algo
-    já exportado explicitamente na sessão."""
-    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env.local")
+    """Lê scripts/python/../../.env.local manualmente (sem depender de
+    python-dotenv, que não está instalado no Python embutido do projeto) —
+    só preenche variáveis que ainda não estão no ambiente, pra não
+    sobrescrever algo já exportado explicitamente na sessão."""
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env.local")
     if not os.path.isfile(env_path):
         return
     with open(env_path, encoding="utf-8") as f:
@@ -62,7 +62,7 @@ load_env_local()
 BASE_URL = "https://ftp.cptec.inpe.br/modelos/tempo/MERGE/GPM"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Chuvarada MERGE fetcher)"}
 
-# Bbox do Nordeste original (docs/diagnostico_estados_lacunas.md) — mesma
+# Bbox do Nordeste original (docs/reports/diagnostico_estados_lacunas.md) — mesma
 # margem de segurança já validada pra cobrir os 9 estados sem cortar borda.
 # Alargado em 21/07/2026 pra cobrir também Sul + Sudeste (expansão nacional):
 # união do retângulo do Nordeste com o retângulo que cobre PR/SC/RS/SP/RJ/MG/ES
@@ -85,7 +85,7 @@ HOURLY_LOOKBACK_HOURS = 12  # busca até 12h atrás, precisa de 3 válidas pra o
 # medido em 28/07/2026) -- bem abaixo do observado pra não rejeitar arquivo
 # válido, alto o bastante pra pegar download truncado/corrompido (o caso que
 # derrubava sample_grid() com um erro de rasterio sem contexto nenhum, ver
-# docs/investigacao_falha_merge_natal.md).
+# docs/investigations/investigacao_falha_merge_natal.md).
 MIN_DAILY_GRIB2_BYTES = 100_000
 MIN_HOURLY_GRIB2_BYTES = 20_000
 MAX_DOWNLOAD_RETRIES = 3

@@ -18,7 +18,7 @@ const MAX_REPORTS_PER_REQUEST = 100;
 const NEAREST_SEARCH_DEGREES = 0.1;
 
 // Colunas explícitas de user_reports (não select *) -- ver
-// docs/revisao_qualidade.md, achado 🟡 #7. REPORT_COLUMNS_R é a mesma
+// docs/reports/revisao_qualidade.md, achado 🟡 #7. REPORT_COLUMNS_R é a mesma
 // lista com alias "r." (usada no join com cities/neighborhoods).
 const REPORT_COLUMNS = `
   id, lat, lng, neighborhood_id, city_id, severity, description, user_id,

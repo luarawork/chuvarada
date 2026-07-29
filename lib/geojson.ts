@@ -3,7 +3,7 @@ import type { Neighborhood, RiskLevel } from "@/types";
 import { RISK_COLORS } from "@/lib/constants";
 
 // Re-exportado -- lib/constants.ts é a fonte única (ver
-// docs/revisao_qualidade.md, achado 🟡 #4); mantido aqui também porque
+// docs/reports/revisao_qualidade.md, achado 🟡 #4); mantido aqui também porque
 // lib/geojson.ts é onde outros helpers de mapa/risco já vivem.
 export { RISK_COLORS };
 

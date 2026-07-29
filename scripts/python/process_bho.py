@@ -21,7 +21,7 @@ Processo:
 
 Dependências: geopandas, shapely, pyogrio (ou fiona)
 
-Uso: python scripts/process_bho.py \
+Uso: python scripts/python/process_bho.py \
        --input dados-brutos/ana/geoft_bho_curso_dagua.gpkg \
        --neighborhoods public/geojson/neighborhoods_recife.geojson
 """

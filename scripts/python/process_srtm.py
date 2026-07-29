@@ -18,7 +18,7 @@ Processo:
 
 Dependências: gdal, numpy, geopandas, rasterio
 
-Uso: python scripts/process_srtm.py --input dados-brutos/srtm/srtm_salvador.tif --city salvador
+Uso: python scripts/python/process_srtm.py --input dados-brutos/srtm/srtm_salvador.tif --city salvador
 """
 
 import argparse

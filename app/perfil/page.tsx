@@ -303,7 +303,7 @@ export default function PerfilPage() {
         </section>
 
         {/* Preferências de notificação -- push em si não está implementado
-            ainda (ver docs/diagnostico_push_notifications.md pro que falta),
+            ainda (ver docs/reports/diagnostico_push_notifications.md pro que falta),
             então cada toggle deixa isso explícito (badge + subtexto), sem
             prometer nada. A instrução de instalação como PWA fica só em
             /como-funciona -- duplicar ela aqui misturava "notificação (não

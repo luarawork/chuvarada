@@ -17,7 +17,7 @@ onde houver hidrografia municipal, ela tem prioridade sobre a BHO regional
 
 Dependências: geopandas, shapely
 
-Uso: python scripts/process_hydro_recife.py \
+Uso: python scripts/python/process_hydro_recife.py \
        --input dados-brutos/recife/faixas-marginais-dos-recursos-hidricos.geojson \
        --bho dados-brutos/ana/hydro_nordeste_clipped.geojson \
        --neighborhoods public/geojson/neighborhoods_recife.geojson

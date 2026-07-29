@@ -165,7 +165,7 @@ De forma mais ampla, **cerca de 46% dos 24.556 registros são distrito/subdistri
 
 ### MERGE/CPTEC (precipitação — satélite + pluviômetros)
 - **O que fornece**: `rain_72h` e `rain_peak_3h` — chuva acumulada e pico, combinando satélite (GPM/IMERG) e pluviômetros do INMET em uma grade de ~10km, publicada pelo CPTEC/INPE.
-- **Como foi obtida**: `scripts/fetch_merge_cptec.py`, rodando a cada hora via GitHub Actions, grava em `merge_cache`.
+- **Como foi obtida**: `scripts/python/fetch_merge_cptec.py`, rodando a cada hora via GitHub Actions, grava em `merge_cache`.
 - **Dificuldades**: um quadrante do Maranhão baixou truncado uma vez (HTTP 200 mas arquivo cortado) — corrigido com validação completa do raster antes de mesclar. Grid de célula aumentado para 0,1° e rate limiter trocado de "por hora" para contador diário durante a expansão nacional, pra escalar de ~1.800 pra ~4.650 cidades sem estourar limites.
 - **Status**: **ativo, fonte principal de chuva acumulada/pico** em todo o país.
 
@@ -401,7 +401,7 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 - **Hidrografia local do Ceará** sem fonte alternativa disponível (IPECE inacessível).
 
 ### De infraestrutura
-- **GitHub Actions precisam de secrets configurados manualmente** antes do primeiro deploy real (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL` — ver `scripts/SETUP_ACTIONS.md`).
+- **GitHub Actions precisam de secrets configurados manualmente** antes do primeiro deploy real (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL` — ver `docs/SETUP_ACTIONS.md`).
 - **`flyTo` animado do Leaflet não completa em ambiente de navegador headless/aba em segundo plano** — descoberto testando a feature de modo cidade (21/07): o Chromium suspende `requestAnimationFrame` quando `document.hidden=true`, e o `flyTo` depende disso pra animar. Não é um bug do app — confirmado via `setView` (sem animação) que a lógica de navegação em si funciona corretamente; só a *animação* não roda em aba de fundo.
 
 ---
@@ -409,7 +409,7 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 ## 11. O que falta fazer
 
 ### Antes do deploy
-- Configurar os secrets no GitHub (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver `scripts/SETUP_ACTIONS.md`.
+- Configurar os secrets no GitHub (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver `docs/SETUP_ACTIONS.md`.
 - Testar a GitHub Action via `workflow_dispatch` manual.
 - Definir a plataforma de deploy (Vercel/Netlify cogitados, nenhuma decidida ainda).
 
@@ -515,15 +515,15 @@ Abre em `http://localhost:3000`.
 ### Rodar os scripts Python de pré-processamento
 ```bash
 # Exemplo: processar bairros de um estado inteiro
-python scripts/process_state_neighborhoods.py --state SP \
+python scripts/python/process_state_neighborhoods.py --state SP \
   --input dados-brutos/ibge/sp/SP_setores_CD2022.shp
 
 # Preencher terrain_slope a partir do SRTM, in-place no GeoJSON
-python scripts/process_srtm.py --input dados-brutos/srtm/srtm_sp.tif \
+python scripts/python/process_srtm.py --input dados-brutos/srtm/srtm_sp.tif \
   --neighborhoods public/geojson/neighborhoods_state_sp.geojson
 
 # Preencher hydro_proximity a partir da BHO nacional
-python scripts/process_bho.py --input dados-brutos/ana/geoft_bho_curso_dagua.gpkg \
+python scripts/python/process_bho.py --input dados-brutos/ana/geoft_bho_curso_dagua.gpkg \
   --neighborhoods public/geojson/neighborhoods_state_sp.geojson
 ```
 

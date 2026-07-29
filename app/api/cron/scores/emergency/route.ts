@@ -9,14 +9,14 @@ import type { City, Neighborhood } from "@/types";
 // Adquire o MESMO lock do Cron A (scores/route.ts) -- sem isso, uma chuva
 // intensa detectada bem no meio do ciclo horário disparava scoreCity() pros
 // mesmos bairros em paralelo com o cron regular, arriscando intercalar
-// escritas em risk_scores/risk_events (ver docs/revisao_qualidade.md,
+// escritas em risk_scores/risk_events (ver docs/reports/revisao_qualidade.md,
 // achado 🟡 #5). maxAgeMinutes curto (5min) porque uma emergência real
 // precisa ser rápida -- se o lock não solta em 5min, algo travou e vale
 // mais deixar a próxima chamada tentar de novo do que ficar bloqueado.
 const EMERGENCY_LOCK_MAX_AGE_MINUTES = 5;
 
 // Recálculo imediato pra bairros perto de células com chuva intensa (ver
-// scripts/fetch_merge_cptec.py) -- disparado pelo próprio fetch, sem
+// scripts/python/fetch_merge_cptec.py) -- disparado pelo próprio fetch, sem
 // esperar o próximo ciclo horário do Cron A. Mesma pipeline de scoreCity
 // (reaproveitada de app/api/cron/scores/route.ts), só que escopada aos
 // bairros afetados em vez da base nacional inteira.

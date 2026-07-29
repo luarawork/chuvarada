@@ -4,7 +4,7 @@ compute_slope_for_geometries.py
 Calcula terrain_slope (declividade normalizada, 0=plano/maior risco,
 1=íngreme/menor risco) para uma lista arbitrária de polígonos de bairro,
 usando janela de leitura por geometria (não carrega o raster inteiro) — a
-mesma técnica de scripts/process_srtm.py:aggregate_by_neighborhood_windowed,
+mesma técnica de scripts/python/process_srtm.py:aggregate_by_neighborhood_windowed,
 extraída aqui para reaproveitar em correções pontuais (bairros fora do bbox
 originalmente processado, ou não cobertos pelo raster estadual).
 
@@ -13,7 +13,7 @@ Input: JSON com uma lista de {"id", "name", "geometry"} (GeoJSON geometry) e
 Output: JSON com {"id", "name", "terrain_slope", "error"} por feature.
 
 Uso:
-  python scripts/compute_slope_for_geometries.py <input.json> <dem.tif> <output.json>
+  python scripts/python/compute_slope_for_geometries.py <input.json> <dem.tif> <output.json>
 """
 
 import json

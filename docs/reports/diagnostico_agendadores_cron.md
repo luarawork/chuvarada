@@ -2,16 +2,16 @@
 
 **Histórico/decisão já tomada.** Este documento descreve as 3 opções que
 foram exploradas na época em que nenhum agendador estava configurado (ver
-achado 🔴 do `docs/relatorio_testes_pre_deploy.md`). A decisão final foi
+achado 🔴 do `docs/reports/relatorio_testes_pre_deploy.md`). A decisão final foi
 **GitHub Actions** — `vercel.json` (Opção A) e a function do Netlify
 (Opção C) foram removidos do repositório pra eliminar o risco de disparo
 duplicado do cron descrito abaixo. Pra a configuração atual e válida, ver
-[`scripts/SETUP_ACTIONS.md`](../scripts/SETUP_ACTIONS.md).
+[`docs/SETUP_ACTIONS.md`](../SETUP_ACTIONS.md).
 
 Documenta as 3 opções de agendamento que foram implementadas pro cron de
 risco (`/api/cron/update`) e pro script do MERGE
-(`scripts/fetch_merge_cptec.py`), depois do achado 🔴 do
-`docs/relatorio_testes_pre_deploy.md`: nenhum agendador estava
+(`scripts/python/fetch_merge_cptec.py`), depois do achado 🔴 do
+`docs/reports/relatorio_testes_pre_deploy.md`: nenhum agendador estava
 configurado, então o cron só rodava quando disparado manualmente.
 
 ## Opção A — Vercel Cron (`vercel.json`)
@@ -50,7 +50,7 @@ Actions): `CRON_SECRET` (mesmo valor do `.env.local`/produção) e `APP_URL`
 (URL pública do app, ex: `https://chuvarada.vercel.app`).
 
 ### `.github/workflows/merge-cache-update.yml`
-Roda `scripts/fetch_merge_cptec.py` a cada hora.
+Roda `scripts/python/fetch_merge_cptec.py` a cada hora.
 
 **Correção em relação ao pedido original**: o exemplo dado listava
 `pip install rasterio numpy geopandas supabase`. Conferindo os imports
@@ -59,7 +59,7 @@ reais do script (`import rasterio`, `numpy`, `requests`, e
 usados** (esse script não faz pré-processamento geoespacial nem usa o
 client REST do Supabase) e **`pg8000` estava faltando** (é o driver
 Postgres de fato usado pra gravar em `merge_cache` — `psycopg2` não está
-disponível no ambiente Python deste projeto, ver `scripts/README_merge.md`).
+disponível no ambiente Python deste projeto, ver `scripts/python/README_merge.md`).
 Corrigido pra `pip install rasterio numpy requests pg8000`.
 
 **Secret necessário**: `SUPABASE_CONNECTION_STRING`.

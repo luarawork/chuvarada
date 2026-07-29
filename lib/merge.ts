@@ -3,7 +3,7 @@ import { MERGE_MAX_AGE_HOURS } from "./constants";
 
 // Grade nativa do produto MERGE/CPTEC confirmada no .ctl que acompanha cada
 // arquivo (xdef 1001 linear -120.05 0.1 / ydef 924 linear -60.05 0.1) — ver
-// docs/proposta_integracao_merge_cptec.md e scripts/fetch_merge_cptec.py,
+// docs/architecture/proposta_integracao_merge_cptec.md e scripts/python/fetch_merge_cptec.py,
 // que é quem efetivamente baixa/processa os GRIB2 e popula merge_cache
 // (GRIB2 não tem parser maduro em Node/TS; esse processamento roda separado
 // do cron, como script Python).
@@ -14,7 +14,7 @@ const MERGE_GRID_STEP = 0.1;
 // (-5.75, -5.85, ...), não em múltiplos redondos de 0.1 (-5.7, -5.8, ...).
 // Arredondar direto pro múltiplo de 0.1 mais próximo (sem levar a origem em
 // conta) nunca bate com nenhuma célula real gravada por
-// scripts/fetch_merge_cptec.py — precisa da mesma fórmula usada lá
+// scripts/python/fetch_merge_cptec.py — precisa da mesma fórmula usada lá
 // (canonical_grid) pros dois lados baterem.
 const MERGE_GRID_ORIGIN_LON = -120.05;
 const MERGE_GRID_ORIGIN_LAT = -60.05;
@@ -33,7 +33,7 @@ function snapToGrid(value: number, origin: number): number {
 
 // Acima disso, um lock de escrita em system_locks é considerado travado
 // (processo morreu no meio sem liberar) e passa a ser ignorado -- ver
-// scripts/fetch_merge_cptec.py, que grava/apaga esse lock.
+// scripts/python/fetch_merge_cptec.py, que grava/apaga esse lock.
 const LOCK_MAX_AGE_MINUTES = 30;
 
 // Evita 1 query em system_locks por célula consultada (getMergeData roda

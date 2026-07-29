@@ -21,7 +21,7 @@ export function getDb(): Pool {
     // connectionTimeoutMillis: sem isso, o `pg` não tem timeout próprio pra
     // connect() e cai no timeout do SO -- medido em ~20-21s neste ambiente
     // pra uma conexão que vai cair na rota IPv6 instável até o Supabase (ver
-    // docs/relatorio_vulnerabilidades.md). Isso fazia CADA tentativa de
+    // docs/reports/relatorio_vulnerabilidades.md). Isso fazia CADA tentativa de
     // conexão nova que caísse nessa janela travar a requisição inteira por
     // 20s, e o retry do frontend (app/page.tsx) podia empilhar até 3x isso
     // no pior caso -- essa era a causa real do "carregamento muito lento"

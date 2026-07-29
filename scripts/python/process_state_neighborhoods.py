@@ -30,7 +30,7 @@ não basta porque bairros de municípios diferentes podem ter o mesmo nome
 Dependências: geopandas, shapely, pyogrio
 
 Uso:
-  python scripts/process_state_neighborhoods.py \
+  python scripts/python/process_state_neighborhoods.py \
     --input dados-brutos/ibge/ba/BA_setores_CD2022.shp \
     --state-code ba \
     --coastline dados-brutos/ana/geoft_bho_linha_costa.gpkg

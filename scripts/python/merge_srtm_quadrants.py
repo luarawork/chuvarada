@@ -6,8 +6,8 @@ download_srtm_states_retry.js (arquivos srtm_{uf}_q{n}.tif) num único
 GeoTIFF por estado, pronto pra alimentar process_srtm.py --state.
 
 Uso:
-  python scripts/merge_srtm_quadrants.py --uf mt --quadrants 4
-  python scripts/merge_srtm_quadrants.py --uf am --quadrants 9
+  python scripts/python/merge_srtm_quadrants.py --uf mt --quadrants 4
+  python scripts/python/merge_srtm_quadrants.py --uf am --quadrants 9
 """
 import argparse
 import glob

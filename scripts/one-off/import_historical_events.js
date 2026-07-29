@@ -1,5 +1,5 @@
 // Importa os eventos filtrados do S2ID (dados-brutos/S2ID/s2id_filtered.json,
-// gerado por scripts/process_s2id.py) para a tabela historical_events.
+// gerado por scripts/python/process_s2id.py) para a tabela historical_events.
 // Granularidade do S2ID é por município — neighborhood_id sempre fica null.
 // Uso: node scripts/import_historical_events.js
 require("dotenv").config({ path: ".env.local" });

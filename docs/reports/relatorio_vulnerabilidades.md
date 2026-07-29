@@ -95,7 +95,7 @@ if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
 Se `CRON_SECRET` não estiver definida no ambiente (variável ausente, erro
 de digitação no nome, ou deploy numa plataforma nova sem os secrets
 configurados ainda — o projeto já teve esse exato problema antes, ver
-`scripts/SETUP_ACTIONS.md`), `process.env.CRON_SECRET` vira `undefined` e
+`docs/SETUP_ACTIONS.md`), `process.env.CRON_SECRET` vira `undefined` e
 a comparação passa a ser contra a string literal `"Bearer undefined"`.
 Qualquer chamador que mande exatamente esse header **autentica com
 sucesso**:
@@ -108,7 +108,7 @@ Isso é "falha aberta" (fail-open) numa rota que dispara recálculo nacional
 de score ou consumo de cota das APIs de clima — em vez de "falha fechada"
 (negar por padrão quando a config está ausente). Como o projeto tem **4
 mecanismos diferentes** de disparo do cron (GitHub Actions, Vercel,
-Netlify, agendador interno — ver `scripts/SETUP_ACTIONS.md`), o risco de
+Netlify, agendador interno — ver `docs/SETUP_ACTIONS.md`), o risco de
 um deles estar configurado sem o secret em algum momento é concreto, não
 hipotético.
 

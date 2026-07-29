@@ -1,9 +1,9 @@
 # MERGE/CPTEC — operação
 
-Este documento explica como rodar e manter `scripts/fetch_merge_cptec.py`, que
+Este documento explica como rodar e manter `scripts/python/fetch_merge_cptec.py`, que
 popula a tabela `merge_cache` com precipitação real (satélite GPM/IMERG-Late
 fundido com pluviômetros do INMET pelo CPTEC). Motivação e arquitetura
-completa em `docs/proposta_integracao_merge_cptec.md`.
+completa em `docs/architecture/proposta_integracao_merge_cptec.md`.
 
 **Importante**: esse script roda **separado** do cron Node.js
 (`app/api/cron/update`). GRIB2 (o formato dos arquivos do CPTEC) não tem
@@ -14,10 +14,10 @@ nela é sempre este script Python, rodado à parte.
 ## Como rodar manualmente
 
 ```bash
-"C:\Users\Luara\tools\python-embed\python.exe" scripts/fetch_merge_cptec.py
+"C:\Users\Luara\tools\python-embed\python.exe" scripts/python/fetch_merge_cptec.py
 ```
 
-(ou `python scripts/fetch_merge_cptec.py` se você tiver um Python do sistema
+(ou `python scripts/python/fetch_merge_cptec.py` se você tiver um Python do sistema
 com as dependências abaixo instaladas)
 
 Dependências: `rasterio`, `numpy`, `requests`, `pg8000` (driver Postgres
@@ -54,14 +54,14 @@ O script lê `SUPABASE_CONNECTION_STRING` de `.env.local` automaticamente
 ### Exemplo de crontab (Linux/Mac, se o servidor de produção for esse tipo de ambiente)
 
 ```cron
-0 * * * * cd /caminho/para/chuvarada && /usr/bin/python3 scripts/fetch_merge_cptec.py >> /var/log/chuvarada/merge_cptec.log 2>&1
+0 * * * * cd /caminho/para/chuvarada && /usr/bin/python3 scripts/python/fetch_merge_cptec.py >> /var/log/chuvarada/merge_cptec.log 2>&1
 ```
 
 ### Exemplo de Agendador de Tarefas do Windows (ambiente de desenvolvimento local)
 
 ```powershell
 $action = New-ScheduledTaskAction -Execute "C:\Users\Luara\tools\python-embed\python.exe" `
-  -Argument "scripts/fetch_merge_cptec.py" `
+  -Argument "scripts/python/fetch_merge_cptec.py" `
   -WorkingDirectory "C:\Users\Luara\Downloads\chuvarada"
 $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration ([TimeSpan]::MaxValue)
 Register-ScheduledTask -TaskName "ChuvaradaMergeCPTEC" -Action $action -Trigger $trigger

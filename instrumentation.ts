@@ -3,7 +3,7 @@
 // internalScheduler.ts), uma alternativa pra deploy num servidor
 // persistente (Railway/Render) sem GitHub Actions. O mecanismo decidido e
 // validado do projeto é o GitHub Actions (ver .github/workflows/ e
-// scripts/SETUP_ACTIONS.md) — ENABLE_INTERNAL_CRON deve ficar
+// docs/SETUP_ACTIONS.md) — ENABLE_INTERNAL_CRON deve ficar
 // "false"/ausente sempre que os workflows estiverem configurados, senão
 // o cron roda em duplicidade. Em serverless (Vercel/Netlify), nem faz
 // sentido ativar: cada requisição roda numa instância nova, então um

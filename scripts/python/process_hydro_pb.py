@@ -21,7 +21,7 @@ empiricamente (551 bairros da PB) -- Drenagem_Principal sozinha melhora
 melhora 168 (a rede mais densa já cobre quase tudo que a principal cobre,
 mas juntar as duas nunca piora nada, é estritamente >= usar só uma).
 
-Uso: python scripts/process_hydro_pb.py <bairros_export.geojson> <output.json>
+Uso: python scripts/python/process_hydro_pb.py <bairros_export.geojson> <output.json>
 """
 
 import json

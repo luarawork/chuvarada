@@ -2,7 +2,7 @@
 // existente (derivado da BHO nacional) com a hidrografia local da AESA
 // (dados-brutos/hidro/pb_drenagem_extracted/Drenagem_Principal.shp +
 // dados-brutos/hidro/pb_rios_extracted/_rios da PARAIBA_.shp), pegando o
-// MAIOR dos dois -- ver scripts/process_hydro_pb.py pro motivo de combinar
+// MAIOR dos dois -- ver scripts/python/process_hydro_pb.py pro motivo de combinar
 // as duas fontes AESA em vez de usar só uma.
 //
 // Exporta os bairros de PB -> chama o script Python -> aplica o resultado.

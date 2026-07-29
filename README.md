@@ -60,7 +60,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 - **São Paulo, Campinas e Sorocaba**: usam distrito administrativo em vez de bairro — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades (confirmado também no GeoSampa, portal da própria Prefeitura de SP). Afeta ~46% dos registros nacionais no total, mais concentrado no interior.
 - **Amazônia (AM, PA, RR, AP, AC, RO, parte de MT)**: o modelo é projetado para alagamento urbano por chuva intensa, não captura cheias sazonais de rio (padrão amazônico de subida/descida do nível dos grandes rios ao longo do ano) — `data_level='minimal'` nesses estados reflete essa limitação, não falta de bairros.
 - **SRTM em floresta densa**: a elevação medida pelo satélite inclui o topo do dossel da vegetação, não o solo — infla a elevação aparente do terreno e pode subestimar a declividade real em áreas de mata fechada (Norte principalmente). Limitação conhecida da fonte, não corrigida nesta expansão.
-- **Rate-limit do Open-Meteo em atualização em massa**: quando o `weather_cache` expira por completo pro país inteiro de uma vez (ex: após um período longo sem o cron rodar), o pico de demanda simultânea excede o limite do plano gratuito do Open-Meteo, forçando fallback em cascata pro WeatherAPI.com e tornando o ciclo muito mais lento que o normal. Em operação contínua (cron horário) a demanda fica distribuída e isso não deveria ocorrer — ver `docs/diagnostico_expansao_nacional.md`.
+- **Rate-limit do Open-Meteo em atualização em massa**: quando o `weather_cache` expira por completo pro país inteiro de uma vez (ex: após um período longo sem o cron rodar), o pico de demanda simultânea excede o limite do plano gratuito do Open-Meteo, forçando fallback em cascata pro WeatherAPI.com e tornando o ciclo muito mais lento que o normal. Em operação contínua (cron horário) a demanda fica distribuída e isso não deveria ocorrer — ver `docs/reports/diagnostico_expansao_nacional.md`.
 
 ## Stack
 
@@ -129,7 +129,7 @@ curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/upda
 
 Usar `WEATHER_CACHE_ONLY=true` para desenvolvimento sem consumir a cota diária da Open-Meteo/WeatherAPI.
 
-Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`, secrets do Backblaze B2, `SUPABASE_URL`/`SUPABASE_ANON_KEY` do monitor de banco) — ver [`scripts/SETUP_ACTIONS.md`](scripts/SETUP_ACTIONS.md).
+Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`, secrets do Backblaze B2, `SUPABASE_URL`/`SUPABASE_ANON_KEY` do monitor de banco) — ver [`docs/SETUP_ACTIONS.md`](docs/SETUP_ACTIONS.md).
 
 ## Em produção
 
@@ -137,7 +137,7 @@ Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECR
 
 ## Documentação completa
 
-- [RELATORIO_COMPLETO.md](RELATORIO_COMPLETO.md) — histórico completo do projeto, decisões, dificuldades e fontes
+- [RELATORIO_COMPLETO.md](docs/RELATORIO_COMPLETO.md) — histórico completo do projeto, decisões, dificuldades e fontes
 - [GitHub Wiki](https://github.com/luarawork/chuvarada/wiki) — Stack, Database, APIs, Score Model, Cobertura, Features, Architecture, Security, Testing, Roadmap
 - `/como-funciona` — explicação do modelo em linguagem acessível (dentro do app)
 

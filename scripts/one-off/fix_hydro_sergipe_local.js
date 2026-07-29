@@ -2,7 +2,7 @@
 // existente (derivado da BHO nacional) com a hidrografia local da SEMARH/SRH
 // (dados-brutos/hidro/se_hidrografia_extracted/Hidrografia_Sergipe.shp,
 // baixada manualmente via serhidro.semac.se.gov.br), pegando o MAIOR dos
-// dois — ver scripts/process_hydro_sergipe.py pro motivo de combinar em vez
+// dois — ver scripts/python/process_hydro_sergipe.py pro motivo de combinar em vez
 // de substituir (a base local é mais esparsa que a BHO pra riachos menores).
 //
 // Exporta os bairros de SE -> chama o script Python -> aplica o resultado.

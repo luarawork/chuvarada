@@ -6,13 +6,13 @@ Este projeto tem 4 GitHub Actions agendadas:
 
 2 jobs sequenciais:
 
-1. `update_merge` — roda `scripts/fetch_merge_cptec.py`, que atualiza
+1. `update_merge` — roda `scripts/python/fetch_merge_cptec.py`, que atualiza
    `merge_cache` com a chuva real do MERGE/CPTEC (ver `README_merge.md`).
 2. `update_scores` — só começa depois que `update_merge` termina com
    sucesso (`needs: update_merge`) — chama `/api/cron/scores` (Cron A),
    que recalcula `risk_scores` pra todos os bairros a partir do
    `weather_cache`/`merge_cache` já existentes, sem chamar nenhuma API de
-   clima (ver `docs/diagnostico_cron_arquitetura.md`).
+   clima (ver `docs/architecture/diagnostico_cron_arquitetura.md`).
 
 Essa ordem por `needs` (não por horário/offset) é o que evita a race
 condition descrita no incidente de Natal (21/07/2026): rodar os dois jobs
@@ -24,7 +24,7 @@ tocada, misturando score correto com score subestimado na mesma cidade.
 
 Cron B -- mantém `weather_cache` atualizado aos poucos, em lotes pequenos
 (chama `/api/cron/weather`), desacoplado do Cron A de propósito (ver
-`docs/diagnostico_cron_arquitetura.md`).
+`docs/architecture/diagnostico_cron_arquitetura.md`).
 
 ## 3. `archive-history.yml` (diário às 02:00 UTC)
 
@@ -151,7 +151,7 @@ incidente de Natal — nenhum deles sabia que os outros existiam, nem
 esperava `update_merge` terminar antes de disparar.
 
 **Resolvido**: `vercel.json` e a function do Netlify foram removidos do
-repositório (ver `docs/diagnostico_agendadores_cron.md` pro histórico da
+repositório (ver `docs/reports/diagnostico_agendadores_cron.md` pro histórico da
 decisão). Só restam duas fontes possíveis hoje:
 
 - **GitHub Actions** (este workflow) — a fonte real em produção.

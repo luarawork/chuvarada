@@ -126,7 +126,7 @@ Este é o achado de maior impacto prático da seção de endpoints: **o padrão 
 | Rota | Usa `handleApiError` no catch? |
 |---|---|
 | `forecast`, `score`, `tide`, `weather`, `reports/[id]/react` | ✅ Sim |
-| `reports` (GET/POST), `suggestions`, `history` | ❌ Não tem `try/catch` nenhum ao redor das queries — se o banco falhar (e isso *aconteceu de verdade* durante os testes desta sessão, ver os `ETIMEDOUT` intermitentes documentados em `docs/relatorio_vulnerabilidades.md`), a exceção sobe crua para o Next, que decide como responder |
+| `reports` (GET/POST), `suggestions`, `history` | ❌ Não tem `try/catch` nenhum ao redor das queries — se o banco falhar (e isso *aconteceu de verdade* durante os testes desta sessão, ver os `ETIMEDOUT` intermitentes documentados em `docs/reports/relatorio_vulnerabilidades.md`), a exceção sobe crua para o Next, que decide como responder |
 | `municipalities`, `neighborhoods`, `health` | ❌ Idem — nenhum try/catch |
 | `cron/*` (3 rotas) | Têm seu próprio `try/catch` por cidade dentro do loop (correto para não derrubar o ciclo inteiro por uma cidade), mas a rota como um todo não tem um catch externo |
 

@@ -34,7 +34,7 @@ preenchendo terrain_slope e hydro_proximity de verdade:
 Dependências: geopandas, shapely, supabase (pip install supabase)
 
 Uso:
-  python scripts/process_neighborhoods.py \
+  python scripts/python/process_neighborhoods.py \
     --input dados-brutos/ibge/ba/BA_setores_CD2022.shp \
     --municipality Salvador --city-name Salvador --city-id <uuid> \
     --coastline dados-brutos/ana/geoft_bho_linha_costa.gpkg \

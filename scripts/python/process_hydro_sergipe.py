@@ -21,7 +21,7 @@ densa de riachos menores que a BHO ottocodificada captura). Substituir
 diretamente pioraria 150 dos 275 bairros; combinar com "o maior dos
 dois" gera melhoras reais e zero pioras.
 
-Uso: python scripts/process_hydro_sergipe.py <bairros_export.geojson> <output.json>
+Uso: python scripts/python/process_hydro_sergipe.py <bairros_export.geojson> <output.json>
 """
 
 import json

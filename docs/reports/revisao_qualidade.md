@@ -102,7 +102,7 @@ Cada um é uma dependência implícita e não documentada em "a tabela X tem ess
 - **`lib/merge.ts`**: verifica corretamente o lock `merge_cache_write` (via `isMergeCacheWriting()`) antes de ler `merge_cache` — não é afetado pelo problema do item 🟡 #6 (é leitura, não aquisição de lock).
 - **Validação de input nos endpoints de escrita**: `POST /api/reports`, `POST /api/reports/[id]/react`, `POST /api/suggestions`, `PATCH`/`DELETE /api/suggestions/[id]` — todos validam tipo, valores permitidos (whitelist), tamanho de payload (`rejectIfPayloadTooLarge`) e, onde aplicável, senha de admin. `reports/[id]/react` ainda usa a constraint `UNIQUE` do banco (código `23505`) para evitar race condition de dupla reação, em vez de um `SELECT` prévio — padrão correto.
 - **Separação client/server**: nenhum Client Component (`"use client"`) importa `lib/db`, `lib/b2` ou `lib/auth`.
-- **Duplicação Python/TypeScript**: confirmado que **não existe** nenhuma lógica de `rain_1h`/regras de auto-crítico em Python — `scripts/fetch_merge_cptec.py` só grava `rain_72h`/`rain_peak_3h` em `merge_cache`. `lib/score.ts` é a única fonte de verdade das regras automáticas.
+- **Duplicação Python/TypeScript**: confirmado que **não existe** nenhuma lógica de `rain_1h`/regras de auto-crítico em Python — `scripts/python/fetch_merge_cptec.py` só grava `rain_72h`/`rain_peak_3h` em `merge_cache`. `lib/score.ts` é a única fonte de verdade das regras automáticas.
 - **`app/api/analise/verify-password/route.ts` sem try/catch**: falso positivo do grep mecânico — a rota não faz nenhuma chamada de I/O que possa lançar exceção (só leitura de header + função pura `verifyAdminPassword`), então não há necessidade real de try/catch ali.
 
 ---

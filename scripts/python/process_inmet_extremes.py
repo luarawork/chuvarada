@@ -14,7 +14,7 @@ Processo:
 3. Exportar como JSON pra importação em historical_events (nível de cidade,
    já que o INMET só tem uma estação por cidade, não por bairro).
 
-Uso: python scripts/process_inmet_extremes.py --years 2021 2022 2023 2024 2025
+Uso: python scripts/python/process_inmet_extremes.py --years 2021 2022 2023 2024 2025
 """
 
 import argparse

@@ -24,7 +24,7 @@ Descarte manualmente qualquer resultado com distance_km implausível
 dataset.
 
 Uso:
-  python scripts/coastal_hydro_proximity.py <input.json> <output.json>
+  python scripts/python/coastal_hydro_proximity.py <input.json> <output.json>
 """
 
 import json

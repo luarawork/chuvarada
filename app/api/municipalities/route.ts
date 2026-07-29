@@ -11,7 +11,7 @@ import { handleApiError } from "@/lib/apiError";
 // municipalities_centroid) e serve geometry_simplified.
 // O total nacional cresceu pra 5.567 municípios (confirmado direto no banco
 // em 24/07/2026 -- acima da contagem de 4.653 registrada quando esse teto
-// foi escolhido, ver scripts/process_municipalities.py) desde a expansão
+// foi escolhido, ver scripts/python/process_municipalities.py) desde a expansão
 // nacional completa. Um teto de 5000 aqui truncava silenciosamente ~567
 // municípios (10% do país) sempre que app/page.tsx passou a buscar todos de
 // uma vez com um bbox nacional fixo (ver otimização de performance que

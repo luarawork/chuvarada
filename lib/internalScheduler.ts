@@ -1,7 +1,7 @@
 import cron from "node-cron";
 
 // Agendador interno, alternativa ao GitHub Actions (mecanismo decidido do
-// projeto, ver scripts/SETUP_ACTIONS.md) só pra deploy num servidor
+// projeto, ver docs/SETUP_ACTIONS.md) só pra deploy num servidor
 // persistente (Railway/Render) sem acesso a Actions. Com os workflows do
 // GitHub configurados, ENABLE_INTERNAL_CRON deve ficar em "false"/ausente,
 // senão o cron rodaria em duplicidade. Ativado via instrumentation.ts, que
