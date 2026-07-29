@@ -54,7 +54,7 @@ O critério original (hardcoded pras 3 primeiras cidades da expansão inicial �
 
 **Hidrografia local da Paraíba integrada em 28/07/2026**: as duas fontes AESA baixadas em sessão anterior (`Drenagem_Principal.shp`, 2.266 trechos; `_rios da PARAIBA_.shp`, 31.420 trechos) foram combinadas via `max()` com o `hydro_proximity` já existente (mesmo princípio de Recife/Sergipe) — 168 dos 551 bairros da PB melhoraram (média 0,906 → 0,965), incluindo os 33 bairros que tinham cobertura BHO fraca (<0,5), todos corrigidos. Nenhum município de PB mudou de `data_level` com isso: já estavam todos no teto de `partial` sob o critério atual (`pct_bairro_real` insuficiente nos municípios pequenos que mais melhoraram; João Pessoa/Campina Grande/Cabedelo/Bayeux já eram `partial` mesmo antes).
 
-**Minas Gerais e Rio de Janeiro** foram identificados (pesquisa de fontes estaduais em 27/07/2026) como os próximos candidatos a hidrografia local mais precisa que a BHO nacional, mas nenhuma integração foi implementada ainda — fica como melhoria de precisão futura (ver seção 15).
+**Minas Gerais integrada em 28/07/2026** (IGAM/IDE-Sisema, 89.911 trechos via WFS) — ganho pequeno (46 de 3.872 bairros, média 0,9885 → 0,9886) porque a BHO nacional já cobre MG muito bem. **Rio de Janeiro (INEA) permanece não integrado**: tentado por 4 caminhos diferentes na mesma sessão (portal estadual da água inacessível, INEA com erro de certificado SSL, FTP do IBGE só com arquivo monolítico de 1-2GB de todos os temas juntos, serviço ArcGIS leve que trava em qualquer consulta) — ver seção 15.
 
 ### `partial` por estado (novo critério)
 
@@ -407,7 +407,7 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 - Documentação final consolidada no Notion.
 
 ### Melhorias futuras
-- Integrar hidrografia local de Minas Gerais e Rio de Janeiro (identificadas como candidatas em 27/07, nenhuma integração feita ainda).
+- Integrar hidrografia local do Rio de Janeiro (INEA) — Minas Gerais já integrada em 28/07; RJ segue inacessível pelos caminhos tentados.
 - Integração com API horária do INMET (token necessário) para pluviômetros reais complementares ao MERGE.
 - Validação histórica sistemática do modelo com eventos datados por bairro (hoje só há validação qualitativa pontual — Natal, RS).
 - Ajuste fino de pesos do modelo para diferenciar chuva frontal (padrão do Sul) de chuva convectiva (padrão do Nordeste) — hoje o mesmo conjunto de pesos serve os dois regimes.
