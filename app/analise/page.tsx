@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
-import { getAlignment, ALIGNMENT_INFO, type Alignment } from "@/lib/reportAlignment";
+import { getAlignment, NO_REPORTS_RESULT, type AlignmentKind, type AlignmentResult } from "@/lib/alignmentUtils";
 
 // normal/attention/critical vêm de RISK_COLORS (lib/constants.ts, fonte
 // única) -- line é específico deste gráfico, não faz parte da paleta de risco.
@@ -301,8 +301,9 @@ interface DailyAggregate {
 
 // Ordem de gravidade da divergência em si (não do nível) -- usada só na
 // lista expandida do card "Divergências encontradas" (ver Item 4).
-const DIVERGENCE_SEVERITY_ORDER: Record<Alignment, number> = {
-  diverges_much: 3,
+const DIVERGENCE_SEVERITY_ORDER: Record<AlignmentKind, number> = {
+  diverges_much: 4,
+  diverges: 3,
   diverges_slightly: 2,
   false_alarm: 1,
   model_conservative: 1,
@@ -317,7 +318,7 @@ interface HourlyComparison {
   model_level: RiskLevel;
   report_count: number;
   max_severity: ReportSeverity | null;
-  alignment: Alignment;
+  alignment: AlignmentResult;
 }
 
 function dateRange(start: string, end: string): string[] {
@@ -419,8 +420,8 @@ function buildHourlyComparison(
     .map((hourKey) => {
       const model = modelByHour.get(hourKey) ?? { score: 0, level: "normal" as RiskLevel };
       const reportBucket = reportsByHour.get(hourKey);
-      const alignment: Alignment = !reportBucket
-        ? "no_reports"
+      const alignment: AlignmentResult = !reportBucket
+        ? NO_REPORTS_RESULT
         : getAlignment(model.level, reportBucket.maxSeverity);
 
       const [datePart, hourPart] = hourKey.split("T");
@@ -562,8 +563,8 @@ function ExpandedTotalRelatos({
 
 function ExpandedDivergencias({ rows }: { rows: HourlyComparison[] }) {
   const filtered = rows
-    .filter((row) => row.alignment !== "aligns" && row.alignment !== "no_reports")
-    .sort((a, b) => DIVERGENCE_SEVERITY_ORDER[b.alignment] - DIVERGENCE_SEVERITY_ORDER[a.alignment]);
+    .filter((row) => row.alignment.kind !== "aligns" && row.alignment.kind !== "no_reports")
+    .sort((a, b) => DIVERGENCE_SEVERITY_ORDER[b.alignment.kind] - DIVERGENCE_SEVERITY_ORDER[a.alignment.kind]);
 
   return (
     <ExpandedPanel title="Divergências entre relatos e modelo">
@@ -599,8 +600,8 @@ function ExpandedDivergencias({ rows }: { rows: HourlyComparison[] }) {
                     )}
                   </td>
                   <td className="py-2">
-                    <span style={{ color: ALIGNMENT_INFO[row.alignment].color }}>
-                      {ALIGNMENT_INFO[row.alignment].icon} {ALIGNMENT_INFO[row.alignment].label}
+                    <span style={{ color: row.alignment.color }}>
+                      {row.alignment.icon} {row.alignment.label}
                     </span>
                   </td>
                 </tr>
@@ -895,7 +896,7 @@ export default function AnalisePage() {
 
   const alignmentMetrics = computeAlignmentMetrics(reports);
   const divergenceCount = hourlyComparison.filter(
-    (row) => row.alignment !== "aligns" && row.alignment !== "no_reports"
+    (row) => row.alignment.kind !== "aligns" && row.alignment.kind !== "no_reports"
   ).length;
 
   if (!authenticated) {
@@ -1244,11 +1245,11 @@ export default function AnalisePage() {
               </h2>
 
               <ul className="mt-2 space-y-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-                <li>✅ Alinha: modelo e relato no mesmo nível</li>
-                <li>⚠️ Diverge levemente: relato 1 nível acima do modelo</li>
-                <li>🔴 Diverge muito: relato 2 níveis acima (modelo subestimou)</li>
-                <li>🔵 Modelo mais conservador: modelo acima do relato</li>
-                <li>🔵 Possível falso alarme: modelo muito acima do relato</li>
+                <li>✅ Alinha — modelo e relato concordam (atenção+moderado ou crítico+grave)</li>
+                <li>⚠️ Diverge levemente — diferença de 1 nível (normal+leve ou atenção+grave)</li>
+                <li>🔴 Diverge / Diverge muito — modelo subestimou (normal+moderado ou normal+grave)</li>
+                <li>🔵 Modelo conservador — modelo acima do relato (atenção+leve, crítico+moderado)</li>
+                <li>🔵 Possível falso alarme — modelo muito acima do relato (crítico+leve)</li>
               </ul>
 
               {hourlyComparison.length === 0 ? (
@@ -1303,8 +1304,8 @@ export default function AnalisePage() {
                             )}
                           </td>
                           <td className="py-2">
-                            <span style={{ color: ALIGNMENT_INFO[row.alignment].color }}>
-                              {ALIGNMENT_INFO[row.alignment].icon} {ALIGNMENT_INFO[row.alignment].label}
+                            <span style={{ color: row.alignment.color }}>
+                              {row.alignment.icon} {row.alignment.label}
                             </span>
                           </td>
                         </tr>
