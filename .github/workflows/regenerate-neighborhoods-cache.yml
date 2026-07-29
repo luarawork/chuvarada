@@ -1,0 +1,28 @@
+name: Regenerate Neighborhoods Cache
+
+# Snapshot de neighborhoods no B2, lido pelo Cron A em vez de reler a tabela
+# inteira do Postgres toda hora -- ver scripts/generate_neighborhoods_cache.ts
+# e diagnóstico de egress de 29/07/2026. Rodar manualmente (workflow_dispatch)
+# depois de cadastrar bairro/cidade novo, se não quiser esperar a próxima
+# regeneração agendada.
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npx tsx scripts/generate_neighborhoods_cache.ts
+        env:
+          SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
+          B2_ENDPOINT: ${{ secrets.B2_ENDPOINT }}
+          B2_BUCKET_NAME: ${{ secrets.B2_BUCKET_NAME }}
+          B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
