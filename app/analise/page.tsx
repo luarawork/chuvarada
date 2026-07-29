@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
+import { getAlignment, ALIGNMENT_INFO, type Alignment } from "@/lib/reportAlignment";
 
 // normal/attention/critical vêm de RISK_COLORS (lib/constants.ts, fonte
 // única) -- line é específico deste gráfico, não faz parte da paleta de risco.
@@ -36,7 +37,6 @@ const SEVERITY_LABEL: Record<ReportSeverity, string> = {
 };
 
 const SEVERITY_ORDER: Record<ReportSeverity, number> = { leve: 0, moderado: 1, grave: 2 };
-const LEVEL_ORDER: Record<RiskLevel, number> = { normal: 0, attention: 1, critical: 2 };
 
 const LEVEL_LABEL: Record<RiskLevel, string> = {
   normal: "🟢 Normal",
@@ -299,23 +299,6 @@ interface DailyAggregate {
   critical: number;
 }
 
-type Alignment =
-  | "aligns"
-  | "diverges_slightly"
-  | "diverges_much"
-  | "model_conservative"
-  | "false_alarm"
-  | "no_reports";
-
-const ALIGNMENT_INFO: Record<Alignment, { label: string; icon: string; color: string }> = {
-  aligns: { label: "Alinha", icon: "✅", color: COLORS.normal },
-  diverges_slightly: { label: "Diverge levemente", icon: "⚠️", color: COLORS.attention },
-  diverges_much: { label: "Diverge muito", icon: "🔴", color: COLORS.critical },
-  model_conservative: { label: "Modelo mais conservador", icon: "🔵", color: "#a8d4f0" },
-  false_alarm: { label: "Possível falso alarme", icon: "🔵", color: "#a8d4f0" },
-  no_reports: { label: "Sem relatos", icon: "🔵", color: "#a8d4f0" },
-};
-
 // Ordem de gravidade da divergência em si (não do nível) -- usada só na
 // lista expandida do card "Divergências encontradas" (ver Item 4).
 const DIVERGENCE_SEVERITY_ORDER: Record<Alignment, number> = {
@@ -326,23 +309,6 @@ const DIVERGENCE_SEVERITY_ORDER: Record<Alignment, number> = {
   aligns: 0,
   no_reports: 0,
 };
-
-// REPORT_SCORE começa em 1 (não 0 como SEVERITY_ORDER) -- um relato, mesmo
-// "Leve", é sempre um evento real acontecendo, então nunca deveria "empatar"
-// com o modelo em Normal (score 0) só por estarem ambos no índice mais
-// baixo da própria escala. Com essa escala deslocada, diff = relato -
-// modelo: Normal+Leve dá diff=+1 ("Diverge levemente", o modelo subestimou),
-// e só Crítico+Grave (as duas escalas no topo) dá diff=0 ("Alinha").
-const REPORT_SCORE: Record<ReportSeverity, number> = { leve: 1, moderado: 2, grave: 3 };
-
-function getAlignment(modelLevel: RiskLevel, reportSeverity: ReportSeverity): Alignment {
-  const diff = REPORT_SCORE[reportSeverity] - LEVEL_ORDER[modelLevel];
-  if (diff === 0) return "aligns";
-  if (diff === 1) return "diverges_slightly";
-  if (diff >= 2) return "diverges_much";
-  if (diff === -1) return "model_conservative";
-  return "false_alarm";
-}
 
 interface HourlyComparison {
   hourKey: string; // "2026-07-18T14"
