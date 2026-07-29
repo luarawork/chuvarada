@@ -205,9 +205,58 @@ export async function scoreCity(db: Pool, city: City, neighborhoods: Neighborhoo
     }
   }
 
+  const previousLevels = await getPreviousLevels(db, scoredRows);
+
   await insertRiskScoresBatch(db, scoredRows, tide.level);
   await syncRiskEventsBatch(db, scoredRows);
   await upsertCityRiskSummary(db, city, scoredRows);
+  notifyLevelChanges(city, scoredRows, previousLevels);
 
   return scoredRows.length;
+}
+
+// Nível anterior de cada bairro (antes do insert desta rodada), pra detectar
+// quem realmente MUDOU pra atenção/crítico -- consulta latest_risk_scores
+// (migração 020) porque é exatamente "1 linha mais recente por bairro",
+// sem precisar de DISTINCT ON manual aqui.
+async function getPreviousLevels(db: Pool, rows: ScoredRow[]): Promise<Map<string, string>> {
+  if (rows.length === 0) return new Map();
+  const ids = rows.map((r) => r.neighborhood.id);
+  const { rows: previous } = await db.query<{ neighborhood_id: string; level: string }>(
+    `select neighborhood_id, level from latest_risk_scores where neighborhood_id = any($1::uuid[])`,
+    [ids]
+  );
+  return new Map(previous.map((p) => [p.neighborhood_id, p.level]));
+}
+
+// Dispara /api/push/send pros bairros que acabaram de entrar em atenção/
+// crítico nesta rodada (nível anterior era diferente do novo). Fire-and-
+// forget de propósito (.catch, sem await no chamador) -- ver seção 3 do
+// pedido original: um push que falha (rede, VAPID mal configurada) não pode
+// derrubar o cron de scores, que precisa terminar mesmo sem push nenhum
+// funcionando. /api/push/send já resolve rápido (0 subscriptions) pra
+// bairros sem ninguém inscrito, então chamar pra todo mundo que mudou de
+// nível é barato mesmo hoje, com poucos usuários inscritos.
+function notifyLevelChanges(city: City, rows: ScoredRow[], previousLevels: Map<string, string>): void {
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret) return; // sem secret configurada, nem tenta (mesmo fail-closed de verifyCronSecret)
+  const appUrl = process.env.APP_URL ?? "http://localhost:3000";
+
+  const changed = rows.filter(({ neighborhood, result }) => {
+    if (result.level !== "attention" && result.level !== "critical") return false;
+    return previousLevels.get(neighborhood.id) !== result.level;
+  });
+
+  for (const { neighborhood, result } of changed) {
+    fetch(`${appUrl}/api/push/send`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${cronSecret}` },
+      body: JSON.stringify({
+        neighborhoodId: neighborhood.id,
+        level: result.level,
+        neighborhoodName: neighborhood.name,
+        cityName: city.name,
+      }),
+    }).catch((err) => console.error(`[riskScoring] push/send falhou pro bairro ${neighborhood.id}:`, err));
+  }
 }
