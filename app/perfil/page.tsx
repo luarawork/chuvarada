@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
 import { supabase } from "@/lib/supabase";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
@@ -46,6 +47,7 @@ export default function PerfilPage() {
   const router = useRouter();
   const { user, loading: authLoading, signOut } = useAuth();
   const signingOutRef = useRef(false);
+  const push = usePushNotifications();
 
   const [favorites, setFavorites] = useState<FavoriteNeighborhood[] | null>(null);
   const [reports, setReports] = useState<MyReport[] | null>(null);
@@ -302,31 +304,39 @@ export default function PerfilPage() {
           )}
         </section>
 
-        {/* Preferências de notificação -- push em si não está implementado
-            ainda (ver docs/reports/diagnostico_push_notifications.md pro que falta),
-            então cada toggle deixa isso explícito (badge + subtexto), sem
-            prometer nada. A instrução de instalação como PWA fica só em
-            /como-funciona -- duplicar ela aqui misturava "notificação (não
-            existe)" com "atalho de instalação (existe)". */}
+        {/* Preferências de notificação -- "Notificações de risco" já dispara
+            push de verdade (ver hooks/usePushNotifications.ts). "Confirmação
+            de relatos" é uma feature diferente (notificar o autor do relato
+            quando alguém confirma/nega) que não foi implementada nesta
+            rodada -- continua marcada "Em breve" de propósito, pra não
+            prometer algo que push_subscriptions ainda não modela. A
+            instrução de instalação como PWA fica só em /como-funciona --
+            duplicar ela aqui misturava as duas coisas. */}
         <section className="mt-8">
           <h2 className="font-heading text-lg font-bold">Preferências de notificação</h2>
           <div className="mt-3 space-y-4 rounded-2xl border p-4 backdrop-blur-sm" style={CARD_STYLE}>
-            <div className="flex cursor-not-allowed items-start justify-between gap-3 opacity-50">
+            <div className={`flex items-start justify-between gap-3 ${!push.isSupported ? "cursor-not-allowed opacity-50" : ""}`}>
               <div>
-                <span className="flex flex-wrap items-center gap-2 text-sm font-medium">
-                  Notificações de risco
-                  <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{ backgroundColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
-                  >
-                    Em breve
-                  </span>
-                </span>
+                <span className="flex flex-wrap items-center gap-2 text-sm font-medium">Notificações de risco</span>
                 <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-                  Em desenvolvimento. Disponível em versão futura.
+                  {!push.isSupported
+                    ? "Notificações não são suportadas neste navegador."
+                    : push.error
+                      ? push.error
+                      : "Avisa quando um bairro favorito entra em atenção ou crítico."}
                 </p>
               </div>
-              <input type="checkbox" disabled className="h-4 w-4 shrink-0" />
+              <input
+                type="checkbox"
+                disabled={!push.isSupported || push.isLoading}
+                checked={push.isSubscribed}
+                onChange={(e) => {
+                  const neighborhoodIds = (favorites ?? []).map((f) => f.id);
+                  if (e.target.checked) push.subscribe(neighborhoodIds);
+                  else push.unsubscribe();
+                }}
+                className="h-4 w-4 shrink-0"
+              />
             </div>
             <div className="flex cursor-not-allowed items-start justify-between gap-3 opacity-50">
               <div>
