@@ -37,7 +37,16 @@ export interface Neighborhood {
   id: string;
   city_id: string;
   name: string;
-  geometry: GeoJSON.Geometry;
+  // Ambos opcionais -- os crons (scores/weather) não precisam mais buscar
+  // geometry_simplified pra agrupar bairro por célula de clima, já que
+  // centroid_lat/centroid_lng (migração 019) dão o mesmo ponto sem
+  // transportar o GeoJSON inteiro (~67MB/hora a mais, ver diagnóstico de
+  // egress). Endpoints que servem o mapa (app/api/neighborhoods,
+  // app/api/municipalities) continuam preenchendo `geometry`, que é o que
+  // esses dois campos substituem só no caminho do cron.
+  geometry?: GeoJSON.Geometry;
+  centroid_lat?: number;
+  centroid_lng?: number;
   terrain_slope: number;
   hydro_proximity: number;
   is_coastal: boolean;

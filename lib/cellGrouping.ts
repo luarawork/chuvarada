@@ -25,8 +25,18 @@ export function groupNeighborhoodsByCell(city: Pick<City, "lat" | "lng">, neighb
     let lat: number;
     let lng: number;
     if (useSubGrid) {
-      const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
-      [lng, lat] = centroid.geometry.coordinates;
+      // centroid_lat/lng (migração 019) evita ter que buscar geometry_simplified
+      // + turf.centroid() nos crons (ver diagnóstico de egress) -- fallback pro
+      // cálculo via geometria só existe pro cron legado app/api/cron/update/
+      // route.ts, que não foi migrado (não é chamado por nenhum workflow, ver
+      // comentário no próprio arquivo).
+      if (neighborhood.centroid_lat != null && neighborhood.centroid_lng != null) {
+        lat = neighborhood.centroid_lat;
+        lng = neighborhood.centroid_lng;
+      } else {
+        const centroid = turf.centroid(neighborhood.geometry as GeoJSON.Geometry);
+        [lng, lat] = centroid.geometry.coordinates;
+      }
     } else {
       lat = city.lat;
       lng = city.lng;

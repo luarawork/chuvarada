@@ -81,6 +81,15 @@ export async function GET(req: NextRequest) {
     // desde a migração 032_remove_raw_geometry.sql. Esta rota é fallback
     // legado (não faz parte do fluxo automatizado), mas corrigida pra não
     // deixar uma 3ª cópia do mesmo bug se algum dia for disparada manualmente.
+    //
+    // NÃO migrada pra centroid_lat/centroid_lng (diagnóstico de egress de
+    // 29/07/2026, ver app/api/cron/scores/route.ts) de propósito -- confirmado
+    // via grep em .github/workflows/ que nenhum workflow chama /api/cron/update
+    // (só merge-and-scores-update.yml -> /api/cron/scores e weather-update.yml
+    // -> /api/cron/weather). groupNeighborhoodsByCell (lib/cellGrouping.ts)
+    // ainda sabe computar o centroide a partir de `geometry` como fallback --
+    // é exatamente esse fallback que mantém esta rota funcional caso alguém
+    // a dispare manualmente, sem precisar tocar nela.
     const { rows: allNeighborhoods } = await db.query<Neighborhood>(
       `select id, city_id, name, name_source, geometry_simplified as geometry,
               terrain_slope, hydro_proximity, is_coastal, created_at

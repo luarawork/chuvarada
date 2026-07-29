@@ -49,23 +49,20 @@ export async function GET(req: NextRequest) {
     const { rows: cities } = await db.query<City>(
       "select id, name, state, lat, lng, tide_code, data_level, active, created_at from cities where active = true"
     );
-    // geometry:geometry_simplified -- coluna geometry crua foi removida na
-    // migração 032_remove_raw_geometry.sql; um `select *` aqui deixa
-    // neighborhood.geometry undefined e derruba groupNeighborhoodsByCell
-    // (turf.centroid) pra toda cidade com mais de LARGE_CITY_THRESHOLD
-    // bairros -- mesma convenção de alias usada em app/api/neighborhoods e
-    // app/api/score.
+    // centroid_lat/centroid_lng (migração 019) em vez de geometry_simplified
+    // -- groupNeighborhoodsByCell só precisa de um ponto por bairro pra
+    // agrupar em célula de clima, e essas 2 colunas já dão isso pré-computado
+    // sem precisar transportar o GeoJSON inteiro. Buscar geometry_simplified
+    // aqui (todos os 28.483 bairros, toda hora) media 67,7MB/execução --
+    // ~1,65GB/dia só desta query (ver diagnóstico de egress de 29/07/2026).
     const { rows: allNeighborhoods } = await db.query<Neighborhood>(
-      `select id, city_id, name, name_source, geometry_simplified as geometry,
+      `select id, city_id, name, name_source, centroid_lat, centroid_lng,
               terrain_slope, hydro_proximity, is_coastal, created_at
        from neighborhoods`
     );
 
     const neighborhoodsByCity = new Map<string, Neighborhood[]>();
     for (const n of allNeighborhoods) {
-      // geometry_simplified pode voltar como string dependendo do driver --
-      // mesma normalização de app/api/neighborhoods/route.ts.
-      if (typeof n.geometry === "string") n.geometry = JSON.parse(n.geometry);
       if (!neighborhoodsByCity.has(n.city_id)) neighborhoodsByCity.set(n.city_id, []);
       neighborhoodsByCity.get(n.city_id)!.push(n);
     }
