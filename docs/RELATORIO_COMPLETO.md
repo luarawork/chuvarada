@@ -1,7 +1,7 @@
 # Chuvarada — Relatório Completo do Projeto
 
-**Data deste relatório:** 21/07/2026
-**Período coberto:** 18/07/2026 (início do projeto) a 21/07/2026 (estado atual)
+**Data deste relatório:** 28/07/2026
+**Período coberto:** 18/07/2026 (início do projeto) a 28/07/2026 (estado atual)
 
 Este documento descreve o projeto Chuvarada do zero: o que é, por que existe, como foi construído, quais decisões técnicas e de produto foram tomadas, quais dificuldades reais apareceram no caminho, o que ainda falta, e como rodar tudo localmente. É escrito para alguém que nunca viu o código, mas precisa entender o projeto inteiro — sem inflar o que foi feito nem esconder o que não funcionou ou o que ainda está quebrado.
 
@@ -31,84 +31,56 @@ O Chuvarada se posiciona como **complemento** à informação pública, não com
 
 | Métrica | Valor |
 |---|---:|
-| Estados | **16** (Nordeste completo + Sul + Sudeste) |
-| Municípios | **4.653** (100% dos municípios IBGE desses estados) |
-| Bairros/distritos/subdistritos | **24.556** |
+| Estados | **27** (Brasil inteiro — todos os estados + DF) |
+| Municípios | **5.570** (100% dos municípios IBGE) |
+| Bairros/distritos/subdistritos | **28.483** |
 | Com score de risco calculado | **100%** |
-| Municípios costeiros | 292 |
-| Municípios costeiros com estação de maré (`tide_code`) | 110 (37,7%) |
+| Municípios costeiros | 312 |
+| Municípios costeiros com estação de maré (`tide_code`) | 115 (36,9%) |
 
-### Nível de dado por cidade (`data_level`)
+A expansão para Centro-Oeste (GO, MT, MS, DF — 467 municípios, 1.813 bairros) e Norte (AM, PA, RR, AP, AC, RO, TO — 450 municípios, 2.114 bairros) foi concluída em 22/07/2026, completando a cobertura nacional. Ver seção 14 sobre a limitação estrutural do Norte (cheias sazonais de rio, arquitetura projetada pra alagamento urbano por chuva).
 
-| Nível | Cidades | O que significa |
+### Nível de dado por cidade (`data_level`) — critério recalculado em 28/07/2026
+
+O critério original (hardcoded pras 3 primeiras cidades da expansão inicial — Salvador/Recife/Natal) não refletia mais o quanto do pipeline (`terrain_slope` via SRTM, `hydro_proximity` via BHO) já estava de fato populado nacionalmente após a expansão pro país inteiro. Critério revisado:
+
+| Nível | Cidades | Critério |
 |---|---:|---|
-| `full` | 3 | Salvador (BA), Recife (PE), Natal (RN) — bairro real + hidrografia municipal refinada |
-| `partial` | 162 | Cidades com hidrografia local/regional adicional real e integrada (combinada via `max()` com a BHO nacional, nunca substituindo), sem o refinamento completo das 3 `full` |
-| `minimal` | 4.488 | Modelo baseado em clima, terreno e hidrografia nacional (BHO), sem refinamento local adicional |
+| `full` | 10 | Hidrografia local processada (não só BHO nacional) **e** `terrain_slope` real em >95% dos bairros **e** >80% com nome real de bairro |
+| `partial` | 870 | `hydro_proximity` médio >0,70 **e** `terrain_slope` real em >90% **e** >50% com nome real de bairro — **ou** cidade costeira com `tide_code` e `terrain_slope` real em >90% |
+| `minimal` | 4.690 | Resto — score calculado normalmente, sem o refinamento acima |
 
-Revisado em 21/07/2026: as 91 cidades `partial` originais exigiam ser
-costeira **e** ter shapefile de bairro real ao mesmo tempo — um critério
-que deixava de fora cidades sem litoral com refinamento real. Uma
-correção aplicada com evidência concreta e documentada (não apenas
-`hydro_proximity` alto, que se mostrou um sinal enganoso — ver nota
-abaixo):
-- **Todos os 71 municípios de Sergipe** que ainda estavam em `minimal`
-  passaram a `partial`: têm hidrografia SERhidro integrada via
-  `process_hydro_sergipe.py` (estado inteiro, não só Aracaju), refinamento
-  real além da BHO nacional que o resto do país usa.
+**As 10 cidades `full`**: Recife (PE) e 9 municípios de Sergipe — Aracaju, Barra dos Coqueiros, Boquim, Estância, Itabaiana, Lagarto, Nossa Senhora da Glória, São Cristóvão, Tobias Barreto — os únicos com hidrografia local efetivamente processada (`process_hydro_recife.py`/`process_hydro_sergipe.py`) que também batem os limiares de terreno/nome de bairro. **Salvador e Natal, que estavam em `full` no critério original, caíram para `partial`/`minimal`** — nunca tiveram hidrografia local processada (só BHO nacional), estavam classificadas como `full` por um critério antigo que não diferenciava isso.
 
-**Correção sobre correção**: Teresina (PI) tinha sido promovida a
-`partial` numa primeira passada desta mesma revisão, com a justificativa
-de "shapefile municipal de bairro real integrado" — **isso estava
-errado**. A seção 9 deste mesmo relatório já documentava (linha ~350,
-sessão anterior) que a tentativa de obter o shapefile municipal de
-Teresina foi bloqueada por WAF/JS, ou seja, nunca foi integrado nenhum
-dado municipal específico. Os 123 bairros de Teresina com
-`name_source='bairro'` vêm do Censo 2022 puro — mesma categoria dos 384
-municípios abaixo, não um caso de processamento local dedicado.
-Revertido para `minimal`.
+**Hidrografia local da Paraíba integrada em 28/07/2026**: as duas fontes AESA baixadas em sessão anterior (`Drenagem_Principal.shp`, 2.266 trechos; `_rios da PARAIBA_.shp`, 31.420 trechos) foram combinadas via `max()` com o `hydro_proximity` já existente (mesmo princípio de Recife/Sergipe) — 168 dos 551 bairros da PB melhoraram (média 0,906 → 0,965), incluindo os 33 bairros que tinham cobertura BHO fraca (<0,5), todos corrigidos. Nenhum município de PB mudou de `data_level` com isso: já estavam todos no teto de `partial` sob o critério atual (`pct_bairro_real` insuficiente nos municípios pequenos que mais melhoraram; João Pessoa/Campina Grande/Cabedelo/Bayeux já eram `partial` mesmo antes).
 
-**Descoberta que ficou de fora desta atualização, de propósito**: uma
-varredura por "≥80% dos bairros com `name_source = 'bairro'`" (em vez de
-hidrografia) encontra **384 municípios** hoje classificados como
-`minimal` espalhados por quase todo o país (SC, RS, MG, SP, PR, PI, PE...,
-incluindo Teresina depois da correção acima). Isso NÃO significa que
-esses municípios tiveram processamento local dedicado — reflete que o
-próprio Censo 2022 do IBGE já vem com nome de bairro real na maioria dos
-municípios brasileiros (a exceção documentada é justamente cidades como
-São Paulo/Campinas/Sorocaba, que só têm distrito). Foram mantidos em
-`data_level='minimal'` porque a granularidade de bairro por si só não
-justifica upgrade — o critério é qualidade dos dados de risco (hidrografia
-local, maré), não nomenclatura. Reclassificar esses 384 pra `partial`
-misturaria "o Censo happened to ser granular aqui" com "fizemos trabalho
-extra aqui", que são afirmações diferentes — por isso não foi aplicado
-sem antes alinhar com o time se `data_level` deve capturar as duas coisas
-ou só a segunda.
+**Minas Gerais e Rio de Janeiro** foram identificados (pesquisa de fontes estaduais em 27/07/2026) como os próximos candidatos a hidrografia local mais precisa que a BHO nacional, mas nenhuma integração foi implementada ainda — fica como melhoria de precisão futura (ver seção 15).
 
-Também confirmado nesta revisão: a hidrografia local da Paraíba (AESA) foi
-**baixada mas nunca gerou `UPDATE` em `hydro_proximity`** (o cruzamento
-com a BHO nacional, que já cobre 100% de PB, não foi concluído), e a do
-Ceará (IPECE) **nunca foi obtida** — o geoportal ficou inacessível durante
-toda a tentativa. Nenhum dos dois estados foi promovido a `partial` por
-esse motivo, apesar de
-terem sido cogitados como candidatos.
+### `partial` por estado (novo critério)
 
-### Por estado
-
-| Estado | Município | Nordeste/Sul/Sudeste |
-|---|---:|---|
-| AL, BA, CE, MA, PB, PE, PI, RN, SE | 1.794 | Nordeste (cobertura original) |
-| ES, MG, PR, RJ, RS, SC, SP | 2.859 | Sul + Sudeste (expansão de 20-21/07/2026) |
-
-### O que falta cobrir
-
-**Centro-Oeste e Norte** — ainda sem nenhum dado. Ficaram de fora da expansão Sul/Sudeste por ordem de prioridade de produto (ver seção 9): Sul e Sudeste concentram mais população urbana e mais eventos de chuva intensa documentados publicamente do que Centro-Oeste e Norte, então entraram primeiro.
+| Estado | Municípios | Estado | Municípios |
+|---|---:|---|---:|
+| RS | 128 | PI | 26 |
+| SC | 121 | PA | 25 |
+| CE | 91 | MA | 23 |
+| SP | 57 | RN | 22 |
+| MG | 55 | PB | 19 |
+| PE | 43 | RO | 18 |
+| MT | 42 | AL | 17 |
+| AM | 41 | MS | 17 |
+| PR | 40 | ES | 17 |
+| RJ | 34 | BA | 13 |
+| — | — | AC | 8 |
+| — | — | SE | 7 |
+| — | — | AP | 3 |
+| — | — | GO | 2 |
+| — | — | RR | 1 |
 
 ### Por que São Paulo, Campinas e Sorocaba usam distrito em vez de bairro
 
 O Censo 2022 do IBGE não preenche `NM_BAIRRO` para esses 3 municípios — só `NM_DIST` (distrito administrativo, uma subdivisão bem mais grossa que bairro urbano de verdade). Investigado como possível bug de pipeline (diagnóstico de 20/07/2026): não é. Conferido também o shapefile bruto do IBGE (a granularidade grossa já vem da fonte, não é perda no processamento) e o portal de dados abertos da própria Prefeitura de São Paulo (GeoSampa) — que também só disponibiliza distrito, não bairro, para consulta programática. Decisão: manter distrito como aproximação, com `name_source='distrito'` sinalizando a diferença na UI, em vez de tentar uma fonte alternativa não oficial (ver seção 9, "OSM para bairros de SP").
 
-De forma mais ampla, **cerca de 46% dos 24.556 registros são distrito/subdistrito, não bairro nomeado** — limitação estrutural do Censo 2022 para municípios menores do interior em todo o país, não específica de SP.
+De forma mais ampla, **cerca de 38% dos 28.483 registros nacionais são distrito/subdistrito, não bairro nomeado** (10.940 de 28.483) — limitação estrutural do Censo 2022 para municípios menores do interior em todo o país, não específica de SP. A proporção caiu frente aos ~46% medidos em 21/07 porque boa parte dos estados novos de Centro-Oeste/Norte (MT, AM, RO, RR) tem maioria de bairro real.
 
 ---
 
@@ -137,6 +109,13 @@ De forma mais ampla, **cerca de 46% dos 24.556 registros são distrito/subdistri
 - **`mergeNewerScores()` em vez de merge cego de estado** — um bairro pode ter score atualizado por 2 fontes concorrentes (fetch do viewport e Realtime); o fetch pode demorar e resolver *depois* de um evento Realtime mais recente já ter chegado. Um merge cego deixava o fetch atrasado sobrescrever o score novo com o antigo. A função compara `calculated_at` antes de aceitar qualquer atualização, garantindo que a versão mais recente sempre vence.
 - **Geometria simplificada (Douglas-Peucker) servida no lugar da original** — tolerância de 0,001° (~100m), escolhida empiricamente (0,0001° cogitado inicialmente não reduzia quase nada, porque a fonte IBGE já tem vértices mais espaçados que isso). Corta ~37% do payload sem distorcer visivelmente o formato do bairro. Coluna nova (`geometry_simplified`), preservando a geometria original intacta.
 - **Lock de execução (`system_locks`)** — protege contra 2 disparos do cron simultâneos (ex: disparo manual enquanto o agendado já está no meio do ciclo) e contra a race condition entre o script Python do MERGE e o cron de scores (ver seção 6/7).
+- **Lock atômico via `INSERT ... ON CONFLICT`** (28/07) — a versão original de `acquireLock()` fazia um `SELECT` seguido de `INSERT`/`UPDATE` condicional em duas queries separadas, com uma janela de corrida real entre elas (2 chamadas concorrentes podiam ambas passar no `SELECT` antes de qualquer uma escrever). Reescrito como um único `INSERT ... ON CONFLICT (key) DO UPDATE ... WHERE system_locks.locked_at < now() - interval` com `RETURNING key` — atômico no próprio Postgres, testado com uma chamada concorrente real (uma obteve o lock, a outra recebeu `deferred:true` corretamente).
+- **Pesos do modelo estruturados por região (`lib/scoreConfig.ts`)** — todas as 5 regiões (Nordeste/Sul/Sudeste/Centro-Oeste/Norte) usam hoje os mesmos pesos (idênticos ao `WEIGHTS` original), mas a estrutura já existe pronta pra calibração futura (ex: `rain_72h` com peso maior no Sul, onde a chuva frontal tende a acumular mais do que a convectiva do Nordeste) — ver seção 11.
+- **Endpoint de emergência (`/api/cron/scores/emergency`)** — recálculo imediato de bairros perto de células com chuva intensa detectada pelo próprio `fetch_merge_cptec.py`, sem esperar o próximo ciclo horário do Cron A. Adquire o mesmo lock do Cron A (`SCORES_CRON_LOCK_KEY`, `maxAgeMinutes=5`) — sem isso, uma chuva intensa no meio do ciclo disparava `scoreCity()` em paralelo com o cron regular, arriscando intercalar escritas em `risk_scores`/`risk_events`. Se o lock já estiver com o Cron A, devolve `{deferred:true}` em vez de tentar escrever por cima.
+- **Arquivamento completo pro Backblaze B2** (`scripts/archive_to_b2.ts`, workflow diário `archive-history.yml`) — 4 tabelas (`risk_scores`, `merge_cache`, `weather_cache`, `cron_run_stats`), cada uma com sua própria janela de retenção, comprimidas e particionadas por data antes do upload; arquivos com mais de 1 ano são apagados do B2 automaticamente. Motivado por um incidente real de 25/07/2026 em que o banco Supabase chegou a 135% do limite gratuito de 500MB sem ninguém perceber a tempo (ver seção 14).
+- **Retenção em 2 níveis no `merge_cache`** (migração `034_merge_cache_retention.sql`) — células perto de algum bairro (`is_near_neighborhood=true`) ficam 4 dias; o resto da grade nacional (nunca lida por nenhum bairro real, só existe pela grade retangular do bbox) fica só 1 dia. Evita reter indefinidamente células que nunca são consultadas.
+- **UPSERT condicional no `merge_cache`** — o `INSERT ... ON CONFLICT DO UPDATE` só reescreve uma linha quando `rain_72h`/`rain_peak_3h`/`is_near_neighborhood` mudam de fato (`WHERE ... IS DISTINCT FROM ...`); como o MERGE DAILY publica só 1x/dia mas o cron roda de hora em hora, a maioria das ~167 mil células fica sem mudança de uma execução pra outra — sem essa condição cada execução gerava uma tupla morta por célula mesmo sem dado novo.
+- **Monitoramento diário de tamanho do banco** (`monitor-database.yml`) — consulta `get_db_size()` (RPC, migração `035_db_size_function.sql`) via chave anon e falha o job (gerando notificação do GitHub) se o banco passar de 480MB (96% do limite gratuito) — resposta direta ao incidente de 25/07 acima, pra detectar o próximo caso antes de virar emergência.
 
 ---
 
@@ -160,7 +139,7 @@ De forma mais ampla, **cerca de 46% dos 24.556 registros são distrito/subdistri
 - **O que fornece**: os polígonos de bairro (ou distrito/subdistrito, na ausência de bairro nomeado).
 - **Como foi obtida**: shapefile por estado via FTP do IBGE.
 - **Dificuldades**: codificação mista UTF-8/Latin-1 nos atributos entre estados; colisão de nomes entre municípios homônimos de estados diferentes (ex: Areia Branca existe em RN e SE).
-- **Limitação estrutural**: ~46% dos registros nacionais são distrito/subdistrito, não bairro nomeado — mais pronunciado no interior e em municípios grandes como São Paulo/Campinas/Sorocaba (ver seção 2).
+- **Limitação estrutural**: ~38% dos registros nacionais são distrito/subdistrito, não bairro nomeado — mais pronunciado no interior e em municípios grandes como São Paulo/Campinas/Sorocaba (ver seção 2).
 - **Status**: ativo, fonte primária de geometria em todo o país.
 
 ### MERGE/CPTEC (precipitação — satélite + pluviômetros)
@@ -346,6 +325,16 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 32. Cota diária esgotada durante sessão de testes intensivos → rate limiter diário + modo `WEATHER_CACHE_ONLY` pra desenvolvimento sem consumir cota.
 33. Cota de 50 chamadas/dia do OpenTopography esgotada durante a expansão → baixado em quadrantes/lotes menores ao longo de vários dias.
 
+### Bugs encontrados após 21/07/2026
+34. **`select *`/`select n.*` quebrando após a migração 032** (`032_remove_raw_geometry.sql` removeu a coluna `geometry`, renomeando o padrão pra `geometry_simplified`) → 605 cidades ficaram com `weather_cache` congelado silenciosamente no Cron A (`/api/cron/update`), porque o `select *` passou a incluir uma coluna que o código downstream não esperava, quebrando o parse da geometria em runtime. Corrigido trocando por colunas explícitas em todos os pontos do código (crons, `lib/riskScoring.ts`, `lib/weather.ts`, `/api/reports`).
+35. **Cron B (`/api/cron/weather/route.ts`) com o mesmo bug do #34** — mesma causa raiz, ponto diferente do código (não tinha sido corrigido junto na primeira passada) → 604 cidades com `weather_cache` desatualizado por dias, confirmado e corrigido, testado com 16 execuções reais sem erro.
+36. **Regra 3 de crítico automático aceitando ruído como chuva real** — o limiar de `rain_1h > 0` disparava com valores como 0,05mm (ruído de sensor/arredondamento), não chuva de verdade → limiar ajustado.
+37. **Gráfico histórico (`HistoryChart`) colorindo pelo score numérico em vez do `level`** — dois bairros com o mesmo `level` (ex: ambos "crítico") podiam aparecer com cores visualmente diferentes no histórico, inconsistente com a cor mostrada no mapa/painel pro mesmo bairro → corrigido pra usar `level` (a mesma fonte de verdade usada em todo o resto da UI).
+38. **Banner de instrução de relato atrás de outros elementos** (bug de `z-index`) — corrigido.
+39. **PostgREST limitado a 1.000 bairros por carregamento por viewport** (mesma limitação estrutural do bug #22, mas resurgiu num contexto novo) — resolvido no mesmo padrão já estabelecido.
+40. **Race condition entre fetch do viewport e Supabase Realtime** — reincidência do padrão do bug #25 num fluxo diferente, resolvida com o mesmo `mergeNewerScores()`.
+41. **`fetch_merge_cptec.py` sem validação de integridade mínima do GRIB2** — um download truncado/corrompido derrubava `sample_grid()` com um erro de `rasterio` sem contexto nenhum (não dava pra saber se era rede, arquivo ainda não publicado, ou corrupção real) — descoberto investigando o evento de Natal de 18/07 retroativamente. Corrigido com `MIN_DAILY_GRIB2_BYTES`/`MIN_HOURLY_GRIB2_BYTES` (calibrados contra o tamanho real de arquivos válidos do servidor) + retry exponencial (30s/60s/120s) antes de desistir.
+
 ---
 
 ## 8. O que foi tentado e não funcionou
@@ -392,7 +381,7 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 ### Estruturais (sem solução técnica imediata)
 - **Maré sempre em 0,5** — fonte CPTEC fora do ar; alternativa real (PDF da Marinha) exige um projeto separado de descoberta de URL por estação + parser de PDF.
 - **São Paulo, Campinas e Sorocaba com distrito, não bairro** — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades; o próprio GeoSampa (portal da Prefeitura de SP) também só disponibiliza distrito.
-- **Interior do Brasil sem bairro nomeado** (~46% dos registros são distrito/subdistrito) — limitação do Censo 2022 pra municípios pequenos, em todo o país.
+- **Interior do Brasil sem bairro nomeado** (~38% dos registros são distrito/subdistrito) — limitação do Censo 2022 pra municípios pequenos, em todo o país.
 - **Eventos convectivos muito localizados podem ser subestimados** pela grade de ~10km do MERGE — capturado corretamente no caso de Natal, mas reconhecido como limitação estrutural para eventos ainda menores que a célula.
 
 ### De cobertura
@@ -408,18 +397,17 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 
 ## 11. O que falta fazer
 
-### Antes do deploy
-- Configurar os secrets no GitHub (`SUPABASE_CONNECTION_STRING`, `CRON_SECRET`, `APP_URL`) — ver `docs/SETUP_ACTIONS.md`.
-- Testar a GitHub Action via `workflow_dispatch` manual.
-- Definir a plataforma de deploy (Vercel/Netlify cogitados, nenhuma decidida ainda).
+**Status de deploy (atualizado 28/07/2026)**: app em produção em [chuvarada.vercel.app](https://chuvarada.vercel.app), Vercel foi a plataforma escolhida. Os 4 GitHub Actions (`merge-and-scores-update`, `weather-update`, `archive-history`, `monitor-database`) estão operacionais com secrets configurados. PWA confirmado instalável em Android e iOS.
 
 ### Pós-deploy prioritário
-- Expandir cobertura para Centro-Oeste e Norte.
-- Investigar alternativa real para dados de maré (descobrir URL do PDF anual da Marinha por estação + parser).
+- Integrar WorldTides API como alternativa ao CPTEC/maré (fora do ar) — estrutura já criada (`lib/worldtides.ts`, `getTideLevel()` em `lib/cptec.ts` com fallback CPTEC→WorldTides→neutro), aguardando `WORLDTIDES_API_KEY` (conta ainda não criada).
 - Notificações push — tabela `notifications` já existe no schema, UI e lógica de envio não implementadas.
+- Suíte de testes automatizados — hoje a verificação é manual (ver Wiki, [Testing](https://github.com/luarawork/chuvarada/wiki/Testing)).
+- Calibração regional dos pesos do modelo — estrutura pronta (`lib/scoreConfig.ts`), valores ainda não ajustados por região.
 - Documentação final consolidada no Notion.
 
 ### Melhorias futuras
+- Integrar hidrografia local de Minas Gerais e Rio de Janeiro (identificadas como candidatas em 27/07, nenhuma integração feita ainda).
 - Integração com API horária do INMET (token necessário) para pluviômetros reais complementares ao MERGE.
 - Validação histórica sistemática do modelo com eventos datados por bairro (hoje só há validação qualitativa pontual — Natal, RS).
 - Ajuste fino de pesos do modelo para diferenciar chuva frontal (padrão do Sul) de chuva convectiva (padrão do Nordeste) — hoje o mesmo conjunto de pesos serve os dois regimes.
@@ -429,55 +417,64 @@ O frontend assina `INSERT` em `risk_scores` filtrado pelos bairros visíveis no 
 
 ## 12. Estrutura do repositório
 
+Estrutura atualizada em 28/07/2026, após a reorganização de pastas desta sessão (ver seção 15):
+
 ```
 app/                          Rotas Next.js (App Router)
 ├── api/
-│   ├── cron/update/            Cron principal — recalcula risco de todos os bairros
+│   ├── cron/update/            Cron legado (fallback manual depreciado)
+│   ├── cron/scores/              Cron A — recalcula risco a partir do cache já existente
+│   ├── cron/scores/emergency/      Recálculo imediato pra chuva intensa detectada pelo MERGE
+│   ├── cron/weather/               Cron B — mantém weather_cache atualizado em lotes
 │   ├── neighborhoods/           Bairros por viewport (bbox) + score embutido + lookup por id
 │   ├── cities-summary/           Agregado por cidade pro modo "pontos" no zoom-out
-│   ├── forecast/                  Previsão do tempo (atual + 12h) por coordenada
-│   ├── score/                      Score de risco por bairro
-│   ├── tide/                        Nível de maré por cidade
-│   └── weather/                      Clima bruto por coordenada
-├── auth/                        Página de login/cadastro
-├── favoritos/                    Página de bairros salvos
-├── como-funciona/                  Explicação do modelo em linguagem simples
-└── page.tsx                        Página principal (mapa)
+│   ├── municipalities/            Polígonos municipais pro modo zoom-out intermediário
+│   ├── reports/                    Relatos de usuários (POST/GET) + reações
+│   ├── suggestions/                 Canal de sugestões (bug/feature/dado/cobertura)
+│   ├── forecast/                     Previsão do tempo (atual + 12h) por coordenada
+│   ├── score/ tide/ weather/           Score/maré/clima bruto por coordenada
+│   ├── analise/                          Métricas e verificação de senha da página /analise
+│   └── health/                             Health check autenticado
+├── auth/ favoritos/ perfil/         Login/cadastro, bairros salvos, favoritos+relatos+sugestões do usuário
+├── analise/                          Comparação relatos da comunidade vs. modelo
+├── sugestoes/                         Canal de sugestões (interno, protegido por senha)
+├── como-funciona/                      Explicação do modelo em linguagem simples
+└── page.tsx                              Página principal (mapa)
 
 components/
-├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, EmptyStateLayer
+├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, ReportLayer, LayerToggle (Modo Padrão/Rua), EmptyStateLayer
 ├── panel/                        DetailPanel, ScoreBreakdown, ForecastStrip, HistoryChart
-├── ui/                            AlertCard, CityHeader, MapLegend, InfoButton/Modal, WeatherIcons etc.
+├── ui/                            AlertCard, CityHeader, MapLegend, ReportModal, SuggestionModal, InfoButton/Modal etc.
 └── how-it-works/                    RiskDiagram, VariableCard, SourcesList (usados em /como-funciona)
 
 lib/                             Integrações e motor de risco
-├── score.ts                       Cálculo do score de risco (motor principal)
-├── weather.ts                       Orquestração de clima (cache, MERGE, fallback em camadas, rate limiting)
-├── weatherapi.ts                     Integração WeatherAPI.com (camada 2, fallback de emergência)
-├── merge.ts                           Leitura do merge_cache (chuva MERGE/CPTEC)
-├── cptec.ts                            Integração CPTEC (maré — atualmente fallback neutro)
-├── db.ts                                Pool de conexão Postgres direta
-├── supabase.ts                           Client Supabase (Auth, Realtime)
-├── grid.ts                                Agrupamento geográfico em células (~10km)
-├── geojson.ts                              Utilitários de geometria (localizar bairro por ponto, estilos)
-├── neighborhoodName.ts                       Lógica de nome real vs. fallback
-└── metricInfo.ts                               Textos explicativos das métricas (botões de "?")
+├── score.ts / scoreConfig.ts       Motor de risco + pesos por região (estrutura pronta pra calibração futura)
+├── constants.ts                     Limiares de score e cores de risco centralizados
+├── weather.ts / merge.ts / cptec.ts / worldtides.ts    Clima, chuva MERGE/CPTEC, maré (fallback neutro + WorldTides preparado)
+├── reports.ts / reportRateLimit.ts    Relatos de usuários (expiração/peso, rate limit por IP)
+├── systemLock.ts                       Lock atômico de execução (INSERT ... ON CONFLICT)
+├── b2.ts                                 Cliente Backblaze B2 (arquivamento)
+├── db.ts / supabase.ts                     Postgres direto (pg) + client Supabase (Auth, Realtime)
+└── geojson.ts / geo.ts / apiError.ts / auth.ts    Utilitários de geometria, validação, erros, autenticação de cron
 
-hooks/                           useAuth, useFavorites, useForecast, useMap, useRealtime, useRisk, useIsDesktop
+scripts/
+├── python/                       Pré-processamento geoespacial (produção)
+│   ├── process_neighborhoods.py / process_state_neighborhoods.py    Setores censitários → polígonos de bairro
+│   ├── process_srtm.py / process_bho.py                                SRTM → terrain_slope · BHO/ANA → hydro_proximity
+│   ├── process_hydro_recife.py / process_hydro_sergipe.py / process_hydro_pb.py    Hidrografia local (refinamento)
+│   ├── coastal_hydro_proximity.py                                          Distância à linha de costa
+│   └── fetch_merge_cptec.py                                                  MERGE/CPTEC → merge_cache (rodado pelo cron)
+├── one-off/                      Scripts já executados uma vez — não rodar de novo (README.md explica cada um)
+├── sql/                          Migrações numeradas (001 a 035)
+├── archive_to_b2.ts               Arquivamento diário pro Backblaze B2
+└── maintenance.sql                 Queries de manutenção manual
 
-scripts/                         Pré-processamento Python + upload + diagnósticos
-├── process_neighborhoods.py / process_state_neighborhoods.py    Setores censitários → polígonos de bairro
-├── process_srtm.py                  SRTM → terrain_slope
-├── process_bho.py                     BHO/ANA → hydro_proximity (nacional, via STRtree)
-├── process_hydro_recife.py / process_hydro_sergipe.py    Hidrografia local (refinamento)
-├── coastal_hydro_proximity.py           Distância à linha de costa (fallback pra bairros costeiros)
-├── fetch_merge_cptec.py                   MERGE/CPTEC → merge_cache
-├── upload_neighborhoods.js / upload_state_expansion.js     Upload em lote pro Supabase
-├── backfill_*.js                            Backfills pontuais (centroides, geometria simplificada, name_source, city_risk_summary)
-├── fix_*.js                                  Correções pontuais pós-upload
-├── assign_tide_by_proximity.js                 Atribuição de tide_code por distância
-├── SETUP_ACTIONS.md                              Guia de configuração dos secrets do GitHub Actions
-└── sql/                                            Migrações numeradas (001 a 022)
+docs/
+├── RELATORIO_COMPLETO.md         Este arquivo
+├── SETUP_ACTIONS.md               Guia de configuração dos secrets do GitHub Actions
+├── reports/                        Diagnósticos e relatórios de sessões passadas
+├── investigations/                  Investigações de bugs/eventos específicos (ex: falha do MERGE no Natal)
+└── architecture/                      Decisões de arquitetura documentadas (ex: separação Cron A/B, integração MERGE)
 
 public/geojson/                 Dados processados servidos estaticamente ao frontend
 dados-brutos/                   Dados brutos baixados (fora do git para os arquivos grandes — ver .gitignore)
@@ -490,19 +487,32 @@ dados-brutos/                   Dados brutos baixados (fora do git para os arqui
 ### Pré-requisitos
 - Node.js e npm
 - Python 3 com `geopandas`, `rasterio`, `shapely`, `pyogrio` (só necessário para os scripts de pré-processamento geoespacial)
-- Uma instância Supabase com as migrações de `scripts/sql/` aplicadas em ordem (001 a 022)
+- Uma instância Supabase com as migrações de `scripts/sql/` aplicadas em ordem (001 a 035)
 
 ### Variáveis de ambiente (`.env.local`)
+Ver [`.env.local.example`](../.env.local.example) para a lista completa e comentada. Resumo:
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_DB_PASSWORD=
 SUPABASE_CONNECTION_STRING=
+SUPABASE_SERVICE_KEY=
 CRON_SECRET=
+ADMIN_PASSWORD=
 WEATHERAPI_KEY=
+WORLDTIDES_API_KEY=
+
+# Backblaze B2 (arquivamento)
+B2_ENDPOINT=
+B2_BUCKET_NAME=
+B2_KEY_ID=
+B2_APPLICATION_KEY=
 
 # Opcional — modo de desenvolvimento
 WEATHER_CACHE_ONLY=false
+
+# Opcional — script Python embutido (ver scripts/one-off/*.js que chamam Python)
+PYTHON_EMBED_PATH=
 ```
 
 ### Instalar e rodar
@@ -529,9 +539,14 @@ python scripts/python/process_bho.py --input dados-brutos/ana/geoft_bho_curso_da
 
 ### Forçar o cron manualmente
 ```bash
+# Cron A (scores) + Cron B (clima) separados, fluxo real de produção:
+curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/weather
+curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/scores
+
+# Cron único legado (fallback manual depreciado, ainda funciona):
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/update
 ```
-Recalcula o score de risco de todos os 24.556 bairros — pode levar vários minutos e consome cota da Open-Meteo/WeatherAPI.
+Recalcula o score de risco de todos os 28.483 bairros — pode levar vários minutos e consome cota da Open-Meteo/WeatherAPI.
 
 ### Desenvolvimento sem consumir cota de clima
 ```
@@ -541,4 +556,35 @@ Força o app a sempre usar o `weather_cache` já existente (mesmo expirado) em v
 
 ---
 
-*Relatório gerado a partir do estado real do código, banco de dados (consultado diretamente em produção) e histórico de commits do repositório em 21/07/2026.*
+## 14. Funcionalidades adicionadas (22-27/07/2026)
+
+Adicionadas depois do deploy em produção, fora do escopo original de "cobertura + modelo de risco" das seções 1-13:
+
+- **Relatos da comunidade** — qualquer pessoa pode marcar um ponto de alagamento no mapa (leve/moderado/grave, `ReportLayer.tsx` + modal de relato), com confirmação/negação por outros usuários (`report_reactions`). Relatos expiram automaticamente por gravidade (duração maior pra relatos mais graves) e ficam registrados com o score do modelo no momento — cruzamento posterior entre observação real e cálculo.
+- **`/analise`** — comparação entre relatos da comunidade e o que o modelo calculou pro mesmo local/período. Seletor de escopo geográfico (Brasil inteiro ou uma das 5 regiões do IBGE), 5 cards clicáveis com detalhes expandíveis (total de relatos, cobertura de dados, divergências relato-vs-modelo, eventos críticos, usuários ativos), protegida por senha (`ADMIN_PASSWORD`).
+- **`/sugestoes`** — canal interno (protegido por senha) pra listar e triar sugestões enviadas pelos usuários via `/perfil` (bug, funcionalidade, dado, cobertura), com endpoints admin pra listar/atualizar status.
+- **`/perfil`** — favoritos, relatos feitos e sugestões enviadas pelo próprio usuário, num único lugar.
+- **Seletor de camadas do mapa** (`LayerToggle.tsx`) — "Modo Padrão" (tiles atuais) vs. "Modo Rua" (mais detalhe viário), persistido como preferência do usuário.
+- **Cards clicáveis com detalhes expandíveis** — usado tanto em `/analise` quanto em outros pontos da UI que cresceram desde a versão original (21/07), mostrando um resumo compacto que expande sob demanda em vez de sempre ocupar espaço.
+
+## 15. Revisão de qualidade e segurança (28/07/2026)
+
+Revisão completa de código realizada nesta sessão, corrigida em ordem de severidade (🔴 crítico → 🟡 médio → 🟢 baixo), documentada em `docs/reports/revisao_qualidade.md`:
+
+- **`select *`/`select n.*` eliminado de todos os pontos restantes do código** (crons, `lib/riskScoring.ts`, `lib/weather.ts`, `/api/reports`) — trocado por colunas explícitas nomeadas, prevenindo a classe inteira de bug que causou os incidentes #34/#35 (seção 7): uma migração que renomeia/remove coluna não deveria conseguir quebrar código em produção silenciosamente.
+- **Limiares de score e cores de risco centralizados** em `lib/constants.ts` (`SCORE_THRESHOLDS`, `RISK_COLORS`, `getLevelFromScore()`) — antes duplicados como literais soltos em pelo menos 7 arquivos (`lib/score.ts`, `lib/geojson.ts`, componentes de UI), com risco real de um ajuste de limiar (como o do bug #20) ser aplicado num lugar e esquecido em outro.
+- **Lock de execução tornado atômico** (`INSERT ... ON CONFLICT`, ver seção 3) e **estendido ao endpoint de emergência** (`/api/cron/scores/emergency`), que antes não tinha proteção nenhuma contra rodar em paralelo com o Cron A regular.
+- Revisão de vulnerabilidades documentada separadamente em `docs/reports/relatorio_vulnerabilidades.md` (achados já corrigidos em rodadas anteriores — RLS de `report_reactions`, timing-safe no cron, rate limiting, headers de segurança, validação de inputs — ver seção 7/bugs #34-41 e commits de 22-26/07).
+
+### Reorganização do repositório
+
+Estrutura de pastas reorganizada nesta mesma sessão pra separar responsabilidades que tinham se acumulado misturadas:
+- `scripts/python/` — todos os scripts de pré-processamento geoespacial de produção, antes soltos junto com scripts JS/TS na raiz de `scripts/`.
+- `docs/reports/`, `docs/investigations/`, `docs/architecture/` — diagnósticos de sessão, investigações de bugs/eventos, e decisões de arquitetura documentadas, antes todos soltos em `docs/` sem distinção.
+- `RELATORIO_COMPLETO.md` e `SETUP_ACTIONS.md` movidos pra `docs/` — só `README.md` fica na raiz do repositório.
+
+Todas as referências de caminho (comentários de código, links de markdown, o workflow do GitHub Actions que invoca `fetch_merge_cptec.py`) foram atualizadas junto — `next build` verificado limpo após a reorganização.
+
+---
+
+*Relatório gerado a partir do estado real do código, banco de dados (consultado diretamente em produção) e histórico de commits do repositório em 28/07/2026.*
