@@ -193,8 +193,15 @@ const MERGE_CACHE_NEAR_RETENTION_DAYS = 4;
 const MERGE_CACHE_FAR_RETENTION_DAYS = 1;
 
 async function archiveMergeCache(db: Pool): Promise<void> {
+  // Colunas explícitas em vez de `select *` (diagnóstico de egress de
+  // 29/07/2026) -- lat/lng brutos são redundantes com grid_lat/grid_lng (a
+  // identidade real da célula, usada em todo o resto do app); data_hour e
+  // source ficam de fora do arquivo histórico (a maioria das células vem do
+  // MERGE DAILY, que só publica 1x/dia -- data_hour carrega pouca
+  // granularidade real pra essa fatia).
   const { rows } = await db.query(
-    `select * from merge_cache
+    `select id, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, is_near_neighborhood, fetched_at
+     from merge_cache
      where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
         or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')
      limit 50000`
@@ -247,8 +254,14 @@ async function archiveWeatherCache(db: Pool): Promise<void> {
   // única leitura que tem -- mesmo bug que scripts/maintenance.sql já
   // corrigiu pra limpeza manual; aqui é a mesma proteção pro archiving
   // automático.
+  // Colunas explícitas em vez de `select *` (diagnóstico de egress de
+  // 29/07/2026) -- wind_speed/wind_direction/humidity/pressure ficam de fora
+  // do arquivo histórico, mesmo raciocínio de app/api/cron/scores/route.ts:
+  // variáveis secundárias, não usadas em nenhuma análise histórica hoje.
   const { rows } = await db.query(
-    `select * from weather_cache wc
+    `select id, city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h,
+            rain_source, weather_source, fetched_at
+     from weather_cache wc
      where fetched_at < now() - interval '${WEATHER_CACHE_RETENTION_HOURS} hours'
        and fetched_at <> (select max(fetched_at) from weather_cache wc2 where wc2.city_id = wc.city_id)
      limit 50000`
