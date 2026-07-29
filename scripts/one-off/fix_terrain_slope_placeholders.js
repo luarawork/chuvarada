@@ -46,7 +46,7 @@ async function main() {
 
   try {
     const { rows } = await client.query(`
-      select n.id, n.name, n.geometry, n.terrain_slope as old_slope, c.name as cidade, c.state
+      select n.id, n.name, n.geometry_simplified as geometry, n.terrain_slope as old_slope, c.name as cidade, c.state
       from neighborhoods n
       join cities c on c.id = n.city_id
       where n.terrain_slope = 0.5
@@ -80,10 +80,16 @@ async function main() {
       const outputPath = path.join(tmpDir, `slope_output_${Date.now()}.json`);
       fs.writeFileSync(
         inputPath,
-        JSON.stringify(neighborhoods.map((n) => ({ id: n.id, name: n.name, geometry: n.geometry })))
+        JSON.stringify(
+          neighborhoods.map((n) => ({
+            id: n.id,
+            name: n.name,
+            geometry: typeof n.geometry === "string" ? JSON.parse(n.geometry) : n.geometry,
+          }))
+        )
       );
 
-      execFileSync(PYTHON, [path.join(__dirname, "compute_slope_for_geometries.py"), inputPath, rasterPath, outputPath], {
+      execFileSync(PYTHON, [path.join(__dirname, "..", "python", "compute_slope_for_geometries.py"), inputPath, rasterPath, outputPath], {
         stdio: "inherit",
       });
 

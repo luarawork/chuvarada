@@ -68,7 +68,7 @@ async function main() {
     };
     fs.writeFileSync(inputPath, JSON.stringify(geojson));
 
-    execFileSync(PYTHON, [path.join(__dirname, "..", "process_hydro_pb.py"), inputPath, outputPath], {
+    execFileSync(PYTHON, [path.join(__dirname, "..", "python", "process_hydro_pb.py"), inputPath, outputPath], {
       stdio: "inherit",
     });
 

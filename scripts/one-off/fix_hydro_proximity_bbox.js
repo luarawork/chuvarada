@@ -33,7 +33,7 @@ async function main() {
 
   try {
     const { rows } = await client.query(
-      `select n.id, n.name, c.name as cidade, c.state, n.geometry
+      `select n.id, n.name, c.name as cidade, c.state, n.geometry_simplified as geometry
        from neighborhoods n join cities c on c.id = n.city_id
        where c.state = any($1) and n.hydro_proximity = 0
        order by c.state, c.name`,
@@ -52,18 +52,18 @@ async function main() {
       features: rows.map((r) => ({
         type: "Feature",
         properties: { id: r.id, name: r.name, cidade: r.cidade, state: r.state },
-        geometry: r.geometry,
+        geometry: typeof r.geometry === "string" ? JSON.parse(r.geometry) : r.geometry,
       })),
     };
     fs.writeFileSync(inputPath, JSON.stringify(geojson));
 
-    const gpkgPath = path.join(__dirname, "..", "dados-brutos", "ana", "geoft_bho_curso_dagua.gpkg");
+    const gpkgPath = path.join(__dirname, "..", "..", "dados-brutos", "ana", "geoft_bho_curso_dagua.gpkg");
     if (!fs.existsSync(gpkgPath)) {
       throw new Error(`Geopackage não encontrado em ${gpkgPath} — baixe antes de rodar este script.`);
     }
 
     console.log("Rodando process_bho.py com o bbox atual (pode levar alguns minutos)...");
-    execFileSync(PYTHON, [path.join(__dirname, "process_bho.py"), "--input", gpkgPath, "--neighborhoods", inputPath], {
+    execFileSync(PYTHON, [path.join(__dirname, "..", "python", "process_bho.py"), "--input", gpkgPath, "--neighborhoods", inputPath], {
       stdio: "inherit",
     });
 

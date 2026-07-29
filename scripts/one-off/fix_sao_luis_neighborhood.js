@@ -11,6 +11,7 @@ require("dotenv").config({ path: ".env.local" });
 const fs = require("fs");
 const path = require("path");
 const { Client } = require("pg");
+const turf = require("@turf/turf");
 
 async function main() {
   const client = new Client({
@@ -37,7 +38,7 @@ async function main() {
       return;
     }
 
-    const geojsonPath = path.join(__dirname, "..", "public", "geojson", "neighborhoods_state_ma.geojson");
+    const geojsonPath = path.join(__dirname, "..", "..", "public", "geojson", "neighborhoods_state_ma.geojson");
     const geojson = JSON.parse(fs.readFileSync(geojsonPath, "utf8"));
     const features = geojson.features.filter((f) => f.properties.city === "São Luís");
 
@@ -47,10 +48,14 @@ async function main() {
 
     for (const feature of features) {
       const { name, terrain_slope, hydro_proximity, is_coastal } = feature.properties;
+      // Coluna geometry (resolução plena) removida do schema na migração
+      // 032_remove_raw_geometry.sql -- só geometry_simplified é gravada
+      // (tolerância 0.001°/~100m, mesmo padrão de upload_neighborhoods.js).
+      const simplified = turf.simplify(feature, { tolerance: 0.001, highQuality: false });
       const { rows: inserted } = await client.query(
-        `insert into neighborhoods (city_id, name, geometry, terrain_slope, hydro_proximity, is_coastal)
+        `insert into neighborhoods (city_id, name, geometry_simplified, terrain_slope, hydro_proximity, is_coastal)
          values ($1, $2, $3, $4, $5, $6) returning id`,
-        [cityId, name, JSON.stringify(feature.geometry), terrain_slope, hydro_proximity, is_coastal]
+        [cityId, name, JSON.stringify(simplified.geometry), terrain_slope, hydro_proximity, is_coastal]
       );
       console.log(`Inserido: ${name} -> id=${inserted[0].id} (slope=${terrain_slope}, hydro=${hydro_proximity}, coastal=${is_coastal})`);
     }

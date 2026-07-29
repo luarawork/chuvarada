@@ -39,7 +39,7 @@ async function main() {
 
   try {
     const { rows } = await client.query(`
-      select n.id, n.name, c.name as cidade, c.state, n.geometry
+      select n.id, n.name, c.name as cidade, c.state, n.geometry_simplified as geometry
       from neighborhoods n join cities c on c.id = n.city_id
       where n.hydro_proximity = 0 and n.is_coastal = true
       order by c.state, c.name
@@ -60,7 +60,7 @@ async function main() {
     fs.writeFileSync(inputPath, JSON.stringify(input));
 
     console.log("Calculando distância à linha de costa...");
-    execFileSync(PYTHON, [path.join(__dirname, "coastal_hydro_proximity.py"), inputPath, outputPath], {
+    execFileSync(PYTHON, [path.join(__dirname, "..", "python", "coastal_hydro_proximity.py"), inputPath, outputPath], {
       stdio: "inherit",
     });
 

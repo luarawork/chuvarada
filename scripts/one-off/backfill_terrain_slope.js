@@ -34,7 +34,7 @@ async function main() {
 
     for (const [stateCode, filename] of Object.entries(STATE_FILES)) {
       const stateUpper = stateCode.toUpperCase();
-      const geojsonPath = path.join(__dirname, "..", "public", "geojson", filename);
+      const geojsonPath = path.join(__dirname, "..", "..", "public", "geojson", filename);
       const geojson = JSON.parse(fs.readFileSync(geojsonPath, "utf8"));
 
       const rowsToUpdate = [];

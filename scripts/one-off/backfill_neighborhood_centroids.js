@@ -19,8 +19,11 @@ async function main() {
   await client.connect();
 
   try {
+    // geometry (resolução plena) foi removida do schema na migração
+    // 032_remove_raw_geometry.sql -- geometry_simplified (Douglas-Peucker
+    // ~100m) é adequada pra cálculo de centroide.
     const { rows } = await client.query(
-      `select id, geometry from neighborhoods where centroid_lat is null`
+      `select id, geometry_simplified as geometry from neighborhoods where centroid_lat is null`
     );
     console.log(`${rows.length} bairros sem centroide.`);
     if (rows.length === 0) return;

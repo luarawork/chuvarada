@@ -38,7 +38,7 @@ async function main() {
     // (estado::cidade::bairro) -> name_source, a partir dos 16 geojsons estaduais
     const lookup = new Map();
     for (const uf of STATE_FILES) {
-      const filePath = path.join(__dirname, "..", "public", "geojson", `neighborhoods_state_${uf}.geojson`);
+      const filePath = path.join(__dirname, "..", "..", "public", "geojson", `neighborhoods_state_${uf}.geojson`);
       if (!fs.existsSync(filePath)) continue;
       const geojson = JSON.parse(fs.readFileSync(filePath, "utf8"));
       for (const feature of geojson.features) {

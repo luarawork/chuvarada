@@ -17,6 +17,17 @@
 //
 // Idempotente: só processa linhas com geometry_simplified ainda nulo.
 //
+// OBSOLETO desde 25/07/2026 (migração 032_remove_raw_geometry.sql): a
+// coluna `geometry` (resolução plena) que este script lê foi removida do
+// schema depois que as 28.483 linhas já tinham geometry_simplified
+// preenchida (0 NULL na época). Não há como "corrigir" a query pra
+// geometry_simplified -- o próprio propósito do script era derivar uma a
+// partir da outra, e a fonte não existe mais no banco. Bairros novos já
+// recebem geometry_simplified calculada no momento do upload
+// (upload_neighborhoods.js/upload_state_expansion.js, via turf.simplify
+// direto do GeoJSON de origem) -- este script nunca mais tem o que fazer.
+// Mantido só como registro histórico.
+//
 // Uso: node scripts/backfill_geometry_simplified.js
 require("dotenv").config({ path: ".env.local" });
 const { Client } = require("pg");

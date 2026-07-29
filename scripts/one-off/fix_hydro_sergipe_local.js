@@ -30,6 +30,7 @@ async function main() {
     const shpPath = path.join(
       __dirname,
       "..",
+      "..",
       "dados-brutos",
       "hidro",
       "se_hidrografia_extracted",
@@ -40,7 +41,7 @@ async function main() {
     }
 
     const { rows } = await client.query(`
-      select n.id, n.name, n.hydro_proximity as old_hydro, c.name as cidade, n.geometry
+      select n.id, n.name, n.hydro_proximity as old_hydro, c.name as cidade, n.geometry_simplified as geometry
       from neighborhoods n join cities c on c.id = n.city_id
       where c.state = 'SE'
       order by c.name, n.name
@@ -53,12 +54,12 @@ async function main() {
       features: rows.map((r) => ({
         type: "Feature",
         properties: { id: r.id, name: r.name, cidade: r.cidade, old_hydro: r.old_hydro },
-        geometry: r.geometry,
+        geometry: typeof r.geometry === "string" ? JSON.parse(r.geometry) : r.geometry,
       })),
     };
     fs.writeFileSync(inputPath, JSON.stringify(geojson));
 
-    execFileSync(PYTHON, [path.join(__dirname, "process_hydro_sergipe.py"), inputPath, outputPath], {
+    execFileSync(PYTHON, [path.join(__dirname, "..", "python", "process_hydro_sergipe.py"), inputPath, outputPath], {
       stdio: "inherit",
     });
 

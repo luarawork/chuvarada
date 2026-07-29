@@ -51,14 +51,15 @@ async function main() {
         namesInFile.push(name);
         const centroid = turf.centroid(feature);
         const [centroidLng, centroidLat] = centroid.geometry.coordinates;
-        // Tolerância 0.001° (~100m) -- ver scripts/backfill_geometry_simplified.js
+        // Tolerância 0.001° (~100m) -- ver scripts/one-off/backfill_geometry_simplified.js
         // pra medição empírica de payload que motivou esse valor.
+        // Coluna geometry (resolução plena) removida do schema na migração
+        // 032_remove_raw_geometry.sql -- só geometry_simplified é gravada.
         const simplified = turf.simplify(feature, { tolerance: 0.001, highQuality: false });
         await client.query(
-          `insert into neighborhoods (city_id, name, geometry, geometry_simplified, terrain_slope, hydro_proximity, is_coastal, centroid_lat, centroid_lng)
-           values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+          `insert into neighborhoods (city_id, name, geometry_simplified, terrain_slope, hydro_proximity, is_coastal, centroid_lat, centroid_lng)
+           values ($1, $2, $3, $4, $5, $6, $7, $8)
            on conflict (city_id, name) do update set
-             geometry = excluded.geometry,
              geometry_simplified = excluded.geometry_simplified,
              terrain_slope = excluded.terrain_slope,
              hydro_proximity = excluded.hydro_proximity,
@@ -68,7 +69,6 @@ async function main() {
           [
             cityId,
             name,
-            JSON.stringify(feature.geometry),
             JSON.stringify(simplified.geometry),
             terrain_slope,
             hydro_proximity,
