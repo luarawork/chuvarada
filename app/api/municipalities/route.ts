@@ -71,7 +71,17 @@ export async function GET(req: NextRequest) {
       attention_count: r.attention_count ?? 0,
     }));
 
-    return NextResponse.json({ data, truncated });
+    // max-age curto (não os 3600/86400 de dado puramente estático) porque a
+    // resposta mistura geometry_simplified (muda raramente) com worst_level/
+    // max_score/critical_count vindos de city_risk_summary (recalculado a
+    // cada hora pelo Cron A) -- um cache de 1h+stale-while-revalidate de 24h
+    // arriscaria servir nível de risco desatualizado num app de alagamento em
+    // tempo real. 5min cobre o caso comum (pan/zoom repetido na mesma sessão)
+    // sem deixar o dado de risco velho por muito tempo.
+    return NextResponse.json(
+      { data, truncated },
+      { headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate=3600" } }
+    );
   } catch (err) {
     return handleApiError(err, "api/municipalities");
   }

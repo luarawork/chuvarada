@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
          where n.id = $1`,
         [id]
       );
-      return NextResponse.json(buildResponse(rows));
+      return cachedJson(buildResponse(rows));
     } catch (err) {
       return handleApiError(err, "api/neighborhoods (id)");
     }
@@ -113,10 +113,21 @@ export async function GET(req: NextRequest) {
        limit $5`,
       [bbox.south, bbox.north, bbox.west, bbox.east, MAX_NEIGHBORHOODS_PER_REQUEST + 1]
     );
-    return NextResponse.json(buildResponse(rows));
+    return cachedJson(buildResponse(rows));
   } catch (err) {
     return handleApiError(err, "api/neighborhoods (bbox)");
   }
+}
+
+// max-age curto, não os 3600/86400 de dado estático -- a resposta mistura
+// geometry_simplified (muda raramente) com o score/level ATUAL de cada
+// bairro (rs.*, recalculado a cada hora pelo Cron A). Mesmo raciocínio de
+// app/api/municipalities/route.ts: um cache mais agressivo arriscaria mostrar
+// nível de risco desatualizado num app de alagamento em tempo real.
+function cachedJson(body: unknown) {
+  return NextResponse.json(body, {
+    headers: { "Cache-Control": "public, max-age=300, stale-while-revalidate=3600" },
+  });
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
