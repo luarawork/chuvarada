@@ -55,7 +55,7 @@ export function HourlyForecast({ forecast, loading }: HourlyForecastProps) {
   if (!forecast) return <p className="text-xs text-brand-blue-light/60">Não foi possível carregar a previsão agora.</p>;
 
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1">
+    <div className="hourly-scroll flex gap-2 overflow-x-auto pb-1">
       <div className="flex w-12 shrink-0 flex-col items-center gap-1 rounded-xl bg-brand-blue-mid/20 px-2 py-2.5 md:w-14">
         <span className="text-xs font-semibold text-brand-blue-light">Agora</span>
         <span className="text-xl">{emojiForIcon(forecast.current.icon)}</span>

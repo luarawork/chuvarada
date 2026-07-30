@@ -135,4 +135,32 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Scroll horizontal do HourlyForecast (components/panel/HourlyForecast.tsx)
+     -- o scrollbar branco padrão do browser destoava do tema escuro do
+     DetailPanel. Fino e na cor do brand-blue-mid em vez de escondido:
+     sinaliza que há mais horas pra ver arrastando, o que some não deixa
+     óbvio num container sem controles de navegação visíveis. */
+  .hourly-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .hourly-scroll::-webkit-scrollbar-track {
+    background: rgba(46, 125, 184, 0.1);
+    border-radius: 2px;
+  }
+
+  .hourly-scroll::-webkit-scrollbar-thumb {
+    background: rgba(46, 125, 184, 0.4);
+    border-radius: 2px;
+  }
+
+  .hourly-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(46, 125, 184, 0.7);
+  }
+
+  .hourly-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(46, 125, 184, 0.4) rgba(46, 125, 184, 0.1);
+  }
 }
