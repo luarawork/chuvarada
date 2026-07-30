@@ -6,6 +6,7 @@ import { acquireLock, releaseLock, SCORES_CRON_LOCK_KEY } from "@/lib/systemLock
 import { runWithConcurrency, scoreCity } from "@/lib/riskScoring";
 import { handleApiError } from "@/lib/apiError";
 import { readFromB2, getNeighborhoodsCacheKey } from "@/lib/b2";
+import { resetStagnantMergeCellCount, getStagnantMergeCellCount } from "@/lib/weather";
 import type { City, Neighborhood } from "@/types";
 
 interface NeighborhoodsCache {
@@ -82,6 +83,7 @@ export async function GET(req: NextRequest) {
 
   try {
     await cleanupExpiredReports(db);
+    resetStagnantMergeCellCount();
 
     const { rows: cities } = await db.query<City>(
       "select id, name, state, lat, lng, tide_code, data_level, active, created_at from cities where active = true"
@@ -106,11 +108,19 @@ export async function GET(req: NextRequest) {
       }
     });
 
+    const stagnantMergeCells = getStagnantMergeCellCount();
+    if (stagnantMergeCells > 0) {
+      console.warn(
+        `[cron/scores] ${stagnantMergeCells} células MERGE estagnadas há >24h nesta rodada -- Open-Meteo priorizado para essas regiões`
+      );
+    }
+
     return NextResponse.json({
       ok: true,
       total_cities: cities.length,
       total_neighborhoods_scored: totalScored,
       cities_with_errors: citiesWithErrors,
+      stagnant_merge_cells: stagnantMergeCells,
       duration_ms: Date.now() - start,
       at: new Date().toISOString(),
     });

@@ -106,7 +106,12 @@ export interface TideCache {
   cached_at: string;
 }
 
-export type RainSource = "merge_cptec" | "openmeteo" | "merge_cptec_priority" | "max_merge_openmeteo";
+export type RainSource =
+  | "merge_cptec"
+  | "openmeteo"
+  | "merge_cptec_priority"
+  | "max_merge_openmeteo"
+  | "openmeteo_merge_stale";
 
 // Eixo diferente de RainSource: RainSource rastreia qual fonte deu rain_72h/
 // rain_peak_3h (merge vs openmeteo, ver getBestRainData). WeatherSource

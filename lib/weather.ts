@@ -28,12 +28,42 @@ interface RainReading {
 // resolver. Corrigido comparando primeiro se a Open-Meteo é maior que o
 // MERGE (não uma proporção fixa), antes de checar o quanto o MERGE
 // supera a Open-Meteo.
+// Diagnóstico de 30/07/2026 (Naviraí/Itaquiraí, MS): rain_72h ficou travado
+// em ~120mm por 45+ horas depois que a chuva real (~101mm em 22-24/07) já
+// tinha passado -- fetched_at continuava "fresco" (também avança quando só
+// is_near_neighborhood muda, ver migração 037) então o teto de
+// MERGE_MAX_AGE_HOURS (6h) acima nunca disparava. last_changed_at (só avança
+// quando rain_72h/rain_peak_3h muda de verdade) detecta isso especificamente:
+// célula travada há mais de 24h é tratada como não-confiável mesmo com
+// fetched_at recente, e o Open-Meteo passa a ser usado sozinho em vez de
+// entrar no max() -- que só reforçaria o valor travado.
+const RAIN_STAGNANT_THRESHOLD_HOURS = 24;
+
+let stagnantMergeCellCount = 0;
+
+export function resetStagnantMergeCellCount(): void {
+  stagnantMergeCellCount = 0;
+}
+
+export function getStagnantMergeCellCount(): number {
+  return stagnantMergeCellCount;
+}
+
 export function getBestRainData(merge: MergeData | null, openMeteo: RainReading): RainReading & { rain_source: RainSource } {
   const mergeIsStale =
     !merge || new Date(merge.fetched_at).getTime() < Date.now() - MERGE_MAX_AGE_HOURS * 3_600_000;
 
   if (mergeIsStale) {
     return { rain_72h: openMeteo.rain_72h, rain_peak_3h: openMeteo.rain_peak_3h, rain_source: "openmeteo" };
+  }
+
+  const hoursSinceChanged = (Date.now() - new Date(merge.last_changed_at).getTime()) / 3_600_000;
+  if (hoursSinceChanged > RAIN_STAGNANT_THRESHOLD_HOURS) {
+    stagnantMergeCellCount++;
+    console.warn(
+      `[getBestRainData] MERGE estagnado há ${hoursSinceChanged.toFixed(1)}h (rain_72h/rain_peak_3h sem mudar) -- priorizando Open-Meteo`
+    );
+    return { rain_72h: openMeteo.rain_72h, rain_peak_3h: openMeteo.rain_peak_3h, rain_source: "openmeteo_merge_stale" };
   }
 
   // Open-Meteo maior que o MERGE (caso real: Recife 26/06 — o MERGE
