@@ -150,6 +150,18 @@ async function throttleOpenMeteo(): Promise<void> {
   if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
 }
 
+// Exportado pra lib/riskForecast.ts (previsão de 7 dias) reaproveitar o MESMO
+// limitador/throttle da cota diária em vez de um fetch() cru -- a cota do
+// Open-Meteo é compartilhada por todo o processo (cron + painel), e um
+// segundo caminho sem essa proteção reintroduziria o risco de esgotamento
+// que já causou o incidente de 18-19/07/2026.
+export async function throttledOpenMeteoFetch(url: string): Promise<Response> {
+  if (openMeteoLimiter.isExhausted()) throw new RateLimitExceededError();
+  openMeteoLimiter.increment();
+  await throttleOpenMeteo();
+  return fetch(url);
+}
+
 // Foi o que realmente esgotou a cota gratuita do Open-Meteo no fim de
 // semana de 18-19/07/2026: o cron rodou ~1794 cidades repetidas vezes
 // (cada rodada completa bate em ~2500+ células únicas) sem nenhum teto
