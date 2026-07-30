@@ -1,7 +1,20 @@
 import { describe, it, expect } from "vitest";
 import { calculateScore } from "@/lib/score";
 import { mergeNewerScores } from "@/lib/mergeScores";
+import { getBestRainData } from "@/lib/weather";
+import type { MergeData } from "@/lib/merge";
 import type { NormalizedWeather, RiskScore } from "@/types";
+
+function mergeData(overrides: Partial<MergeData> = {}): MergeData {
+  return {
+    rain_72h: 0,
+    rain_peak_3h: 0,
+    source: "merge",
+    fetched_at: new Date().toISOString(),
+    last_changed_at: new Date().toISOString(),
+    ...overrides,
+  };
+}
 
 function weather(overrides: Partial<NormalizedWeather> = {}): NormalizedWeather {
   return {
@@ -105,5 +118,38 @@ describe("Regressão -- mergeNewerScores: score antigo não sobrescreve novo", (
   it("bairro que só existe no incoming é adicionado normalmente", () => {
     const result = mergeNewerScores({}, { "bairro-novo": riskScore({ neighborhood_id: "bairro-novo" }) });
     expect(result["bairro-novo"]).toBeDefined();
+  });
+});
+
+describe("Regressão -- caso Naviraí/Itaquiraí (MS): MERGE estagnado detectado via last_changed_at", () => {
+  it("MERGE fresco e mudando normalmente -- comportamento de max()/prioridade inalterado", () => {
+    const merge = mergeData({
+      rain_72h: 50,
+      rain_peak_3h: 10,
+      fetched_at: new Date().toISOString(),
+      last_changed_at: new Date().toISOString(), // mudou agora mesmo
+    });
+    const result = getBestRainData(merge, { rain_72h: 20, rain_peak_3h: 5 });
+
+    expect(result.rain_source).toBe("merge_cptec_priority");
+    expect(result.rain_72h).toBe(50);
+  });
+
+  it("fetched_at fresco mas last_changed_at travado há >24h -- prioriza Open-Meteo (bug real de 30/07/2026)", () => {
+    // Reproduz exatamente o que aconteceu em Naviraí/Itaquiraí: fetched_at
+    // continuava avançando (is_near_neighborhood mudando) enquanto
+    // rain_72h/rain_peak_3h ficaram travados em ~120mm por 45+ horas depois
+    // que a chuva real (~101mm em 22-24/07) já tinha passado.
+    const merge = mergeData({
+      rain_72h: 120,
+      rain_peak_3h: 30,
+      fetched_at: new Date().toISOString(), // "fresco" pelo teto de 6h
+      last_changed_at: new Date(Date.now() - 45 * 3_600_000).toISOString(), // travado há 45h
+    });
+    const result = getBestRainData(merge, { rain_72h: 12, rain_peak_3h: 3 });
+
+    expect(result.rain_source).toBe("openmeteo_merge_stale");
+    expect(result.rain_72h).toBe(12);
+    expect(result.rain_peak_3h).toBe(3);
   });
 });
