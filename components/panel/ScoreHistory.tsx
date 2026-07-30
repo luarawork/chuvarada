@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  ReferenceArea,
-  Tooltip,
-} from "recharts";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceArea, Tooltip } from "recharts";
 import type { RiskLevel, RiskScore } from "@/types";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
@@ -18,7 +10,7 @@ const LEVEL_LABELS: Record<RiskLevel, string> = {
   critical: "crítico",
 };
 
-interface HistoryChartProps {
+interface ScoreHistoryProps {
   history: RiskScore[];
 }
 
@@ -50,13 +42,7 @@ function HistoryDot(props: { cx?: number; cy?: number; payload?: HistoryPoint })
   return <circle cx={cx} cy={cy} r={3} fill={color} stroke="#0d1b2a" strokeWidth={1} />;
 }
 
-function HistoryTooltip({
-  active,
-  payload,
-}: {
-  active?: boolean;
-  payload?: { payload: HistoryPoint }[];
-}) {
+function HistoryTooltip({ active, payload }: { active?: boolean; payload?: { payload: HistoryPoint }[] }) {
   if (!active || !payload?.length) return null;
   const point = payload[0].payload;
   return (
@@ -82,7 +68,7 @@ function HistoryTooltip({
   );
 }
 
-export function HistoryChart({ history }: HistoryChartProps) {
+export function ScoreHistory({ history }: ScoreHistoryProps) {
   const data: HistoryPoint[] = history.map((h) => ({
     time: new Date(h.calculated_at).toLocaleTimeString("pt-BR", {
       hour: "2-digit",
@@ -95,30 +81,35 @@ export function HistoryChart({ history }: HistoryChartProps) {
   }));
 
   return (
-    <div className="h-40 w-full">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-          <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={RISK_COLORS.normal} fillOpacity={0.08} />
-          <ReferenceArea
-            y1={SCORE_THRESHOLDS.ATTENTION}
-            y2={SCORE_THRESHOLDS.CRITICAL}
-            fill={RISK_COLORS.attention}
-            fillOpacity={0.08}
-          />
-          <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
-          <XAxis dataKey="time" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
-          <YAxis domain={[0, 1]} tick={{ fontSize: 10 }} />
-          <Tooltip content={<HistoryTooltip />} />
-          <Line
-            type="monotone"
-            dataKey="score"
-            stroke="#2e7db8"
-            strokeWidth={2}
-            dot={<HistoryDot />}
-            activeDot={{ r: 5 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+    <div data-testid="score-history">
+      <h3 className="mb-2 text-sm font-medium text-brand-blue-light/80">Histórico recente</h3>
+      <div className="h-[70px] w-full md:h-20">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={RISK_COLORS.normal} fillOpacity={0.08} />
+            <ReferenceArea
+              y1={SCORE_THRESHOLDS.ATTENTION}
+              y2={SCORE_THRESHOLDS.CRITICAL}
+              fill={RISK_COLORS.attention}
+              fillOpacity={0.08}
+            />
+            <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
+            {/* Sem eixo Y numérico visível -- as faixas coloridas já comunicam os limiares (domínio fixo
+                mantido via `hide` pra não deixar a escala virar auto-range e desalinhar as faixas). */}
+            <YAxis domain={[0, 1]} hide />
+            <XAxis dataKey="time" tick={{ fontSize: 11 }} interval="preserveStartEnd" />
+            <Tooltip content={<HistoryTooltip />} />
+            <Line
+              type="monotone"
+              dataKey="score"
+              stroke="#2e7db8"
+              strokeWidth={2}
+              dot={<HistoryDot />}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

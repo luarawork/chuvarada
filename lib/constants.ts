@@ -45,6 +45,16 @@ export function getRiskColor(level: RiskLevel): string {
   return RISK_COLORS[level];
 }
 
+// Emoji/classe de texto por nível -- antes duplicado (mesmo valor) em
+// ForecastStrip.tsx, ForecastPanel.tsx e RiskBadge.tsx (redesign do
+// DetailPanel, ver components/panel/).
+export const LEVEL_EMOJI: Record<RiskLevel, string> = { normal: "🟢", attention: "🟡", critical: "🔴" };
+export const LEVEL_TEXT_CLASS: Record<RiskLevel, string> = {
+  normal: "text-brand-green-water",
+  attention: "text-brand-yellow-warn",
+  critical: "text-brand-red-alert",
+};
+
 // Camadas de tile do mapa (ver components/map/MapContainer.tsx e
 // components/map/LayerSwitcher.tsx). "default" é o Dark Matter original,
 // mantido pra manter a identidade visual escura do app; "street" (Voyager)

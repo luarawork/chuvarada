@@ -1,19 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import * as turf from "@turf/turf";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
-import { RiskBadge } from "@/components/ui/RiskBadge";
-import { ScoreBreakdown } from "./ScoreBreakdown";
-import { HistoryChart } from "./HistoryChart";
-import { ForecastStrip } from "./ForecastStrip";
-import { ForecastPanel } from "./ForecastPanel";
+import { DetailHeader } from "./DetailHeader";
+import { ForecastTabs } from "./ForecastTabs";
+import { RiskFactors } from "./RiskFactors";
+import { ScoreHistory } from "./ScoreHistory";
 import { useForecast } from "@/hooks/useForecast";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
-import { hasRealName } from "@/lib/neighborhoodName";
 import type { Neighborhood, RiskScore } from "@/types";
 
 interface DetailPanelProps {
@@ -54,10 +52,17 @@ export function DetailPanel({
   const { user } = useAuth();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = neighborhood ? isFavorite(neighborhood.id) : false;
-  const [showForecast, setShowForecast] = useState(false);
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
+  }
+
+  function handleToggleFavorite() {
+    if (!user) {
+      router.push("/auth");
+      return;
+    }
+    if (neighborhood) toggleFavorite(neighborhood.id);
   }
 
   // No mobile é um bottom-sheet que desliza de baixo (com gesto de swipe
@@ -88,115 +93,51 @@ export function DetailPanel({
         <motion.div
           key={neighborhood.id}
           {...motionProps}
-          className="pointer-events-auto fixed inset-x-0 bottom-0 z-[1100] max-h-[85dvh] overflow-y-auto rounded-t-2xl bg-white px-5 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-3 shadow-2xl md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-lg md:rounded-3xl md:px-7 md:pb-7"
+          data-testid="detail-panel"
+          className="pointer-events-auto fixed inset-x-0 bottom-0 z-[1100] max-h-[85dvh] overflow-y-auto rounded-t-2xl border px-3 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-3 shadow-2xl backdrop-blur-sm md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-[380px] md:rounded-3xl md:px-5 md:pb-5"
+          style={{ backgroundColor: "rgba(13, 27, 42, 0.96)", borderColor: "rgba(46, 125, 184, 0.2)" }}
         >
-          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-gray-light md:hidden" />
+          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-blue-light/20 md:hidden" />
 
-          <div className="flex items-start justify-between">
-            <div>
-              <h2 className="font-heading text-xl font-bold text-brand-gray-urban">
-                {hasRealName(neighborhood) ? neighborhood.name : "Área sem denominação oficial"}
-              </h2>
-              <p className="text-sm text-brand-gray-urban/60">{cityName}</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => {
-                  if (!user) {
-                    router.push("/auth");
-                    return;
-                  }
-                  if (neighborhood) toggleFavorite(neighborhood.id);
-                }}
-                aria-label={
-                  !user ? "Entre para salvar bairros" : favorited ? "Remover dos favoritos" : "Salvar bairro"
-                }
-                title={!user ? "Entre para salvar bairros" : undefined}
-                className={`rounded-full p-2 ${
-                  user ? "text-brand-red-alert hover:bg-brand-gray-light" : "text-brand-gray-urban/30 hover:bg-brand-gray-light"
-                }`}
-              >
-                <motion.svg
-                  key={favorited ? "on" : "off"}
-                  initial={{ scale: 0.7 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill={favorited ? "currentColor" : "none"}
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4.5 5.5 4 8 3.6 10 5 12 7.5 14 5 16 3.6 18.5 4 22 4.5 23.5 8 22 11.7 19.5 16.4 12 21 12 21Z" />
-                </motion.svg>
-              </button>
-              <button
-                onClick={onClose}
-                aria-label="Fechar"
-                className="rounded-full p-2 text-brand-gray-urban/50 hover:bg-brand-gray-light"
-              >
-                ✕
-              </button>
-            </div>
-          </div>
+          <DetailHeader
+            neighborhood={neighborhood}
+            cityName={cityName}
+            current={current}
+            justUpdated={justUpdated}
+            favorited={favorited}
+            canFavorite={!!user}
+            onToggleFavorite={handleToggleFavorite}
+            onClose={onClose}
+          />
 
           {current && (
             <>
-              <div className="mt-3 flex items-center gap-3">
-                <RiskBadge level={current.level} score={current.score} />
-                <AnimatePresence>
-                  {justUpdated && (
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className="rounded-full bg-brand-green-water/10 px-3 py-1 text-xs font-medium text-brand-green-water"
-                    >
-                      Atualizado agora
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </div>
-
               {current.auto_critical && current.auto_critical_reason && (
                 <div className="mt-3 rounded-xl bg-brand-red-alert/10 px-4 py-3 text-sm text-brand-red-alert">
                   ⚠️ {current.auto_critical_reason}
                 </div>
               )}
 
-              <div className="mt-5">
-                <ForecastStrip
-                  forecast={forecast}
-                  loading={forecastLoading}
-                  neighborhood={neighborhood}
-                  currentScore={current}
-                  hasTideStation={hasTideStation}
+              <div className="mt-4">
+                <ForecastTabs
+                  neighborhoodId={neighborhood.id}
+                  hourlyForecast={forecast}
+                  hourlyLoading={forecastLoading}
                 />
-
-                <button
-                  onClick={() => setShowForecast((prev) => !prev)}
-                  className="mt-3 flex items-center gap-1 text-sm text-brand-blue-mid hover:text-brand-blue-light"
-                >
-                  {showForecast ? "← Fechar previsão" : "Previsão →"}
-                </button>
-
-                {showForecast && <ForecastPanel neighborhoodId={neighborhood.id} />}
               </div>
 
               <div className="mt-5">
-                <ScoreBreakdown score={current} hasTideStation={hasTideStation} />
+                <RiskFactors score={current} hasTideStation={hasTideStation} />
               </div>
 
               <div className="mt-5">
-                <h3 className="mb-2 text-sm font-medium text-brand-gray-urban/70">Últimas 6 horas</h3>
-                <HistoryChart history={history} />
+                <ScoreHistory history={history} />
               </div>
             </>
           )}
 
           {!current && (
-            <p className="mt-6 text-sm text-brand-gray-urban/60">
+            <p className="mt-6 text-sm text-brand-blue-light/60">
               Ainda não há dados suficientes para este bairro.
             </p>
           )}
