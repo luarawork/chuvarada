@@ -224,6 +224,29 @@ export default function ComoFuncionaPage() {
           </div>
         </FadeInSection>
 
+        {/* Previsão de risco */}
+        <FadeInSection className="mt-14">
+          <h2 className="font-heading text-2xl font-bold">Previsão de risco</h2>
+          <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
+            Ao clicar em um bairro no mapa, você pode ver a previsão de risco para os próximos 7 dias clicando em
+            &quot;Previsão →&quot;.
+          </p>
+          <div className="mt-5 rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
+            <p className="text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+              A previsão usa dados do Open-Meteo (modelos meteorológicos globais) combinados com as características
+              físicas do bairro (declividade, proximidade de rios).
+            </p>
+            <p className="mt-3 text-sm font-medium">
+              Importante: a previsão é diferente do monitoramento em tempo real.
+            </p>
+            <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+              Quanto mais longe no tempo, maior a incerteza — especialmente para chuvas convectivas (pancadas
+              rápidas e localizadas). Sempre consulte os alertas oficiais da Defesa Civil para decisões de
+              segurança.
+            </p>
+          </div>
+        </FadeInSection>
+
         {/* Fontes de dados */}
         <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
           <h2 className="font-heading text-2xl font-bold">Fontes de dados</h2>
