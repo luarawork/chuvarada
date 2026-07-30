@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import * as turf from "@turf/turf";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
@@ -8,6 +8,7 @@ import { RiskBadge } from "@/components/ui/RiskBadge";
 import { ScoreBreakdown } from "./ScoreBreakdown";
 import { HistoryChart } from "./HistoryChart";
 import { ForecastStrip } from "./ForecastStrip";
+import { ForecastPanel } from "./ForecastPanel";
 import { useForecast } from "@/hooks/useForecast";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
 import { useAuth } from "@/hooks/useAuth";
@@ -53,6 +54,7 @@ export function DetailPanel({
   const { user } = useAuth();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = neighborhood ? isFavorite(neighborhood.id) : false;
+  const [showForecast, setShowForecast] = useState(false);
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
@@ -171,6 +173,15 @@ export function DetailPanel({
                   currentScore={current}
                   hasTideStation={hasTideStation}
                 />
+
+                <button
+                  onClick={() => setShowForecast((prev) => !prev)}
+                  className="mt-3 flex items-center gap-1 text-sm text-brand-blue-mid hover:text-brand-blue-light"
+                >
+                  {showForecast ? "← Fechar previsão" : "Previsão →"}
+                </button>
+
+                {showForecast && <ForecastPanel neighborhoodId={neighborhood.id} />}
               </div>
 
               <div className="mt-5">
