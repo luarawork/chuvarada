@@ -1,7 +1,7 @@
 # Proposta de integração: MERGE/CPTEC como fonte de precipitação
 
 **Data**: 2026-07-21
-**Status**: proposta para revisão — nada foi implementado, nenhum código ou schema foi alterado.
+**Status**: ✅ Implementado (atualização de 2026-07-30 — na data original desta proposta, nada tinha sido implementado ainda; o texto abaixo é o registro histórico da análise que motivou a decisão). MERGE/CPTEC está em produção como fonte principal de `rain_72h`/`rain_peak_3h` via `scripts/python/fetch_merge_cptec.py`, rodando a cada hora — ver [ADR-003](ADR-003-upsert-condicional-merge-cache.md) e [ADR-006](ADR-006-salvaguarda-merge-estagnado.md) para decisões subsequentes sobre o `merge_cache`, e a página [APIs](https://github.com/luarawork/chuvarada/wiki/APIs) da Wiki para o estado operacional atual.
 **Contexto**: motivado pelo evento real de alagamento em Natal (18/07/2026), onde a Open-Meteo subestimou a chuva (~30mm vs os ~147mm reais medidos pelo MERGE/CPTEC no mesmo período — ver `RELATORIO_COMPLETO.md` e o diagnóstico anterior desta sessão).
 
 ---
