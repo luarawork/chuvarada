@@ -145,12 +145,14 @@ function MetricCard({
   icon,
   label,
   value,
+  hint,
   onClick,
   active,
 }: {
   icon: string;
   label: string;
   value: string;
+  hint?: string;
   onClick?: () => void;
   active?: boolean;
 }) {
@@ -173,6 +175,11 @@ function MetricCard({
         {label}
         {onClick && <span aria-hidden="true">{active ? "▲" : "▼"}</span>}
       </div>
+      {hint && (
+        <div className="mt-0.5 text-[10px]" style={{ color: "#a8d4f0", opacity: 0.6 }}>
+          {hint}
+        </div>
+      )}
     </Tag>
   );
 }
@@ -476,11 +483,13 @@ function ExpandedPanel({ title, children }: { title: string; children: ReactNode
 
 function ExpandedTotalRelatos({
   reports,
+  globalTotal,
   page,
   onPageChange,
   pageSize,
 }: {
   reports: UserReport[];
+  globalTotal: number | null;
   page: number;
   onPageChange: (page: number) => void;
   pageSize: number;
@@ -493,7 +502,14 @@ function ExpandedTotalRelatos({
     <ExpandedPanel title="Relatos no período selecionado">
       {sorted.length === 0 ? (
         <p className="text-sm" style={{ color: "#a8d4f0" }}>
+          {/* O card "Total de relatos" acima é histórico (sem filtro de período/estado, ver
+              GET /api/analise/metrics) -- esta lista é filtrada pelos campos abaixo, então os
+              dois números podem legitimamente divergir. Sem essa nota, "2" no card seguido de
+              "nenhum relato" na lista lia como uma contradição/bug, não duas métricas diferentes. */}
           Nenhum relato no período/estado selecionado nos filtros abaixo — busque um período pra ver a lista.
+          {globalTotal !== null && globalTotal > 0 && (
+            <> Há {globalTotal.toLocaleString("pt-BR")} relato{globalTotal > 1 ? "s" : ""} no total (todo o histórico), fora do período/estado atual.</>
+          )}
         </p>
       ) : (
         <>
@@ -964,6 +980,7 @@ export default function AnalisePage() {
             <MetricCard
               icon="📍"
               label="Total de relatos"
+              hint="histórico completo"
               value={globalMetrics ? globalMetrics.total_relatos.toLocaleString("pt-BR") : "—"}
               onClick={() => handleCardClick("total_relatos")}
               active={expandedCard === "total_relatos"}
@@ -1015,7 +1032,13 @@ export default function AnalisePage() {
 
           {/* Painéis de detalhe expansíveis (Item 4) -- mesma página, sem navegação. */}
           {expandedCard === "total_relatos" && (
-            <ExpandedTotalRelatos reports={reports} page={reportsPage} onPageChange={setReportsPage} pageSize={REPORTS_PAGE_SIZE} />
+            <ExpandedTotalRelatos
+              reports={reports}
+              globalTotal={globalMetrics?.total_relatos ?? null}
+              page={reportsPage}
+              onPageChange={setReportsPage}
+              pageSize={REPORTS_PAGE_SIZE}
+            />
           )}
           {expandedCard === "cobertura_dados" && <ExpandedCobertura rows={globalMetrics?.coverage_by_state ?? []} />}
           {expandedCard === "divergencias" && <ExpandedDivergencias rows={hourlyComparison} />}
