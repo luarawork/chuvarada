@@ -320,7 +320,7 @@ def save_rows(rows: list[dict]) -> int:
             for j, row in enumerate(batch):
                 values_clauses.append(
                     f"(:lat{j}, :lng{j}, :grid_lat{j}, :grid_lng{j}, :rain_72h{j}, "
-                    f":rain_peak_3h{j}, :data_date{j}, :data_hour{j}, :is_near{j}, 'merge_cptec', now())"
+                    f":rain_peak_3h{j}, :data_date{j}, :data_hour{j}, :is_near{j}, 'merge_cptec', now(), now())"
                 )
                 params[f"lat{j}"] = row["lat"]
                 params[f"lng{j}"] = row["lng"]
@@ -347,15 +347,25 @@ def save_rows(rows: list[dict]) -> int:
             # correto) pra retenção baseada em fetched_at, já que cada dia novo
             # já cria uma linha nova por causa do conflict target incluir
             # data_date (não fica linha de dia antigo "presa" por isso).
+            # last_changed_at (migração 037) -- diferente de fetched_at (que
+            # também avança quando só is_near_neighborhood muda), só avança
+            # quando rain_72h OU rain_peak_3h muda de verdade. É o sinal usado
+            # por getBestRainData() (lib/weather.ts) pra detectar célula
+            # estagnada mesmo quando fetched_at "parece" fresco (diagnóstico
+            # de 30/07/2026, Naviraí/Itaquiraí MS).
             sql = (
-                "insert into merge_cache (lat, lng, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, data_hour, is_near_neighborhood, source, fetched_at) "
+                "insert into merge_cache (lat, lng, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, data_hour, is_near_neighborhood, source, fetched_at, last_changed_at) "
                 "values " + ",".join(values_clauses) + " "
                 "on conflict (grid_lat, grid_lng, data_date) "
                 "do update set rain_72h = excluded.rain_72h, "
                 "rain_peak_3h = excluded.rain_peak_3h, "
                 "data_hour = excluded.data_hour, "
                 "is_near_neighborhood = excluded.is_near_neighborhood, "
-                "fetched_at = excluded.fetched_at "
+                "fetched_at = excluded.fetched_at, "
+                "last_changed_at = CASE "
+                "WHEN merge_cache.rain_72h IS DISTINCT FROM excluded.rain_72h "
+                "OR merge_cache.rain_peak_3h IS DISTINCT FROM excluded.rain_peak_3h "
+                "THEN now() ELSE merge_cache.last_changed_at END "
                 "where merge_cache.rain_72h is distinct from excluded.rain_72h "
                 "or merge_cache.rain_peak_3h is distinct from excluded.rain_peak_3h "
                 "or merge_cache.is_near_neighborhood is distinct from excluded.is_near_neighborhood "

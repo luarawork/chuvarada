@@ -24,6 +24,13 @@ export interface MergeData {
   rain_peak_3h: number;
   source: "merge";
   fetched_at: string;
+  // Diagnóstico de 30/07/2026 (Naviraí/Itaquiraí, MS) -- diferente de
+  // fetched_at (que também avança quando só is_near_neighborhood muda, ver
+  // migração 037_merge_cache_stale_detection.sql), last_changed_at só avança
+  // quando rain_72h OU rain_peak_3h muda de verdade. É o sinal usado por
+  // getBestRainData() (lib/weather.ts) pra detectar célula estagnada mesmo
+  // quando fetched_at "parece" fresco.
+  last_changed_at: string;
 }
 
 function snapToGrid(value: number, origin: number): number {
@@ -76,7 +83,7 @@ export async function getMergeData(lat: number, lng: number): Promise<MergeData 
 
   const db = getDb();
   const { rows } = await db.query(
-    `select rain_72h, rain_peak_3h, fetched_at
+    `select rain_72h, rain_peak_3h, fetched_at, last_changed_at
      from merge_cache
      where grid_lat = $1 and grid_lng = $2
      order by data_date desc, fetched_at desc
@@ -95,5 +102,6 @@ export async function getMergeData(lat: number, lng: number): Promise<MergeData 
     rain_peak_3h: cached.rain_peak_3h,
     source: "merge",
     fetched_at: cached.fetched_at,
+    last_changed_at: cached.last_changed_at,
   };
 }
