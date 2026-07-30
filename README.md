@@ -3,6 +3,11 @@
 Mapa de risco de alagamento em tempo real para o Brasil.
 Civic tech com personalidade — confiável mas humano.
 
+**→ [chuvarada.vercel.app](https://chuvarada.vercel.app)**
+**→ [Como contribuir](CONTRIBUTING.md)**
+**→ [Changelog](CHANGELOG.md)**
+**→ [Wiki completa](https://github.com/luarawork/chuvarada/wiki)**
+
 ## O que é
 
 O Chuvarada cruza dados públicos de clima, terreno, hidrografia e maré para estimar, em tempo real e por bairro, o risco de alagamento em cidades brasileiras. Atualizado a cada hora. Sem jargão técnico na interface. Feito para o cidadão comum, não para especialistas.
@@ -96,7 +101,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 Pré-requisitos:
 - Node.js e npm
-- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `035`)
+- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `037`)
 - Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
 
 Variáveis de ambiente (`.env.local`) — ver [`.env.local.example`](.env.local.example) para a lista completa e comentada:
@@ -133,7 +138,21 @@ Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECR
 
 ## Em produção
 
-[chuvarada.vercel.app](https://chuvarada.vercel.app) — PWA instalável (Android, iOS, desktop). As 4 GitHub Actions (MERGE + scores, clima, arquivamento pro B2, monitoramento de tamanho de banco) rodam de forma independente da plataforma de hospedagem do Next.js em si.
+[chuvarada.vercel.app](https://chuvarada.vercel.app) — PWA instalável (Android, iOS, desktop). As 5 GitHub Actions (MERGE + scores, clima, arquivamento pro B2, monitoramento de tamanho de banco, regeneração do cache de neighborhoods) rodam de forma independente da plataforma de hospedagem do Next.js em si.
+
+## Contribuindo
+
+Veja [CONTRIBUTING.md](CONTRIBUTING.md) para o guia completo (setup local, testes, política de ADR/regressão).
+
+**Áreas que precisam de contribuição:**
+- 🌊 Dados de maré em tempo real (WorldTides — estrutura pronta, falta só a chave de API)
+- 🔬 Calibração do modelo por região (hidrólogos/meteorologistas)
+- 🗺️ Shapefiles de bairro para SP/Campinas/Sorocaba
+- 🧪 Testes E2E com Playwright
+
+## Licença
+
+[MIT](LICENSE)
 
 ## Documentação completa
 
