@@ -63,46 +63,89 @@ function getDb(): Pool {
   return new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
 }
 
+// Sem teto fixo por execução (ver diagnóstico de 03/08/2026 -- o limit de
+// 10000/estado antigo empatava ou perdia da geração diária real, ~230-300 mil
+// linhas/dia com os 28.483 bairros de cobertura nacional, deixando o backlog
+// nunca drenar de verdade apesar do job reportar sucesso todo dia). Processa
+// em lotes de RISK_SCORES_BATCH_SIZE até zerar o que está acima do corte,
+// por estado.
+const RISK_SCORES_BATCH_SIZE = 50_000;
+
 async function archiveRiskScores(db: Pool): Promise<void> {
   for (const state of STATES) {
-    const { rows } = await db.query<RiskScoreRow>(
-      `select rs.id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
-              rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.rain_source,
-              rs.calculated_at, rs.neighborhood_id,
-              n.name as neighborhood_name, n.name_source, n.centroid_lat, n.centroid_lng,
-              c.name as city_name, c.state
-       from risk_scores rs
-       join neighborhoods n on n.id = rs.neighborhood_id
-       join cities c on c.id = n.city_id
-       where rs.calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'
-         and c.state = $1
-       limit 10000`,
-      [state]
-    );
+    let totalArchived = 0;
 
-    if (rows.length === 0) continue;
+    while (true) {
+      const { rows } = await db.query<RiskScoreRow>(
+        `select rs.id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
+                rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.rain_source,
+                rs.calculated_at, rs.neighborhood_id,
+                n.name as neighborhood_name, n.name_source, n.centroid_lat, n.centroid_lng,
+                c.name as city_name, c.state
+         from risk_scores rs
+         join neighborhoods n on n.id = rs.neighborhood_id
+         join cities c on c.id = n.city_id
+         where rs.calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'
+           and c.state = $1
+         limit ${RISK_SCORES_BATCH_SIZE}`,
+        [state]
+      );
 
-    const byDate = new Map<string, RiskScoreRow[]>();
-    for (const row of rows) {
-      // pg devolve calculated_at (timestamptz) já convertido pra Date, não
-      // string -- new Date(...) aqui é só normalização defensiva caso
-      // algum dia venha como string (ex: troca de driver).
-      const date = new Date(row.calculated_at).toISOString().slice(0, 10);
-      if (!byDate.has(date)) byDate.set(date, []);
-      byDate.get(date)!.push(row);
+      if (rows.length === 0) break;
+
+      const byDate = new Map<string, RiskScoreRow[]>();
+      for (const row of rows) {
+        // pg devolve calculated_at (timestamptz) já convertido pra Date, não
+        // string -- new Date(...) aqui é só normalização defensiva caso
+        // algum dia venha como string (ex: troca de driver).
+        const date = new Date(row.calculated_at).toISOString().slice(0, 10);
+        if (!byDate.has(date)) byDate.set(date, []);
+        byDate.get(date)!.push(row);
+      }
+
+      for (const [date, scores] of Array.from(byDate)) {
+        // Leitura antes de gravar -- igual archiveMergeCache/archiveWeatherCache
+        // abaixo. Sem isso, uma segunda passada no mesmo dia (necessária agora
+        // que não há mais teto fixo -- um estado com backlog grande drena em
+        // várias iterações do while) sobrescrevia o arquivo do dia inteiro,
+        // perdendo os lotes já arquivados por iterações/execuções anteriores.
+        // Dedup por id como proteção extra: se uma execução for reprocessada
+        // depois de já ter arquivado mas falhado antes de deletar do Supabase,
+        // o mesmo id não entra duplicado no arquivo.
+        const key = getRiskScoresKey(date, state);
+        const existing = await readFromB2<RiskScoreRow[]>(key);
+        const existingIds = new Set((existing ?? []).map((s) => s.id));
+        const newScores = scores.filter((s) => !existingIds.has(s.id));
+        await saveToB2(key, [...(existing ?? []), ...newScores]);
+        console.log(`Arquivados ${newScores.length} scores novos de ${state} -- ${date} (lote com ${scores.length})`);
+      }
+
+      const ids = rows.map((r) => r.id);
+      const BATCH = 500;
+      for (let i = 0; i < ids.length; i += BATCH) {
+        await db.query(`delete from risk_scores where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
+      }
+
+      totalArchived += rows.length;
+      console.log(`[${state}] arquivados ${totalArchived} scores até agora...`);
+
+      // Veio menos que o lote pedido -- não há mais nada acima do corte
+      // pra esse estado.
+      if (rows.length < RISK_SCORES_BATCH_SIZE) break;
     }
 
-    for (const [date, scores] of Array.from(byDate)) {
-      await saveToB2(getRiskScoresKey(date, state), scores);
-      console.log(`Arquivados ${scores.length} scores de ${state} -- ${date}`);
+    if (totalArchived > 0) {
+      console.log(`${state}: ${totalArchived} scores arquivados no total no B2 e removidos do Supabase.`);
     }
+  }
 
-    const ids = rows.map((r) => r.id);
-    const BATCH = 500;
-    for (let i = 0; i < ids.length; i += BATCH) {
-      await db.query(`delete from risk_scores where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
-    }
-    console.log(`Removidos ${ids.length} registros de ${state} do Supabase.`);
+  const { rows: remainingRows } = await db.query<{ count: string }>(
+    `select count(*) as count from risk_scores where calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'`
+  );
+  const remaining = Number(remainingRows[0].count);
+  console.log(`[archive] risk_scores restantes acima de ${ARCHIVE_CUTOFF_HOURS}h: ${remaining}`);
+  if (remaining > 10_000) {
+    console.warn(`[archive] ATENÇÃO -- risk_scores: backlog não zerado (${remaining} linhas ainda acima do corte).`);
   }
 }
 
@@ -192,55 +235,81 @@ async function createDailySnapshot(db: Pool): Promise<void> {
 const MERGE_CACHE_NEAR_RETENTION_DAYS = 4;
 const MERGE_CACHE_FAR_RETENTION_DAYS = 1;
 
+// Sem teto fixo por execução -- mesmo motivo de RISK_SCORES_BATCH_SIZE acima
+// (diagnóstico de 03/08/2026: geração de merge_cache "far" chegou a 265 mil
+// linhas/dia, bem acima do limit de 50000/execução antigo, que só processava
+// uma fração do elegível por rodada e nunca zerava o backlog de verdade).
+const MERGE_CACHE_BATCH_SIZE = 50_000;
+
 async function archiveMergeCache(db: Pool): Promise<void> {
-  // Colunas explícitas em vez de `select *` (diagnóstico de egress de
-  // 29/07/2026) -- lat/lng brutos são redundantes com grid_lat/grid_lng (a
-  // identidade real da célula, usada em todo o resto do app); data_hour e
-  // source ficam de fora do arquivo histórico (a maioria das células vem do
-  // MERGE DAILY, que só publica 1x/dia -- data_hour carrega pouca
-  // granularidade real pra essa fatia).
-  const { rows } = await db.query(
-    `select id, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, is_near_neighborhood, fetched_at
-     from merge_cache
-     where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
-        or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')
-     limit 50000`
-  );
-  if (rows.length === 0) {
+  let totalArchived = 0;
+
+  while (true) {
+    // Colunas explícitas em vez de `select *` (diagnóstico de egress de
+    // 29/07/2026) -- lat/lng brutos são redundantes com grid_lat/grid_lng (a
+    // identidade real da célula, usada em todo o resto do app); data_hour e
+    // source ficam de fora do arquivo histórico (a maioria das células vem do
+    // MERGE DAILY, que só publica 1x/dia -- data_hour carrega pouca
+    // granularidade real pra essa fatia).
+    const { rows } = await db.query(
+      `select id, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, is_near_neighborhood, fetched_at
+       from merge_cache
+       where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
+          or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')
+       limit ${MERGE_CACHE_BATCH_SIZE}`
+    );
+    if (rows.length === 0) break;
+
+    // data_date já é a data de referência da célula (não fetched_at) -- mesmo
+    // particionamento que archiveRiskScores usa pra risk_scores.
+    //
+    // Lê o arquivo existente antes de gravar, NÃO um saveToB2 direto. Agora
+    // que o loop pode rodar várias iterações no mesmo dia pra um backlog
+    // grande, um saveToB2 direto sobrescreveria o arquivo do dia a cada
+    // iteração; como as células já foram apagadas do Postgres na iteração
+    // anterior, seriam perdidas de vez (aconteceu de verdade rodando isso a
+    // primeira vez, antes desta correção -- ver relatório).
+    const byDate = new Map<string, typeof rows>();
+    for (const row of rows) {
+      const date = new Date(row.data_date).toISOString().slice(0, 10);
+      if (!byDate.has(date)) byDate.set(date, []);
+      byDate.get(date)!.push(row);
+    }
+    for (const [date, cells] of Array.from(byDate)) {
+      const key = getMergeCacheKey(date);
+      const existing = await readFromB2<typeof rows>(key);
+      await saveToB2(key, [...(existing ?? []), ...cells]);
+      console.log(`Arquivadas ${cells.length} células de merge_cache -- ${date}`);
+    }
+
+    const ids = rows.map((r) => r.id);
+    const BATCH = 500;
+    for (let i = 0; i < ids.length; i += BATCH) {
+      await db.query(`delete from merge_cache where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
+    }
+
+    totalArchived += rows.length;
+    console.log(`merge_cache: ${totalArchived} células arquivadas até agora...`);
+
+    if (rows.length < MERGE_CACHE_BATCH_SIZE) break;
+  }
+
+  if (totalArchived === 0) {
     console.log("merge_cache: nada pra arquivar.");
-    return;
+  } else {
+    console.log(`merge_cache: ${totalArchived} células arquivadas no total no B2 e removidas do Supabase.`);
   }
 
-  // data_date já é a data de referência da célula (não fetched_at) -- mesmo
-  // particionamento que archiveRiskScores usa pra risk_scores.
-  //
-  // ATENÇÃO -- lê o arquivo existente antes de gravar (igual archiveCronStats
-  // abaixo), NÃO um saveToB2 direto. O LIMIT desta query (50000) é bem menor
-  // que o total de células elegíveis num backlog real -- rodar este script
-  // várias vezes até drenar tudo é o caso normal, não excepcional. Um
-  // saveToB2 direto SOBRESCREVE o arquivo do dia inteiro a cada rodada; como
-  // as células já foram apagadas do Postgres na rodada anterior, elas
-  // seriam perdidas de vez (aconteceu de verdade rodando isso a primeira
-  // vez, antes desta correção -- ver relatório).
-  const byDate = new Map<string, typeof rows>();
-  for (const row of rows) {
-    const date = new Date(row.data_date).toISOString().slice(0, 10);
-    if (!byDate.has(date)) byDate.set(date, []);
-    byDate.get(date)!.push(row);
+  const { rows: remainingRows } = await db.query<{ count: string }>(
+    `select count(*) as count from merge_cache
+     where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
+        or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')`
+  );
+  const remaining = Number(remainingRows[0].count);
+  console.log(`[archive] merge_cache restantes acima da retenção: ${remaining}`);
+  if (remaining > 10_000) {
+    console.warn(`[archive] ATENÇÃO -- merge_cache: backlog não zerado (${remaining} linhas ainda acima do corte).`);
   }
-  for (const [date, cells] of Array.from(byDate)) {
-    const key = getMergeCacheKey(date);
-    const existing = await readFromB2<typeof rows>(key);
-    await saveToB2(key, [...(existing ?? []), ...cells]);
-    console.log(`Arquivadas ${cells.length} células de merge_cache -- ${date}`);
-  }
-
-  const ids = rows.map((r) => r.id);
-  const BATCH = 500;
-  for (let i = 0; i < ids.length; i += BATCH) {
-    await db.query(`delete from merge_cache where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
-  }
-  console.log(`merge_cache: ${rows.length} células arquivadas no B2 e removidas do Supabase.`);
 }
 
 const WEATHER_CACHE_RETENTION_HOURS = 24;
