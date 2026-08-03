@@ -368,13 +368,21 @@ def save_rows(rows: list[dict]) -> int:
                 "THEN now() ELSE merge_cache.last_changed_at END "
                 "where merge_cache.rain_72h is distinct from excluded.rain_72h "
                 "or merge_cache.rain_peak_3h is distinct from excluded.rain_peak_3h "
-                "or merge_cache.is_near_neighborhood is distinct from excluded.is_near_neighborhood "
-                "returning id"
+                "or merge_cache.is_near_neighborhood is distinct from excluded.is_near_neighborhood"
             )
-            result = conn.run(sql, **params)
+            # Sem RETURNING id (diagnóstico de egress de 03/08/2026 --
+            # ~34MB/dia trazendo de volta um uuid por linha alterada só pra
+            # contar quantas mudaram). conn.row_count (pg8000.native) lê o
+            # mesmo número direto do command tag do Postgres ("INSERT 0 N"),
+            # sem transferir os ids de volta -- N já é só linhas
+            # efetivamente inseridas/atualizadas (o WHERE do DO UPDATE acima
+            # também é respeitado no command tag, mesma contagem que o
+            # RETURNING dava antes).
+            conn.run(sql, **params)
+            batch_changed = conn.row_count
             inserted += len(batch)
-            changed += len(result)
-            print(f"  gravadas {min(i + batch_size, len(rows))}/{len(rows)} células ({len(result)} inseridas/alteradas, {len(batch) - len(result)} sem mudança)...")
+            changed += batch_changed
+            print(f"  gravadas {min(i + batch_size, len(rows))}/{len(rows)} células ({batch_changed} inseridas/alteradas, {len(batch) - batch_changed} sem mudança)...")
         # pg8000.native.Connection já faz autocommit por statement (sem
         # transação explícita) — não existe/precisa de conn.commit() aqui.
         print(f"\n  Resumo: {changed}/{inserted} células realmente inseridas ou alteradas ({inserted - changed} puladas por não ter mudado).")
