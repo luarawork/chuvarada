@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import { getDb } from "./db";
 import { getCurrentTideLevel as getWorldTidesLevel } from "./worldtides";
+import { computeTideLevelFromSeries } from "./tidecheck";
 import type { TideCacheData, TideDay, TideResult } from "@/types";
 
 // STATUS (22/07/2026): a fonte de maré do CPTEC está confirmadamente fora
@@ -180,14 +181,39 @@ export async function getCurrentTideLevel(
   return tideLevelFromCache(cache, cachedAt);
 }
 
-// PENDENTE -- não usado por nenhum cron ainda. Estrutura preparada pra
-// quando WORLDTIDES_API_KEY estiver configurada (ver lib/worldtides.ts);
-// só então trocar as chamadas de getCurrentTideLevel/getTideLevelCacheOnly
-// nos crons por getTideLevel(city.id, city.tide_code, city.lat, city.lng).
-//
-// Ordem de fallback: 1) CPTEC (via getCurrentTideLevel acima -- se
-// `estimated: false`, o CPTEC teve dado real, usa direto); 2) WorldTides,
-// só se a chave estiver configurada; 3) neutro (0.5).
+// Lê o nível de maré do TideCheck (tidecheck.com) só do cache
+// (tidecheck_cache, populado pelo cron dedicado -- ver
+// app/api/cron/tide/route.ts) -- NUNCA chama a API do TideCheck aqui. A
+// cota gratuita é de 50 requisições/dia pras 115 cidades costeiras, então
+// só o cron pode gastar cota; qualquer leitura de score (ao vivo ou em
+// lote) tem que ser cache-only, igual getTideLevelCacheOnly já é pro
+// CPTEC. Retorna null (não neutro) quando não há cache válido, pra quem
+// chama decidir a próxima camada de fallback.
+async function getTideCheckLevel(cityId: string): Promise<TideResult | null> {
+  const db = getDb();
+  const { rows } = await db.query(
+    `select station_id, station_type, height_min, height_max, time_series, series_ends_at, fetched_at
+     from tidecheck_cache where city_id = $1`,
+    [cityId]
+  );
+  const row = rows[0];
+  if (!row) return null;
+
+  // Série vencida (mais de ~9-10 dias sem reabastecer) -- não interpolar
+  // fora da janela que a API realmente cobriu.
+  if (new Date(row.series_ends_at).getTime() < Date.now()) return null;
+
+  const computed = computeTideLevelFromSeries(row.time_series, Number(row.height_min), Number(row.height_max));
+  if (!computed) return null;
+
+  return { level: computed.tideLevel, estimated: false, cached_at: row.fetched_at };
+}
+
+// Ordem de fallback pro dado ao vivo (chamadas fora do Cron A): 1) CPTEC
+// (via getCurrentTideLevel acima -- se `estimated: false`, o CPTEC teve
+// dado real, usa direto; na prática nunca acontece, fonte confirmada fora
+// do ar); 2) TideCheck (cache-only, ver getTideCheckLevel acima); 3)
+// WorldTides, só se a chave estiver configurada; 4) neutro (0.5).
 export async function getTideLevel(
   cityId: string,
   tideCode: string | null,
@@ -198,6 +224,9 @@ export async function getTideLevel(
     const cptecResult = await getCurrentTideLevel(cityId, tideCode);
     if (!cptecResult.estimated) return cptecResult;
   }
+
+  const tideCheckResult = await getTideCheckLevel(cityId);
+  if (tideCheckResult) return tideCheckResult;
 
   if (process.env.WORLDTIDES_API_KEY) {
     try {
@@ -238,13 +267,22 @@ export function tideLevelFromCache(cache: TideCacheData | null, cachedAt: string
 
 // Versão cache-only de getCurrentTideLevel -- usada pelo Cron A, que não
 // pode fazer nenhuma chamada externa (a atualização da tábua, quando o
-// CPTEC voltar a funcionar, é responsabilidade do Cron B).
+// CPTEC voltar a funcionar, é responsabilidade do Cron B). Com o CPTEC
+// fora do ar, cai pro TideCheck (também cache-only, ver getTideCheckLevel
+// acima -- só o cron dedicado de maré tem permissão de gastar cota).
 export async function getTideLevelCacheOnly(cityId: string, tideCode: string | null): Promise<TideResult> {
   if (!tideCode) {
     return { level: 0.5, estimated: true, note: "sem dado de maré", cached_at: null };
   }
+
   const cachedRow = await getCachedTide(cityId);
-  return tideLevelFromCache(cachedRow?.data ?? null, cachedRow?.cached_at ?? null);
+  const cptecResult = tideLevelFromCache(cachedRow?.data ?? null, cachedRow?.cached_at ?? null);
+  if (!cptecResult.estimated) return cptecResult;
+
+  const tideCheckResult = await getTideCheckLevel(cityId);
+  if (tideCheckResult) return tideCheckResult;
+
+  return cptecResult;
 }
 
 function formatDate(date: Date): string {
