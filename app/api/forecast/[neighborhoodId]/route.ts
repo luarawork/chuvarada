@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { getDailyRainForecast } from "@/lib/riskForecast";
 import { calculateScore } from "@/lib/score";
+import { getTideLevelCacheOnly } from "@/lib/cptec";
 import { handleApiError } from "@/lib/apiError";
 import type { NormalizedWeather } from "@/types";
 
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ neighbo
     const { rows } = await db.query(
       `select n.id, n.terrain_slope, n.hydro_proximity, n.is_coastal,
               n.centroid_lat, n.centroid_lng,
-              c.name as city_name, c.state, c.tide_code
+              c.id as city_id, c.name as city_name, c.state, c.tide_code
        from neighborhoods n
        join cities c on c.id = n.city_id
        where n.id = $1`,
@@ -42,12 +43,15 @@ export async function GET(req: NextRequest, context: { params: Promise<{ neighbo
 
     const dailyRain = await getDailyRainForecast(neighborhood.centroid_lat, neighborhood.centroid_lng);
 
-    // tide_level=0.5 (neutro) só quando a cidade TEM tide_code -- mesmo
-    // comportamento do score ao vivo hoje (CPTEC fora do ar, fallback
-    // neutro), pra não tratar bairro costeiro diferente na previsão do que
-    // no score em tempo real. Sem tide_code, null redistribui o peso da
-    // maré entre as outras variáveis (ver lib/score.ts).
-    const tideLevel: number | null = neighborhood.tide_code ? 0.5 : null;
+    // Mesma lógica do score ao vivo (scoreCity em lib/riskScoring.ts):
+    // getTideLevelCacheOnly já retorna o dado real do TideCheck quando a
+    // cidade tem estação atribuída (CPTEC seguirá indisponível), caindo
+    // pro neutro (0,5) só se não houver cache. Sem tide_code nenhum, null
+    // redistribui o peso da maré entre as outras variáveis (ver
+    // lib/score.ts) -- cidade sem litoral monitorado não deve carregar um
+    // valor neutro como se fosse dado real.
+    const tide = await getTideLevelCacheOnly(neighborhood.city_id, neighborhood.tide_code);
+    const tideLevel: number | null = neighborhood.tide_code ? tide.level : null;
 
     const forecast = dailyRain.map((day) => {
       const weather: NormalizedWeather = {
