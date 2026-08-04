@@ -42,7 +42,9 @@ function formatHour(iso: string): string {
 }
 
 function rainLabel(rain: number): string {
-  return rain > 0 ? `${Math.round(rain)}mm` : "0";
+  if (rain === 0) return "";
+  if (rain < 1) return "<1mm";
+  return `${Math.round(rain)}mm`;
 }
 
 interface HourlyForecastProps {
