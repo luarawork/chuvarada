@@ -45,6 +45,16 @@ function stationType(id: string): TideStationType {
   return id.includes("-uhslc_") ? "uhslc" : "fes2022";
 }
 
+// Formato bruto de cada item de /stations/nearest -- distância vem como
+// distanceKm na API real (confirmado inspecionando a resposta), mas os dois
+// nomes ficam aqui como opcionais por segurança (ver uso com ?? abaixo).
+interface RawTideCheckStation {
+  id: string;
+  name: string;
+  distanceKm?: number;
+  distance_km?: number;
+}
+
 // Acha a melhor estação pra uma coordenada -- prefere UHSLC (medição real)
 // sobre FES2022 (modelo), dentro do raio de busca.
 export async function findBestStation(lat: number, lng: number): Promise<TideStation | null> {
@@ -58,7 +68,7 @@ export async function findBestStation(lat: number, lng: number): Promise<TideSta
   }
 
   const data = await res.json();
-  const stations: any[] = Array.isArray(data) ? data : data.stations ?? [];
+  const stations: RawTideCheckStation[] = Array.isArray(data) ? data : data.stations ?? [];
   const nearby = stations.filter((s) => (s.distanceKm ?? s.distance_km ?? Infinity) <= SEARCH_RADIUS_KM);
   if (nearby.length === 0) return null;
 
