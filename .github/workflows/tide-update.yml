@@ -1,0 +1,22 @@
+name: Update Tide Cache
+
+# Cron dedicado de maré (TideCheck, tidecheck.com) -- mantém tidecheck_cache
+# atualizado dentro da cota gratuita de 50 requisições/dia (ver
+# app/api/cron/tide/route.ts). Desacoplado dos outros crons de propósito,
+# mesmo padrão do weather-update.yml: cada fonte externa com rate-limit
+# próprio tem seu próprio ciclo, sem competir por cota com nada mais.
+on:
+  schedule:
+    - cron: "0 3 * * *" # 1x/dia, horário de baixo tráfego
+  workflow_dispatch:
+
+jobs:
+  update_tide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Atualizar cache de maré (TideCheck)
+        run: |
+          curl -sf -X GET \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            --max-time 120 \
+            "${{ secrets.APP_URL }}/api/cron/tide"
