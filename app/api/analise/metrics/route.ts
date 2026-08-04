@@ -10,9 +10,13 @@ import { handleApiError } from "@/lib/apiError";
 // (reports, hourlyComparison, criticalEvents) + o total de
 // /api/analise/active-users.
 //
-// "Cobertura de dados" reaproveita cities.data_level (full/partial/minimal,
-// já existente no schema) em vez de inventar um novo critério: % de cidades
-// ativas com cobertura completa de dados (bairros + hidrografia + maré).
+// "Cobertura de dados" usava cities.data_level='full' (só 10 de 5.570
+// cidades ativas -- granularidade de hidrografia local/terreno real/bairro
+// oficial), o que divergia do "% com score" mostrado na tabela expandida por
+// estado (perto de 100%) e tornava o card enganoso. Agora os dois medem a
+// mesma coisa: % de cidades ativas com uma linha em city_risk_summary
+// (mantida pelo próprio cron), agregado nacionalmente aqui e por estado na
+// expansão -- ver ExpandedCobertura em app/analise/page.tsx.
 //
 // GET /api/analise/metrics
 export async function GET() {
@@ -24,10 +28,11 @@ export async function GET() {
          (select round(avg(r.confirmations::float / nullif(r.confirmations + r.denials, 0)) * 100)
             from user_reports r
             where r.confirmations + r.denials > 0) as taxa_media_confirmacao,
+         (select count(*) from user_reports where confirmations + denials > 0) as relatos_com_reacao,
          (select count(distinct city_id) from user_reports where city_id is not null) as cidades_com_relatos,
          (select round(
-            count(*) filter (where data_level = 'full')::float / nullif(count(*), 0) * 100
-          ) from cities where active) as cobertura_dados`
+            count(crs.city_id)::float / nullif(count(c.id), 0) * 100
+          ) from cities c left join city_risk_summary crs on crs.city_id = c.id where c.active) as cobertura_dados`
     );
 
     // Cobertura por estado -- expansão do card "Cobertura de dados" (ver
@@ -54,6 +59,7 @@ export async function GET() {
     return NextResponse.json({
       total_relatos: Number(row.total_relatos ?? 0),
       taxa_media_confirmacao: row.taxa_media_confirmacao === null ? null : Number(row.taxa_media_confirmacao),
+      relatos_com_reacao: Number(row.relatos_com_reacao ?? 0),
       cidades_com_relatos: Number(row.cidades_com_relatos ?? 0),
       cobertura_dados: row.cobertura_dados === null ? null : Number(row.cobertura_dados),
       coverage_by_state: coverageRows.map((r) => ({

@@ -94,6 +94,7 @@ interface CoverageByState {
 interface GlobalMetrics {
   total_relatos: number;
   taxa_media_confirmacao: number | null;
+  relatos_com_reacao: number;
   cidades_com_relatos: number;
   cobertura_dados: number | null;
   coverage_by_state: CoverageByState[];
@@ -231,6 +232,11 @@ function buildRiskyNeighborhoods(results: { rows: HistoryRow[] }[]): RiskyNeighb
 // histórico completo em memória do handleSearch -- evita 1 requisição extra
 // só pra duplicar o que já foi buscado.
 const EPISODE_GAP_HOURS = 2;
+
+// Abaixo disso a % de confirmação vira ruído estatístico (ex: 1 relato com
+// 1 confirmação já mostra "100%") -- card mostra "—" em vez de uma taxa
+// enganosamente precisa.
+const MIN_AMOSTRA_CONFIRMACAO = 5;
 
 function buildCriticalEpisodes(
   results: { rows: HistoryRow[] }[],
@@ -988,7 +994,18 @@ export default function AnalisePage() {
             <MetricCard
               icon="✅"
               label="Taxa média de confirmação"
-              value={globalMetrics?.taxa_media_confirmacao != null ? `${globalMetrics.taxa_media_confirmacao}%` : "—"}
+              hint={
+                globalMetrics
+                  ? globalMetrics.relatos_com_reacao >= MIN_AMOSTRA_CONFIRMACAO
+                    ? `baseado em ${globalMetrics.relatos_com_reacao.toLocaleString("pt-BR")} relatos`
+                    : "poucos relatos para calcular"
+                  : undefined
+              }
+              value={
+                globalMetrics && globalMetrics.taxa_media_confirmacao != null && globalMetrics.relatos_com_reacao >= MIN_AMOSTRA_CONFIRMACAO
+                  ? `${globalMetrics.taxa_media_confirmacao}%`
+                  : "—"
+              }
             />
             <MetricCard
               icon="🗺️"
@@ -998,6 +1015,7 @@ export default function AnalisePage() {
             <MetricCard
               icon="📊"
               label="Cobertura de dados"
+              hint="cidades com score calculado"
               value={globalMetrics?.cobertura_dados != null ? `${globalMetrics.cobertura_dados}%` : "—"}
               onClick={() => handleCardClick("cobertura_dados")}
               active={expandedCard === "cobertura_dados"}
