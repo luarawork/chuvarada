@@ -1,7 +1,11 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { calculateScore } from "@/lib/score";
 import { mergeNewerScores } from "@/lib/mergeScores";
 import { getBestRainData } from "@/lib/weather";
+import { rainLabel } from "@/components/panel/HourlyForecast";
+import { formatTaxaConfirmacao, MIN_AMOSTRA_CONFIRMACAO } from "@/lib/analiseMetrics";
 import type { MergeData } from "@/lib/merge";
 import type { NormalizedWeather, RiskScore } from "@/types";
 
@@ -177,5 +181,65 @@ describe(
         expect(result.rain_peak_3h).toBe(3);
       }
     );
+  }
+);
+
+describe(
+  "Regressão -- HourlyForecast/rainLabel (03/08/2026): chuva fraca real (0,1-0,49mm) " +
+    "aparecia como '0mm' porque a decisão de mostrar a unidade usava o valor bruto " +
+    "(rain > 0) enquanto o número exibido já tinha sido arredondado sem decimais",
+  () => {
+    it("dado rain=0 (sem chuva de verdade), quando rainLabel formata o valor, então deve retornar string vazia (sem número, sem unidade)", () => {
+      expect(rainLabel(0)).toBe("");
+    });
+
+    it("dado rain=0.3 (chuva fraca real, reproduz o bug), quando rainLabel formata o valor, então deve retornar '<1mm' em vez de '0mm'", () => {
+      expect(rainLabel(0.3)).toBe("<1mm");
+    });
+
+    it("dado rain=0.99 (ainda abaixo de 1mm), quando rainLabel formata o valor, então deve retornar '<1mm'", () => {
+      expect(rainLabel(0.99)).toBe("<1mm");
+    });
+
+    it("dado rain=1 (exatamente 1mm), quando rainLabel formata o valor, então deve retornar '1mm'", () => {
+      expect(rainLabel(1)).toBe("1mm");
+    });
+
+    it("dado rain=2.6 (chuva com decimal acima de 1mm), quando rainLabel formata o valor, então deve arredondar pro inteiro mais próximo ('3mm')", () => {
+      expect(rainLabel(2.6)).toBe("3mm");
+    });
+  }
+);
+
+describe(
+  "Regressão -- /analise métricas (04/08/2026): 'Taxa média de confirmação' mostrava " +
+    "percentual mesmo com amostra estatisticamente inútil (n=1), e 'Cobertura de dados' " +
+    "divergia da própria tabela expandida (0% no card vs 100% em todos os estados)",
+  () => {
+    it("dado menos de 5 relatos com reação (amostra pequena demais), quando formatTaxaConfirmacao decide o que exibir, então deve retornar '—' em vez de um percentual enganoso", () => {
+      expect(formatTaxaConfirmacao(100, 1)).toBe("—");
+      expect(formatTaxaConfirmacao(100, MIN_AMOSTRA_CONFIRMACAO - 1)).toBe("—");
+    });
+
+    it("dado 0 relatos com reação (taxa null vinda da API), quando formatTaxaConfirmacao decide o que exibir, então deve retornar '—'", () => {
+      expect(formatTaxaConfirmacao(null, 0)).toBe("—");
+    });
+
+    it("dado 5 ou mais relatos com reação (amostra suficiente), quando formatTaxaConfirmacao decide o que exibir, então deve retornar o percentual formatado", () => {
+      expect(formatTaxaConfirmacao(72, MIN_AMOSTRA_CONFIRMACAO)).toBe("72%");
+      expect(formatTaxaConfirmacao(50, 40)).toBe("50%");
+    });
+
+    it("dado o SQL de cobertura_dados em app/api/analise/metrics/route.ts, quando a query é inspecionada, então deve medir cobertura via city_risk_summary (mesma definição de pct_com_score da tabela expandida) e não mais via cities.data_level = 'full'", () => {
+      const source = readFileSync(
+        join(process.cwd(), "app/api/analise/metrics/route.ts"),
+        "utf-8"
+      );
+
+      expect(source).toContain("city_risk_summary");
+      // regex mira só a cláusula SQL do bug antigo (filter/where data_level =
+      // 'full'), não a explicação em prosa no comentário histórico do arquivo
+      expect(source).not.toMatch(/filter\s*\(\s*where\s+data_level\s*=\s*'full'/i);
+    });
   }
 );

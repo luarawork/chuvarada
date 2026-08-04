@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
+import { MIN_AMOSTRA_CONFIRMACAO, formatTaxaConfirmacao } from "@/lib/analiseMetrics";
 import { getAlignment, NO_REPORTS_RESULT, type AlignmentKind, type AlignmentResult } from "@/lib/alignmentUtils";
 
 // normal/attention/critical vêm de RISK_COLORS (lib/constants.ts, fonte
@@ -232,11 +233,6 @@ function buildRiskyNeighborhoods(results: { rows: HistoryRow[] }[]): RiskyNeighb
 // histórico completo em memória do handleSearch -- evita 1 requisição extra
 // só pra duplicar o que já foi buscado.
 const EPISODE_GAP_HOURS = 2;
-
-// Abaixo disso a % de confirmação vira ruído estatístico (ex: 1 relato com
-// 1 confirmação já mostra "100%") -- card mostra "—" em vez de uma taxa
-// enganosamente precisa.
-const MIN_AMOSTRA_CONFIRMACAO = 5;
 
 function buildCriticalEpisodes(
   results: { rows: HistoryRow[] }[],
@@ -1002,8 +998,8 @@ export default function AnalisePage() {
                   : undefined
               }
               value={
-                globalMetrics && globalMetrics.taxa_media_confirmacao != null && globalMetrics.relatos_com_reacao >= MIN_AMOSTRA_CONFIRMACAO
-                  ? `${globalMetrics.taxa_media_confirmacao}%`
+                globalMetrics
+                  ? formatTaxaConfirmacao(globalMetrics.taxa_media_confirmacao, globalMetrics.relatos_com_reacao)
                   : "—"
               }
             />

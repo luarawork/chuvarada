@@ -41,7 +41,7 @@ function formatHour(iso: string): string {
   return new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit" }).replace(":00", "h");
 }
 
-function rainLabel(rain: number): string {
+export function rainLabel(rain: number): string {
   if (rain === 0) return "";
   if (rain < 1) return "<1mm";
   return `${Math.round(rain)}mm`;
