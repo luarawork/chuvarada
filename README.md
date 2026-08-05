@@ -91,10 +91,10 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 | MERGE/CPTEC | INPE | Chuva acumulada em 72h e pico de 3h (satélite + pluviômetros) | ✅ Ativo |
 | Open-Meteo | Open-Meteo | Vento, umidade, pressão, chuva na última hora (camada 1) | ✅ Ativo |
 | WeatherAPI.com | WeatherAPI | Mesmas variáveis, fallback de emergência (camada 2) | ✅ Ativo |
-| Tábua de marés | Marinha do Brasil via CPTEC | Nível de maré por estação | 🔴 Fora do ar (fallback neutro) |
+| Tábua de marés | TideCheck / UHSLC (estações reais) + FES2022 (modelo) | Nível de maré por coordenada (115 cidades costeiras) | 🟡 Em rollout (32 de 115 cidades com estação atribuída) |
 | Hidrografia do Recife | Prefeitura do Recife | Refinamento local de hidrografia | ✅ Ativo |
 | Hidrografia de Sergipe | SERhidro/SEMAC | Refinamento local de hidrografia | ✅ Ativo |
-| Hidrografia da Paraíba | AESA | Rede hídrica da Paraíba | 🟡 Baixada, não integrada |
+| Hidrografia da Paraíba | AESA | Rede hídrica da Paraíba (168 bairros melhorados) | ✅ Ativo |
 | Bairros de Aracaju | MapAju / Prefeitura de Aracaju | Geometria oficial de bairros | ✅ Ativo |
 
 ## Rodando localmente
