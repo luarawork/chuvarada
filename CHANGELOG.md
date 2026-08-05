@@ -9,9 +9,40 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ### Planejado
 
-- Dados de maré em tempo real (WorldTides — estrutura pronta em `lib/worldtides.ts`, falta só a chave de API)
 - Testes E2E com Playwright
 - Calibração de pesos do modelo por região (`lib/scoreConfig.ts`, hoje idênticos em todo o país)
+- Completar o rollout do TideCheck pras 115 cidades costeiras (32 já com estação atribuída — ver [1.1.0] e [ADR-009](docs/architecture/ADR-009-tidecheck-integration.md))
+
+---
+
+## [1.1.0] — pós-lançamento (até 04/08/2026)
+
+### Corrigido
+
+- `select *` / `n.*` quebrando após a migração 032 remover `neighborhoods.geometry` — centenas de cidades com score congelado
+- Cron B com o mesmo bug de `select *` — 604 cidades com `weather_cache` desatualizado (3-5 dias)
+- Regra 3 de crítico automático aceitando ruído de sensor (0,05mm) como chuva real — limiar elevado de 0 para 1mm
+- `getAlignment`: combinação Crítico+Grave aparecia como "Diverge levemente" em vez de "Alinha"
+- Lock de escrita não atômico entre o cron do MERGE e o cron de scores — corrigido via `INSERT ... ON CONFLICT`
+- `archive_to_b2`: teto fixo por execução insuficiente para o volume atual (loop até drenar o backlog) + proteção de leitura-antes-de-gravar em `risk_scores`
+- `RETURNING id` desnecessário removido do UPSERT de `merge_cache` (usa `row_count` do driver via protocolo simples do pg8000)
+- Centroide incorreto de Goiabeiras/Vitória-ES
+- `rainLabel` (`HourlyForecast.tsx`): chuva fraca real (0,1-0,49mm) aparecia como "0mm" — decisão de unidade usava o valor bruto enquanto o número exibido já tinha sido arredondado
+- Métricas de `/analise`: "Cobertura de dados" media `data_level='full'` (10 de 5.570 cidades, ~0%) enquanto a tabela expandida do mesmo card mostrava ~100% (`pct_com_score`) — unificado pra medir a mesma coisa nos dois lugares; "Taxa média de confirmação" mostrava percentual mesmo com 1 único relato — agora exige 5+ relatos com reação, senão mostra "—"
+- Previsão de risco de 7 dias (`/api/forecast/[neighborhoodId]`) usava `tide_level` fixo em 0,5 pras cidades costeiras, ignorando o dado real do TideCheck que o score ao vivo já usa desde a integração abaixo
+
+### Adicionado
+
+- `hydro_proximity` reprocessado nacionalmente com ordem de Strahler (28.483 bairros, 27 estados + DF) — saturação em ~1,0 caiu de ~99% para 0,1% (ver [ADR-008](docs/architecture/ADR-008-strahler-hydro-proximity.md))
+- TideCheck API integrada como fonte de dado de maré em tempo real, substituindo o fallback neutro do CPTEC/INPE (degradado desde 2018) — 115 cidades costeiras cadastradas, 32 já com estação atribuída (9 UHSLC real + 23 FES2022 modelo), cota gratuita de 50 requisições/dia (ver [ADR-009](docs/architecture/ADR-009-tidecheck-integration.md))
+- Hidrografia local integrada: Paraíba/AESA (168 de 3.872 bairros melhoraram) e Minas Gerais/IGAM (46 de 3.872 bairros melhoraram) — combinada com o BHO nacional via `max()`, não regressiva
+- 9 testes de regressão novos (`rainLabel` e métricas de `/analise`) — suíte sobe de 39 para 48 testes
+- ADR-009 (TideCheck) formalizado, completando a série ADR-001 a ADR-009
+
+### Documentação
+
+- Diagnósticos de variáveis estruturais (saneamento/Censo 2022, IVS/IPEA, impermeabilização/Mapbiomas) investigados como possível causa da subestimação de Santa Maria/RS — três descartados, um confirmou a causa raiz do `hydro_proximity` saturado (ver relatórios em `docs/reports/`)
+- Investigação do raio fixo de 22km do `hydro_proximity` — concluída, raio adequado (não é problema)
 
 ---
 
@@ -64,7 +95,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 - NASA SRTM (via OpenTopography): altimetria
 - ANA/BHO: hidrografia nacional
 - IBGE Censo 2022: malha de bairros
-- Hidrografia local: Recife, Sergipe — integradas; Paraíba — baixada, não integrada
+- Hidrografia local: Recife, Sergipe, Paraíba, Minas Gerais — integradas (ver [1.1.0])
 
 ### Bugs corrigidos (pós-lançamento)
 
