@@ -1,5 +1,10 @@
 # Chuvarada — Relatório Completo do Projeto
 
+> **Nota:** Este relatório cobre o desenvolvimento até 28/07/2026.
+> Para o estado atual do projeto, consulte a
+> [Wiki do GitHub](https://github.com/luarawork/chuvarada/wiki).
+> A Wiki é a fonte de verdade atualizada.
+
 **Data deste relatório:** 28/07/2026
 **Período coberto:** 18/07/2026 (início do projeto) a 28/07/2026 (estado atual)
 
