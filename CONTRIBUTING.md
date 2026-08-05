@@ -9,6 +9,7 @@ ambiente, entender a arquitetura e submeter mudanças.
 - Python 3.11+ (só para os scripts de pré-processamento geoespacial em `scripts/python/`)
 - Conta no Supabase (gratuita)
 - Conta no Backblaze B2 (gratuita)
+- Chave da TideCheck API (gratuita, tidecheck.com) — só necessária pro cron de maré (`TIDECHECK_API_KEY`, ver [ADR-009](docs/architecture/ADR-009-tidecheck-integration.md))
 
 ## Configuração local
 
@@ -31,7 +32,7 @@ npm run dev
 ## Rodando os testes
 
 ```bash
-# Testes unitários e de regressão (Vitest) -- 39 testes hoje
+# Testes unitários e de regressão (Vitest) -- 48 testes hoje
 npm test
 
 # Modo watch
@@ -55,7 +56,7 @@ contribuição" abaixo) — verificação de UI hoje é manual, no navegador.
 /scripts
   /python         — scripts de produção (Python)
   /one-off        — scripts já executados (não rodar novamente, ver scripts/one-off/README.md)
-  /sql            — migrações SQL (001-037)
+  /sql            — migrações SQL (001-038)
 /tests
   /unit           — testes unitários (Vitest)
   /regression     — testes de regressão de bugs críticos
@@ -64,7 +65,7 @@ contribuição" abaixo) — verificação de UI hoje é manual, no navegador.
   /reports        — relatórios e diagnósticos
   /investigations — investigações de bugs
   /architecture   — decisões de arquitetura (ADRs)
-/.github/workflows — GitHub Actions (5 workflows)
+/.github/workflows — GitHub Actions (6 workflows)
 ```
 
 ## Como o modelo de risco funciona
@@ -81,7 +82,7 @@ existe em `lib/scoreConfig.ts`, mas ainda não foi calibrada — ver
 | `rain_72h` | 20% | MERGE/CPTEC |
 | `terrain_slope` | 15% | NASA SRTM |
 | `hydro_proximity` | 12% | ANA/BHO |
-| `tide_level` | 8% | CPTEC (fora do ar — sempre 0,5, ver [ADR-006](docs/architecture/ADR-006-salvaguarda-merge-estagnado.md) e a Wiki) |
+| `tide_level` | 8% | CPTEC degradado desde 2018 — TideCheck (UHSLC real ou FES2022 modelo) como fonte principal pras cidades com estação atribuída, neutro (0,5) como fallback pras demais, ver [ADR-009](docs/architecture/ADR-009-tidecheck-integration.md) |
 
 Limiares: Normal < 0,30 | Atenção 0,30–0,60 | Crítico > 0,60
 
@@ -102,7 +103,7 @@ correção e passar depois.
 Se sua mudança alterar uma decisão de arquitetura significativa (ex: trocar
 uma fonte de dados, mudar a estratégia de cache, alterar o modelo de risco),
 crie um ADR em `docs/architecture/`. Veja os exemplos existentes (ADR-001 a
-ADR-007).
+ADR-009).
 
 ### Convenções de commit
 
@@ -125,7 +126,6 @@ Seguimos o padrão [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## Áreas que precisam de contribuição
 
-- 🌊 Dados de maré — CPTEC degradado, integração com WorldTides já estruturada em `lib/worldtides.ts`, falta só a chave de API
 - 🗺️ Shapefiles de bairro para SP/Campinas/Sorocaba (o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades)
 - 🔬 Calibração dos pesos do modelo por região (requer expertise em hidrologia/meteorologia)
 - 🧪 Testes E2E com Playwright
