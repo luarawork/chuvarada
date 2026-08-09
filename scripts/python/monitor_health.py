@@ -158,17 +158,17 @@ cur.execute("""
     WHERE active = true
     AND id NOT IN (
         SELECT city_id FROM weather_cache
-        WHERE fetched_at > NOW() - INTERVAL '6 hours'
+        WHERE fetched_at > NOW() - INTERVAL '20 hours'
     )
 """)
 stale_weather = cur.fetchone()[0]
 if stale_weather > 500:
     issues.append(
-        f"🔴 {stale_weather} cidades sem weather_cache atualizado (>6h). "
-        f"Possível falha no Cron B."
+        f"🔴 {stale_weather} cidades sem weather_cache atualizado (>20h). "
+        f"Cron B pode estar falhando."
     )
 elif stale_weather > 100:
-    warnings.append(f"🟡 {stale_weather} cidades sem weather_cache atualizado (>6h)")
+    warnings.append(f"🟡 {stale_weather} cidades sem weather_cache atualizado (>20h)")
 
 # ─── 5. TIDECHECK ────────────────────────────────────────────────
 
