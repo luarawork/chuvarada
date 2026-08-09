@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import * as turf from "@turf/turf";
-import { AnimatePresence, motion, type PanInfo } from "framer-motion";
+import { AnimatePresence, motion, useDragControls, type PanInfo } from "framer-motion";
 import { DetailHeader } from "./DetailHeader";
 import { ForecastTabs } from "./ForecastTabs";
 import { RiskFactors } from "./RiskFactors";
@@ -52,6 +52,7 @@ export function DetailPanel({
   const { user } = useAuth();
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = neighborhood ? isFavorite(neighborhood.id) : false;
+  const dragControls = useDragControls();
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) onClose();
@@ -82,6 +83,14 @@ export function DetailPanel({
         exit: { y: "100%" },
         transition: { type: "spring" as const, damping: 28, stiffness: 260 },
         drag: "y" as const,
+        // dragListener=false + dragControls.start() só no handle (abaixo) --
+        // sem isso, o gesto de arrastar-pra-fechar do framer-motion competia
+        // pelo mesmo touch-move que o scroll nativo do conteúdo (overflow-y-
+        // auto, no mesmo elemento), travando o scroll no mobile: qualquer
+        // arraste vertical dentro do painel era capturado como tentativa de
+        // fechar o bottom-sheet em vez de rolar a lista.
+        dragListener: false,
+        dragControls,
         dragConstraints: { top: 0, bottom: 0 },
         dragElastic: { top: 0, bottom: 0.5 },
         onDragEnd: handleDragEnd,
@@ -97,7 +106,10 @@ export function DetailPanel({
           className="pointer-events-auto fixed inset-x-0 bottom-0 z-[1100] max-h-[85dvh] overflow-y-auto rounded-t-2xl border px-3 pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-3 shadow-2xl backdrop-blur-sm md:inset-x-auto md:inset-y-0 md:left-auto md:right-4 md:top-20 md:bottom-4 md:max-h-none md:w-full md:max-w-[380px] md:rounded-3xl md:px-5 md:pb-5"
           style={{ backgroundColor: "rgba(13, 27, 42, 0.96)", borderColor: "rgba(46, 125, 184, 0.2)" }}
         >
-          <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-brand-blue-light/20 md:hidden" />
+          <div
+            className="mx-auto mb-3 h-1.5 w-10 touch-none rounded-full bg-brand-blue-light/20 md:hidden"
+            onPointerDown={(e) => dragControls.start(e)}
+          />
 
           <DetailHeader
             neighborhood={neighborhood}
