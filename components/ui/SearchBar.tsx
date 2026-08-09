@@ -166,7 +166,16 @@ export function SearchBar({ onSelect }: SearchBarProps) {
       // ignora "right" e usa left+width), então a largura fica "auto",
       // resolvida a partir de left+right normalmente. sm+ (telas maiores,
       // sem risco de sobreposição) mantém o design original centralizado.
-      className="pointer-events-auto absolute left-4 right-28 z-[1000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
+      //
+      // z-[3000] aqui (não só no dropdown filho, ver abaixo) -- este div é
+      // "position: absolute" com z-index próprio, o que cria um novo
+      // stacking context pra tudo dentro dele. Isso significa que o
+      // z-index de um FILHO (o dropdown) nunca escapa esse teto: contra
+      // outro elemento irmão de verdade (DetailPanel z-1100, InfoModal
+      // z-1300, banner do ReportButton z-2000), quem decide é o z-index
+      // DESTE container, não o do dropdown -- por isso o dropdown ficava
+      // atrás desses elementos no mobile mesmo com z-[3000] declarado nele.
+      className="pointer-events-auto absolute left-4 right-28 z-[3000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
       style={{ top: 16 }}
     >
       <div
@@ -194,14 +203,11 @@ export function SearchBar({ onSelect }: SearchBarProps) {
         )}
       </div>
 
-      {/* absolute + z-[3000] (não só mt-1.5 em fluxo normal) -- este
-          dropdown e o stack do CityHeader/MapLegend (ver app/page.tsx)
-          têm o MESMO z-[1000] no container pai; em fluxo normal, quem
-          vier depois no DOM (CityHeader, renderizado após o SearchBar)
-          pinta por cima independente de sobreposição espacial. absolute
-          tira o dropdown do fluxo (não empurra irmãos) e z-[3000] (acima
-          até do banner de relato, z-[2000]) garante que ele sempre
-          aparece por cima, não só quando a ordem do DOM favorece. */}
+      {/* absolute (não só mt-1.5 em fluxo normal) -- tira o dropdown do
+          fluxo pra não empurrar o resto da página quando abre. z-index
+          numérico aqui é só relativo ao próprio container pai (que já
+          carrega z-[3000], acima de tudo mais no app); não precisa repetir
+          um valor alto aqui de novo. */}
       {open && (
         <div
           className="absolute inset-x-0 top-full z-[3000] mt-1.5 max-h-72 overflow-y-auto rounded-xl backdrop-blur-md"
