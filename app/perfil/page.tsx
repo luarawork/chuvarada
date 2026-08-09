@@ -8,6 +8,7 @@ import { usePushNotifications } from "@/hooks/usePushNotifications";
 import { supabase } from "@/lib/supabase";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
+import { Button } from "@/components/ui/button";
 import type { ReportSeverity, ReportStatus, RiskLevel } from "@/types";
 
 interface FavoriteNeighborhood {
@@ -167,16 +168,17 @@ export default function PerfilPage() {
               </p>
             </div>
           </div>
-          <button
+          <Button
+            variant="link"
             onClick={async () => {
               signingOutRef.current = true;
               await signOut();
               router.push("/");
             }}
-            className="shrink-0 text-sm opacity-60 hover:opacity-100 hover:underline"
+            className="h-auto shrink-0 p-0 text-sm font-normal text-current no-underline opacity-60 hover:opacity-100 hover:underline"
           >
             Sair
-          </button>
+          </Button>
         </div>
 
         {/* Estatísticas */}
@@ -236,13 +238,15 @@ export default function PerfilPage() {
                   ) : (
                     <span className="text-xs opacity-40">Sem dados</span>
                   )}
-                  <button
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => handleRemoveFavorite(fav.id)}
                     aria-label="Remover dos favoritos"
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full opacity-50 hover:bg-white/10 hover:opacity-100"
+                    className="shrink-0 rounded-full opacity-50 hover:bg-white/10 hover:opacity-100"
                   >
                     🗑️
-                  </button>
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -289,13 +293,15 @@ export default function PerfilPage() {
                       {STATUS_LABEL[r.status]} · ✓ {r.confirmations} confirmações
                     </span>
                     {r.status === "active" && (
-                      <button
+                      <Button
+                        variant="outline"
+                        size="sm"
                         onClick={() => handleResolveReport(r.id)}
-                        className="rounded-full border px-3 py-1 text-xs font-medium hover:bg-white/10"
+                        className="h-auto rounded-full border bg-transparent px-3 py-1 text-xs font-medium text-current shadow-none hover:bg-white/10"
                         style={{ borderColor: "rgba(240, 244, 248, 0.25)" }}
                       >
                         Marcar como resolvido
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </li>
@@ -373,12 +379,12 @@ export default function PerfilPage() {
                 </p>
               </div>
             </div>
-            <button
+            <Button
               onClick={() => setSuggestionOpen(true)}
-              className="shrink-0 rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
+              className="h-auto shrink-0 rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
             >
               Enviar sugestão
-            </button>
+            </Button>
           </div>
         </section>
       </div>

@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import type { RiskLevel } from "@/types";
 
 const LEVEL_CONFIG: Record<RiskLevel, { emoji: string; label: string; bg: string; text: string }> = {
@@ -14,16 +15,21 @@ interface RiskBadgeProps {
   className?: string;
 }
 
+// variant="outline" no Badge do shadcn deixa cor 100% por conta do
+// className (ver components/ui/badge.tsx) -- é o que os 5 níveis de risco
+// precisam, já que a cor é semântica (RISK_COLORS/brand tokens), não uma
+// das 5 cores fixas do design system do shadcn.
 export function RiskBadge({ level, score, className = "" }: RiskBadgeProps) {
   const config = LEVEL_CONFIG[level];
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium ${config.bg} ${config.text} ${className}`}
+    <Badge
+      variant="outline"
+      className={`gap-1.5 border-none px-3 py-1 text-sm font-medium ${config.bg} ${config.text} ${className}`}
     >
       <span>{config.emoji}</span>
       <span>{config.label}</span>
       {typeof score === "number" && <span className="opacity-70">· {score.toFixed(2)}</span>}
-    </span>
+    </Badge>
   );
 }
 

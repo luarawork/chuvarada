@@ -4,6 +4,8 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 type Mode = "entrar" | "criar";
 
@@ -91,14 +93,14 @@ function AuthForm() {
             <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
               E-mail
             </label>
-            <input
+            <Input
               id="email"
               type="email"
               required
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border bg-white/10 px-4 py-2.5 outline-none focus:border-brand-blue-mid"
+              className="h-auto rounded-xl border bg-white/10 px-4 py-2.5 focus-visible:ring-1 focus-visible:ring-brand-blue-mid"
               style={{ borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
             />
           </div>
@@ -107,7 +109,7 @@ function AuthForm() {
             <label htmlFor="password" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
               Senha
             </label>
-            <input
+            <Input
               id="password"
               type="password"
               required
@@ -115,7 +117,7 @@ function AuthForm() {
               autoComplete={mode === "entrar" ? "current-password" : "new-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-xl border bg-white/10 px-4 py-2.5 outline-none focus:border-brand-blue-mid"
+              className="h-auto rounded-xl border bg-white/10 px-4 py-2.5 focus-visible:ring-1 focus-visible:ring-brand-blue-mid"
               style={{ borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
             />
           </div>
@@ -131,26 +133,27 @@ function AuthForm() {
             </p>
           )}
 
-          <button
+          <Button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-xl bg-brand-blue-mid py-2.5 font-medium text-white transition hover:bg-brand-blue-deep disabled:opacity-60"
+            className="h-auto w-full rounded-xl bg-brand-blue-mid py-2.5 font-medium text-white hover:bg-brand-blue-deep"
           >
             {submitting ? "Um momento..." : mode === "entrar" ? "Entrar" : "Criar conta"}
-          </button>
+          </Button>
         </form>
 
-        <button
+        <Button
+          variant="link"
           onClick={() => {
             setMode(mode === "entrar" ? "criar" : "entrar");
             setError(null);
             setNotice(null);
           }}
-          className="mt-5 w-full text-center text-sm hover:underline"
+          className="mt-5 h-auto w-full p-0 text-center text-sm font-normal no-underline hover:underline"
           style={{ color: "#a8d4f0" }}
         >
           {mode === "entrar" ? "Não tem conta? Criar conta" : "Já tem conta? Entrar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

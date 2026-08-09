@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import type { ReportSeverity } from "@/types";
 
 interface ReportModalProps {
@@ -65,13 +66,15 @@ export function ReportModal({ onClose, onSubmit }: ReportModalProps) {
         >
           <div className="flex items-start justify-between gap-4">
             <h3 className="font-heading text-base font-bold">Relatar situação</h3>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
               aria-label="Fechar"
-              className="shrink-0 rounded-full p-1.5 opacity-60 hover:bg-white/10 hover:opacity-100"
+              className="h-11 w-11 shrink-0 rounded-full text-current opacity-60 hover:bg-white/10 hover:opacity-100"
             >
               ✕
-            </button>
+            </Button>
           </div>
 
           <p className="mt-1 text-xs" style={{ color: "#a8d4f0" }}>
@@ -130,13 +133,13 @@ export function ReportModal({ onClose, onSubmit }: ReportModalProps) {
 
           {error && <p className="mt-2 text-xs text-brand-red-alert">{error}</p>}
 
-          <button
+          <Button
             onClick={handleSubmit}
             disabled={submitting}
-            className="mt-3 w-full rounded-xl bg-brand-blue-mid py-2.5 text-sm font-semibold text-white transition hover:bg-brand-blue-deep disabled:opacity-50"
+            className="mt-3 h-auto w-full rounded-xl bg-brand-blue-mid py-2.5 text-sm font-semibold text-white hover:bg-brand-blue-deep"
           >
             {submitting ? "Enviando..." : "Enviar relato"}
-          </button>
+          </Button>
 
           <p className="mt-3 text-center text-[11px] opacity-50">
             Relatos expiram automaticamente. Entre numa conta para que seus relatos tenham mais peso.

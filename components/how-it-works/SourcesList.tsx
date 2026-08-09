@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/badge";
+
 const SOURCES = [
   { name: "MERGE/CPTEC", provides: "Precipitação (satélite + pluviômetros)", status: "active" },
   { name: "Open-Meteo", provides: "Vento, umidade, pressão", status: "active" },
@@ -42,15 +44,16 @@ export function SourcesList() {
                 {source.provides}
               </td>
               <td className="py-2.5">
-                <span
-                  className="inline-block min-w-[100px] whitespace-nowrap rounded-full px-2.5 py-1 text-center text-xs font-medium"
+                <Badge
+                  variant="outline"
+                  className="min-w-[100px] justify-center whitespace-nowrap border-none px-2.5 py-1 text-center text-xs font-medium"
                   style={{
                     color: STATUS_CONFIG[source.status].color,
                     backgroundColor: `${STATUS_CONFIG[source.status].color}1f`,
                   }}
                 >
                   {STATUS_CONFIG[source.status].label}
-                </span>
+                </Badge>
               </td>
             </tr>
           ))}
