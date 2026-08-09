@@ -1,0 +1,38 @@
+name: Monitor Data Quality
+
+# Roda 1x/semana, rotacionando por região (Norte/Nordeste/Centro-Oeste/
+# Sudeste/Sul conforme a semana do ano) -- checa hydro_proximity zerado,
+# terrain_slope placeholder, centroides fora do Brasil, score/level
+# inconsistente e saturação de hydro_proximity. Salva relatório em
+# docs/reports/qualidade/ e abre issue no GitHub se achar problema
+# crítico (ver scripts/python/monitor_quality.py).
+on:
+  schedule:
+    - cron: "0 9 * * 0"
+  workflow_dispatch:
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install psycopg2-binary requests
+      - name: Run quality monitor
+        run: python scripts/python/monitor_quality.py
+        env:
+          SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: Commit quality report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/reports/qualidade/
+          git diff --staged --quiet || git commit -m "docs: quality report $(date +%Y-%m-%d) — $REGIAO"
+          git push
