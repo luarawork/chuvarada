@@ -138,14 +138,13 @@ Configurar os secrets da GitHub Action (`SUPABASE_CONNECTION_STRING`, `CRON_SECR
 
 ## Em produção
 
-[chuvarada.vercel.app](https://chuvarada.vercel.app) — PWA instalável (Android, iOS, desktop). As 5 GitHub Actions (MERGE + scores, clima, arquivamento pro B2, monitoramento de tamanho de banco, regeneração do cache de neighborhoods) rodam de forma independente da plataforma de hospedagem do Next.js em si.
+[chuvarada.vercel.app](https://chuvarada.vercel.app) — PWA instalável (Android, iOS, desktop). As 6 GitHub Actions (MERGE + scores, clima, arquivamento pro B2, monitoramento de tamanho de banco, regeneração do cache de neighborhoods, atualização diária de maré via TideCheck) rodam de forma independente da plataforma de hospedagem do Next.js em si.
 
 ## Contribuindo
 
 Veja [CONTRIBUTING.md](CONTRIBUTING.md) para o guia completo (setup local, testes, política de ADR/regressão).
 
 **Áreas que precisam de contribuição:**
-- 🌊 Dados de maré em tempo real (WorldTides — estrutura pronta, falta só a chave de API)
 - 🔬 Calibração do modelo por região (hidrólogos/meteorologistas)
 - 🗺️ Shapefiles de bairro para SP/Campinas/Sorocaba
 - 🧪 Testes E2E com Playwright
