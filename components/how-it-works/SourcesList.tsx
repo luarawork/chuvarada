@@ -4,13 +4,14 @@ const SOURCES = [
   { name: "NASA SRTM", provides: "Altimetria do terreno", status: "active" },
   { name: "ANA/BHO", provides: "Rede hidrográfica nacional", status: "active" },
   { name: "IBGE Censo 2022", provides: "Malha de bairros", status: "active" },
-  { name: "Marinha/CPTEC", provides: "Tábua de marés", status: "degraded" },
+  { name: "TideCheck (UHSLC/FES2022)", provides: "Tábua de marés — 32 de 115 cidades costeiras", status: "partial" },
   { name: "Relatos de usuários", provides: "Validação comunitária", status: "new" },
 ] as const;
 
 const STATUS_CONFIG = {
   active: { label: "✅ Ativo", color: "#2a9d72" },
   degraded: { label: "⚠️ Degradado", color: "#f0a500" },
+  partial: { label: "🟡 Em rollout", color: "#f0a500" },
   new: { label: "✅ Novo", color: "#2a9d72" },
 };
 
