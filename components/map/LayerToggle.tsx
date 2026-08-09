@@ -23,7 +23,7 @@ export function LayerToggle({ currentLayer, onChange }: LayerToggleProps) {
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
     >
       <div
-        className="absolute left-0.5 top-0.5 h-8 w-[78px] rounded-2xl bg-brand-blue-mid transition-transform duration-200 ease-out"
+        className="absolute left-0.5 top-0.5 h-[30px] w-[78px] rounded-full bg-brand-blue-mid transition-transform duration-200 ease-out"
         style={{ transform: currentLayer === "street" ? "translateX(78px)" : "translateX(0)" }}
       />
       {ORDER.map((key) => {

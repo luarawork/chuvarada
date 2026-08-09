@@ -43,7 +43,7 @@ export function SourcesList() {
               </td>
               <td className="py-2.5">
                 <span
-                  className="inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium"
+                  className="inline-block min-w-[100px] whitespace-nowrap rounded-full px-2.5 py-1 text-center text-xs font-medium"
                   style={{
                     color: STATUS_CONFIG[source.status].color,
                     backgroundColor: `${STATUS_CONFIG[source.status].color}1f`,

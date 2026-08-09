@@ -213,7 +213,15 @@ export default function ComoFuncionaPage() {
             {LEVELS.map((level) => (
               <p
                 key={level.label}
-                className="rounded-xl px-4 py-3"
+                // min-h-16 (64px) -- achado em produção (chuvarada.vercel.app,
+                // viewport 480px): as 5 linhas têm texto de comprimento bem
+                // diferente ("Normal" x "Moderado"), então em larguras
+                // intermediárias algumas quebram em 2 linhas e outras ficam
+                // numa só, dando alturas 44px/64px misturadas na mesma lista.
+                // min-h garante o piso de 2 linhas (64px = padding 12px×2 +
+                // line-height 20px×2) sem impor altura fixa que cortaria o
+                // texto se algum dia precisar de 3 linhas numa tela bem estreita.
+                className="flex min-h-16 items-center rounded-xl px-4 py-3"
                 style={{ backgroundColor: `${level.color}1f`, color: level.color }}
               >
                 {level.emoji} <strong>{level.label}</strong> ({level.range}) — {level.text}
