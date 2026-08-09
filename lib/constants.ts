@@ -28,10 +28,17 @@ export const SCORE_THRESHOLDS = {
 // histórico, legenda, alerta e demais telas que mostram nível de risco.
 // Antes duplicado como hex literal em pelo menos 6 arquivos (ver
 // docs/reports/revisao_qualidade.md, achado 🟡 #4).
+//
+// attention/moderate ajustados em 2026-08-09 (Opção C, maior contraste):
+// o amarelo antigo de attention (#f0a500) e o laranja antigo de moderate
+// (#f07800) ficavam próximos demais lado a lado no mapa/legenda -- difícil
+// distinguir os dois níveis num relance. #ffe066 (amarelo pastel) e
+// #d95f02 (laranja terra escuro) abrem mais a distância perceptual entre
+// os dois mantendo a ordem clara normal->crítico.
 export const RISK_COLORS: Record<RiskLevel, string> = {
   normal: "#2a9d72",
-  attention: "#f0a500",
-  moderate: "#f07800",
+  attention: "#ffe066",
+  moderate: "#d95f02",
   high: "#d64045",
   critical: "#7b2d8b",
 };
