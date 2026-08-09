@@ -47,13 +47,15 @@ const VARIABLES = [
     emoji: "🏞️",
     title: "Proximidade de rios e canais",
     weight: 0.12,
-    description: "Bairros próximos a rios, canais e córregos têm maior risco quando o volume d'água supera a capacidade de escoamento.",
+    description:
+      "Bairros próximos a um rio de verdade têm maior risco do que os perto só de um córrego pequeno — rios maiores pesam mais nessa conta, porque carregam mais água quando transbordam.",
   },
   {
     emoji: "🌊",
     title: "Maré",
     weight: 0.08,
-    description: "Em cidades costeiras, maré alta reduz a capacidade de escoamento para o mar. Disponível onde há estação de monitoramento.",
+    description:
+      "Em cidades costeiras, maré alta reduz a capacidade de escoamento para o mar. Usamos dado real de maré (TideCheck) onde já disponível, com fallback neutro nas demais cidades.",
   },
 ];
 
@@ -101,8 +103,8 @@ const LIMITATIONS = [
   },
   {
     emoji: "⚠️",
-    title: "Maré temporariamente indisponível",
-    text: "O serviço de tábua de marés do CPTEC está degradado. Estamos usando valor neutro enquanto investigamos alternativas.",
+    title: "Maré ainda em rollout",
+    text: "O serviço de tábua de marés do CPTEC está degradado desde 2018. Já substituímos por dado real via TideCheck, mas o rollout ainda está em andamento — 32 das 115 cidades costeiras já têm estação atribuída. As demais usam valor neutro até serem alcançadas.",
   },
   {
     emoji: "⚠️",
@@ -113,6 +115,11 @@ const LIMITATIONS = [
     emoji: "⚠️",
     title: "São Paulo, Campinas e Sorocaba",
     text: "O IBGE não disponibiliza bairros para essas cidades — usamos distritos administrativos, que cobrem áreas maiores.",
+  },
+  {
+    emoji: "⚠️",
+    title: "Pesos ainda não calibrados por região",
+    text: "A estrutura para pesos diferentes por região já existe (ex: mais peso pra chuva no Sul), mas os valores hoje são os mesmos em todo o país. Calibrar de verdade exige revisão de um hidrólogo ou meteorologista.",
   },
 ];
 
@@ -259,8 +266,10 @@ export default function ComoFuncionaPage() {
         <FadeInSection className="mt-14">
           <h2 className="font-heading text-2xl font-bold">Você também pode contribuir</h2>
           <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-            Quando você reporta um alagamento no mapa, seu relato é cruzado com os dados do modelo.
-            Isso nos ajuda a calibrar o Chuvarada para ser cada vez mais preciso na sua região.
+            O modelo calcula o risco a partir de dados públicos, mas quem sabe se está alagando
+            de verdade é quem está na rua. Por isso os relatos não substituem o modelo — eles
+            complementam: quando você reporta um alagamento, seu relato é cruzado com os dados
+            calculados e ajuda a calibrar o Chuvarada para ser cada vez mais preciso na sua região.
           </p>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-3">
