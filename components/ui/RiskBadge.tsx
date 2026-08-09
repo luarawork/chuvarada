@@ -3,7 +3,9 @@ import type { RiskLevel } from "@/types";
 const LEVEL_CONFIG: Record<RiskLevel, { emoji: string; label: string; bg: string; text: string }> = {
   normal: { emoji: "🟢", label: "Normal", bg: "bg-brand-green-water/15", text: "text-brand-green-water" },
   attention: { emoji: "🟡", label: "Atenção", bg: "bg-brand-yellow-warn/15", text: "text-brand-yellow-warn" },
-  critical: { emoji: "🔴", label: "Crítico", bg: "bg-brand-red-alert/15", text: "text-brand-red-alert" },
+  moderate: { emoji: "🟠", label: "Moderado", bg: "bg-brand-orange-alert/15", text: "text-brand-orange-alert" },
+  high: { emoji: "🔴", label: "Alto", bg: "bg-brand-red-alert/15", text: "text-brand-red-alert" },
+  critical: { emoji: "🟣", label: "Crítico", bg: "bg-brand-purple-critical/15", text: "text-brand-purple-critical" },
 };
 
 interface RiskBadgeProps {

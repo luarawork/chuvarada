@@ -95,10 +95,17 @@ export function calculateScore(
     autoCriticalReason = "Solo saturado com nova precipitação";
   }
 
-  const level = getLevelFromScore(score, autoCritical);
+  // Rescala 2026-08-09: o composto acima é calculado em 0-1 (pesos somam
+  // 1.0), mas SCORE_THRESHOLDS/getLevelFromScore trabalham na escala 1-10
+  // (ver lib/constants.ts, migração 042). Precisa escalar ANTES de derivar
+  // o level -- score bruto ainda em 0-1 comparado contra limiares em 1-10
+  // sempre cairia em "normal". Mínimo 1 (não 0) pra comunicação mais
+  // intuitiva ("todo bairro tem algum risco basal").
+  const scaledScore = Math.max(1, Math.min(10, score * 10));
+  const level = getLevelFromScore(scaledScore, autoCritical);
 
   return {
-    score: Math.min(1, Math.max(0, score)),
+    score: scaledScore,
     level,
     auto_critical: autoCritical,
     auto_critical_reason: autoCriticalReason,

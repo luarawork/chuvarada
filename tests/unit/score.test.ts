@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calculateScore } from "@/lib/score";
-import { SCORE_THRESHOLDS } from "@/lib/constants";
+import { SCORE_THRESHOLDS, getLevelFromScore } from "@/lib/constants";
 import type { NormalizedWeather } from "@/types";
 
 // calculateScore(neighborhood, weather, tideLevel, tideLastUpdated?, state?) --
@@ -31,7 +31,7 @@ describe("calculateScore", () => {
   it(
     "dado que não há chuva em nenhuma variável, " +
       "quando o score é calculado, " +
-      "então o nível deve ser normal e o score deve ficar abaixo do limiar de atenção (0,30)",
+      "então o nível deve ser normal e o score deve ficar abaixo do limiar de atenção (3,0)",
     () => {
       const result = calculateScore(NEUTRAL_NEIGHBORHOOD, weather(), null);
       expect(result.level).toBe("normal");
@@ -42,7 +42,7 @@ describe("calculateScore", () => {
   it(
     "dado chuva extrema em rain_peak_3h/rain_1h/rain_72h com maré alta, " +
       "quando o score é calculado, " +
-      "então o nível deve ser crítico e o score deve superar o limiar de crítico (0,60)",
+      "então o nível deve ser crítico e o score deve superar o limiar de crítico (8,0, escala 1-10)",
     () => {
       const result = calculateScore(
         { terrain_slope: 0.1, hydro_proximity: 0.9, is_coastal: false },
@@ -129,4 +129,60 @@ describe("calculateScore", () => {
       expect(withoutTide.score).not.toBe(withTide.score);
     }
   );
+
+  it(
+    "dado score no piso da escala 1-10 (sem nenhum fator de risco), " +
+      "quando o score é calculado, " +
+      "então o score nunca deve ficar abaixo de 1 (mínimo, não 0, ver lib/score.ts)",
+    () => {
+      const result = calculateScore(
+        { terrain_slope: 0, hydro_proximity: 0, is_coastal: false },
+        weather(),
+        null
+      );
+      expect(result.score).toBeGreaterThanOrEqual(1);
+      expect(result.level).toBe("normal");
+    }
+  );
+});
+
+// Rescala 2026-08-09 (0-1/3 níveis -> 1-10/5 níveis, ver migração 042):
+// testado direto contra getLevelFromScore com valores sintéticos em vez de
+// via calculateScore -- os pesos regionais (lib/scoreConfig.ts) tornam
+// difícil garantir de forma determinística que uma combinação de clima real
+// cai exatamente numa faixa de 1.5 pontos (ex: moderate, 5.0-6.5); testar o
+// limiar em si (a função pura) é mais preciso e é isso que a especificação
+// pediu: "score < 3.0 -> normal; >= 3.0 -> attention; >= 5.0 -> moderate;
+// >= 6.5 -> high; >= 8.0 -> critical; auto_critical -> critical
+// independente do score".
+describe("getLevelFromScore — limiares da escala 1-10 (migração 042)", () => {
+  it("score abaixo de 3,0 é normal", () => {
+    expect(getLevelFromScore(1)).toBe("normal");
+    expect(getLevelFromScore(2.99)).toBe("normal");
+  });
+
+  it("score a partir de 3,0 é atenção", () => {
+    expect(getLevelFromScore(3.0)).toBe("attention");
+    expect(getLevelFromScore(4.99)).toBe("attention");
+  });
+
+  it("score a partir de 5,0 é moderado", () => {
+    expect(getLevelFromScore(5.0)).toBe("moderate");
+    expect(getLevelFromScore(6.49)).toBe("moderate");
+  });
+
+  it("score a partir de 6,5 é alto", () => {
+    expect(getLevelFromScore(6.5)).toBe("high");
+    expect(getLevelFromScore(7.99)).toBe("high");
+  });
+
+  it("score a partir de 8,0 é crítico", () => {
+    expect(getLevelFromScore(8.0)).toBe("critical");
+    expect(getLevelFromScore(10)).toBe("critical");
+  });
+
+  it("auto_critical força crítico independente do score", () => {
+    expect(getLevelFromScore(1, true)).toBe("critical");
+    expect(getLevelFromScore(4, true)).toBe("critical");
+  });
 });

@@ -7,6 +7,8 @@ import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 const LEVEL_LABELS: Record<RiskLevel, string> = {
   normal: "normal",
   attention: "atenção",
+  moderate: "moderado",
+  high: "alto",
   critical: "crítico",
 };
 
@@ -58,7 +60,7 @@ function HistoryTooltip({ active, payload }: { active?: boolean; payload?: { pay
     >
       <div>{point.time}</div>
       <div>
-        score {point.score.toFixed(2)} ·{" "}
+        score {point.score.toFixed(1)} ·{" "}
         <span style={{ color: RISK_COLORS[point.level] }}>{LEVEL_LABELS[point.level]}</span>
       </div>
       {point.auto_critical && point.auto_critical_reason && (
@@ -86,17 +88,29 @@ export function ScoreHistory({ history }: ScoreHistoryProps) {
       <div className="h-[70px] w-full md:h-20">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-            <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={RISK_COLORS.normal} fillOpacity={0.08} />
+            <ReferenceArea y1={1} y2={SCORE_THRESHOLDS.ATTENTION} fill={RISK_COLORS.normal} fillOpacity={0.08} />
             <ReferenceArea
               y1={SCORE_THRESHOLDS.ATTENTION}
-              y2={SCORE_THRESHOLDS.CRITICAL}
+              y2={SCORE_THRESHOLDS.MODERATE}
               fill={RISK_COLORS.attention}
               fillOpacity={0.08}
             />
-            <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={RISK_COLORS.critical} fillOpacity={0.08} />
+            <ReferenceArea
+              y1={SCORE_THRESHOLDS.MODERATE}
+              y2={SCORE_THRESHOLDS.HIGH}
+              fill={RISK_COLORS.moderate}
+              fillOpacity={0.08}
+            />
+            <ReferenceArea
+              y1={SCORE_THRESHOLDS.HIGH}
+              y2={SCORE_THRESHOLDS.CRITICAL}
+              fill={RISK_COLORS.high}
+              fillOpacity={0.08}
+            />
+            <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={10} fill={RISK_COLORS.critical} fillOpacity={0.08} />
             {/* Sem eixo Y numérico visível -- as faixas coloridas já comunicam os limiares (domínio fixo
                 mantido via `hide` pra não deixar a escala virar auto-range e desalinhar as faixas). */}
-            <YAxis domain={[0, 1]} hide />
+            <YAxis domain={[1, 10]} hide />
             <XAxis dataKey="time" tick={{ fontSize: 11 }} interval="preserveStartEnd" />
             <Tooltip content={<HistoryTooltip />} />
             <Line

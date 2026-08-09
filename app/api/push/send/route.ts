@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { verifyCronSecret } from "@/lib/auth";
 import { rejectIfPayloadTooLarge, handleApiError } from "@/lib/apiError";
-import { sendPushNotification, formatPushMessage } from "@/lib/webpush";
+import { sendPushNotification, formatPushMessage, type PushLevel } from "@/lib/webpush";
+
+const PUSH_LEVELS: PushLevel[] = ["attention", "moderate", "high", "critical"];
 
 // Chamado pelo Cron A (app/api/cron/scores/route.ts) quando um bairro muda
 // de nível pra atenção/crítico -- ver seção 3.8. Protegido pelo CRON_SECRET,
@@ -20,7 +22,7 @@ export async function POST(req: NextRequest) {
 
   if (
     typeof neighborhoodId !== "string" ||
-    (level !== "attention" && level !== "critical") ||
+    !PUSH_LEVELS.includes(level) ||
     typeof neighborhoodName !== "string" ||
     typeof cityName !== "string"
   ) {
@@ -28,7 +30,11 @@ export async function POST(req: NextRequest) {
   }
 
   const appUrl = process.env.APP_URL ?? "https://chuvarada.vercel.app";
-  const column = level === "critical" ? "notify_on_critical" : "notify_on_attention";
+  // Rescala 2026-08-09: push_subscriptions só tem 2 colunas de preferência
+  // (notify_on_attention/notify_on_critical, migração 036) -- moderate reusa
+  // o toggle de attention, high reusa o de critical, mantendo o schema atual
+  // em vez de adicionar 2 colunas/toggles novos não pedidos no rollout.
+  const column = level === "high" || level === "critical" ? "notify_on_critical" : "notify_on_attention";
 
   try {
     const db = getDb();

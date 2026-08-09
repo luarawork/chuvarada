@@ -42,7 +42,17 @@ const SEVERITY_ORDER: Record<ReportSeverity, number> = { leve: 0, moderado: 1, g
 const LEVEL_LABEL: Record<RiskLevel, string> = {
   normal: "🟢 Normal",
   attention: "🟡 Atenção",
-  critical: "🔴 Crítico",
+  moderate: "🟠 Moderado",
+  high: "🔴 Alto",
+  critical: "🟣 Crítico",
+};
+
+const LEVEL_LABEL_LOWER: Record<RiskLevel, string> = {
+  normal: "normal",
+  attention: "atenção",
+  moderate: "moderado",
+  high: "alto",
+  critical: "crítico",
 };
 
 const STATES = [
@@ -65,7 +75,7 @@ const REGION_OPTIONS = [
 interface HistoryRow {
   neighborhood_id: string;
   score: number;
-  level: "normal" | "attention" | "critical";
+  level: RiskLevel;
   rain_72h: number;
   auto_critical: boolean;
   auto_critical_reason: string | null;
@@ -305,18 +315,20 @@ interface DailyAggregate {
   avg_score: number;
   normal: number;
   attention: number;
+  moderate: number;
+  high: number;
   critical: number;
 }
 
 // Ordem de gravidade da divergência em si (não do nível) -- usada só na
 // lista expandida do card "Divergências encontradas" (ver Item 4).
 const DIVERGENCE_SEVERITY_ORDER: Record<AlignmentKind, number> = {
-  diverges_much: 4,
-  diverges: 3,
-  diverges_slightly: 2,
+  diverge_heavy: 4,
+  diverge: 3,
+  diverge_light: 2,
   false_alarm: 1,
-  model_conservative: 1,
-  aligns: 0,
+  conservative: 1,
+  align: 0,
   no_reports: 0,
 };
 
@@ -457,11 +469,16 @@ function computeAlignmentMetrics(reports: UserReport[]) {
   const graves = reports.filter((r) => r.severity === "grave");
   const moderados = reports.filter((r) => r.severity === "moderado");
 
+  // Conjuntos de "alinha" derivados do próprio ALIGNMENT_MAP (lib/alignmentUtils.ts)
+  // pra não duplicar a definição de alinhamento em dois lugares: grave alinha com
+  // moderate/high/critical, moderado alinha com attention/moderate (ver mapa).
   const pctGraveCritical = graves.length
-    ? (graves.filter((r) => r.model_level === "critical").length / graves.length) * 100
+    ? (graves.filter((r) => r.model_level === "moderate" || r.model_level === "high" || r.model_level === "critical").length /
+        graves.length) *
+      100
     : null;
   const pctModeradoAtencaoOuCritico = moderados.length
-    ? (moderados.filter((r) => r.model_level === "attention" || r.model_level === "critical").length / moderados.length) * 100
+    ? (moderados.filter((r) => r.model_level === "attention" || r.model_level === "moderate").length / moderados.length) * 100
     : null;
   const pctNormalModel = reports.length
     ? (reports.filter((r) => r.model_level === "normal").length / reports.length) * 100
@@ -581,7 +598,7 @@ function ExpandedTotalRelatos({
 
 function ExpandedDivergencias({ rows }: { rows: HourlyComparison[] }) {
   const filtered = rows
-    .filter((row) => row.alignment.kind !== "aligns" && row.alignment.kind !== "no_reports")
+    .filter((row) => row.alignment.kind !== "align" && row.alignment.kind !== "no_reports")
     .sort((a, b) => DIVERGENCE_SEVERITY_ORDER[b.alignment.kind] - DIVERGENCE_SEVERITY_ORDER[a.alignment.kind]);
 
   return (
@@ -852,7 +869,7 @@ export default function AnalisePage() {
 
       const aggregates: DailyAggregate[] = results.map(({ date, rows }) => {
         const scores = rows.map((r) => r.score);
-        const counts = { normal: 0, attention: 0, critical: 0 };
+        const counts = { normal: 0, attention: 0, moderate: 0, high: 0, critical: 0 };
         for (const r of rows) counts[r.level]++;
         return {
           date,
@@ -914,7 +931,7 @@ export default function AnalisePage() {
 
   const alignmentMetrics = computeAlignmentMetrics(reports);
   const divergenceCount = hourlyComparison.filter(
-    (row) => row.alignment.kind !== "aligns" && row.alignment.kind !== "no_reports"
+    (row) => row.alignment.kind !== "align" && row.alignment.kind !== "no_reports"
   ).length;
 
   if (!authenticated) {
@@ -1135,21 +1152,33 @@ export default function AnalisePage() {
             >
               <h2 className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
                 Score máximo por dia
-                <InfoTooltip text="Evolução do score de risco ao longo do tempo. Score acima de 0,30 indica atenção; acima de 0,60 indica crítico." />
+                <InfoTooltip text="Evolução do score de risco ao longo do tempo (escala 1-10). Score acima de 3,0 indica atenção; acima de 5,0 moderado; acima de 6,5 alto; acima de 8,0 crítico." />
               </h2>
               <div className="mt-3 h-56 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={daily} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-                    <ReferenceArea y1={0} y2={SCORE_THRESHOLDS.ATTENTION} fill={COLORS.normal} fillOpacity={0.08} />
+                    <ReferenceArea y1={1} y2={SCORE_THRESHOLDS.ATTENTION} fill={COLORS.normal} fillOpacity={0.08} />
                     <ReferenceArea
                       y1={SCORE_THRESHOLDS.ATTENTION}
-                      y2={SCORE_THRESHOLDS.CRITICAL}
+                      y2={SCORE_THRESHOLDS.MODERATE}
                       fill={COLORS.attention}
                       fillOpacity={0.08}
                     />
-                    <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={1} fill={COLORS.critical} fillOpacity={0.08} />
+                    <ReferenceArea
+                      y1={SCORE_THRESHOLDS.MODERATE}
+                      y2={SCORE_THRESHOLDS.HIGH}
+                      fill={COLORS.moderate}
+                      fillOpacity={0.08}
+                    />
+                    <ReferenceArea
+                      y1={SCORE_THRESHOLDS.HIGH}
+                      y2={SCORE_THRESHOLDS.CRITICAL}
+                      fill={COLORS.high}
+                      fillOpacity={0.08}
+                    />
+                    <ReferenceArea y1={SCORE_THRESHOLDS.CRITICAL} y2={10} fill={COLORS.critical} fillOpacity={0.08} />
                     <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#a8d4f0" }} />
-                    <YAxis domain={[0, 1]} tick={{ fontSize: 11, fill: "#a8d4f0" }} />
+                    <YAxis domain={[1, 10]} tick={{ fontSize: 11, fill: "#a8d4f0" }} />
                     <Tooltip content={<ScoreChartTooltip />} />
                     <Line type="monotone" dataKey="max_score" name="Score máximo" stroke={COLORS.line} strokeWidth={2} dot={{ r: 3 }} />
                     <Line type="monotone" dataKey="avg_score" name="Score médio" stroke="#a8d4f0" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
@@ -1191,6 +1220,8 @@ export default function AnalisePage() {
                     <Legend wrapperStyle={{ fontSize: 12, color: "#a8d4f0" }} />
                     <Bar dataKey="normal" name="Normal" stackId="a" fill={COLORS.normal} />
                     <Bar dataKey="attention" name="Atenção" stackId="a" fill={COLORS.attention} />
+                    <Bar dataKey="moderate" name="Moderado" stackId="a" fill={COLORS.moderate} />
+                    <Bar dataKey="high" name="Alto" stackId="a" fill={COLORS.high} />
                     <Bar dataKey="critical" name="Crítico" stackId="a" fill={COLORS.critical} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -1263,7 +1294,7 @@ export default function AnalisePage() {
                       </div>
                       <span className="text-xs" style={{ color: "#a8d4f0" }}>
                         ✓{r.confirmations} ✗{r.denials}
-                        {r.model_level && r.model_level !== "normal" ? ` · modelo em ${r.model_level === "critical" ? "crítico" : "atenção"}` : ""}
+                        {r.model_level && r.model_level !== "normal" ? ` · modelo em ${LEVEL_LABEL_LOWER[r.model_level]}` : ""}
                       </span>
                     </li>
                   ))}
@@ -1355,12 +1386,12 @@ export default function AnalisePage() {
               <div className="mt-4 grid gap-2 sm:grid-cols-3">
                 <div className="rounded-xl p-3 text-xs" style={{ backgroundColor: "rgba(240, 244, 248, 0.06)", color: "#a8d4f0" }}>
                   {alignmentMetrics.pctGraveCritical !== null
-                    ? `${alignmentMetrics.pctGraveCritical.toFixed(0)}% dos relatos graves coincidiram com nível crítico do modelo`
+                    ? `${alignmentMetrics.pctGraveCritical.toFixed(0)}% dos relatos graves coincidiram com nível moderado ou pior do modelo`
                     : "Sem relatos graves nesse período"}
                 </div>
                 <div className="rounded-xl p-3 text-xs" style={{ backgroundColor: "rgba(240, 244, 248, 0.06)", color: "#a8d4f0" }}>
                   {alignmentMetrics.pctModeradoAtencaoOuCritico !== null
-                    ? `${alignmentMetrics.pctModeradoAtencaoOuCritico.toFixed(0)}% dos relatos moderados coincidiram com atenção ou crítico`
+                    ? `${alignmentMetrics.pctModeradoAtencaoOuCritico.toFixed(0)}% dos relatos moderados coincidiram com atenção ou moderado`
                     : "Sem relatos moderados nesse período"}
                 </div>
                 <div className="rounded-xl p-3 text-xs" style={{ backgroundColor: "rgba(240, 244, 248, 0.06)", color: "#a8d4f0" }}>

@@ -10,15 +10,18 @@ import type { RiskLevel } from "@/types";
 // filtrou.
 export const MERGE_MAX_AGE_HOURS = 6;
 
-// Limiares do modelo de risco (ver lib/score.ts) -- recalibrados em
-// 2026-07-20 (diagnóstico do evento de Recife, ver comentário em
-// lib/score.ts). Fonte única: antes desses valores existirem só aqui, o
-// gráfico de histórico (components/panel/HistoryChart.tsx) e o painel
-// /analise desenhavam as mesmas faixas com 0.3/0.6 soltos no JSX --
-// funcionava só porque ninguém tinha mudado um lado sem lembrar do outro.
+// Limiares do modelo de risco (ver lib/score.ts) -- rescala 2026-08-09
+// (0-1/3 níveis -> 1-10/5 níveis, ver migração 042) pra dar granularidade
+// entre "atenção" e "crítico", que antes cobria uma faixa larga demais
+// (0.3-0.6 = tudo "atenção"). Fonte única: o gráfico de histórico
+// (components/panel/ScoreHistory.tsx) e o painel /analise leem esses
+// valores em vez de soltar números no JSX (ver comentário antigo abaixo,
+// pré-rescala, sobre o motivo de centralizar).
 export const SCORE_THRESHOLDS = {
-  ATTENTION: 0.3,
-  CRITICAL: 0.6,
+  ATTENTION: 3.0,
+  MODERATE: 5.0,
+  HIGH: 6.5,
+  CRITICAL: 8.0,
 } as const;
 
 // Cores de risco -- fonte única pro mapa (lib/geojson.ts), gráfico de
@@ -28,15 +31,28 @@ export const SCORE_THRESHOLDS = {
 export const RISK_COLORS: Record<RiskLevel, string> = {
   normal: "#2a9d72",
   attention: "#f0a500",
-  critical: "#d64045",
+  moderate: "#f07800",
+  high: "#d64045",
+  critical: "#7b2d8b",
 };
 
-// Deriva o level a partir do score numérico + auto_critical -- mesma regra
-// de lib/score.ts's calculateScore(): auto_critical sempre vence, senão pura
-// comparação contra os limiares acima. Centralizado aqui pra o frontend
-// poder recalcular o mesmo level do backend sem duplicar os números.
+export const RISK_LABELS: Record<RiskLevel, string> = {
+  normal: "Normal",
+  attention: "Atenção",
+  moderate: "Moderado",
+  high: "Alto",
+  critical: "Crítico",
+};
+
+// Deriva o level a partir do score numérico (escala 1-10) + auto_critical --
+// mesma regra de lib/score.ts's calculateScore(): auto_critical sempre
+// vence, senão pura comparação contra os limiares acima, do mais severo pro
+// menos severo. Centralizado aqui pra o frontend poder recalcular o mesmo
+// level do backend sem duplicar os números.
 export function getLevelFromScore(score: number, autoCritical = false): RiskLevel {
   if (autoCritical || score >= SCORE_THRESHOLDS.CRITICAL) return "critical";
+  if (score >= SCORE_THRESHOLDS.HIGH) return "high";
+  if (score >= SCORE_THRESHOLDS.MODERATE) return "moderate";
   if (score >= SCORE_THRESHOLDS.ATTENTION) return "attention";
   return "normal";
 }
@@ -47,12 +63,22 @@ export function getRiskColor(level: RiskLevel): string {
 
 // Emoji/classe de texto por nível -- antes duplicado (mesmo valor) em
 // ForecastStrip.tsx, ForecastPanel.tsx e RiskBadge.tsx (redesign do
-// DetailPanel, ver components/panel/).
-export const LEVEL_EMOJI: Record<RiskLevel, string> = { normal: "🟢", attention: "🟡", critical: "🔴" };
+// DetailPanel, ver components/panel/). moderate/high usam os 2 novos tokens
+// de brand color (tailwind.config.ts) -- yellow-warn/red-alert já estavam
+// ocupados por attention/high respectivamente antes da rescala.
+export const LEVEL_EMOJI: Record<RiskLevel, string> = {
+  normal: "🟢",
+  attention: "🟡",
+  moderate: "🟠",
+  high: "🔴",
+  critical: "🟣",
+};
 export const LEVEL_TEXT_CLASS: Record<RiskLevel, string> = {
   normal: "text-brand-green-water",
   attention: "text-brand-yellow-warn",
-  critical: "text-brand-red-alert",
+  moderate: "text-brand-orange-alert",
+  high: "text-brand-red-alert",
+  critical: "text-brand-purple-critical",
 };
 
 // Camadas de tile do mapa (ver components/map/MapContainer.tsx e

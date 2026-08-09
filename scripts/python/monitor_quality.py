@@ -123,11 +123,15 @@ cur.execute(f"""
         WHERE c.state IN ({estados_placeholder})
         ORDER BY rs.neighborhood_id, rs.calculated_at DESC
     ) rs
-    WHERE (rs.level = 'critical' AND rs.score < 0.60
+    WHERE (rs.level = 'critical' AND rs.score < 8.0
            AND rs.auto_critical = false)
+    OR (rs.level = 'high'
+        AND (rs.score < 6.5 OR rs.score >= 8.0))
+    OR (rs.level = 'moderate'
+        AND (rs.score < 5.0 OR rs.score >= 6.5))
     OR (rs.level = 'attention'
-        AND (rs.score < 0.30 OR rs.score > 0.60))
-    OR (rs.level = 'normal' AND rs.score > 0.30
+        AND (rs.score < 3.0 OR rs.score >= 5.0))
+    OR (rs.level = 'normal' AND rs.score >= 3.0
         AND rs.auto_critical = false)
 """, estados)
 inconsistent = cur.fetchone()[0]

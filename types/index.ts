@@ -1,5 +1,5 @@
 export type DataLevel = "full" | "partial" | "minimal";
-export type RiskLevel = "normal" | "attention" | "critical";
+export type RiskLevel = "normal" | "attention" | "moderate" | "high" | "critical";
 export type PressureTrend = "falling" | "stable" | "rising";
 export type NameSource = "bairro" | "subdistrito" | "distrito" | "setor";
 

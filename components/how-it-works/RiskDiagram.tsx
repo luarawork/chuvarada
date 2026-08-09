@@ -39,7 +39,7 @@ export function RiskDiagram() {
           <span className="font-heading text-sm font-semibold" style={{ color: "#f0f4f8" }}>
             Score
             <br />
-            0.0 – 1.0
+            1 – 10
           </span>
         </div>
 
@@ -54,8 +54,14 @@ export function RiskDiagram() {
           <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(240, 165, 0, 0.12)", color: RISK_COLORS.attention }}>
             🟡 Atenção
           </span>
-          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(214, 64, 69, 0.12)", color: RISK_COLORS.critical }}>
-            🔴 Crítico
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(240, 120, 0, 0.12)", color: RISK_COLORS.moderate }}>
+            🟠 Moderado
+          </span>
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(214, 64, 69, 0.12)", color: RISK_COLORS.high }}>
+            🔴 Alto
+          </span>
+          <span className="rounded-lg px-3 py-2" style={{ backgroundColor: "rgba(123, 45, 139, 0.12)", color: RISK_COLORS.critical }}>
+            🟣 Crítico
           </span>
         </div>
       </div>

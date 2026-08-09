@@ -105,9 +105,11 @@ cur.execute("""
         ORDER BY rs.calculated_at DESC
         LIMIT 1
     ) rs ON true
-    WHERE (rs.level = 'critical' AND rs.score < 0.60 AND rs.auto_critical = false)
-    OR (rs.level = 'attention' AND (rs.score < 0.30 OR rs.score > 0.60))
-    OR (rs.level = 'normal' AND rs.score > 0.30 AND rs.auto_critical = false)
+    WHERE (rs.level = 'critical' AND rs.score < 8.0 AND rs.auto_critical = false)
+    OR (rs.level = 'high' AND (rs.score < 6.5 OR rs.score >= 8.0))
+    OR (rs.level = 'moderate' AND (rs.score < 5.0 OR rs.score >= 6.5))
+    OR (rs.level = 'attention' AND (rs.score < 3.0 OR rs.score >= 5.0))
+    OR (rs.level = 'normal' AND rs.score >= 3.0 AND rs.auto_critical = false)
 """)
 inconsistent = cur.fetchone()[0]
 if inconsistent > 10:

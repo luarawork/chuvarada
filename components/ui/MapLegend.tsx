@@ -6,6 +6,8 @@ import { RISK_COLORS } from "@/lib/constants";
 const ITEMS = [
   { color: RISK_COLORS.normal, label: "Normal" },
   { color: RISK_COLORS.attention, label: "Atenção" },
+  { color: RISK_COLORS.moderate, label: "Moderado" },
+  { color: RISK_COLORS.high, label: "Alto" },
   { color: RISK_COLORS.critical, label: "Crítico" },
 ];
 
@@ -54,7 +56,9 @@ export function MapLegend() {
         >
           <span className="h-2.5 w-2.5 rounded-full bg-brand-green-water" />
           <span className="h-2.5 w-2.5 rounded-full bg-brand-yellow-warn" />
+          <span className="h-2.5 w-2.5 rounded-full bg-brand-orange-alert" />
           <span className="h-2.5 w-2.5 rounded-full bg-brand-red-alert" />
+          <span className="h-2.5 w-2.5 rounded-full bg-brand-purple-critical" />
           Legenda
         </button>
       )}

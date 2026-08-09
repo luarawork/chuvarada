@@ -61,10 +61,17 @@ export async function upsertCityRiskSummary(db: Pool, city: City, rows: ScoredRo
 
   const maxScore = Math.max(...rows.map((r) => r.result.score));
   const hasCritical = rows.some((r) => r.result.level === "critical");
+  const hasHigh = rows.some((r) => r.result.level === "high");
+  const hasModerate = rows.some((r) => r.result.level === "moderate");
   const hasAttention = rows.some((r) => r.result.level === "attention");
-  const worstLevel = hasCritical ? "critical" : hasAttention ? "attention" : "normal";
-  const criticalCount = rows.filter((r) => r.result.level === "critical").length;
-  const attentionCount = rows.filter((r) => r.result.level === "attention").length;
+  const worstLevel = hasCritical ? "critical" : hasHigh ? "high" : hasModerate ? "moderate" : hasAttention ? "attention" : "normal";
+  // Rescala 2026-08-09: city_risk_summary continua só com 2 colunas de
+  // contagem (critical_count/attention_count, sem migração pra 5 colunas
+  // pedida no rollout) -- critical_count agora agrega high+critical,
+  // attention_count agrega attention+moderate, preservando o par
+  // "grave"/"leve" que a UI (app/favoritos, cards de cidade) já lê.
+  const criticalCount = rows.filter((r) => r.result.level === "critical" || r.result.level === "high").length;
+  const attentionCount = rows.filter((r) => r.result.level === "attention" || r.result.level === "moderate").length;
 
   await db.query(
     `insert into city_risk_summary (
@@ -248,7 +255,11 @@ function notifyLevelChanges(city: City, rows: ScoredRow[], previousLevels: Map<s
   const appUrl = process.env.APP_URL ?? "http://localhost:3000";
 
   const changed = rows.filter(({ neighborhood, result }) => {
-    if (result.level !== "attention" && result.level !== "critical") return false;
+    // Qualquer nível acima de "normal" notifica (mesma filosofia de antes da
+    // rescala, que cobria attention/critical -- os únicos 2 níveis não-normais
+    // que existiam); moderate/high mapeiam pros toggles existentes em
+    // app/api/push/send/route.ts.
+    if (result.level === "normal") return false;
     return previousLevels.get(neighborhood.id) !== result.level;
   });
 

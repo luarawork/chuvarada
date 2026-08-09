@@ -23,9 +23,11 @@ const CARD_STYLE = { backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rg
 
 const LEVEL_ORDER: Record<RiskLevel | "sem_dado", number> = {
   critical: 0,
-  attention: 1,
-  normal: 2,
-  sem_dado: 3,
+  high: 1,
+  moderate: 2,
+  attention: 3,
+  normal: 4,
+  sem_dado: 5,
 };
 
 export default function FavoritosPage() {

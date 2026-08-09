@@ -9,6 +9,8 @@ import type { City, Neighborhood, RiskLevel } from "@/types";
 const LEVEL_LABELS: Record<RiskLevel, string> = {
   normal: "normal",
   attention: "atenção",
+  moderate: "moderado",
+  high: "alto",
   critical: "crítico",
 };
 

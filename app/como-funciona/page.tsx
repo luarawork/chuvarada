@@ -9,7 +9,7 @@ import { SourcesList } from "@/components/how-it-works/SourcesList";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
-const fmtScoreBr = (n: number) => n.toFixed(2).replace(".", ",");
+const fmtScoreBr = (n: number) => n.toFixed(1).replace(".", ",");
 
 const PILLS = [
   { icon: "🕐", label: "Atualizado a cada hora" },
@@ -70,15 +70,29 @@ const LEVELS = [
   {
     emoji: "🟡",
     label: "Atenção",
-    range: `${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)} – ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
+    range: `${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)} – ${fmtScoreBr(SCORE_THRESHOLDS.MODERATE)}`,
     text: "Fique atento, evite áreas de risco",
     color: RISK_COLORS.attention,
   },
   {
+    emoji: "🟠",
+    label: "Moderado",
+    range: `${fmtScoreBr(SCORE_THRESHOLDS.MODERATE)} – ${fmtScoreBr(SCORE_THRESHOLDS.HIGH)}`,
+    text: "Risco real de alagamento, redobre a atenção",
+    color: RISK_COLORS.moderate,
+  },
+  {
     emoji: "🔴",
+    label: "Alto",
+    range: `${fmtScoreBr(SCORE_THRESHOLDS.HIGH)} – ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
+    text: "Evite áreas alagáveis agora",
+    color: RISK_COLORS.high,
+  },
+  {
+    emoji: "🟣",
     label: "Crítico",
     range: `score > ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
-    text: "Evite áreas alagáveis agora",
+    text: "Situação crítica, saia de áreas alagáveis",
     color: RISK_COLORS.critical,
   },
 ];

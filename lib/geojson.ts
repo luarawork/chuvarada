@@ -15,8 +15,20 @@ export { RISK_COLORS };
 // próprio fillOpacity por cima. fillColor/color derivados de RISK_COLORS
 // (não mais hex duplicado aqui) -- só fillOpacity/opacity/weight variam
 // por nível.
-const NEIGHBORHOOD_FILL_OPACITY: Record<RiskLevel, number> = { normal: 0.35, attention: 0.4, critical: 0.45 };
-const NEIGHBORHOOD_STROKE_OPACITY: Record<RiskLevel, number> = { normal: 0.7, attention: 0.75, critical: 0.8 };
+const NEIGHBORHOOD_FILL_OPACITY: Record<RiskLevel, number> = {
+  normal: 0.35,
+  attention: 0.4,
+  moderate: 0.45,
+  high: 0.5,
+  critical: 0.55,
+};
+const NEIGHBORHOOD_STROKE_OPACITY: Record<RiskLevel, number> = {
+  normal: 0.7,
+  attention: 0.75,
+  moderate: 0.8,
+  high: 0.85,
+  critical: 0.9,
+};
 
 export const NEIGHBORHOOD_STYLES: Record<
   RiskLevel,

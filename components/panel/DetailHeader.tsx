@@ -77,7 +77,7 @@ export function DetailHeader({
           <div>
             <RiskBadge level={current.level} />
             <p className={`mt-0.5 text-sm font-semibold ${LEVEL_TEXT_CLASS[current.level]}`}>
-              Score {current.score.toFixed(2)}
+              Score {current.score.toFixed(1)}
             </p>
           </div>
           <AnimatePresence>

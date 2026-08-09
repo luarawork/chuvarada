@@ -204,7 +204,11 @@ async function createDailySnapshot(db: Pool): Promise<void> {
     agg.scores.push(row.score);
     agg.max_score = Math.max(agg.max_score, row.score);
     agg.max_rain_72h = Math.max(agg.max_rain_72h, row.rain_72h ?? 0);
-    if (row.level === "critical") agg.had_critical = true;
+    // Rescala 2026-08-09: high é o novo tier logo abaixo de critical (era só
+    // attention antes) -- mantém had_critical marcando "situação grave" pra
+    // não regredir silenciosamente o snapshot (mesma leitura de criticalCount
+    // em lib/riskScoring.ts, ver comentário lá).
+    if (row.level === "critical" || row.level === "high") agg.had_critical = true;
   }
 
   const snapshot = {

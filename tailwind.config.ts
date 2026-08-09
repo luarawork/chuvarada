@@ -20,6 +20,8 @@ const config: Config = {
           "gray-light": "#f0f4f8",
           "red-alert": "#d64045",
           "yellow-warn": "#f0a500",
+          "orange-alert": "#f07800",
+          "purple-critical": "#7b2d8b",
         },
       },
       fontFamily: {

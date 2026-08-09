@@ -8,7 +8,9 @@ import { RISK_COLORS } from "@/lib/constants";
 const MESSAGES: Record<RiskLevel, { emoji: string; text: string; color: string }> = {
   normal: { emoji: "🟢", text: "Sem risco no momento", color: RISK_COLORS.normal },
   attention: { emoji: "🟡", text: "Fique atento à chuva", color: RISK_COLORS.attention },
-  critical: { emoji: "🔴", text: "Evite áreas alagáveis", color: RISK_COLORS.critical },
+  moderate: { emoji: "🟠", text: "Risco moderado de alagamento", color: RISK_COLORS.moderate },
+  high: { emoji: "🔴", text: "Evite áreas alagáveis", color: RISK_COLORS.high },
+  critical: { emoji: "🟣", text: "Evite áreas alagáveis — risco crítico", color: RISK_COLORS.critical },
 };
 
 interface AlertCardProps {

@@ -413,6 +413,8 @@ export default function HomePage() {
   const overallLevel: RiskLevel = useMemo(() => {
     const levels = Object.values(levelsById);
     if (levels.includes("critical")) return "critical";
+    if (levels.includes("high")) return "high";
+    if (levels.includes("moderate")) return "moderate";
     if (levels.includes("attention")) return "attention";
     return "normal";
   }, [levelsById]);
