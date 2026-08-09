@@ -7,6 +7,7 @@ import { VariableCard } from "@/components/how-it-works/VariableCard";
 import { RiskDiagram } from "@/components/how-it-works/RiskDiagram";
 import { SourcesList } from "@/components/how-it-works/SourcesList";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
+import { Separator } from "@/components/ui/separator";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
 const fmtScoreBr = (n: number) => n.toFixed(1).replace(".", ",");
@@ -393,8 +394,9 @@ export default function ComoFuncionaPage() {
         </FadeInSection>
 
         {/* Footer */}
-        <footer className="mt-16 border-t pt-8 pb-6 text-center" style={{ borderColor: "rgba(46, 125, 184, 0.2)" }}>
-          <p className="mx-auto max-w-md text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+        <footer className="mt-16 pb-6 text-center">
+          <Separator style={{ backgroundColor: "rgba(46, 125, 184, 0.2)" }} />
+          <p className="mx-auto mt-8 max-w-md text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
             O Chuvarada complementa a informação pública, colocando dados abertos do governo nas
             mãos do cidadão comum.
           </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { TILE_LAYERS, type TileLayerKey } from "@/lib/constants";
 
 interface LayerToggleProps {
@@ -10,16 +11,23 @@ interface LayerToggleProps {
 const ORDER: TileLayerKey[] = ["default", "street"];
 const SHORT_LABELS: Record<TileLayerKey, string> = { default: "Escuro", street: "Claro" };
 
-// Segmented control com pill deslizante -- substitui o antigo botão único
-// LayerSwitcher (que alternava mostrando só um modo por vez). Aqui os dois
-// modos ficam sempre visíveis lado a lado, então não existe mais a
-// ambiguidade "o texto mostra o atual ou o destino?" que gerou confusão
-// antes -- cada label sempre descreve a si mesma, e o pill deslizante marca
-// qual está ativa.
+// Segmented control com pill deslizante -- Radix ToggleGroup (via shadcn)
+// cuida de estado/acessibilidade (type="single", roving focus, aria), mas
+// NÃO tem indicador deslizante embutido -- o pill continua sendo a mesma
+// div absoluta de antes, só que agora dentro do ToggleGroup em vez de um
+// <div> cru. h-[30px]/rounded-full/top-0.5/left-0.5 NÃO PODEM mudar: gap
+// 3px/3px medido em produção (chuvarada.vercel.app) antes desta migração
+// -- ver commit 60e471e -- qualquer ajuste aqui reintroduziria a assimetria
+// 3px/1px que foi corrigida.
 export function LayerToggle({ currentLayer, onChange }: LayerToggleProps) {
   return (
-    <div
-      className="pointer-events-auto relative flex h-9 w-40 items-center rounded-full border p-0.5 shadow-lg backdrop-blur"
+    <ToggleGroup
+      type="single"
+      value={currentLayer}
+      onValueChange={(value) => {
+        if (value) onChange(value as TileLayerKey);
+      }}
+      className="pointer-events-auto relative h-9 w-40 items-center justify-start rounded-full border p-0.5 shadow-lg backdrop-blur"
       style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
     >
       <div
@@ -30,18 +38,18 @@ export function LayerToggle({ currentLayer, onChange }: LayerToggleProps) {
         const layer = TILE_LAYERS[key];
         const active = currentLayer === key;
         return (
-          <button
+          <ToggleGroupItem
             key={key}
-            onClick={() => onChange(key)}
+            value={key}
             aria-pressed={active}
-            className={`relative z-10 flex h-8 flex-1 items-center justify-center gap-1 text-[13px] transition-colors before:absolute before:inset-x-0 before:top-1/2 before:h-11 before:-translate-y-1/2 before:content-[''] ${
+            className={`relative z-10 flex h-8 flex-1 items-center justify-center gap-1 rounded-none bg-transparent text-[13px] transition-colors hover:bg-transparent data-[state=on]:bg-transparent ${
               active ? "font-semibold text-white" : "font-normal text-brand-blue-light"
             }`}
           >
             {layer.icon} {SHORT_LABELS[key]}
-          </button>
+          </ToggleGroupItem>
         );
       })}
-    </div>
+    </ToggleGroup>
   );
 }

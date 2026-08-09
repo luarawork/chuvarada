@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabase";
 
 interface SearchResult {
@@ -189,13 +190,13 @@ export function SearchBar({ onSelect }: SearchBarProps) {
           <circle cx="11" cy="11" r="7" />
           <path d="m21 21-4.3-4.3" />
         </svg>
-        <input
+        <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.length >= MIN_QUERY_LENGTH && setOpen(true)}
           placeholder="Buscar cidade ou bairro..."
-          className="w-full bg-transparent text-sm outline-none placeholder:text-[#a8d4f0]/60"
+          className="h-auto w-full border-none bg-transparent p-0 text-sm shadow-none outline-none focus-visible:ring-0 placeholder:text-[#a8d4f0]/60"
           style={{ color: "#f0f4f8" }}
         />
         {loading && (

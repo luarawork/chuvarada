@@ -17,6 +17,9 @@ import {
   Legend,
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 import { MIN_AMOSTRA_CONFIRMACAO, formatTaxaConfirmacao } from "@/lib/analiseMetrics";
 import { getAlignment, NO_REPORTS_RESULT, type AlignmentKind, type AlignmentResult } from "@/lib/alignmentUtils";
@@ -1085,56 +1088,61 @@ export default function AnalisePage() {
         >
           <label className="flex flex-col gap-1 text-xs" style={{ color: "#a8d4f0" }}>
             Estado
-            <select
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              className="rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
-              style={{ color: "#f0f4f8" }}
-            >
-              <optgroup label="Regiões">
-                {REGION_OPTIONS.map((r) => (
-                  <option key={r.value} value={r.value} style={{ color: "#1a3a5c" }}>
-                    {r.label}
-                  </option>
-                ))}
-              </optgroup>
-              <optgroup label="Estados">
-                {STATES.map((s) => (
-                  <option key={s} value={s} style={{ color: "#1a3a5c" }}>
-                    {s}
-                  </option>
-                ))}
-              </optgroup>
-            </select>
+            <Select value={state} onValueChange={setState}>
+              <SelectTrigger
+                className="h-auto rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
+                style={{ color: "#f0f4f8" }}
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Regiões</SelectLabel>
+                  {REGION_OPTIONS.map((r) => (
+                    <SelectItem key={r.value} value={r.value}>
+                      {r.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+                <SelectGroup>
+                  <SelectLabel>Estados</SelectLabel>
+                  {STATES.map((s) => (
+                    <SelectItem key={s} value={s}>
+                      {s}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </label>
           <label className="flex flex-col gap-1 text-xs" style={{ color: "#a8d4f0" }}>
             De
-            <input
+            <Input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
+              className="h-auto rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
               style={{ color: "#f0f4f8", colorScheme: "dark" }}
             />
           </label>
           <label className="flex flex-col gap-1 text-xs" style={{ color: "#a8d4f0" }}>
             Até
-            <input
+            <Input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
+              className="h-auto rounded-lg border-none bg-white/10 px-3 py-2 text-sm"
               style={{ color: "#f0f4f8", colorScheme: "dark" }}
             />
           </label>
-          <button
+          <Button
             onClick={handleSearch}
             disabled={loading}
-            className="rounded-lg px-4 py-2 text-sm font-semibold disabled:opacity-50"
+            className="h-auto rounded-lg px-4 py-2 text-sm font-semibold"
             style={{ backgroundColor: "#2e7db8", color: "#f0f4f8" }}
           >
             {loading ? "Buscando..." : "Buscar"}
-          </button>
+          </Button>
         </div>
 
         {error && (
