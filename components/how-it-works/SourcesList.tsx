@@ -41,8 +41,16 @@ export function SourcesList() {
               <td className="py-2.5 pr-4" style={{ color: "#a8d4f0" }}>
                 {source.provides}
               </td>
-              <td className="py-2.5" style={{ color: STATUS_CONFIG[source.status].color }}>
-                {STATUS_CONFIG[source.status].label}
+              <td className="py-2.5">
+                <span
+                  className="inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium"
+                  style={{
+                    color: STATUS_CONFIG[source.status].color,
+                    backgroundColor: `${STATUS_CONFIG[source.status].color}1f`,
+                  }}
+                >
+                  {STATUS_CONFIG[source.status].label}
+                </span>
               </td>
             </tr>
           ))}
