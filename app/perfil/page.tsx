@@ -239,7 +239,7 @@ export default function PerfilPage() {
                   <button
                     onClick={() => handleRemoveFavorite(fav.id)}
                     aria-label="Remover dos favoritos"
-                    className="shrink-0 rounded-full p-2 opacity-50 hover:bg-white/10 hover:opacity-100"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full opacity-50 hover:bg-white/10 hover:opacity-100"
                   >
                     🗑️
                   </button>
@@ -335,7 +335,7 @@ export default function PerfilPage() {
                   if (e.target.checked) push.subscribe(neighborhoodIds);
                   else push.unsubscribe();
                 }}
-                className="h-4 w-4 shrink-0"
+                className="h-5 w-5 shrink-0 accent-brand-blue-mid"
               />
             </div>
             <div className="flex cursor-not-allowed items-start justify-between gap-3 opacity-50">
@@ -353,7 +353,7 @@ export default function PerfilPage() {
                   Em desenvolvimento. Disponível em versão futura.
                 </p>
               </div>
-              <input type="checkbox" disabled className="h-4 w-4 shrink-0" />
+              <input type="checkbox" disabled className="h-5 w-5 shrink-0 accent-brand-blue-mid" />
             </div>
           </div>
         </section>

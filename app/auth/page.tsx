@@ -11,7 +11,17 @@ function AuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get("next") ?? "/";
-  const aviso = searchParams.get("aviso") === "favoritos" ? "Entre para ver seus bairros salvos." : null;
+  // Duas origens redirecionam pra cá quando não autenticado -- ver
+  // app/favoritos/page.tsx e app/perfil/page.tsx. Antes só "favoritos" tinha
+  // mensagem própria; "perfil" caía no `null` e o usuário via a tela de
+  // login sem nenhuma explicação de por que foi redirecionado.
+  const avisoParam = searchParams.get("aviso");
+  const aviso =
+    avisoParam === "favoritos"
+      ? "Entre para ver seus bairros salvos."
+      : avisoParam === "perfil"
+        ? "Entre para ver seu perfil."
+        : null;
 
   const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState<Mode>("entrar");
