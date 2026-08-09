@@ -24,7 +24,17 @@ export function AlertCard({ level, weather, tideLevel, onClick }: AlertCardProps
   const message = MESSAGES[level];
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-40 z-[1000] flex justify-center px-4 md:bottom-4">
+    // bottom-40 (160px) era herdado de um layout de jul/2026 que reservava
+    // espaço pra uma pilha de botões no canto inferior-esquerdo (zoom +
+    // localizar) removida desde então (geolocalização saiu do app, zoom
+    // agora usa a posição padrão do próprio Leaflet) -- ninguém baixou o
+    // valor quando esses botões sumiram, deixando o banner flutuando bem
+    // acima do necessário no mobile. bottom-32 (128px) é o mínimo seguro
+    // hoje: o único elemento que resta perto do fundo é a pilha "Como
+    // funciona" + LayerToggle no canto inferior-direito (bottom-9 + ~80px
+    // de conteúdo = ~116px do fundo, ver app/page.tsx), e este botão ocupa
+    // a largura toda no mobile (w-full), então precisa ficar acima dela.
+    <div className="pointer-events-none absolute inset-x-0 bottom-32 z-[1000] flex justify-center px-4 md:bottom-4">
       <motion.button
         onClick={onClick}
         initial={{ y: 80, opacity: 0 }}
