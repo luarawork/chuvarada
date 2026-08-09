@@ -127,7 +127,7 @@ export function DetailPanel({
               </div>
 
               <div className="mt-5">
-                <RiskFactors score={current} hasTideStation={hasTideStation} />
+                <RiskFactors score={current} hasTideStation={hasTideStation} centroid={forecastCoords} />
               </div>
 
               <div className="mt-5">
