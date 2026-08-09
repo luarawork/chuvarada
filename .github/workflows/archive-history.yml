@@ -5,7 +5,7 @@ name: Archive History to B2
 # dia anterior -- ver scripts/archive_to_b2.ts.
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 2,14 * * *"
   workflow_dispatch:
 
 jobs:
