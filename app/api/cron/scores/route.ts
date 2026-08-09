@@ -62,7 +62,13 @@ const CITY_CONCURRENCY = 8;
 // pode exportar handlers HTTP reconhecidos (GET, POST etc.) -- exportar uma
 // const comum quebra a checagem de tipos gerada pelo Next.js pra esse arquivo.
 const LOCK_KEY = SCORES_CRON_LOCK_KEY;
-const LOCK_MAX_AGE_MINUTES = 10;
+// 20min -- folga real acima do timeout do workflow (--max-time 570s = 9.5min,
+// ver merge-and-scores-update.yml). Com TTL=10min, uma execução legítima só
+// um pouco mais lenta que o normal (banco sob carga, por exemplo) já fazia o
+// lock expirar como "stale" antes da execução terminar, permitindo uma
+// segunda instância duplicar a rodada inteira (achado em 08/08, 2 horas com
+// score em dobro pra todo o Brasil).
+const LOCK_MAX_AGE_MINUTES = 20;
 
 export async function GET(req: NextRequest) {
   if (!verifyCronSecret(req.headers.get("authorization"))) {
@@ -75,7 +81,7 @@ export async function GET(req: NextRequest) {
   try {
     const acquired = await acquireLock(db, { key: LOCK_KEY, lockedBy: "cron_scores", maxAgeMinutes: LOCK_MAX_AGE_MINUTES });
     if (!acquired) {
-      return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 10min)" });
+      return NextResponse.json({ ok: true, skipped: true, reason: "Já existe um ciclo em andamento (lock < 20min)" });
     }
   } catch (err) {
     return handleApiError(err, "api/cron/scores");

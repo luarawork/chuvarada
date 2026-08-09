@@ -119,12 +119,17 @@ export async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLev
     );
   });
 
+  // ON CONFLICT casa com o índice único risk_scores_neighborhood_hour_uniq
+  // (migração 040) -- defesa em profundidade contra duplicata de bairro na
+  // mesma hora se o lock do Cron A falhar de novo por outro motivo (ver
+  // LOCK_MAX_AGE_MINUTES em app/api/cron/scores/route.ts pra causa raiz).
   await db.query(
     `insert into risk_scores (
        neighborhood_id, score, level, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
        terrain_slope, hydro_proximity, tide_level, wind_speed, wind_direction,
        humidity, pressure, auto_critical, auto_critical_reason
-     ) values ${values.join(", ")}`,
+     ) values ${values.join(", ")}
+     on conflict (neighborhood_id, (date_trunc('hour', calculated_at at time zone 'utc'))) do nothing`,
     params
   );
 }
