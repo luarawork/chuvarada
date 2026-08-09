@@ -43,7 +43,7 @@ export function DetailHeader({
               !canFavorite ? "Entre para salvar bairros" : favorited ? "Remover dos favoritos" : "Salvar bairro"
             }
             title={!canFavorite ? "Entre para salvar bairros" : undefined}
-            className={`flex h-8 w-8 items-center justify-center rounded-full ${
+            className={`flex h-11 w-11 items-center justify-center rounded-full ${
               canFavorite ? "text-brand-red-alert hover:bg-white/10" : "text-brand-blue-light/30 hover:bg-white/10"
             }`}
           >
@@ -65,7 +65,7 @@ export function DetailHeader({
           <button
             onClick={onClose}
             aria-label="Fechar"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-brand-blue-light/60 hover:bg-white/10"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-brand-blue-light/60 hover:bg-white/10"
           >
             ✕
           </button>
