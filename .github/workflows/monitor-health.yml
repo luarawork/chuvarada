@@ -1,0 +1,29 @@
+name: Monitor System Health
+
+# Substitui o antigo Monitor Database Size -- expande a checagem de
+# "só tamanho do banco" pra saúde operacional completa (backlog do
+# archive, duplicatas, scores desatualizados, MERGE estagnado, weather
+# cache, TideCheck, relatos expirados). Abre issue no GitHub quando
+# encontra problema crítico, além de falhar o job (ver scripts/python/
+# monitor_health.py).
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install psycopg2-binary requests
+      - run: python scripts/python/monitor_health.py
+        env:
+          SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
