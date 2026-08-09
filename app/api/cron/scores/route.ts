@@ -55,6 +55,19 @@ async function getNeighborhoods(db: Pool): Promise<Neighborhood[]> {
 // (reaproveitada por app/api/cron/scores/emergency/route.ts).
 const CITY_CONCURRENCY = 8;
 
+// Achado em 09/08/2026 investigando falhas intermitentes do cron (merge-
+// and-scores-update.yml com ~50% de "Recalcular scores (Cron A)" falhando
+// no mesmo dia): esta rota nunca teve maxDuration -- rodava sob o teto
+// padrão de função serverless da Vercel, bem abaixo dos 570s que o
+// workflow (--max-time 570) já esperava poder usar. app/api/cron/tide/
+// route.ts já tinha passado pelo mesmo problema (mesmo comentário lá,
+// teto padrão estourado numa execução real de teste) e ganhou
+// maxDuration=120 -- só nunca foi replicado aqui, apesar desta rota ser a
+// que mais precisa (bairros do Brasil inteiro, não só 1 chamada por
+// estação de maré). 570 pra bater exatamente o timeout do cliente (curl)
+// -- sem sentido o servidor rodar mais tempo do que o cliente vai esperar.
+export const maxDuration = 570;
+
 // SCORES_CRON_LOCK_KEY (lib/systemLock.ts) -- app/api/cron/scores/emergency/
 // route.ts adquire o MESMO lock antes de rodar scoreCity(), pra não competir
 // com este cron horário escrevendo risk_scores/risk_events pros mesmos
