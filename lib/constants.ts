@@ -89,23 +89,36 @@ export const LEVEL_TEXT_CLASS: Record<RiskLevel, string> = {
 };
 
 // Camadas de tile do mapa (ver components/map/MapContainer.tsx e
-// components/map/LayerSwitcher.tsx). "default" é o Dark Matter original,
-// mantido pra manter a identidade visual escura do app; "street" (Voyager)
-// existe só pra dar contexto de rua/referência ao marcar um relato, onde o
-// tema escuro dificulta reconhecer a própria localização.
+// components/map/LayerSwitcher.tsx). "default" (Modo Escuro) e "street"
+// (Modo Claro, Voyager) -- o claro existe só pra dar contexto de rua/
+// referência ao marcar um relato, onde o tema escuro dificulta reconhecer
+// a própria localização.
+//
+// Tile escuro trocado em 2026-08-09: CartoDB dark_all (Dark Matter) pra
+// Esri World_Dark_Gray_Base -- o Dark Matter tem as ruas quase invisíveis
+// (contraste baixo demais contra o fundo). Cogitamos Stadia Alidade Smooth
+// Dark primeiro (pedido original), mas o endpoint deles exige API key fora
+// de localhost (testado via curl: 401 com qualquer Referer que não seja
+// localhost, 200 só localmente) -- teria quebrado o modo escuro em
+// produção. Esri não exige key (testado com Referer de produção, 200) e já
+// renderiza as ruas com contraste bom sem precisar da camada extra de
+// labels (World_Dark_Gray_Reference, testada e descartada por simplicidade
+// -- exigiria uma segunda camada Leaflet empilhada só pra nomes de rua).
+// Esri usa {z}/{y}/{x} (não {z}/{x}/{y} como CartoDB/OSM) e host único,
+// sem {s} de sub-domínio.
 export const TILE_LAYERS = {
   default: {
-    url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
     attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    label: "Modo Padrão",
+      '&copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, and the GIS user community',
+    label: "Modo Escuro",
     icon: "🌧️",
   },
   street: {
     url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    label: "Modo Rua",
+    label: "Modo Claro",
     icon: "🗺️",
   },
 } as const;

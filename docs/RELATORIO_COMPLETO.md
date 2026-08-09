@@ -447,7 +447,7 @@ app/                          Rotas Next.js (App Router)
 └── page.tsx                              Página principal (mapa)
 
 components/
-├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, ReportLayer, LayerToggle (Modo Padrão/Rua), EmptyStateLayer
+├── map/                         MapContainer, NeighborhoodLayer, CityMarkerLayer, ReportLayer, LayerToggle (Modo Escuro/Claro), EmptyStateLayer
 ├── panel/                        DetailPanel, ScoreBreakdown, ForecastStrip, HistoryChart
 ├── ui/                            AlertCard, CityHeader, MapLegend, ReportModal, SuggestionModal, InfoButton/Modal etc.
 └── how-it-works/                    RiskDiagram, VariableCard, SourcesList (usados em /como-funciona)
@@ -569,7 +569,7 @@ Adicionadas depois do deploy em produção, fora do escopo original de "cobertur
 - **`/analise`** — comparação entre relatos da comunidade e o que o modelo calculou pro mesmo local/período. Seletor de escopo geográfico (Brasil inteiro ou uma das 5 regiões do IBGE), 5 cards clicáveis com detalhes expandíveis (total de relatos, cobertura de dados, divergências relato-vs-modelo, eventos críticos, usuários ativos), protegida por senha (`ADMIN_PASSWORD`).
 - **`/sugestoes`** — canal interno (protegido por senha) pra listar e triar sugestões enviadas pelos usuários via `/perfil` (bug, funcionalidade, dado, cobertura), com endpoints admin pra listar/atualizar status.
 - **`/perfil`** — favoritos, relatos feitos e sugestões enviadas pelo próprio usuário, num único lugar.
-- **Seletor de camadas do mapa** (`LayerToggle.tsx`) — "Modo Padrão" (tiles atuais) vs. "Modo Rua" (mais detalhe viário), persistido como preferência do usuário.
+- **Seletor de camadas do mapa** (`LayerToggle.tsx`) — "Modo Escuro" (Esri World Dark Gray, ruas visíveis) vs. "Modo Claro" (Voyager, mais detalhe viário), persistido como preferência do usuário.
 - **Cards clicáveis com detalhes expandíveis** — usado tanto em `/analise` quanto em outros pontos da UI que cresceram desde a versão original (21/07), mostrando um resumo compacto que expande sob demanda em vez de sempre ocupar espaço.
 
 ## 15. Revisão de qualidade e segurança (28/07/2026)

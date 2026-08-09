@@ -169,10 +169,10 @@ export default function HomePage() {
   const [municipalitiesLoadedOnce, setMunicipalitiesLoadedOnce] = useState(false);
   const [reportMode, setReportMode] = useState(false);
   const [pendingReportLocation, setPendingReportLocation] = useState<{ lat: number; lng: number } | null>(null);
-  // Voyager ("street", tema claro) abre por padrão -- mais legível pra quem
-  // não conhece a interface ainda. Modo Padrão (tema escuro) continua
-  // disponível via LayerToggle, e o toggle usa a chave "default" pra ele
-  // por motivos históricos (nome não indica mais qual camada abre primeiro).
+  // Voyager ("street", Modo Claro) abre por padrão -- mais legível pra quem
+  // não conhece a interface ainda. Modo Escuro continua disponível via
+  // LayerToggle, e o toggle usa a chave "default" pra ele por motivos
+  // históricos (nome não indica mais qual camada abre primeiro).
   const [tileLayer, setTileLayer] = useState<TileLayerKey>("street");
   // Ref, não state -- só é lido dentro do efeito de troca automática abaixo,
   // nunca precisa disparar um re-render por conta própria.
@@ -314,12 +314,12 @@ export default function HomePage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [reportMode]);
 
-  // Modo relato força Modo Rua (Voyager) -- útil quando o usuário tinha
-  // trocado manualmente pro Modo Padrão (tema escuro), que dificulta
-  // reconhecer ruas/pontos de referência na hora de marcar o local exato do
-  // relato. Volta pro Modo Rua (o padrão do app) ao sair, a menos que o
-  // usuário tenha trocado de camada manualmente durante o relato (nesse
-  // caso a escolha dele é respeitada e não é revertida).
+  // Modo relato força Modo Claro (Voyager) -- útil quando o usuário tinha
+  // trocado manualmente pro Modo Escuro, que dificulta reconhecer ruas/
+  // pontos de referência na hora de marcar o local exato do relato. Volta
+  // pro Modo Claro (o padrão do app) ao sair, a menos que o usuário tenha
+  // trocado de camada manualmente durante o relato (nesse caso a escolha
+  // dele é respeitada e não é revertida).
   useEffect(() => {
     if (reportMode) {
       userOverrodeTileRef.current = false;

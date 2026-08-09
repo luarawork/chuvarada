@@ -60,7 +60,7 @@ export function MapContainer({ tileLayer, onReady, children }: MapContainerProps
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Troca a camada de tile em runtime (Modo Padrão <-> Modo Rua) -- remove a
+  // Troca a camada de tile em runtime (Modo Escuro <-> Modo Claro) -- remove a
   // anterior e adiciona uma nova em vez de mutar a existente (setUrl troca só
   // a URL, deixando attribution antiga presa no controle). Não roda antes do
   // mapa existir (guard abaixo) -- no mount, o efeito acima ainda está no meio

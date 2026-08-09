@@ -8,7 +8,7 @@ interface LayerToggleProps {
 }
 
 const ORDER: TileLayerKey[] = ["default", "street"];
-const SHORT_LABELS: Record<TileLayerKey, string> = { default: "Padrão", street: "Rua" };
+const SHORT_LABELS: Record<TileLayerKey, string> = { default: "Escuro", street: "Claro" };
 
 // Segmented control com pill deslizante -- substitui o antigo botão único
 // LayerSwitcher (que alternava mostrando só um modo por vez). Aqui os dois
