@@ -120,7 +120,17 @@ if inconsistent > 10:
 
 # ─── 3. MERGE CACHE ──────────────────────────────────────────────
 
-# 3.1 Células do MERGE estagnadas > 24h
+# 3.1 Células do MERGE estagnadas > 24h -- limiar recalibrado em 09/08/2026
+# (investigação "MERGE estagnado Sul/Sudeste"): fetch_merge_cptec.py só
+# atualiza fetched_at/last_changed_at quando o valor de chuva REALMENTE
+# muda (otimização anti-bloat, ver save_rows() no próprio script) -- como
+# o MERGE DAILY publica 1x/dia, é esperado que uma fração grande das
+# células fique "estagnada" por design em época seca, não por falha.
+# Medido no dia da investigação: ~26.220 células estagnadas nacionalmente
+# em condição normal (baseline nacional 9,9%, Sul/Sudeste em estação seca
+# chegando a 25,9% da região). O limiar antigo (10.000) disparava alerta
+# todo dia mesmo sem problema nenhum -- 80k/50k dão folga real acima do
+# baseline observado (>3x/>2x) antes de soar o alarme.
 cur.execute("""
     SELECT COUNT(*)
     FROM merge_cache
@@ -128,13 +138,16 @@ cur.execute("""
     AND fetched_at > NOW() - INTERVAL '48 hours'
 """)
 stale_merge = cur.fetchone()[0]
-if stale_merge > 10000:
+if stale_merge > 80000:  # >3x o normal -- problema real
     issues.append(
-        f"🔴 {stale_merge:,} células do MERGE estagnadas >24h. "
-        f"Possível falha no CPTEC (caso Naviraí)."
+        f"🔴 {stale_merge:,} células MERGE estagnadas >24h (normal em estação seca: ~26k). "
+        f"Acima de 50k pode indicar falha no CPTEC."
     )
-elif stale_merge > 1000:
-    warnings.append(f"🟡 {stale_merge:,} células do MERGE estagnadas >24h")
+elif stale_merge > 50000:  # >2x o normal -- avisar
+    warnings.append(
+        f"🟡 {stale_merge:,} células MERGE estagnadas >24h (normal em estação seca: ~26k). "
+        f"Acima de 50k pode indicar falha no CPTEC."
+    )
 
 # 3.2 merge_cache com linhas > 4 dias (retenção violada)
 cur.execute("""
