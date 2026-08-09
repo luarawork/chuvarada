@@ -243,3 +243,35 @@ describe(
     });
   }
 );
+
+describe(
+  "Regressão -- lock do Cron A com TTL menor que o timeout do workflow (08-09/08/2026): " +
+    "LOCK_MAX_AGE_MINUTES=10 e --max-time 570 (9.5min) do workflow deixavam margem quase " +
+    "nula -- um ciclo só um pouco mais lento que o normal (banco sob carga) fazia o lock " +
+    "expirar como 'stale' antes de terminar, permitindo uma segunda execução duplicar a " +
+    "rodada inteira (achado real: todo o Brasil com score em dobro em 2 das últimas 24h)",
+  () => {
+    // LOCK_MAX_AGE_MINUTES não é importável direto -- route.ts só pode
+    // exportar handlers HTTP reconhecidos pelo App Router (ver comentário
+    // no próprio arquivo), então o valor é extraído do código-fonte.
+    function readLockMaxAgeMinutes(): number {
+      const source = readFileSync(join(process.cwd(), "app/api/cron/scores/route.ts"), "utf-8");
+      const match = source.match(/LOCK_MAX_AGE_MINUTES\s*=\s*(\d+)/);
+      if (!match) throw new Error("LOCK_MAX_AGE_MINUTES não encontrado em app/api/cron/scores/route.ts");
+      return Number(match[1]);
+    }
+
+    it("dado o timeout de 570s (9.5min) do workflow merge-and-scores-update.yml, quando comparado ao TTL do lock, então o TTL deve ser estritamente maior -- nunca igual/menor, senão uma execução legítima um pouco lenta já duplica a rodada", () => {
+      const WORKFLOW_TIMEOUT_SECONDS = 570;
+      const LOCK_MAX_AGE_SECONDS = readLockMaxAgeMinutes() * 60;
+
+      expect(LOCK_MAX_AGE_SECONDS).toBeGreaterThan(WORKFLOW_TIMEOUT_SECONDS);
+    });
+
+    it("dado o índice único risk_scores_neighborhood_hour_uniq (migração 040), quando insertRiskScoresBatch insere um lote, então o INSERT deve ter ON CONFLICT DO NOTHING casando com esse índice -- defesa em profundidade caso o lock falhe por outro motivo", () => {
+      const source = readFileSync(join(process.cwd(), "lib/riskScoring.ts"), "utf-8");
+
+      expect(source).toMatch(/on conflict\s*\(\s*neighborhood_id\s*,\s*\(date_trunc\('hour',\s*calculated_at at time zone 'utc'\)\)\s*\)\s*do nothing/i);
+    });
+  }
+);
