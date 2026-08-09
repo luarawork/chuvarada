@@ -64,9 +64,13 @@ const CITY_CONCURRENCY = 8;
 // teto padrão estourado numa execução real de teste) e ganhou
 // maxDuration=120 -- só nunca foi replicado aqui, apesar desta rota ser a
 // que mais precisa (bairros do Brasil inteiro, não só 1 chamada por
-// estação de maré). 570 pra bater exatamente o timeout do cliente (curl)
-// -- sem sentido o servidor rodar mais tempo do que o cliente vai esperar.
-export const maxDuration = 570;
+// estação de maré). Corrigido em 09/08/2026 de 570 pra 300: 300s é o teto
+// real do plano Hobby da Vercel com Fluid Compute habilitado (confirmado
+// com o usuário) -- 570 estava acima desse teto, então a função rodava sob
+// um limite mais curto do que o valor declarado sugeria. curl --max-time
+// 570 no workflow continua maior que isso de propósito -- o cliente pode
+// esperar mais que o servidor promete, só não o contrário.
+export const maxDuration = 300;
 
 // SCORES_CRON_LOCK_KEY (lib/systemLock.ts) -- app/api/cron/scores/emergency/
 // route.ts adquire o MESMO lock antes de rodar scoreCity(), pra não competir
