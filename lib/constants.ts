@@ -99,6 +99,17 @@ export const LEVEL_TEXT_CLASS: Record<RiskLevel, string> = {
 // carregamento) -> de volta pra CartoDB dark_all (mesmo CDN do Voyager
 // abaixo, carregamento rápido e consistente; dark_all já inclui ruas/
 // labels, ao contrário de dark_nolabels).
+//
+// maxZoom verificado empiricamente (não só "geralmente 18/19" de memória):
+// baixei tiles reais em z17-21 pras duas camadas numa área densa (não uma
+// praça vazia, que mascararia o teste). dark_all e Voyager continuam
+// nítidos até z18; em z19 o conteúdo é visivelmente esticado (bordas de
+// prédio serrilhadas/pixeladas -- assinatura de upscale, não render
+// novo), e z20 já vem quase em branco. Isso bate com as duas camadas
+// usando a MESMA fonte vetorial de dados (confirmado via style.json:
+// tiles.basemaps.cartocdn.com/vector/carto.streets/v1/tiles.json em
+// ambas) -- não há razão pra Voyager suportar um nível a mais que
+// dark_all, os dois têm o mesmo teto real. maxZoom: 18 pras duas.
 export const TILE_LAYERS = {
   default: {
     url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
@@ -106,6 +117,7 @@ export const TILE_LAYERS = {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Escuro",
     icon: "🌧️",
+    maxZoom: 18,
   },
   street: {
     url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
@@ -113,6 +125,7 @@ export const TILE_LAYERS = {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Claro",
     icon: "🗺️",
+    maxZoom: 18,
   },
 } as const;
 

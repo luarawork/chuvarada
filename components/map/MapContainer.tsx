@@ -38,7 +38,7 @@ export function MapContainer({ tileLayer, onReady, children }: MapContainerProps
       tileLayerRef.current = L.tileLayer(initialLayer.url, {
         attribution: initialLayer.attribution,
         subdomains: "abcd",
-        maxZoom: 19,
+        maxZoom: initialLayer.maxZoom,
       }).addTo(map);
 
       // Sem zoom control no mobile -- pinça já é nativa lá, e o controle só
@@ -76,7 +76,7 @@ export function MapContainer({ tileLayer, onReady, children }: MapContainerProps
       tileLayerRef.current = L.tileLayer(layer.url, {
         attribution: layer.attribution,
         subdomains: "abcd",
-        maxZoom: 19,
+        maxZoom: layer.maxZoom,
       }).addTo(map);
     });
   }, [tileLayer]);
