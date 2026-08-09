@@ -53,26 +53,6 @@ const LATEST_SCORE_LATERAL = `
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
-  // Lista (pequena, tipicamente vazia) de cidades sem NENHUM bairro ainda --
-  // usado só pelo EmptyStateLayer pra desenhar o placeholder "cobertura em
-  // expansão". Precisa ser global, não pode inferir isso a partir de
-  // `neighborhoods` (agora só o viewport atual) -- toda cidade fora do
-  // viewport pareceria "vazia" incorretamente.
-  if (searchParams.get("emptyCities") === "true") {
-    try {
-      const db = getDb();
-      const { rows } = await db.query(
-        `select c.id
-         from cities c
-         left join neighborhoods n on n.city_id = c.id
-         where c.active = true and n.id is null`
-      );
-      return NextResponse.json({ cityIds: rows.map((r) => r.id) });
-    } catch (err) {
-      return handleApiError(err, "api/neighborhoods (emptyCities)");
-    }
-  }
-
   // Lookup direto por id, sem passar pelo filtro de bbox -- usado quando o
   // app abre direto num bairro específico (link de favorito, ?bairro=<id>)
   // que pode estar fora do viewport inicial do mapa (ex: favorito em São

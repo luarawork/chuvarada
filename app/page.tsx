@@ -6,7 +6,6 @@ import * as turf from "@turf/turf";
 import { MapContainer } from "@/components/map/MapContainer";
 import { NeighborhoodLayer } from "@/components/map/NeighborhoodLayer";
 import { MunicipalityLayer } from "@/components/map/MunicipalityLayer";
-import { EmptyStateLayer } from "@/components/map/EmptyStateLayer";
 import { ReportLayer } from "@/components/map/ReportLayer";
 import { LoadingMap } from "@/components/ui/LoadingMap";
 import { CityHeader } from "@/components/ui/CityHeader";
@@ -159,7 +158,6 @@ export default function HomePage() {
   }, [flyTo]);
 
   const [cities, setCities] = useState<City[]>([]);
-  const [emptyCityIds, setEmptyCityIds] = useState<Set<string>>(new Set());
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [latestScores, setLatestScores] = useState<Record<string, RiskScore>>({});
   const [municipalities, setMunicipalities] = useState<MunicipalitySummary[]>([]);
@@ -192,16 +190,11 @@ export default function HomePage() {
     selected?.id ?? null
   );
 
-  // Cidades e a lista (global, não-viewport) de município sem bairro nenhum
-  // -- carregadas 1x, não mudam com a navegação no mapa.
+  // Cidades -- carregadas 1x, não mudam com a navegação no mapa.
   useEffect(() => {
     async function load() {
-      const [citiesData, emptyRes] = await Promise.all([
-        fetchAllCities(),
-        fetch("/api/neighborhoods?emptyCities=true").then((r) => r.json()),
-      ]);
+      const citiesData = await fetchAllCities();
       setCities(citiesData);
-      setEmptyCityIds(new Set((emptyRes.cityIds as string[]) ?? []));
       setCitiesLoaded(true);
     }
     load();
@@ -515,7 +508,6 @@ export default function HomePage() {
               citiesById={citiesById}
               onSelect={setSelected}
             />
-            <EmptyStateLayer map={map} cities={cities} emptyCityIds={emptyCityIds} />
           </>
         ) : (
           <MunicipalityLayer map={map} municipalities={municipalities} variant={mode} />

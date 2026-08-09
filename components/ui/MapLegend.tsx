@@ -42,10 +42,6 @@ export function MapLegend() {
                 {item.label}
               </li>
             ))}
-            <li className="flex items-center gap-2 text-xs" style={{ color: "#f0f4f8" }}>
-              <span className="h-3 w-3 shrink-0 rounded-full border-[1.5px] border-dashed border-brand-gray-light/60 bg-brand-gray-light/30" />
-              Sem bairro ainda (em expansão)
-            </li>
           </ul>
         </div>
       ) : (
