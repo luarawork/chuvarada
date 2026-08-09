@@ -2,18 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* #0d1b2a -- mesmo fundo escuro usado em todas as páginas (mapa via
-     .leaflet-container abaixo, /perfil, /favoritos, /como-funciona,
-     /analise, /auth) -- esse var só aparece como fallback do <body>
-     antes do conteúdo de cada página pintar por cima. */
-  --background: #0d1b2a;
-  --foreground: #f0f4f8;
+@layer base {
+  :root {
+    /* Setup shadcn/ui (Etapa 1, 10/08/2026) -- valores HSL escolhidos pra
+       bater com o tema escuro fixo já usado em toda página do Chuvarada
+       (#0d1b2a de fundo, cards rgba(13,27,42,0.92), texto #f0f4f8, azul
+       brand-blue-mid #2e7db8 como primary). Só em :root, não duplicado em
+       .dark -- o app nunca alterna tema (ver "dark" fixo no <html>, app/
+       layout.tsx), então não existe um :root claro que precise de override.
+       --background/--foreground SUBSTITUEM os hex antigos (não havia uso de
+       bg-background/text-foreground em nenhum componente -- confirmado via
+       grep antes de trocar -- só o fallback do <body> abaixo dependia deles). */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 14%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 222 47% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 47% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 222 47% 18%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 199 89% 48%;
+    --radius: 0.5rem;
+  }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 /* Sem overflow:hidden aqui -- só a página do mapa (app/page.tsx) precisa

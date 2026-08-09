@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "@/components/ui/toaster";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
@@ -43,11 +44,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    // O Chuvarada é sempre escuro -- não é um toggle de usuário (o
+    // LayerToggle alterna o TILE do mapa, não o tema da UI). "dark" fixo
+    // aqui em vez de um data-attribute/context é o padrão do shadcn/ui pra
+    // apps sem light mode: as CSS variables de :root (globals.css) já
+    // definem o único tema que existe.
+    <html lang="pt-BR" className="dark">
       <body
-        className={`${plusJakarta.variable} ${inter.variable} font-body antialiased bg-brand-blue-deep`}
+        className={`${plusJakarta.variable} ${inter.variable} font-body antialiased`}
       >
         {children}
+        {/* Nenhuma feature usa toast hoje (confirmado via grep antes de
+            adicionar) -- provisionado aqui só porque a Etapa 1 pede
+            explicitamente, pra já existir quando alguma feature futura
+            precisar (ex: erro de submit num modal, confirmação de ação). */}
+        <Toaster />
         <Analytics />
       </body>
     </html>
