@@ -101,7 +101,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 Pré-requisitos:
 - Node.js e npm
-- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `037`)
+- Projeto Supabase com as migrações aplicadas (`scripts/sql/001` a `039`)
 - Python 3 com geopandas, rasterio, shapely, pyogrio (só para os scripts de pré-processamento)
 
 Variáveis de ambiente (`.env.local`) — ver [`.env.local.example`](.env.local.example) para a lista completa e comentada:

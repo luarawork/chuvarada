@@ -56,7 +56,7 @@ contribuição" abaixo) — verificação de UI hoje é manual, no navegador.
 /scripts
   /python         — scripts de produção (Python)
   /one-off        — scripts já executados (não rodar novamente, ver scripts/one-off/README.md)
-  /sql            — migrações SQL (001-038)
+  /sql            — migrações SQL (001-039)
 /tests
   /unit           — testes unitários (Vitest)
   /regression     — testes de regressão de bugs críticos

@@ -15,7 +15,7 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ---
 
-## [1.1.0] — pós-lançamento (até 04/08/2026)
+## [1.1.0] — pós-lançamento (até 08/08/2026)
 
 ### Corrigido
 
@@ -30,6 +30,8 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 - `rainLabel` (`HourlyForecast.tsx`): chuva fraca real (0,1-0,49mm) aparecia como "0mm" — decisão de unidade usava o valor bruto enquanto o número exibido já tinha sido arredondado
 - Métricas de `/analise`: "Cobertura de dados" media `data_level='full'` (10 de 5.570 cidades, ~0%) enquanto a tabela expandida do mesmo card mostrava ~100% (`pct_com_score`) — unificado pra medir a mesma coisa nos dois lugares; "Taxa média de confirmação" mostrava percentual mesmo com 1 único relato — agora exige 5+ relatos com reação, senão mostra "—"
 - Previsão de risco de 7 dias (`/api/forecast/[neighborhoodId]`) usava `tide_level` fixo em 0,5 pras cidades costeiras, ignorando o dado real do TideCheck que o score ao vivo já usa desde a integração abaixo
+- 2 relatos de teste (bairro Graças/Recife, criados em sequência com 28s de diferença) deletados da produção
+- `city_risk_summary`, `cron_run_stats`, `merge_cache_cells` e `system_locks` ganharam policy de RLS explícita de negação — comportamento (deny-all via REST) não mudou, só deixou de depender implicitamente de "zero policies = nega", seguindo o padrão já usado em `system_locks`/`cron_run_stats` desde a correção do achado C1 (ver migração `039_explicit_deny_policies.sql`)
 
 ### Adicionado
 
