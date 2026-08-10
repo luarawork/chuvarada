@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import type { ReportSeverity, RiskLevel, UserReport } from "@/types";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
@@ -171,31 +172,38 @@ function MetricCard({
   onClick?: () => void;
   active?: boolean;
 }) {
-  const Tag = onClick ? "button" : "div";
-  return (
-    <Tag
-      onClick={onClick}
-      className="w-full rounded-xl p-3 text-center transition"
+  const card = (
+    <Card
+      className="w-full rounded-xl border p-0 text-center shadow-none transition"
       style={{
         backgroundColor: active ? "rgba(46, 125, 184, 0.25)" : "rgba(240, 244, 248, 0.06)",
-        cursor: onClick ? "pointer" : "default",
-        border: active ? "1px solid rgba(46, 125, 184, 0.5)" : "1px solid transparent",
+        borderColor: active ? "rgba(46, 125, 184, 0.5)" : "transparent",
       }}
     >
-      <div className="text-lg">{icon}</div>
-      <div className="mt-1 font-heading text-lg font-bold tabular-nums" style={{ color: "#f0f4f8" }}>
-        {value}
-      </div>
-      <div className="mt-0.5 flex items-center justify-center gap-1 text-[11px]" style={{ color: "#a8d4f0" }}>
-        {label}
-        {onClick && <span aria-hidden="true">{active ? "▲" : "▼"}</span>}
-      </div>
-      {hint && (
-        <div className="mt-0.5 text-[10px]" style={{ color: "#a8d4f0", opacity: 0.6 }}>
-          {hint}
+      <CardContent className="p-3">
+        <div className="text-lg">{icon}</div>
+        <div className="mt-1 font-heading text-lg font-bold tabular-nums" style={{ color: "#f0f4f8" }}>
+          {value}
         </div>
-      )}
-    </Tag>
+        <div className="mt-0.5 flex items-center justify-center gap-1 text-[11px]" style={{ color: "#a8d4f0" }}>
+          {label}
+          {onClick && <span aria-hidden="true">{active ? "▲" : "▼"}</span>}
+        </div>
+        {hint && (
+          <div className="mt-0.5 text-[10px]" style={{ color: "#a8d4f0", opacity: 0.6 }}>
+            {hint}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+
+  if (!onClick) return card;
+
+  return (
+    <button onClick={onClick} className="w-full cursor-pointer text-center">
+      {card}
+    </button>
   );
 }
 

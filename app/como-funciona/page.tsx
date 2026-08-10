@@ -7,6 +7,9 @@ import { VariableCard } from "@/components/how-it-works/VariableCard";
 import { RiskDiagram } from "@/components/how-it-works/RiskDiagram";
 import { SourcesList } from "@/components/how-it-works/SourcesList";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
@@ -212,21 +215,31 @@ export default function ComoFuncionaPage() {
 
           <div className="mt-6 space-y-2 text-sm">
             {LEVELS.map((level) => (
-              <p
+              // min-h-16 (64px) -- achado em produção (chuvarada.vercel.app,
+              // viewport 480px): as 5 linhas têm texto de comprimento bem
+              // diferente ("Normal" x "Moderado"), então em larguras
+              // intermediárias algumas quebram em 2 linhas e outras ficam
+              // numa só, dando alturas 44px/64px misturadas na mesma lista.
+              // min-h garante o piso de 2 linhas (64px = padding 12px×2 +
+              // line-height 20px×2) sem impor altura fixa que cortaria o
+              // texto se algum dia precisar de 3 linhas numa tela bem estreita.
+              <Card
                 key={level.label}
-                // min-h-16 (64px) -- achado em produção (chuvarada.vercel.app,
-                // viewport 480px): as 5 linhas têm texto de comprimento bem
-                // diferente ("Normal" x "Moderado"), então em larguras
-                // intermediárias algumas quebram em 2 linhas e outras ficam
-                // numa só, dando alturas 44px/64px misturadas na mesma lista.
-                // min-h garante o piso de 2 linhas (64px = padding 12px×2 +
-                // line-height 20px×2) sem impor altura fixa que cortaria o
-                // texto se algum dia precisar de 3 linhas numa tela bem estreita.
-                className="flex min-h-16 items-center rounded-xl px-4 py-3"
-                style={{ backgroundColor: `${level.color}1f`, color: level.color }}
+                className="flex min-h-16 items-center gap-2.5 rounded-xl border-0 border-l-4 px-4 py-3 shadow-none"
+                style={{ backgroundColor: `${level.color}1f`, borderLeftColor: level.color }}
               >
-                {level.emoji} <strong>{level.label}</strong> ({level.range}) — {level.text}
-              </p>
+                <span aria-hidden="true">{level.emoji}</span>
+                <Badge
+                  variant="outline"
+                  className="shrink-0 border-none px-2 py-0.5 text-xs font-bold"
+                  style={{ backgroundColor: `${level.color}33`, color: level.color }}
+                >
+                  {level.label}
+                </Badge>
+                <span style={{ color: level.color }}>
+                  ({level.range}) — {level.text}
+                </span>
+              </Card>
             ))}
           </div>
         </FadeInSection>
@@ -239,17 +252,19 @@ export default function ComoFuncionaPage() {
           </p>
           <div className="mt-5 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible">
             {AUTO_ALERTS.map((alert) => (
-              <div
+              <Card
                 key={alert.title}
-                className="w-64 shrink-0 rounded-2xl border p-5 backdrop-blur-sm md:w-auto"
+                className="w-64 shrink-0 rounded-2xl border shadow-none backdrop-blur-sm md:w-auto"
                 style={CARD_STYLE}
               >
-                <span className="text-2xl">{alert.emoji}</span>
-                <h3 className="mt-2 font-heading text-base font-semibold">{alert.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                  {alert.text}
-                </p>
-              </div>
+                <CardContent className="p-5">
+                  <span className="text-2xl">{alert.emoji}</span>
+                  <h3 className="mt-2 font-heading text-base font-semibold">{alert.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                    {alert.text}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </FadeInSection>
@@ -261,28 +276,32 @@ export default function ComoFuncionaPage() {
             Ao clicar em um bairro no mapa, você pode ver a previsão de risco para os próximos 7 dias clicando em
             &quot;Previsão →&quot;.
           </p>
-          <div className="mt-5 rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-            <p className="text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-              A previsão usa dados do Open-Meteo (modelos meteorológicos globais) combinados com as características
-              físicas do bairro (declividade, proximidade de rios).
-            </p>
-            <p className="mt-3 text-sm font-medium">
-              Importante: a previsão é diferente do monitoramento em tempo real.
-            </p>
-            <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-              Quanto mais longe no tempo, maior a incerteza — especialmente para chuvas convectivas (pancadas
-              rápidas e localizadas). Sempre consulte os alertas oficiais da Defesa Civil para decisões de
-              segurança.
-            </p>
-          </div>
+          <Card className="mt-5 rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="p-5">
+              <p className="text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                A previsão usa dados do Open-Meteo (modelos meteorológicos globais) combinados com as características
+                físicas do bairro (declividade, proximidade de rios).
+              </p>
+              <p className="mt-3 text-sm font-medium">
+                Importante: a previsão é diferente do monitoramento em tempo real.
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                Quanto mais longe no tempo, maior a incerteza — especialmente para chuvas convectivas (pancadas
+                rápidas e localizadas). Sempre consulte os alertas oficiais da Defesa Civil para decisões de
+                segurança.
+              </p>
+            </CardContent>
+          </Card>
         </FadeInSection>
 
         {/* Fontes de dados */}
         <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
           <h2 className="font-heading text-2xl font-bold">Fontes de dados</h2>
-          <div className="mt-5 rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-            <SourcesList />
-          </div>
+          <Card className="mt-5 rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="p-5">
+              <SourcesList />
+            </CardContent>
+          </Card>
         </FadeInSection>
 
         {/* Relatos de usuários */}
@@ -297,13 +316,15 @@ export default function ComoFuncionaPage() {
 
           <div className="mt-5 grid gap-4 sm:grid-cols-3">
             {REPORT_STEPS.map((step, i) => (
-              <div key={step.text} className="rounded-2xl border p-5 text-center backdrop-blur-sm" style={CARD_STYLE}>
-                <span className="text-2xl">{step.emoji}</span>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wide" style={{ color: "#2e7db8" }}>
-                  Passo {i + 1}
-                </p>
-                <p className="mt-1 text-sm leading-relaxed">{step.text}</p>
-              </div>
+              <Card key={step.text} className="rounded-2xl border text-center shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+                <CardContent className="p-5">
+                  <span className="text-2xl">{step.emoji}</span>
+                  <p className="mt-2 text-xs font-medium uppercase tracking-wide" style={{ color: "#2e7db8" }}>
+                    Passo {i + 1}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed">{step.text}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
@@ -327,22 +348,26 @@ export default function ComoFuncionaPage() {
             Ao ver um pin de alagamento no mapa, você pode:
           </p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-              <span className="text-2xl">👍</span>
-              <h3 className="mt-2 font-heading text-base font-semibold">Confirmar</h3>
-              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                Você também viu o alagamento nesse local. Cada confirmação estende o tempo do
-                relato em +15 minutos e aumenta o peso desse relato na calibração do modelo.
-              </p>
-            </div>
-            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-              <span className="text-2xl">👎</span>
-              <h3 className="mt-2 font-heading text-base font-semibold">Não vi isso</h3>
-              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                Você passou pelo local e não havia alagamento. Ajuda a identificar relatos
-                incorretos.
-              </p>
-            </div>
+            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+              <CardContent className="p-5">
+                <span className="text-2xl">👍</span>
+                <h3 className="mt-2 font-heading text-base font-semibold">Confirmar</h3>
+                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                  Você também viu o alagamento nesse local. Cada confirmação estende o tempo do
+                  relato em +15 minutos e aumenta o peso desse relato na calibração do modelo.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+              <CardContent className="p-5">
+                <span className="text-2xl">👎</span>
+                <h3 className="mt-2 font-heading text-base font-semibold">Não vi isso</h3>
+                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                  Você passou pelo local e não havia alagamento. Ajuda a identificar relatos
+                  incorretos.
+                </p>
+              </CardContent>
+            </Card>
           </div>
           <p className="mt-4 text-xs" style={{ color: "#a8d4f0" }}>
             Você pode reagir uma vez por relato.
@@ -356,20 +381,24 @@ export default function ComoFuncionaPage() {
             Adicione o Chuvarada à tela inicial para acessar mais rápido:
           </p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-              <h3 className="font-heading text-sm font-semibold">iPhone (Safari)</h3>
-              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+              <CardHeader className="p-5 pb-0">
+                <CardTitle className="font-heading text-sm font-semibold">iPhone (Safari)</CardTitle>
+              </CardHeader>
+              <CardContent className="p-5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
                 Toque no ícone de compartilhar (□↑) na barra inferior → role até &ldquo;Adicionar à
                 Tela de Início&rdquo; → toque em &ldquo;Adicionar&rdquo;.
-              </p>
-            </div>
-            <div className="rounded-2xl border p-5 backdrop-blur-sm" style={CARD_STYLE}>
-              <h3 className="font-heading text-sm font-semibold">Android (Chrome)</h3>
-              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+              </CardContent>
+            </Card>
+            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+              <CardHeader className="p-5 pb-0">
+                <CardTitle className="font-heading text-sm font-semibold">Android (Chrome)</CardTitle>
+              </CardHeader>
+              <CardContent className="p-5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
                 Toque nos três pontinhos (⋮) no canto superior direito → toque em &ldquo;Adicionar à
                 tela inicial&rdquo; → confirme.
-              </p>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </FadeInSection>
 
@@ -378,17 +407,19 @@ export default function ComoFuncionaPage() {
           <h2 className="font-heading text-2xl font-bold">Limitações honestas</h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {LIMITATIONS.map((item) => (
-              <div
+              <Card
                 key={item.title}
-                className="rounded-2xl border p-5 backdrop-blur-sm"
+                className="rounded-2xl border shadow-none backdrop-blur-sm"
                 style={{ backgroundColor: "rgba(240, 165, 0, 0.06)", borderColor: "rgba(240, 165, 0, 0.25)" }}
               >
-                <span className="text-xl">{item.emoji}</span>
-                <h3 className="mt-1.5 font-heading text-sm font-semibold">{item.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                  {item.text}
-                </p>
-              </div>
+                <CardContent className="p-5">
+                  <span className="text-xl">{item.emoji}</span>
+                  <h3 className="mt-1.5 font-heading text-sm font-semibold">{item.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
+                    {item.text}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </FadeInSection>
@@ -401,21 +432,17 @@ export default function ComoFuncionaPage() {
             mãos do cidadão comum.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="https://github.com/luarawork/chuvarada"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/5"
-              style={CARD_STYLE}
-            >
-              Ver no GitHub
-            </a>
-            <button
+            <Button asChild variant="outline" className="h-auto rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/5" style={CARD_STYLE}>
+              <a href="https://github.com/luarawork/chuvarada" target="_blank" rel="noopener noreferrer">
+                Ver no GitHub
+              </a>
+            </Button>
+            <Button
               onClick={() => setSuggestionOpen(true)}
-              className="rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
+              className="h-auto rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
             >
               Sugerir melhoria
-            </button>
+            </Button>
           </div>
         </footer>
       </div>

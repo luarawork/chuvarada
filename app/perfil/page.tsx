@@ -9,6 +9,9 @@ import { supabase } from "@/lib/supabase";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import type { ReportSeverity, ReportStatus, RiskLevel } from "@/types";
 
 interface FavoriteNeighborhood {
@@ -183,24 +186,30 @@ export default function PerfilPage() {
 
         {/* Estatísticas */}
         <div className="mt-6 grid grid-cols-3 gap-3">
-          <div className="rounded-2xl border p-4 text-center backdrop-blur-sm" style={CARD_STYLE}>
-            <p className="text-xl font-bold tabular-nums">{totalReports}</p>
-            <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-              📍 relatos feitos
-            </p>
-          </div>
-          <div className="rounded-2xl border p-4 text-center backdrop-blur-sm" style={CARD_STYLE}>
-            <p className="text-xl font-bold tabular-nums">{totalConfirmations}</p>
-            <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-              ✅ confirmações recebidas
-            </p>
-          </div>
-          <div className="rounded-2xl border p-4 text-center backdrop-blur-sm" style={CARD_STYLE}>
-            <p className="text-xl font-bold tabular-nums">{favorites?.length ?? 0}</p>
-            <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-              ⭐ bairros salvos
-            </p>
-          </div>
+          <Card className="rounded-2xl border text-center shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="p-4">
+              <p className="text-xl font-bold tabular-nums">{totalReports}</p>
+              <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                📍 relatos feitos
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="rounded-2xl border text-center shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="p-4">
+              <p className="text-xl font-bold tabular-nums">{totalConfirmations}</p>
+              <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                ✅ confirmações recebidas
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="rounded-2xl border text-center shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="p-4">
+              <p className="text-xl font-bold tabular-nums">{favorites?.length ?? 0}</p>
+              <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                ⭐ bairros salvos
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Bairros salvos */}
@@ -214,39 +223,41 @@ export default function PerfilPage() {
           )}
 
           {favorites?.length === 0 && (
-            <div className="mt-3 rounded-2xl border p-5 text-sm backdrop-blur-sm" style={{ ...CARD_STYLE, color: "#a8d4f0" }}>
-              Você ainda não salvou nenhum bairro. Navegue pelo mapa e salve os que quer monitorar.
-            </div>
+            <Card className="mt-3 rounded-2xl border text-sm shadow-none backdrop-blur-sm" style={{ ...CARD_STYLE, color: "#a8d4f0" }}>
+              <CardContent className="p-5">
+                Você ainda não salvou nenhum bairro. Navegue pelo mapa e salve os que quer monitorar.
+              </CardContent>
+            </Card>
           )}
 
           {favorites && favorites.length > 0 && (
             <ul className="mt-3 space-y-2">
               {favorites.map((fav) => (
-                <li
-                  key={fav.id}
-                  className="flex items-center justify-between gap-3 rounded-2xl border p-4 backdrop-blur-sm"
-                  style={CARD_STYLE}
-                >
-                  <Link href={`/?bairro=${fav.id}`} className="min-w-0 flex-1">
-                    <p className="truncate font-heading text-sm font-semibold">{fav.name}</p>
-                    <p className="truncate text-xs" style={{ color: "#a8d4f0" }}>
-                      {fav.cityName}
-                    </p>
-                  </Link>
-                  {fav.level ? (
-                    <RiskBadge level={fav.level} score={fav.score ?? undefined} />
-                  ) : (
-                    <span className="text-xs opacity-40">Sem dados</span>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleRemoveFavorite(fav.id)}
-                    aria-label="Remover dos favoritos"
-                    className="shrink-0 rounded-full opacity-50 hover:bg-white/10 hover:opacity-100"
-                  >
-                    🗑️
-                  </Button>
+                <li key={fav.id}>
+                  <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+                    <CardContent className="flex items-center justify-between gap-3 p-4">
+                      <Link href={`/?bairro=${fav.id}`} className="min-w-0 flex-1">
+                        <p className="truncate font-heading text-sm font-semibold">{fav.name}</p>
+                        <p className="truncate text-xs" style={{ color: "#a8d4f0" }}>
+                          {fav.cityName}
+                        </p>
+                      </Link>
+                      {fav.level ? (
+                        <RiskBadge level={fav.level} score={fav.score ?? undefined} />
+                      ) : (
+                        <span className="text-xs opacity-40">Sem dados</span>
+                      )}
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleRemoveFavorite(fav.id)}
+                        aria-label="Remover dos favoritos"
+                        className="shrink-0 rounded-full opacity-50 hover:bg-white/10 hover:opacity-100"
+                      >
+                        🗑️
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </li>
               ))}
             </ul>
@@ -264,46 +275,52 @@ export default function PerfilPage() {
           )}
 
           {reports?.length === 0 && (
-            <div className="mt-3 rounded-2xl border p-5 text-sm backdrop-blur-sm" style={{ ...CARD_STYLE, color: "#a8d4f0" }}>
-              Você ainda não fez nenhum relato. Use o botão de relato no mapa pra reportar um alagamento.
-            </div>
+            <Card className="mt-3 rounded-2xl border text-sm shadow-none backdrop-blur-sm" style={{ ...CARD_STYLE, color: "#a8d4f0" }}>
+              <CardContent className="p-5">
+                Você ainda não fez nenhum relato. Use o botão de relato no mapa pra reportar um alagamento.
+              </CardContent>
+            </Card>
           )}
 
           {reports && reports.length > 0 && (
             <ul className="mt-3 space-y-2">
               {reports.map((r) => (
-                <li key={r.id} className="rounded-2xl border p-4 backdrop-blur-sm" style={CARD_STYLE}>
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{ backgroundColor: SEVERITY_CONFIG[r.severity].color }}
-                      />
-                      <span className="text-sm font-medium">{SEVERITY_CONFIG[r.severity].label}</span>
-                      <span className="text-xs opacity-60">
-                        {r.neighborhoodName} — {r.cityName}
-                      </span>
-                    </div>
-                    <span className="text-xs" style={{ color: "#a8d4f0" }}>
-                      {new Date(r.created_at).toLocaleString("pt-BR")}
-                    </span>
-                  </div>
-                  <div className="mt-2 flex items-center justify-between gap-2">
-                    <span className="text-xs" style={{ color: "#a8d4f0" }}>
-                      {STATUS_LABEL[r.status]} · ✓ {r.confirmations} confirmações
-                    </span>
-                    {r.status === "active" && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleResolveReport(r.id)}
-                        className="h-auto rounded-full border bg-transparent px-3 py-1 text-xs font-medium text-current shadow-none hover:bg-white/10"
-                        style={{ borderColor: "rgba(240, 244, 248, 0.25)" }}
-                      >
-                        Marcar como resolvido
-                      </Button>
-                    )}
-                  </div>
+                <li key={r.id}>
+                  <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+                    <CardContent className="p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="h-2.5 w-2.5 shrink-0 rounded-full"
+                            style={{ backgroundColor: SEVERITY_CONFIG[r.severity].color }}
+                          />
+                          <span className="text-sm font-medium">{SEVERITY_CONFIG[r.severity].label}</span>
+                          <span className="text-xs opacity-60">
+                            {r.neighborhoodName} — {r.cityName}
+                          </span>
+                        </div>
+                        <span className="text-xs" style={{ color: "#a8d4f0" }}>
+                          {new Date(r.created_at).toLocaleString("pt-BR")}
+                        </span>
+                      </div>
+                      <div className="mt-2 flex items-center justify-between gap-2">
+                        <span className="text-xs" style={{ color: "#a8d4f0" }}>
+                          {STATUS_LABEL[r.status]} · ✓ {r.confirmations} confirmações
+                        </span>
+                        {r.status === "active" && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleResolveReport(r.id)}
+                            className="h-auto rounded-full border bg-transparent px-3 py-1 text-xs font-medium text-current shadow-none hover:bg-white/10"
+                            style={{ borderColor: "rgba(240, 244, 248, 0.25)" }}
+                          >
+                            Marcar como resolvido
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </li>
               ))}
             </ul>
@@ -320,72 +337,75 @@ export default function PerfilPage() {
             duplicar ela aqui misturava as duas coisas. */}
         <section className="mt-8">
           <h2 className="font-heading text-lg font-bold">Preferências de notificação</h2>
-          <div className="mt-3 space-y-4 rounded-2xl border p-4 backdrop-blur-sm" style={CARD_STYLE}>
-            <div className={`flex items-start justify-between gap-3 ${!push.isSupported ? "cursor-not-allowed opacity-50" : ""}`}>
-              <div>
-                <span className="flex flex-wrap items-center gap-2 text-sm font-medium">Notificações de risco</span>
-                <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-                  {!push.isSupported
-                    ? "Notificações não são suportadas neste navegador."
-                    : push.error
-                      ? push.error
-                      : "Avisa quando um bairro favorito entra em atenção ou crítico."}
-                </p>
+          <Card className="mt-3 rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="space-y-4 p-4">
+              <div className={`flex items-start justify-between gap-3 ${!push.isSupported ? "cursor-not-allowed opacity-50" : ""}`}>
+                <div>
+                  <Label htmlFor="notify-risk" className="flex flex-wrap items-center gap-2 text-sm font-medium">
+                    Notificações de risco
+                  </Label>
+                  <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                    {!push.isSupported
+                      ? "Notificações não são suportadas neste navegador."
+                      : push.error
+                        ? push.error
+                        : "Avisa quando um bairro favorito entra em atenção ou crítico."}
+                  </p>
+                </div>
+                <Switch
+                  id="notify-risk"
+                  disabled={!push.isSupported || push.isLoading}
+                  checked={push.isSubscribed}
+                  onCheckedChange={(checked) => {
+                    const neighborhoodIds = (favorites ?? []).map((f) => f.id);
+                    if (checked) push.subscribe(neighborhoodIds);
+                    else push.unsubscribe();
+                  }}
+                  className="shrink-0"
+                />
               </div>
-              <input
-                type="checkbox"
-                disabled={!push.isSupported || push.isLoading}
-                checked={push.isSubscribed}
-                onChange={(e) => {
-                  const neighborhoodIds = (favorites ?? []).map((f) => f.id);
-                  if (e.target.checked) push.subscribe(neighborhoodIds);
-                  else push.unsubscribe();
-                }}
-                className="h-5 w-5 shrink-0 accent-brand-blue-mid"
-              />
-            </div>
-            <div className="flex cursor-not-allowed items-start justify-between gap-3 opacity-50">
-              <div>
-                <span className="flex flex-wrap items-center gap-2 text-sm font-medium">
-                  Confirmação de relatos
-                  <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{ backgroundColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
-                  >
-                    Em breve
-                  </span>
-                </span>
-                <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
-                  Em desenvolvimento. Disponível em versão futura.
-                </p>
+              <div className="flex cursor-not-allowed items-start justify-between gap-3 opacity-50">
+                <div>
+                  <Label htmlFor="notify-confirmations" className="flex flex-wrap items-center gap-2 text-sm font-medium">
+                    Confirmação de relatos
+                    <span
+                      className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                      style={{ backgroundColor: "rgba(46, 125, 184, 0.3)", color: "#a8d4f0" }}
+                    >
+                      Em breve
+                    </span>
+                  </Label>
+                  <p className="mt-0.5 text-xs" style={{ color: "#a8d4f0" }}>
+                    Em desenvolvimento. Disponível em versão futura.
+                  </p>
+                </div>
+                <Switch id="notify-confirmations" disabled className="shrink-0" />
               </div>
-              <input type="checkbox" disabled className="h-5 w-5 shrink-0 accent-brand-blue-mid" />
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* Sugestão */}
         <section className="mt-8 mb-10">
-          <div
-            className="flex items-center justify-between gap-4 rounded-2xl border p-5 backdrop-blur-sm"
-            style={CARD_STYLE}
-          >
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">💡</span>
-              <div>
-                <p className="font-heading text-sm font-semibold">Tem uma sugestão para o Chuvarada?</p>
-                <p className="text-xs" style={{ color: "#a8d4f0" }}>
-                  Ajude a melhorar o produto
-                </p>
+          <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
+            <CardContent className="flex items-center justify-between gap-4 p-5">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">💡</span>
+                <div>
+                  <p className="font-heading text-sm font-semibold">Tem uma sugestão para o Chuvarada?</p>
+                  <p className="text-xs" style={{ color: "#a8d4f0" }}>
+                    Ajude a melhorar o produto
+                  </p>
+                </div>
               </div>
-            </div>
-            <Button
-              onClick={() => setSuggestionOpen(true)}
-              className="h-auto shrink-0 rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
-            >
-              Enviar sugestão
-            </Button>
-          </div>
+              <Button
+                onClick={() => setSuggestionOpen(true)}
+                className="h-auto shrink-0 rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
+              >
+                Enviar sugestão
+              </Button>
+            </CardContent>
+          </Card>
         </section>
       </div>
 

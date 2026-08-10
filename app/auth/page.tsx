@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Mode = "entrar" | "criar";
 
@@ -90,9 +91,9 @@ function AuthForm() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
+            <Label htmlFor="email" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
               E-mail
-            </label>
+            </Label>
             <Input
               id="email"
               type="email"
@@ -106,9 +107,9 @@ function AuthForm() {
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
+            <Label htmlFor="password" className="mb-1 block text-sm font-medium" style={{ color: "#f0f4f8" }}>
               Senha
-            </label>
+            </Label>
             <Input
               id="password"
               type="password"
