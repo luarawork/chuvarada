@@ -2,450 +2,497 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { VariableCard } from "@/components/how-it-works/VariableCard";
-import { RiskDiagram } from "@/components/how-it-works/RiskDiagram";
-import { SourcesList } from "@/components/how-it-works/SourcesList";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
+import { LEVEL_EMOJI, RISK_COLORS, SCORE_THRESHOLDS } from "@/lib/constants";
 
 const fmtScoreBr = (n: number) => n.toFixed(1).replace(".", ",");
 
-const PILLS = [
-  { icon: "🕐", label: "Atualizado a cada hora" },
-  { icon: "🗺️", label: "Brasil inteiro" },
-  { icon: "📊", label: "Dados públicos" },
-];
-
-const VARIABLES = [
-  {
-    emoji: "🌧️",
-    title: "Pico de chuva nas últimas 3h",
-    weight: 0.25,
-    description:
-      "Capturamos o maior valor de precipitação horária das últimas 3 horas. Isso evita perder picos de chuva rápidos que duram menos que nosso intervalo de atualização.",
-  },
-  {
-    emoji: "🌧️",
-    title: "Chuva na última hora",
-    weight: 0.2,
-    description: "Volume total de chuva na última hora. Mesmo sem picos intensos, chuva contínua acumula e satura o solo.",
-  },
-  {
-    emoji: "🌧️",
-    title: "Chuva acumulada em 72h",
-    weight: 0.2,
-    description: "Se já choveu muito nos últimos 3 dias, o solo está saturado. Qualquer chuva nova vai direto para as ruas.",
-  },
-  {
-    emoji: "⛰️",
-    title: "Terreno",
-    weight: 0.15,
-    description: "Áreas baixas acumulam água com muito mais facilidade. Usamos dados de altimetria da NASA com resolução de ~30m.",
-  },
-  {
-    emoji: "🏞️",
-    title: "Proximidade de rios e canais",
-    weight: 0.12,
-    description:
-      "Bairros próximos a um rio de verdade têm maior risco do que os perto só de um córrego pequeno — rios maiores pesam mais nessa conta, porque carregam mais água quando transbordam.",
-  },
-  {
-    emoji: "🌊",
-    title: "Maré",
-    weight: 0.08,
-    description:
-      "Em cidades costeiras, maré alta reduz a capacidade de escoamento para o mar. Usamos dado real de maré (TideCheck) onde já disponível, com fallback neutro nas demais cidades.",
-  },
-];
-
+// Fonte única dos 5 níveis pra esta página -- range calculado a partir dos
+// mesmos SCORE_THRESHOLDS usados em lib/score.ts (não são faixas redondas
+// tipo 1-2/3-4, os cortes reais são 3,0/5,0/6,5/8,0). "detail" é o texto
+// mais longo da seção 03; "range"/"color"/"emoji" servem tanto o diagrama
+// compacto da seção 02 quanto o card detalhado da seção 03.
 const LEVELS = [
   {
-    emoji: "🟢",
+    key: "normal",
     label: "Normal",
     range: `score < ${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)}`,
-    text: "Condições seguras",
     color: RISK_COLORS.normal,
+    emoji: LEVEL_EMOJI.normal,
+    detail: "Condições sem indicadores significativos de risco hídrico. O monitoramento continua ativo.",
   },
   {
-    emoji: "🟡",
+    key: "attention",
     label: "Atenção",
     range: `${fmtScoreBr(SCORE_THRESHOLDS.ATTENTION)} – ${fmtScoreBr(SCORE_THRESHOLDS.MODERATE)}`,
-    text: "Fique atento, evite áreas de risco",
     color: RISK_COLORS.attention,
+    emoji: LEVEL_EMOJI.attention,
+    detail: "Algum indicador está acima do normal — chuva acumulando, terreno plano, proximidade de rio. Vale acompanhar.",
   },
   {
-    emoji: "🟠",
+    key: "moderate",
     label: "Moderado",
     range: `${fmtScoreBr(SCORE_THRESHOLDS.MODERATE)} – ${fmtScoreBr(SCORE_THRESHOLDS.HIGH)}`,
-    text: "Risco real de alagamento, redobre a atenção",
     color: RISK_COLORS.moderate,
+    emoji: LEVEL_EMOJI.moderate,
+    detail: "Combinação de fatores que elevam o risco. Chuva significativa em área vulnerável.",
   },
   {
-    emoji: "🔴",
+    key: "high",
     label: "Alto",
     range: `${fmtScoreBr(SCORE_THRESHOLDS.HIGH)} – ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
-    text: "Evite áreas alagáveis agora",
     color: RISK_COLORS.high,
+    emoji: LEVEL_EMOJI.high,
+    detail: "Risco expressivo detectado. Múltiplos fatores desfavoráveis combinados — chuva intensa, solo saturado ou proximidade de rio.",
   },
   {
-    emoji: "🟣",
+    key: "critical",
     label: "Crítico",
     range: `score > ${fmtScoreBr(SCORE_THRESHOLDS.CRITICAL)}`,
-    text: "Situação crítica, saia de áreas alagáveis",
     color: RISK_COLORS.critical,
+    emoji: LEVEL_EMOJI.critical,
+    detail: "Nível máximo de risco calculado. Evento de alta intensidade detectado. Consulte os canais oficiais da Defesa Civil.",
   },
+] as const;
+
+// Pesos batem com VARIABLES de VariableCard.tsx (arquivo removido nesta
+// revisão -- era usado só nesta página, ver relatório da sessão).
+const VARIABLES = [
+  { icon: "🌧️", label: "Pico de chuva (3h)", weight: 25 },
+  { icon: "🌧️", label: "Chuva última hora", weight: 20 },
+  { icon: "🌧️", label: "Chuva 72h", weight: 20 },
+  { icon: "⛰️", label: "Terreno", weight: 15 },
+  { icon: "🏞️", label: "Proximidade hídrica", weight: 12 },
+  { icon: "🌊", label: "Maré", weight: 8 },
 ];
 
 const AUTO_ALERTS = [
-  { emoji: "⚡", title: "Chuva extrema", text: "Mais de 50mm na última hora dispara alerta crítico independente do score." },
-  { emoji: "🌊", title: "Maré + chuva", text: "Maré acima de 80% + chuva em zona costeira = crítico automático." },
-  { emoji: "💧", title: "Solo saturado", text: "Mais de 100mm em 3 dias + qualquer chuva nova = crítico automático." },
+  "Mais de 50mm de chuva na última hora",
+  "Maré acima de 80% combinada com chuva em zona costeira",
+  "Mais de 100mm acumulados em 72h e qualquer chuva nova",
 ];
 
-const REPORT_STEPS = [
-  { emoji: "📍", text: "Clique no mapa onde está o alagamento" },
-  { emoji: "📊", text: "Escolha a gravidade (leve / moderado / grave)" },
-  { emoji: "✅", text: "Seu relato aparece para outros usuários" },
+const SOURCE_STATUS_COLOR = { active: "#2a9d72", rollout: "#f0a500" } as const;
+
+// Dado real do SourcesList.tsx anterior (arquivo removido nesta revisão --
+// a tabela virou grid de cards; ver relatório da sessão). Relatos de
+// usuários saiu desta lista de propósito -- ganhou nota própria abaixo do
+// grid e uma seção inteira (05), não é uma "fonte de dados brutos" como as
+// outras seis.
+const SOURCES = [
+  {
+    icon: "🛰️",
+    name: "MERGE/CPTEC",
+    org: "INPE",
+    description: "Precipitação em todo o Brasil, combinando satélite e pluviômetros",
+    status: "active" as const,
+  },
+  {
+    icon: "🌡️",
+    name: "Open-Meteo",
+    org: "Open-Meteo",
+    description: "Vento, umidade, pressão e chuva horária",
+    status: "active" as const,
+  },
+  {
+    icon: "🏔️",
+    name: "NASA SRTM",
+    org: "NASA",
+    description: "Altimetria do terreno com resolução de ~30 metros",
+    status: "active" as const,
+  },
+  {
+    icon: "🌊",
+    name: "ANA/BHO",
+    org: "Agência Nacional de Águas",
+    description: "Rede hidrográfica nacional — rios, córregos e canais",
+    status: "active" as const,
+  },
+  {
+    icon: "🗺️",
+    name: "IBGE Censo 2022",
+    org: "IBGE",
+    description: "Malha de bairros de todo o Brasil",
+    status: "active" as const,
+  },
+  {
+    icon: "🌊",
+    name: "TideCheck",
+    org: "UHSLC / FES2022",
+    description: "Nível de maré real — 32 de 115 cidades costeiras já cobertas, as demais usam valor neutro",
+    status: "rollout" as const,
+    statusLabel: "Em rollout",
+  },
 ];
 
 const LIMITATIONS = [
   {
-    emoji: "⚠️",
-    title: "Sem dados de bueiros",
-    text: "Informações sobre bueiros e galerias pluviais não estão disponíveis publicamente no Brasil. Usamos hidrografia natural como aproximação.",
+    title: "Sem dados de drenagem urbana",
+    text: "Bueiros, galerias pluviais e a capacidade de escoamento de cada rua não existem como dado público estruturado no Brasil. Usamos hidrografia natural (rios e córregos) como aproximação.",
   },
   {
-    emoji: "⚠️",
     title: "Maré ainda em rollout",
-    text: "O serviço de tábua de marés do CPTEC está degradado desde 2018. Já substituímos por dado real via TideCheck, mas o rollout ainda está em andamento — 32 das 115 cidades costeiras já têm estação atribuída. As demais usam valor neutro até serem alcançadas.",
+    text: "O serviço de tábua de marés do CPTEC está degradado desde 2018. Já substituímos por dado real via TideCheck, mas o rollout ainda está em andamento — 32 das 115 cidades costeiras já têm estação atribuída.",
   },
   {
-    emoji: "⚠️",
     title: "Eventos muito localizados",
     text: "Chuvas convectivas em área menor que ~10km² podem ser subestimadas pelo modelo numérico. Os relatos de usuários ajudam a identificar esses casos.",
   },
   {
-    emoji: "⚠️",
     title: "São Paulo, Campinas e Sorocaba",
-    text: "O IBGE não disponibiliza bairros para essas cidades — usamos distritos administrativos, que cobrem áreas maiores.",
+    text: "O IBGE não disponibiliza limites de bairro pra essas cidades — usamos distritos administrativos, que cobrem áreas maiores.",
   },
   {
-    emoji: "⚠️",
-    title: "Pesos ainda não calibrados por região",
-    text: "A estrutura para pesos diferentes por região já existe (ex: mais peso pra chuva no Sul), mas os valores hoje são os mesmos em todo o país. Calibrar de verdade exige revisão de um hidrólogo ou meteorologista.",
+    title: "Pesos sem calibração regional",
+    text: "Os pesos de cada variável foram definidos sem validação formal de hidrólogo. A estrutura pra calibração regional existe, mas os valores específicos por região ainda não foram ajustados.",
   },
 ];
 
-const CARD_STYLE = { backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.2)" };
+const INSTALL_STEPS = [
+  {
+    title: "iPhone (Safari)",
+    text: "Toque no ícone de compartilhar (□↑) na barra inferior → role até “Adicionar à Tela de Início” → toque em “Adicionar”.",
+  },
+  {
+    title: "Android (Chrome)",
+    text: "Toque nos três pontinhos (⋮) no canto superior direito → toque em “Adicionar à tela inicial” → confirme.",
+  },
+];
 
-function FadeInSection({
-  children,
-  className = "",
-  style,
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <p className="mb-2 font-mono text-xs uppercase tracking-widest text-primary">{children}</p>;
+}
+
+function SectionIntro({
+  number,
+  title,
+  description,
 }: {
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
+  number: string;
+  title: string;
+  description: React.ReactNode;
 }) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={className}
-      style={style}
-    >
-      {children}
-    </motion.section>
+    <div className="mb-10">
+      <Eyebrow>{number}</Eyebrow>
+      <h2 className="mb-3 text-3xl font-bold">{title}</h2>
+      <p className="max-w-2xl text-base text-muted-foreground">{description}</p>
+    </div>
   );
+}
+
+function SectionSeparator() {
+  return <Separator className="mx-auto max-w-5xl opacity-30" />;
 }
 
 export default function ComoFuncionaPage() {
   const [suggestionOpen, setSuggestionOpen] = useState(false);
 
   return (
-    <div style={{ backgroundColor: "#0d1b2a", color: "#f0f4f8" }} className="min-h-dvh">
-      <div className="mx-auto max-w-3xl px-6 py-10">
-        <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
+    <div className="min-h-dvh bg-background text-foreground">
+      <div className="px-6 pt-8">
+        <Link href="/" className="text-sm text-muted-foreground hover:text-foreground hover:underline">
           ← Voltar para o mapa
         </Link>
+      </div>
 
-        {/* Hero */}
-        <header className="mt-8 text-center">
-          <h1 className="font-heading text-3xl font-bold md:text-4xl">Como o Chuvarada funciona</h1>
-          <p className="mx-auto mt-3 max-w-xl text-base md:text-lg" style={{ color: "#a8d4f0" }}>
-            Transparência total sobre como estimamos o risco de alagamento na sua cidade.
-          </p>
+      {/* Hero */}
+      <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <Eyebrow>Transparência total</Eyebrow>
+        <h1 className="mb-6 text-4xl font-bold text-balance">Entenda como o Chuvarada calcula o risco do seu bairro</h1>
+        <p className="text-lg text-muted-foreground">
+          Dados públicos, cálculo aberto e limitações honestas. Aqui explicamos exatamente como funciona — e onde
+          ainda precisamos melhorar.
+        </p>
+      </section>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {PILLS.map((pill) => (
-              <span
-                key={pill.label}
-                className="flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium backdrop-blur-sm"
-                style={CARD_STYLE}
-              >
-                <span>{pill.icon}</span>
-                {pill.label}
-              </span>
-            ))}
-          </div>
-        </header>
+      <SectionSeparator />
 
-        {/* O que analisamos */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">O que analisamos</h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {VARIABLES.map((v) => (
-              <VariableCard key={v.title} {...v} />
-            ))}
-          </div>
-        </FadeInSection>
+      {/* 01 — Como coletamos os dados */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="01"
+          title="Como coletamos os dados"
+          description="O Chuvarada combina seis fontes de dados públicos e gratuitos, atualizadas automaticamente, para calcular o risco de cada bairro."
+        />
 
-        {/* Como calculamos */}
-        <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
-          <h2 className="font-heading text-2xl font-bold">Como calculamos o risco</h2>
-          <div className="mt-5">
-            <RiskDiagram />
-          </div>
-
-          <div className="mt-6 space-y-2 text-sm">
-            {LEVELS.map((level) => (
-              // min-h-16 (64px) -- achado em produção (chuvarada.vercel.app,
-              // viewport 480px): as 5 linhas têm texto de comprimento bem
-              // diferente ("Normal" x "Moderado"), então em larguras
-              // intermediárias algumas quebram em 2 linhas e outras ficam
-              // numa só, dando alturas 44px/64px misturadas na mesma lista.
-              // min-h garante o piso de 2 linhas (64px = padding 12px×2 +
-              // line-height 20px×2) sem impor altura fixa que cortaria o
-              // texto se algum dia precisar de 3 linhas numa tela bem estreita.
-              <Card
-                key={level.label}
-                className="flex min-h-16 items-center gap-2.5 rounded-xl border-0 border-l-4 px-4 py-3 shadow-none"
-                style={{ backgroundColor: `${level.color}1f`, borderLeftColor: level.color }}
-              >
-                <span aria-hidden="true">{level.emoji}</span>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SOURCES.map((source) => (
+            <Card key={source.name} className="border-border/50 p-6 shadow-none transition-colors hover:border-border">
+              <div className="mb-3 text-2xl">{source.icon}</div>
+              <div className="mb-2 flex items-start justify-between gap-2">
+                <p className="text-sm font-semibold">{source.name}</p>
                 <Badge
                   variant="outline"
-                  className="shrink-0 border-none px-2 py-0.5 text-xs font-bold"
-                  style={{ backgroundColor: `${level.color}33`, color: level.color }}
+                  className="shrink-0 border-none text-xs"
+                  style={{
+                    color: SOURCE_STATUS_COLOR[source.status],
+                    backgroundColor: `${SOURCE_STATUS_COLOR[source.status]}1a`,
+                  }}
                 >
-                  {level.label}
+                  {source.status === "active" ? "Ativo" : source.statusLabel}
                 </Badge>
-                <span style={{ color: level.color }}>
-                  ({level.range}) — {level.text}
+              </div>
+              <p className="mb-1 text-xs uppercase tracking-wide text-muted-foreground/70">{source.org}</p>
+              <p className="text-sm text-muted-foreground">{source.description}</p>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-start gap-3 rounded-lg border border-border/50 bg-muted/20 p-4">
+          <span className="text-lg" aria-hidden="true">
+            👥
+          </span>
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Relatos da comunidade</span> também alimentam o sistema —
+            não como fonte primária, mas como validação do que o modelo calcula. Mais sobre isso na seção 05.
+          </p>
+        </div>
+      </section>
+
+      <SectionSeparator />
+
+      {/* 02 — Como calculamos o risco */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="02"
+          title="Como calculamos o risco"
+          description="Seis variáveis são combinadas em um score de 1 a 10. Cada uma tem um peso diferente — quanto mais relevante para o risco de alagamento, maior o peso."
+        />
+
+        <div className="flex flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:gap-4">
+          <div className="flex w-full flex-col gap-3 lg:w-auto lg:min-w-[240px]">
+            {VARIABLES.map((v) => (
+              <div key={v.label} className="flex items-center gap-3 rounded-lg border border-border/50 bg-card p-4">
+                <span className="text-lg" aria-hidden="true">
+                  {v.icon}
                 </span>
-              </Card>
+                <span className="flex-1 text-sm font-medium">{v.label}</span>
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">{v.weight}%</span>
+              </div>
             ))}
           </div>
-        </FadeInSection>
 
-        {/* Alertas automáticos */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">Alertas automáticos</h2>
-          <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
-            Algumas situações entram automaticamente em nível crítico, independente do score calculado.
-          </p>
-          <div className="mt-5 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible">
-            {AUTO_ALERTS.map((alert) => (
-              <Card
-                key={alert.title}
-                className="w-64 shrink-0 rounded-2xl border shadow-none backdrop-blur-sm md:w-auto"
-                style={CARD_STYLE}
+          <div className="flex items-center justify-center gap-2 text-muted-foreground/50 lg:flex-col">
+            <div className="hidden h-px w-12 bg-border/50 lg:block" />
+            <span className="text-2xl">→</span>
+            <div className="hidden h-px w-12 bg-border/50 lg:block" />
+          </div>
+
+          <Card className="shrink-0 border-primary/30 bg-primary/5 p-8 text-center shadow-none">
+            <Eyebrow>Score</Eyebrow>
+            <p className="mb-2 text-5xl font-bold tabular-nums">1–10</p>
+            <p className="text-xs text-muted-foreground">Calculado a cada hora</p>
+          </Card>
+
+          <div className="flex items-center justify-center gap-2 text-muted-foreground/50 lg:flex-col">
+            <div className="hidden h-px w-12 bg-border/50 lg:block" />
+            <span className="text-2xl">→</span>
+            <div className="hidden h-px w-12 bg-border/50 lg:block" />
+          </div>
+
+          <div className="flex w-full flex-col gap-3 lg:w-auto lg:min-w-[180px]">
+            {LEVELS.map((level) => (
+              <div
+                key={level.key}
+                className="flex min-h-[56px] items-center gap-3 rounded-lg border p-4"
+                style={{ borderColor: `${level.color}40`, backgroundColor: `${level.color}10` }}
               >
-                <CardContent className="p-5">
-                  <span className="text-2xl">{alert.emoji}</span>
-                  <h3 className="mt-2 font-heading text-base font-semibold">{alert.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                    {alert.text}
-                  </p>
-                </CardContent>
-              </Card>
+                <div className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: level.color }} />
+                <span className="flex-1 text-sm font-medium">{level.label}</span>
+                <span className="font-mono text-xs text-muted-foreground">{level.range}</span>
+              </div>
             ))}
           </div>
-        </FadeInSection>
+        </div>
 
-        {/* Previsão de risco */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">Previsão de risco</h2>
-          <p className="mt-2 text-sm" style={{ color: "#a8d4f0" }}>
-            Ao clicar em um bairro no mapa, você pode ver a previsão de risco para os próximos 7 dias clicando em
-            &quot;Previsão →&quot;.
+        <div className="mt-8 rounded-lg border border-border/50 bg-muted/20 p-5">
+          <p className="mb-2 text-sm font-medium">⚡ Regras automáticas</p>
+          <p className="mb-2 text-sm text-muted-foreground">
+            Algumas situações elevam o nível automaticamente para Crítico, independente do score calculado:
           </p>
-          <Card className="mt-5 rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-            <CardContent className="p-5">
-              <p className="text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                A previsão usa dados do Open-Meteo (modelos meteorológicos globais) combinados com as características
-                físicas do bairro (declividade, proximidade de rios).
-              </p>
-              <p className="mt-3 text-sm font-medium">
-                Importante: a previsão é diferente do monitoramento em tempo real.
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                Quanto mais longe no tempo, maior a incerteza — especialmente para chuvas convectivas (pancadas
-                rápidas e localizadas). Sempre consulte os alertas oficiais da Defesa Civil para decisões de
-                segurança.
-              </p>
-            </CardContent>
-          </Card>
-        </FadeInSection>
-
-        {/* Fontes de dados */}
-        <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
-          <h2 className="font-heading text-2xl font-bold">Fontes de dados</h2>
-          <Card className="mt-5 rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-            <CardContent className="p-5">
-              <SourcesList />
-            </CardContent>
-          </Card>
-        </FadeInSection>
-
-        {/* Relatos de usuários */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">Você também pode contribuir</h2>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-            O modelo calcula o risco a partir de dados públicos, mas quem sabe se está alagando
-            de verdade é quem está na rua. Por isso os relatos não substituem o modelo — eles
-            complementam: quando você reporta um alagamento, seu relato é cruzado com os dados
-            calculados e ajuda a calibrar o Chuvarada para ser cada vez mais preciso na sua região.
-          </p>
-
-          <div className="mt-5 grid gap-4 sm:grid-cols-3">
-            {REPORT_STEPS.map((step, i) => (
-              <Card key={step.text} className="rounded-2xl border text-center shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-                <CardContent className="p-5">
-                  <span className="text-2xl">{step.emoji}</span>
-                  <p className="mt-2 text-xs font-medium uppercase tracking-wide" style={{ color: "#2e7db8" }}>
-                    Passo {i + 1}
-                  </p>
-                  <p className="mt-1 text-sm leading-relaxed">{step.text}</p>
-                </CardContent>
-              </Card>
+          <ul className="ml-4 list-disc space-y-1 text-sm text-muted-foreground">
+            {AUTO_ALERTS.map((rule) => (
+              <li key={rule}>{rule}</li>
             ))}
-          </div>
+          </ul>
+        </div>
+      </section>
 
-          <div className="mt-4 space-y-1 text-xs" style={{ color: "#a8d4f0" }}>
-            <p>Relatos expiram automaticamente baseado na gravidade:</p>
-            <p>🔵 Leve → visível por 30 minutos</p>
-            <p>🟡 Moderado → visível por 1h30</p>
-            <p>🔴 Grave → visível por 3 horas</p>
-            <p>
-              Cada confirmação de outro usuário estende o tempo em +15 minutos (máximo de 2 horas
-              extras).
+      <SectionSeparator />
+
+      {/* 03 — O que cada nível significa */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="03"
+          title="O que cada nível significa"
+          description="Os níveis traduzem o score em linguagem direta. Cada um indica o que o modelo está detectando — não uma instrução de segurança."
+        />
+
+        <div className="flex flex-col gap-4">
+          {LEVELS.map((level) => (
+            <Card
+              key={level.key}
+              className="flex flex-col gap-4 border p-6 shadow-none sm:flex-row sm:items-center"
+              style={{ borderColor: `${level.color}30`, backgroundColor: `${level.color}08` }}
+            >
+              <div className="flex shrink-0 items-center gap-4 sm:w-48">
+                <div className="h-4 w-4 shrink-0 rounded-full" style={{ backgroundColor: level.color }} />
+                <div>
+                  <p className="font-semibold">{level.label}</p>
+                  <p className="font-mono text-xs text-muted-foreground">Score {level.range}</p>
+                </div>
+              </div>
+              <Separator orientation="vertical" className="hidden h-8 opacity-30 sm:block" />
+              <p className="text-sm text-muted-foreground">{level.detail}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <SectionSeparator />
+
+      {/* 04 — Previsão de 7 dias */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="04"
+          title="Previsão de 7 dias"
+          description={
+            <>
+              Ao clicar em um bairro, você pode ver a previsão de risco para os próximos 7 dias. Ela usa dados do
+              Open-Meteo combinados com as características físicas do bairro.
+            </>
+          }
+        />
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <Card className="border-border/50 p-6 shadow-none">
+            <p className="mb-2 font-semibold">📡 Como é calculada</p>
+            <p className="text-sm text-muted-foreground">
+              Usa previsão meteorológica do Open-Meteo (modelos globais) combinada com as características
+              permanentes do bairro — declividade, proximidade de rios e localização costeira.
             </p>
-            <p className="pt-1">Entre com uma conta para que seus relatos tenham mais peso na calibração.</p>
-          </div>
-        </FadeInSection>
+          </Card>
+          <Card className="border-amber-500/20 bg-amber-500/5 p-6 shadow-none">
+            <p className="mb-2 font-semibold">⚠️ Importante entender</p>
+            <p className="text-sm text-muted-foreground">
+              A previsão é diferente do monitoramento em tempo real. Quanto mais longe no tempo, maior a incerteza —
+              especialmente para chuvas convectivas (pancadas rápidas e localizadas). Sempre consulte a Defesa Civil
+              para decisões de segurança.
+            </p>
+          </Card>
+        </div>
+      </section>
 
-        {/* Confirmações de relatos */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">Como funcionam as confirmações</h2>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-            Ao ver um pin de alagamento no mapa, você pode:
-          </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-              <CardContent className="p-5">
-                <span className="text-2xl">👍</span>
-                <h3 className="mt-2 font-heading text-base font-semibold">Confirmar</h3>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                  Você também viu o alagamento nesse local. Cada confirmação estende o tempo do
-                  relato em +15 minutos e aumenta o peso desse relato na calibração do modelo.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-              <CardContent className="p-5">
-                <span className="text-2xl">👎</span>
-                <h3 className="mt-2 font-heading text-base font-semibold">Não vi isso</h3>
-                <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                  Você passou pelo local e não havia alagamento. Ajuda a identificar relatos
-                  incorretos.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          <p className="mt-4 text-xs" style={{ color: "#a8d4f0" }}>
-            Você pode reagir uma vez por relato.
-          </p>
-        </FadeInSection>
+      <SectionSeparator />
 
-        {/* Instalar como PWA */}
-        <FadeInSection className="mt-14 rounded-2xl px-1 py-8" style={{ backgroundColor: "rgba(46, 125, 184, 0.05)" }}>
-          <h2 className="font-heading text-2xl font-bold">💡 Instale o Chuvarada no seu celular</h2>
-          <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-            Adicione o Chuvarada à tela inicial para acessar mais rápido:
-          </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-              <CardHeader className="p-5 pb-0">
-                <CardTitle className="font-heading text-sm font-semibold">iPhone (Safari)</CardTitle>
-              </CardHeader>
-              <CardContent className="p-5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                Toque no ícone de compartilhar (□↑) na barra inferior → role até &ldquo;Adicionar à
-                Tela de Início&rdquo; → toque em &ldquo;Adicionar&rdquo;.
-              </CardContent>
-            </Card>
-            <Card className="rounded-2xl border shadow-none backdrop-blur-sm" style={CARD_STYLE}>
-              <CardHeader className="p-5 pb-0">
-                <CardTitle className="font-heading text-sm font-semibold">Android (Chrome)</CardTitle>
-              </CardHeader>
-              <CardContent className="p-5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                Toque nos três pontinhos (⋮) no canto superior direito → toque em &ldquo;Adicionar à
-                tela inicial&rdquo; → confirme.
-              </CardContent>
-            </Card>
-          </div>
-        </FadeInSection>
+      {/* 05 — Relatos da comunidade */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="05"
+          title="Relatos da comunidade"
+          description="O dado calculado tem limites. O relato de quem está no local preenche o que o modelo não consegue ver."
+        />
 
-        {/* Limitações honestas */}
-        <FadeInSection className="mt-14">
-          <h2 className="font-heading text-2xl font-bold">Limitações honestas</h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {LIMITATIONS.map((item) => (
-              <Card
-                key={item.title}
-                className="rounded-2xl border shadow-none backdrop-blur-sm"
-                style={{ backgroundColor: "rgba(240, 165, 0, 0.06)", borderColor: "rgba(240, 165, 0, 0.25)" }}
-              >
-                <CardContent className="p-5">
-                  <span className="text-xl">{item.emoji}</span>
-                  <h3 className="mt-1.5 font-heading text-sm font-semibold">{item.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-                    {item.text}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </FadeInSection>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <Card className="border-border/50 p-6 shadow-none">
+            <p className="mb-3 text-2xl">🧮</p>
+            <p className="mb-2 font-semibold">O modelo calcula</p>
+            <p className="text-sm text-muted-foreground">
+              Score baseado em dados de satélite, terreno e hidrografia. Preciso para eventos de grande escala.
+            </p>
+          </Card>
+          <Card className="border-border/50 p-6 shadow-none">
+            <p className="mb-3 text-2xl">👥</p>
+            <p className="mb-2 font-semibold">Você confirma</p>
+            <p className="text-sm text-muted-foreground">
+              Rua alagada, córrego transbordando. O sensor mais preciso é quem está no local — clique no mapa, escolha
+              a gravidade e seu relato aparece pra outros usuários na hora.
+            </p>
+          </Card>
+          <Card className="border-border/50 p-6 shadow-none">
+            <p className="mb-3 text-2xl">📈</p>
+            <p className="mb-2 font-semibold">O sistema aprende</p>
+            <p className="text-sm text-muted-foreground">
+              Quando relatos e modelo divergem, identificamos onde o cálculo precisa ser melhorado.
+            </p>
+          </Card>
+        </div>
 
-        {/* Footer */}
-        <footer className="mt-16 pb-6 text-center">
-          <Separator style={{ backgroundColor: "rgba(46, 125, 184, 0.2)" }} />
-          <p className="mx-auto mt-8 max-w-md text-sm leading-relaxed" style={{ color: "#a8d4f0" }}>
-            O Chuvarada complementa a informação pública, colocando dados abertos do governo nas
-            mãos do cidadão comum.
+        <p className="mt-6 text-xs text-muted-foreground">
+          Entre com uma conta para que seus relatos tenham mais peso na calibração.
+        </p>
+      </section>
+
+      <SectionSeparator />
+
+      {/* 06 — Limitações honestas */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="06"
+          title="Limitações honestas"
+          description="O Chuvarada é uma ferramenta de apoio, não de decisão. Estas são as limitações que você precisa conhecer."
+        />
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {LIMITATIONS.map((item) => (
+            <Card key={item.title} className="border-amber-500/20 bg-amber-500/5 p-6 shadow-none">
+              <p className="mb-2 text-sm font-semibold">⚠️ {item.title}</p>
+              <p className="text-sm text-muted-foreground">{item.text}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <SectionSeparator />
+
+      {/* 07 — Instalar como PWA */}
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <SectionIntro
+          number="07"
+          title="Instale no seu celular"
+          description="Adicione o Chuvarada à tela inicial pra acessar mais rápido, como um app."
+        />
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {INSTALL_STEPS.map((step) => (
+            <Card key={step.title} className="border-border/50 p-6 shadow-none">
+              <p className="mb-2 font-semibold">{step.title}</p>
+              <p className="text-sm text-muted-foreground">{step.text}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <SectionSeparator />
+        <div className="mt-16">
+          <Eyebrow>Pronto para usar</Eyebrow>
+          <h2 className="mb-4 text-3xl font-bold">Ver o mapa agora</h2>
+          <p className="mb-8 text-base text-muted-foreground">
+            O Chuvarada é open source e sem fins lucrativos. Se quiser contribuir com conhecimento ou código, o
+            projeto está aberto.
           </p>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild variant="outline" className="h-auto rounded-full px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/5" style={CARD_STYLE}>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Button asChild size="lg">
+              <Link href="/">Ver o mapa</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
               <a href="https://github.com/luarawork/chuvarada" target="_blank" rel="noopener noreferrer">
                 Ver no GitHub
               </a>
             </Button>
-            <Button
-              onClick={() => setSuggestionOpen(true)}
-              className="h-auto rounded-full bg-brand-blue-mid px-4 py-2 text-sm font-semibold text-white hover:bg-brand-blue-deep"
-            >
+            <Button variant="outline" size="lg" onClick={() => setSuggestionOpen(true)}>
               Sugerir melhoria
             </Button>
           </div>
-        </footer>
-      </div>
+        </div>
+      </section>
 
       {suggestionOpen && <SuggestionModal onClose={() => setSuggestionOpen(false)} />}
     </div>
