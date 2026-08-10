@@ -15,6 +15,37 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ---
 
+## [1.2.0] — pós-lançamento (até 09/08/2026)
+
+### Adicionado
+
+- Score recalibrado pra escala 1–10 com 5 níveis (Normal/Atenção/Moderado/Alto/Crítico), substituindo a escala anterior de 0–1 com 3 níveis
+- Desvio da média histórica (climatologia) exibido no DetailPanel — contextualiza a chuva 72h atual contra a média do mesmo período em anos anteriores (`lib/climatology.ts` + `/api/climatology`)
+- Dois monitors de GitHub Actions (health-monitor, quality-monitor), com labels próprias no GitHub pra triagem de issues automáticas
+- Migração completa da UI pra shadcn/ui (Button, Badge, Card, Input, Select, Tabs, ToggleGroup, Switch, Label, Popover, Separator, ScrollArea, Toast) — tema escuro via CSS variables em `:root`, componentes hand-authored (CLI `shadcn@latest` incompatível com os tokens já em uso)
+- Redesign completo de `/como-funciona` — hero + 7 seções numeradas (fontes de dados, cálculo do score, níveis de risco, previsão de 7 dias, relatos da comunidade, limitações honestas, instalação PWA) + CTA final, hierarquia tipográfica e espaçamento consistentes com o design system shadcn/ui
+
+### Alterado
+
+- Modo padrão do mapa trocado pra Voyager (claro)
+- Toggle de camada renomeado pra "Modo Escuro/Claro" (era Padrão/Rua); tile escuro trocado pro CartoDB dark_all (gratuito, com ruas visíveis)
+- `maxZoom` 18 nos dois modos de mapa
+- Cores de Atenção (`#ffe066`) e Moderado (`#d95f02`) com maior contraste
+- Archiving pro B2 rodando 2x/dia (era 1x), lock com TTL de 20min, índice único anti-duplicatas
+
+### Corrigido
+
+- `maxDuration` do Cron A reduzido de 570 para 300s — limite do plano Hobby da Vercel
+- 3 bugs de UI mobile: scroll do DetailPanel travado, z-index do dropdown de busca, banner de alerta muito alto (bottom-32)
+- "Sem bairro ainda" removido da legenda do mapa — texto não correspondia a nenhum estado real do dado
+- Limpeza emergencial do banco (Supabase acima de 135% do limite do plano)
+
+### Segurança
+
+- Hardening do Supabase: REVOKE de privilégios desnecessários, `search_path` fixado em funções, senha mínima de 8 caracteres
+
+---
+
 ## [1.1.0] — pós-lançamento (até 08/08/2026)
 
 ### Corrigido

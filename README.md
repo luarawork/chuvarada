@@ -35,7 +35,7 @@ O modelo calcula um score de 1 a 10 para cada bairro, combinando 6 variáveis:
 | Chuva acumulada em 72h | 20% | MERGE/CPTEC |
 | Declividade do terreno | 15% | NASA SRTM |
 | Proximidade de rios/canais | 12% | ANA/BHO + hidrografia local |
-| Nível de maré | 8% | Marinha do Brasil via CPTEC |
+| Nível de maré | 8% | TideCheck (UHSLC/FES2022) |
 
 Níveis de risco:
 - 🟢 Normal: score < 3,0
@@ -78,7 +78,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 | Banco | Supabase (PostgreSQL + Auth + Realtime) |
 | Clima | Open-Meteo (camada 1) + WeatherAPI.com (camada 2, fallback de emergência) |
 | Precipitação acumulada/pico | MERGE/CPTEC (satélite GPM/IMERG + pluviômetros INMET) |
-| Maré | CPTEC/INPE (scraping da tábua oficial da Marinha — atualmente fora do ar) |
+| Maré | TideCheck (UHSLC estações reais + FES2022 modelo) — em rollout, 32 de 115 cidades costeiras |
 | Pré-processamento | Python (geopandas, rasterio, shapely, pyogrio) |
 | Automação | GitHub Actions (cron horário: MERGE → scores) |
 | PWA | next-pwa |
