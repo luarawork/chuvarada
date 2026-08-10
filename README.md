@@ -26,7 +26,7 @@ O aquecimento global vem tornando eventos de chuva mais intensos e concentrados 
 
 ## Como funciona
 
-O modelo calcula um score de 0 a 1 para cada bairro, combinando 6 variáveis:
+O modelo calcula um score de 1 a 10 para cada bairro, combinando 6 variáveis:
 
 | Variável | Peso | Fonte |
 |---|---:|---|
@@ -38,9 +38,11 @@ O modelo calcula um score de 0 a 1 para cada bairro, combinando 6 variáveis:
 | Nível de maré | 8% | Marinha do Brasil via CPTEC |
 
 Níveis de risco:
-- 🟢 Normal: score < 0,30
-- 🟡 Atenção: score 0,30 – 0,60
-- 🔴 Crítico: score > 0,60
+- 🟢 Normal: score < 3,0
+- 🟡 Atenção: score 3,0 – 5,0
+- 🟠 Moderado: score 5,0 – 6,5
+- 🔴 Alto: score 6,5 – 8,0
+- 🟣 Crítico: score > 8,0
 
 Além do score, 3 regras disparam nível crítico automaticamente:
 - Chuva > 50mm na última hora
@@ -61,7 +63,7 @@ Abaixo do zoom 10, o mapa mostra 1 ponto por cidade (colorido pelo pior nível e
 
 ## Limitações conhecidas
 
-- **Maré**: a fonte CPTEC está fora do ar — confirmado que não é mudança de layout, a tábua vem vazia para qualquer estação/mês/ano testado, e o webservice alternativo da Marinha foi descontinuado em 2018. Até essa fonte ser restaurada ou substituída, `tide_level` fica sempre neutro (0,5) em todo o país (ver `lib/cptec.ts`).
+- **Maré**: a fonte CPTEC está fora do ar — confirmado que não é mudança de layout, a tábua vem vazia para qualquer estação/mês/ano testado, e o webservice alternativo da Marinha foi descontinuado em 2018. TideCheck em rollout (32 de 115 cidades) substituindo o fallback neutro (ver `lib/tidecheck.ts`) — as 83 cidades ainda não cobertas continuam com `tide_level` neutro (0,5).
 - **São Paulo, Campinas e Sorocaba**: usam distrito administrativo em vez de bairro — o Censo 2022 do IBGE não tem `NM_BAIRRO` pra essas cidades (confirmado também no GeoSampa, portal da própria Prefeitura de SP). Afeta ~46% dos registros nacionais no total, mais concentrado no interior.
 - **Amazônia (AM, PA, RR, AP, AC, RO, parte de MT)**: o modelo é projetado para alagamento urbano por chuva intensa, não captura cheias sazonais de rio (padrão amazônico de subida/descida do nível dos grandes rios ao longo do ano) — `data_level='minimal'` nesses estados reflete essa limitação, não falta de bairros.
 - **SRTM em floresta densa**: a elevação medida pelo satélite inclui o topo do dossel da vegetação, não o solo — infla a elevação aparente do terreno e pode subestimar a declividade real em áreas de mata fechada (Norte principalmente). Limitação conhecida da fonte, não corrigida nesta expansão.
