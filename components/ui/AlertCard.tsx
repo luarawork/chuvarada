@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 import { RainIcon, DropIcon, WaveIcon } from "./WeatherIcons";
 import type { NormalizedWeather, RiskLevel } from "@/types";
 import { RISK_COLORS } from "@/lib/constants";
@@ -40,44 +41,50 @@ export function AlertCard({ level, weather, tideLevel, onClick }: AlertCardProps
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", damping: 20, stiffness: 200 }}
-        className="pointer-events-auto w-full rounded-xl border px-4 py-3 text-left shadow-xl backdrop-blur md:w-[420px]"
-        style={{
-          backgroundColor: "rgba(13, 27, 42, 0.92)",
-          borderColor: "rgba(46, 125, 184, 0.3)",
-          color: "#f0f4f8",
-        }}
+        className="pointer-events-auto w-full text-left md:w-[420px]"
       >
-        <div className="flex items-center gap-2">
-          <span className="text-xl">{message.emoji}</span>
-          <span
-            className="font-heading text-base font-semibold"
-            style={{ color: message.color }}
-          >
-            {message.text}
-          </span>
-        </div>
-        {weather && (
-          <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px]" style={{ color: "#a8d4f0" }}>
-            <span className="flex items-center gap-1.5">
-              <RainIcon />
-              {weather.rain_intensity.toFixed(1)}mm/h
-            </span>
-            <span aria-hidden>·</span>
-            <span className="flex items-center gap-1.5">
-              <DropIcon />
-              {weather.humidity.toFixed(0)}% umidade
-            </span>
-            {tideLevel !== null && (
-              <>
+        <Card
+          className="rounded-xl border px-4 py-3 shadow-xl backdrop-blur"
+          style={{
+            backgroundColor: "rgba(13, 27, 42, 0.92)",
+            borderColor: "rgba(46, 125, 184, 0.3)",
+            color: "#f0f4f8",
+          }}
+        >
+          <CardContent className="p-0">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">{message.emoji}</span>
+              <span
+                className="font-heading text-base font-semibold"
+                style={{ color: message.color }}
+              >
+                {message.text}
+              </span>
+            </div>
+            {weather && (
+              <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px]" style={{ color: "#a8d4f0" }}>
+                <span className="flex items-center gap-1.5">
+                  <RainIcon />
+                  {weather.rain_intensity.toFixed(1)}mm/h
+                </span>
                 <span aria-hidden>·</span>
                 <span className="flex items-center gap-1.5">
-                  <WaveIcon />
-                  Maré {(tideLevel * 100).toFixed(0)}%
+                  <DropIcon />
+                  {weather.humidity.toFixed(0)}% umidade
                 </span>
-              </>
+                {tideLevel !== null && (
+                  <>
+                    <span aria-hidden>·</span>
+                    <span className="flex items-center gap-1.5">
+                      <WaveIcon />
+                      Maré {(tideLevel * 100).toFixed(0)}%
+                    </span>
+                  </>
+                )}
+              </div>
             )}
-          </div>
-        )}
+          </CardContent>
+        </Card>
       </motion.button>
     </div>
   );

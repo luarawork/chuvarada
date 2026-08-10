@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Separator } from "@/components/ui/separator";
 import { RISK_COLORS } from "@/lib/constants";
 import type { DeviationResult } from "@/lib/climatology";
 import type { RiskScore } from "@/types";
@@ -88,8 +89,9 @@ export function RiskFactors({ score, hasTideStation, centroid }: RiskFactorsProp
     <div data-testid="risk-factors">
       <h3 className="mb-2 text-sm font-medium text-brand-blue-light/80">Fatores de risco</h3>
       <div className="space-y-2">
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           <div key={row.label}>
+            {i > 0 && <Separator className="mb-2 opacity-15" />}
             <div className="grid grid-cols-[1fr_auto_minmax(48px,1fr)_28px] items-center gap-2">
               <span className="truncate text-[13px] text-brand-blue-light">
                 {row.icon} {row.label}

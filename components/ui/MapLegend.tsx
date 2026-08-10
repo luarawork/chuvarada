@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { RISK_COLORS } from "@/lib/constants";
 
 const ITEMS = [
@@ -19,35 +21,40 @@ export function MapLegend() {
   return (
     <div className="pointer-events-auto">
       {open ? (
-        <div
-          className="w-56 rounded-xl border px-4 py-3 shadow-lg backdrop-blur"
+        <Card
+          className="w-56 rounded-xl border shadow-lg backdrop-blur"
           style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)" }}
         >
-          <div className="flex items-center justify-between">
-            <h3 className="font-heading text-xs font-bold uppercase tracking-wide" style={{ color: "#a8d4f0" }}>
-              Legenda
-            </h3>
-            <button
-              onClick={() => setOpen(false)}
-              aria-label="Fechar legenda"
-              className="text-brand-gray-light/50 hover:text-brand-gray-light"
-            >
-              ✕
-            </button>
-          </div>
-          <ul className="mt-2 space-y-1.5">
-            {ITEMS.map((item) => (
-              <li key={item.label} className="flex items-center gap-2 text-xs" style={{ color: "#f0f4f8" }}>
-                <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: item.color, opacity: 0.7 }} />
-                {item.label}
-              </li>
-            ))}
-          </ul>
-        </div>
+          <CardContent className="px-4 py-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-heading text-xs font-bold uppercase tracking-wide" style={{ color: "#a8d4f0" }}>
+                Legenda
+              </h3>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setOpen(false)}
+                aria-label="Fechar legenda"
+                className="h-8 w-8 text-brand-gray-light/50 hover:bg-white/10 hover:text-brand-gray-light"
+              >
+                ✕
+              </Button>
+            </div>
+            <ul className="mt-2 space-y-1.5">
+              {ITEMS.map((item) => (
+                <li key={item.label} className="flex items-center gap-2 text-xs" style={{ color: "#f0f4f8" }}>
+                  <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: item.color, opacity: 0.7 }} />
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       ) : (
-        <button
+        <Button
+          variant="outline"
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 rounded-xl border px-4 py-3 text-xs font-medium shadow-lg backdrop-blur"
+          className="h-auto gap-2 rounded-xl border px-4 py-3 text-xs font-medium shadow-lg backdrop-blur"
           style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
         >
           <span className="h-2.5 w-2.5 rounded-full bg-brand-green-water" />
@@ -56,7 +63,7 @@ export function MapLegend() {
           <span className="h-2.5 w-2.5 rounded-full bg-brand-red-alert" />
           <span className="h-2.5 w-2.5 rounded-full bg-brand-purple-critical" />
           Legenda
-        </button>
+        </Button>
       )}
     </div>
   );

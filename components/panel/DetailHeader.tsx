@@ -32,10 +32,14 @@ export function DetailHeader({
     <div>
       <div className="flex items-start justify-between">
         <div>
-          <h2 className="font-heading text-base font-bold text-brand-gray-light md:text-lg">
+          <h2 className="font-heading text-lg font-semibold text-brand-gray-light">
             {hasRealName(neighborhood) ? neighborhood.name : "Área sem denominação oficial"}
           </h2>
-          <p className="text-[13px] text-brand-blue-light">{cityName}</p>
+          {/* text-brand-blue-light (não text-muted-foreground do shadcn) --
+              é a cor de texto secundário usada em todo o resto do app
+              (SearchBar, painéis, cards); trocar só aqui pro token genérico
+              quebraria a consistência com o resto, não a criaria. */}
+          <p className="text-sm text-brand-blue-light">{cityName}</p>
         </div>
         <div className="flex items-center gap-1">
           <Button
@@ -81,8 +85,11 @@ export function DetailHeader({
         <div className="mt-3 flex items-center gap-3">
           <div>
             <RiskBadge level={current.level} />
-            <p className={`mt-0.5 text-sm font-semibold ${LEVEL_TEXT_CLASS[current.level]}`}>
-              Score {current.score.toFixed(1)}
+            <p className="mt-0.5 flex items-baseline gap-1.5">
+              <span className={`text-2xl font-bold tabular-nums ${LEVEL_TEXT_CLASS[current.level]}`}>
+                {current.score.toFixed(1)}
+              </span>
+              <span className="text-xs text-brand-blue-light/70">score</span>
             </p>
           </div>
           <AnimatePresence>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { supabase } from "@/lib/supabase";
 
 interface SearchResult {
@@ -98,7 +99,6 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (query.length < MIN_QUERY_LENGTH) {
@@ -131,23 +131,6 @@ export function SearchBar({ onSelect }: SearchBarProps) {
     };
   }, [query]);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, []);
-
   function handleSelect(result: SearchResult) {
     setOpen(false);
     setQuery("");
@@ -155,95 +138,92 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   }
 
   return (
-    <div
-      ref={containerRef}
-      // Só no mobile (abaixo do breakpoint sm): left-4/right-28 (112px) em
-      // vez de centralizar -- reserva espaço pra pilha de botões circulares
-      // do canto superior direito, agora lado a lado (ReportButton +
-      // ProfileButton, 40px cada + gap-2 + right-4 = ~104px de largura
-      // total a partir da borda direita; 112px dá uma folga de 8px). Sem
-      // width explícita aqui -- "w-full" conflitava com "right-28"
-      // (over-constrained: com left+width+right todos explícitos o CSS
-      // ignora "right" e usa left+width), então a largura fica "auto",
-      // resolvida a partir de left+right normalmente. sm+ (telas maiores,
-      // sem risco de sobreposição) mantém o design original centralizado.
-      //
-      // z-[3000] aqui (não só no dropdown filho, ver abaixo) -- este div é
-      // "position: absolute" com z-index próprio, o que cria um novo
-      // stacking context pra tudo dentro dele. Isso significa que o
-      // z-index de um FILHO (o dropdown) nunca escapa esse teto: contra
-      // outro elemento irmão de verdade (DetailPanel z-1100, InfoModal
-      // z-1300, banner do ReportButton z-2000), quem decide é o z-index
-      // DESTE container, não o do dropdown -- por isso o dropdown ficava
-      // atrás desses elementos no mobile mesmo com z-[3000] declarado nele.
-      className="pointer-events-auto absolute left-4 right-28 z-[3000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
-      style={{ top: 16 }}
-    >
-      <div
-        className="flex items-center gap-2 rounded-xl px-3.5 py-2.5 backdrop-blur-md"
+    // Só no mobile (abaixo do breakpoint sm): left-4/right-28 (112px) em
+    // vez de centralizar -- reserva espaço pra pilha de botões circulares
+    // do canto superior direito, agora lado a lado (ReportButton +
+    // ProfileButton, 40px cada + gap-2 + right-4 = ~104px de largura
+    // total a partir da borda direita; 112px dá uma folga de 8px). Sem
+    // width explícita aqui -- "w-full" conflitava com "right-28"
+    // (over-constrained: com left+width+right todos explícitos o CSS
+    // ignora "right" e usa left+width), então a largura fica "auto",
+    // resolvida a partir de left+right normalmente. sm+ (telas maiores,
+    // sem risco de sobreposição) mantém o design original centralizado.
+    //
+    // z-[3000] aqui é só pro PILL em si ficar acima do mapa (irmão
+    // absolutamente posicionado) -- o dropdown de resultados agora é um
+    // Radix Popover renderizado via Portal direto no body, fora desta
+    // stacking context, então ele não depende mais deste z-index pra
+    // vencer DetailPanel/InfoModal/banner do ReportButton (bug antigo de
+    // z-index no mobile, resolvido de vez pelo Portal).
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverAnchor asChild>
+        <div
+          className="pointer-events-auto absolute left-4 right-28 z-[3000] max-w-[320px] font-body sm:left-1/2 sm:right-auto sm:w-[90vw] sm:-translate-x-1/2"
+          style={{ top: 16 }}
+        >
+          <div
+            className="flex items-center gap-2 rounded-xl px-3.5 py-2.5 backdrop-blur-md"
+            style={{
+              backgroundColor: "rgba(13, 27, 42, 0.92)",
+              border: "1px solid rgba(46, 125, 184, 0.3)",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a8d4f0" strokeWidth="2" strokeLinecap="round" className="shrink-0">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <Input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => query.length >= MIN_QUERY_LENGTH && setOpen(true)}
+              placeholder="Buscar cidade ou bairro..."
+              className="h-auto w-full border-none bg-transparent p-0 text-sm shadow-none outline-none focus-visible:ring-0 placeholder:text-[#a8d4f0]/60"
+              style={{ color: "#f0f4f8" }}
+            />
+            {loading && (
+              <span className="h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-[#a8d4f0]/30 border-t-[#a8d4f0]" />
+            )}
+          </div>
+        </div>
+      </PopoverAnchor>
+
+      <PopoverContent
+        className="z-[3000] w-[--radix-popover-trigger-width] max-h-72 overflow-y-auto rounded-xl border p-0 backdrop-blur-md"
         style={{
           backgroundColor: "rgba(13, 27, 42, 0.92)",
-          border: "1px solid rgba(46, 125, 184, 0.3)",
+          borderColor: "rgba(46, 125, 184, 0.3)",
         }}
+        align="start"
+        sideOffset={6}
+        onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a8d4f0" strokeWidth="2" strokeLinecap="round" className="shrink-0">
-          <circle cx="11" cy="11" r="7" />
-          <path d="m21 21-4.3-4.3" />
-        </svg>
-        <Input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => query.length >= MIN_QUERY_LENGTH && setOpen(true)}
-          placeholder="Buscar cidade ou bairro..."
-          className="h-auto w-full border-none bg-transparent p-0 text-sm shadow-none outline-none focus-visible:ring-0 placeholder:text-[#a8d4f0]/60"
-          style={{ color: "#f0f4f8" }}
-        />
-        {loading && (
-          <span className="h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-[#a8d4f0]/30 border-t-[#a8d4f0]" />
+        {!loading && results.length === 0 && (
+          <p className="px-3.5 py-3 text-sm" style={{ color: "#a8d4f0" }}>
+            Nenhum resultado para &ldquo;{query}&rdquo;
+          </p>
         )}
-      </div>
-
-      {/* absolute (não só mt-1.5 em fluxo normal) -- tira o dropdown do
-          fluxo pra não empurrar o resto da página quando abre. z-index
-          numérico aqui é só relativo ao próprio container pai (que já
-          carrega z-[3000], acima de tudo mais no app); não precisa repetir
-          um valor alto aqui de novo. */}
-      {open && (
-        <div
-          className="absolute inset-x-0 top-full z-[3000] mt-1.5 max-h-72 overflow-y-auto rounded-xl backdrop-blur-md"
-          style={{
-            backgroundColor: "rgba(13, 27, 42, 0.92)",
-            border: "1px solid rgba(46, 125, 184, 0.3)",
-          }}
-        >
-          {!loading && results.length === 0 && (
-            <p className="px-3.5 py-3 text-sm" style={{ color: "#a8d4f0" }}>
-              Nenhum resultado para &ldquo;{query}&rdquo;
-            </p>
-          )}
-          {results.map((result, idx) => (
-            <button
-              key={`${result.type}-${result.id}`}
-              onClick={() => handleSelect(result)}
-              className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left transition hover:bg-[rgba(46,125,184,0.2)]"
-              style={{
-                borderTop: idx > 0 ? "1px solid rgba(46, 125, 184, 0.15)" : undefined,
-              }}
-            >
-              {result.type === "city" ? <CityIcon /> : <NeighborhoodIcon />}
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm" style={{ color: "#f0f4f8" }}>
-                  {result.label}
-                </span>
-                <span className="block truncate text-xs" style={{ color: "#a8d4f0" }}>
-                  {result.sublabel}
-                </span>
+        {results.map((result, idx) => (
+          <button
+            key={`${result.type}-${result.id}`}
+            onClick={() => handleSelect(result)}
+            className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left transition hover:bg-[rgba(46,125,184,0.2)]"
+            style={{
+              borderTop: idx > 0 ? "1px solid rgba(46, 125, 184, 0.15)" : undefined,
+            }}
+          >
+            {result.type === "city" ? <CityIcon /> : <NeighborhoodIcon />}
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm" style={{ color: "#f0f4f8" }}>
+                {result.label}
               </span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+              <span className="block truncate text-xs" style={{ color: "#a8d4f0" }}>
+                {result.sublabel}
+              </span>
+            </span>
+          </button>
+        ))}
+      </PopoverContent>
+    </Popover>
   );
 }
