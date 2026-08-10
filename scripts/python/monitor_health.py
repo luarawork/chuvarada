@@ -61,6 +61,39 @@ if duplicates > 0:
         f"Possível falha no lock do Cron A."
     )
 
+# 1.4 Bloat de tabelas -- achado em 10/08/2026: municipalities acumulou
+# 163MB (só 5MB de dado real) por bloat de TOAST nunca recuperado por
+# autovacuum. n_dead_tup/n_live_tup de pg_stat_user_tables é a mesma
+# métrica usada no diagnóstico manual que achou isso -- checar aqui evita
+# precisar descobrir de novo via investigação manual da próxima vez.
+cur.execute("""
+    SELECT
+        relname,
+        n_dead_tup,
+        n_live_tup,
+        ROUND(n_dead_tup * 100.0 / NULLIF(n_live_tup, 0), 1)
+            as pct_bloat,
+        last_autovacuum
+    FROM pg_stat_user_tables
+    WHERE n_dead_tup > 10000
+    ORDER BY n_dead_tup DESC
+    LIMIT 5
+""")
+bloat_tables = cur.fetchall()
+for table, dead, live, pct, last_vac in bloat_tables:
+    if pct and pct > 50:
+        issues.append(
+            f"🔴 Tabela `{table}` com {pct}% de bloat "
+            f"({dead:,} linhas mortas). "
+            f"Último vacuum: {last_vac or 'nunca'}. "
+            f"Considerar VACUUM FULL."
+        )
+    elif pct and pct > 20:
+        warnings.append(
+            f"🟡 Tabela `{table}` com {pct}% de bloat "
+            f"({dead:,} linhas mortas)."
+        )
+
 # ─── 2. SCORES EM TEMPO REAL ─────────────────────────────────────
 
 # 2.1 Cidades com score > 2h sem atualizar -- via city_risk_summary
