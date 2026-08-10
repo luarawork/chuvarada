@@ -4,12 +4,13 @@ import { readFromB2, getRiskScoresKey } from "@/lib/b2";
 import { resolveStatesFilter } from "@/lib/geo";
 import { handleApiError } from "@/lib/apiError";
 
-// Consulta histórico de risk_scores -- dados com menos de 48h ainda estão
+// Consulta histórico de risk_scores -- dados com menos de 24h ainda estão
 // no Supabase (mesmo corte usado por scripts/archive_to_b2.ts pra decidir o
-// que arquivar); além disso, busca no Backblaze B2.
+// que arquivar -- os dois valores precisam ficar sincronizados, ver comentário
+// lá); além disso, busca no Backblaze B2.
 //
 // GET /api/history?state=RN&date=2026-07-21&neighborhood_id=XXX
-const ARCHIVE_CUTOFF_HOURS = 24 * 2;
+const ARCHIVE_CUTOFF_HOURS = 24;
 
 // Corrige achado médio M8 da auditoria de segurança: a query pro caminho
 // "recente" (Supabase) não tinha limite nenhum -- um estado grande num dia

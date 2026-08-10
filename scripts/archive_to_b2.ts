@@ -18,17 +18,24 @@ import {
 // antigos que ARCHIVE_CUTOFF_HOURS do Supabase pro B2 (comprimido, particionado
 // por data/estado) e depois apaga do Supabase, liberando espaço.
 //
+// Retenção reduzida de 48h pra 24h (10/08/2026, ver diagnóstico de espaço do
+// banco -- risk_scores era a maior tabela, 507MB) -- MUDAR ESTE VALOR JUNTO
+// com o mesmo ARCHIVE_CUTOFF_HOURS em app/api/history/route.ts: os dois
+// precisam concordar sobre onde termina "recente" (Supabase) e começa
+// "arquivado" (B2), senão o endpoint de histórico tenta ler do Supabase uma
+// janela que este script já apagou.
+//
 // ATENÇÃO -- interação com a migração 004_retention.sql: aquela migração já
 // faz downsampling de risk_scores via pg_cron dentro do próprio Supabase
 // (granularidade plena só nas últimas 24h; 1 registro/hora até 14 dias; 1/dia
-// depois disso), rodando toda noite às 03:00 UTC. Com o corte de 48h deste
-// script, qualquer risk_scores entre 24h-48h de idade já pode ter sido
-// reduzido a 1 registro/hora pela migração 004 ANTES deste script rodar --
-// ou seja, o que é arquivado aqui não é necessariamente granularidade plena,
-// e sim o que a 004 já deixou passar. Isso não quebra nada (o script arquiva
-// o que encontrar), mas os 2 mecanismos fazem trabalho sobreposto -- avaliar
-// se a 004 deve ser desativada agora que o histórico completo vai pro B2.
-const ARCHIVE_CUTOFF_HOURS = 24 * 2;
+// depois disso), rodando toda noite às 03:00 UTC. Agora que o corte deste
+// script TAMBÉM é 24h, os dois mecanismos disputam a mesma fronteira: quem
+// rodar primeiro no dia "vence" essa janela (o outro não encontra mais nada
+// pra processar ali, sem quebrar nada, só trabalho redundante). A pergunta
+// que já estava em aberto antes -- se a 004 ainda faz sentido existir agora
+// que o histórico completo vai pro B2 -- fica mais relevante ainda com os 2
+// cortes iguais; não desativada aqui, decisão fora do escopo desta mudança.
+const ARCHIVE_CUTOFF_HOURS = 24;
 
 const STATES = [
   "AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE",

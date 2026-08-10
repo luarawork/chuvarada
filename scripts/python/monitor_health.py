@@ -27,20 +27,22 @@ if size_mb > LIMIT_MB:
 elif size_mb > ALERT_MB:
     warnings.append(f"🟡 Banco em {size_mb:.1f}MB — próximo do limite ({LIMIT_MB}MB)")
 
-# 1.2 risk_scores com linhas > 48h (archive não drenando)
+# 1.2 risk_scores com linhas > 24h (archive não drenando) -- corte reduzido
+# de 48h pra 24h em 10/08/2026 junto com ARCHIVE_CUTOFF_HOURS
+# (scripts/archive_to_b2.ts) e app/api/history/route.ts.
 cur.execute("""
     SELECT COUNT(*), MIN(calculated_at)
     FROM risk_scores
-    WHERE calculated_at < NOW() - INTERVAL '48 hours'
+    WHERE calculated_at < NOW() - INTERVAL '24 hours'
 """)
 old_scores, oldest = cur.fetchone()
 if old_scores and old_scores > 10000:
     issues.append(
-        f"🔴 {old_scores:,} linhas de risk_scores com >48h no banco "
+        f"🔴 {old_scores:,} linhas de risk_scores com >24h no banco "
         f"(mais antiga: {oldest}). Archive não está drenando."
     )
 elif old_scores and old_scores > 0:
-    warnings.append(f"🟡 {old_scores:,} linhas de risk_scores com >48h (backlog pequeno)")
+    warnings.append(f"🟡 {old_scores:,} linhas de risk_scores com >24h (backlog pequeno)")
 
 # 1.3 Duplicatas em risk_scores (últimas 24h)
 cur.execute("""
