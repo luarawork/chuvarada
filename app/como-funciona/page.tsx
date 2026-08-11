@@ -168,17 +168,14 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 function SectionIntro({
-  number,
   title,
   description,
 }: {
-  number: string;
   title: string;
   description: React.ReactNode;
 }) {
   return (
     <div className="mb-10">
-      <Eyebrow>{number}</Eyebrow>
       <h2 className="mb-3 text-3xl font-bold">{title}</h2>
       <p className="max-w-2xl text-base text-muted-foreground">{description}</p>
     </div>
@@ -215,7 +212,6 @@ export default function ComoFuncionaPage() {
       {/* 01 — Como coletamos os dados */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="01"
           title="Como coletamos os dados"
           description="O Chuvarada combina seis fontes de dados públicos e gratuitos, atualizadas automaticamente, para calcular o risco de cada bairro."
         />
@@ -259,7 +255,6 @@ export default function ComoFuncionaPage() {
       {/* 02 — Como calculamos o risco */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="02"
           title="Como calculamos o risco"
           description="Seis variáveis são combinadas em um score de 1 a 10. Cada uma tem um peso diferente — quanto mais relevante para o risco de alagamento, maior o peso."
         />
@@ -328,7 +323,6 @@ export default function ComoFuncionaPage() {
       {/* 03 — O que cada nível significa */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="03"
           title="O que cada nível significa"
           description="Os níveis traduzem o score em linguagem direta. Cada um indica o que o modelo está detectando — não uma instrução de segurança."
         />
@@ -359,7 +353,6 @@ export default function ComoFuncionaPage() {
       {/* 04 — Previsão de 7 dias */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="04"
           title="Previsão de 7 dias"
           description={
             <>
@@ -393,7 +386,6 @@ export default function ComoFuncionaPage() {
       {/* 05 — Relatos da comunidade */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="05"
           title="Relatos da comunidade"
           description="O dado calculado tem limites. O relato de quem está no local preenche o que o modelo não consegue ver."
         />
@@ -433,7 +425,6 @@ export default function ComoFuncionaPage() {
       {/* 06 — Limitações honestas */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="06"
           title="Limitações honestas"
           description="O Chuvarada é uma ferramenta de apoio, não de decisão. Estas são as limitações que você precisa conhecer."
         />
@@ -453,7 +444,6 @@ export default function ComoFuncionaPage() {
       {/* 07 — Instalar como PWA */}
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
-          number="07"
           title="Instale no seu celular"
           description="Adicione o Chuvarada à tela inicial pra acessar mais rápido, como um app."
         />
