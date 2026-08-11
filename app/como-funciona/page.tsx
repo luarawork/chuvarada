@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { SuggestionModal } from "@/components/ui/SuggestionModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -192,8 +193,11 @@ export default function ComoFuncionaPage() {
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <div className="px-6 pt-8">
-        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal text-muted-foreground hover:bg-transparent hover:text-foreground hover:underline">
-          <Link href="/">← Voltar para o mapa</Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto gap-1 px-0 text-sm font-normal text-muted-foreground hover:bg-transparent hover:text-foreground hover:underline">
+          <Link href="/">
+            <ChevronLeft className="h-4 w-4" />
+            Voltar para o mapa
+          </Link>
         </Button>
       </div>
 

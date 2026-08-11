@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,8 +71,11 @@ function AuthForm() {
         className="w-full max-w-sm rounded-3xl border p-8 shadow-2xl backdrop-blur-sm"
         style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.2)" }}
       >
-        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
-          <Link href="/">← Voltar para o mapa</Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto gap-1 px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+          <Link href="/">
+            <ChevronLeft className="h-4 w-4" />
+            Voltar para o mapa
+          </Link>
         </Button>
 
         <h1 className="mt-4 font-heading text-2xl font-bold" style={{ color: "#f0f4f8" }}>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -990,8 +991,11 @@ export default function AnalisePage() {
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
       <div className="mx-auto max-w-4xl px-6 py-10">
-        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
-          <Link href="/">← Voltar para o mapa</Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto gap-1 px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+          <Link href="/">
+            <ChevronLeft className="h-4 w-4" />
+            Voltar para o mapa
+          </Link>
         </Button>
 
         <h1 className="mt-4 font-heading text-2xl font-bold md:text-3xl" style={{ color: "#f0f4f8" }}>
