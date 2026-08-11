@@ -116,7 +116,7 @@ export const TILE_LAYERS = {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Escuro",
-    icon: "🌧️",
+    icon: "🌙",
     maxZoom: 18,
   },
   street: {
@@ -124,7 +124,7 @@ export const TILE_LAYERS = {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Claro",
-    icon: "🗺️",
+    icon: "☀️",
     maxZoom: 18,
   },
 } as const;

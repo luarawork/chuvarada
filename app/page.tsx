@@ -521,9 +521,31 @@ export default function HomePage() {
         />
       </MapContainer>
 
-      <div className="absolute right-4 top-4 z-[1000] flex flex-row gap-2">
+      {/* LayerToggle e "Como funciona" ficam na mesma coluna do
+          ProfileButton (não do ReportButton, ao lado) -- correção de UI:
+          "mover o toggle pra abaixo do ícone do usuário", não de qualquer
+          botão do canto superior direito. */}
+      <div className="absolute right-4 top-4 z-[1000] flex flex-row items-start gap-2">
         <ReportButton active={reportMode} onToggle={() => setReportMode((v) => !v)} />
-        <ProfileButton />
+        <div className="flex flex-col items-center gap-2">
+          <ProfileButton />
+          <LayerToggle
+            currentLayer={tileLayer}
+            onChange={(layer) => {
+              setTileLayer(layer);
+              userOverrodeTileRef.current = true;
+            }}
+          />
+          <Link
+            href="/como-funciona"
+            aria-label="Como funciona"
+            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full border text-[13px] shadow-lg backdrop-blur before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] sm:h-auto sm:w-auto sm:px-3 sm:py-2 sm:before:content-none"
+            style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.3)", color: "#f0f4f8" }}
+          >
+            <span className="sm:hidden" aria-hidden>?</span>
+            <span className="hidden sm:inline">Como funciona</span>
+          </Link>
+        </div>
       </div>
 
       <SearchBar onSelect={flyTo} />
