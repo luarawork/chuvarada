@@ -151,9 +151,9 @@ export default function PerfilPage() {
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a", color: "#f0f4f8" }}>
       <div className="mx-auto max-w-2xl px-6 py-10">
-        <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
-          ← Voltar para o mapa
-        </Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+          <Link href="/">← Voltar para o mapa</Link>
+        </Button>
 
         {/* Header do perfil */}
         <div className="mt-6 flex items-center justify-between gap-4">

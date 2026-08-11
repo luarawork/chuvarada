@@ -582,23 +582,27 @@ function ExpandedTotalRelatos({
           </div>
           {totalPages > 1 && (
             <div className="mt-3 flex items-center justify-between text-xs" style={{ color: "#a8d4f0" }}>
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => onPageChange(Math.max(0, page - 1))}
                 disabled={page === 0}
-                className="rounded-lg border px-3 py-1.5 disabled:opacity-40"
+                className="h-auto rounded-lg px-3 py-1.5 text-xs font-normal shadow-none disabled:opacity-40"
                 style={{ borderColor: "rgba(240, 244, 248, 0.2)", color: "#f0f4f8" }}
               >
                 ← Anterior
-              </button>
+              </Button>
               <span>Página {page + 1} de {totalPages}</span>
-              <button
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => onPageChange(Math.min(totalPages - 1, page + 1))}
                 disabled={page >= totalPages - 1}
-                className="rounded-lg border px-3 py-1.5 disabled:opacity-40"
+                className="h-auto rounded-lg px-3 py-1.5 text-xs font-normal shadow-none disabled:opacity-40"
                 style={{ borderColor: "rgba(240, 244, 248, 0.2)", color: "#f0f4f8" }}
               >
                 Próxima →
-              </button>
+              </Button>
             </div>
           )}
         </>
@@ -986,9 +990,9 @@ export default function AnalisePage() {
   return (
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a" }}>
       <div className="mx-auto max-w-4xl px-6 py-10">
-        <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
-          ← Voltar para o mapa
-        </Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+          <Link href="/">← Voltar para o mapa</Link>
+        </Button>
 
         <h1 className="mt-4 font-heading text-2xl font-bold md:text-3xl" style={{ color: "#f0f4f8" }}>
           Análise Histórica

@@ -192,9 +192,9 @@ export default function ComoFuncionaPage() {
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <div className="px-6 pt-8">
-        <Link href="/" className="text-sm text-muted-foreground hover:text-foreground hover:underline">
-          ← Voltar para o mapa
-        </Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal text-muted-foreground hover:bg-transparent hover:text-foreground hover:underline">
+          <Link href="/">← Voltar para o mapa</Link>
+        </Button>
       </div>
 
       {/* Hero */}

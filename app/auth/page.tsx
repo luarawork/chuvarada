@@ -70,9 +70,9 @@ function AuthForm() {
         className="w-full max-w-sm rounded-3xl border p-8 shadow-2xl backdrop-blur-sm"
         style={{ backgroundColor: "rgba(13, 27, 42, 0.92)", borderColor: "rgba(46, 125, 184, 0.2)" }}
       >
-        <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
-          ← Voltar para o mapa
-        </Link>
+        <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+          <Link href="/">← Voltar para o mapa</Link>
+        </Button>
 
         <h1 className="mt-4 font-heading text-2xl font-bold" style={{ color: "#f0f4f8" }}>
           {mode === "entrar" ? "Entrar" : "Criar conta"}

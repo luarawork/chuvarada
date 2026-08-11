@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import type { RiskLevel } from "@/types";
 
@@ -86,9 +87,9 @@ export default function FavoritosPage() {
     <div className="min-h-dvh" style={{ backgroundColor: "#0d1b2a", color: "#f0f4f8" }}>
       <div className="mx-auto max-w-2xl px-6 py-10">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm hover:underline" style={{ color: "#a8d4f0" }}>
-            ← Voltar para o mapa
-          </Link>
+          <Button asChild variant="ghost" size="sm" className="h-auto px-0 text-sm font-normal hover:bg-transparent hover:underline" style={{ color: "#a8d4f0" }}>
+            <Link href="/">← Voltar para o mapa</Link>
+          </Button>
           <button
             onClick={async () => {
               // Marca a saída como intencional pra o guard (acima) não
