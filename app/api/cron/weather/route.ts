@@ -121,9 +121,9 @@ export async function GET(req: NextRequest) {
 
     const stats = getCycleStats();
     await db.query(
-      `insert into cron_run_stats (total_cities, openmeteo_count, weatherapi_fallback_count, cache_emergency_count, neutral_fallback_count)
-       values ($1, $2, $3, $4, $5)`,
-      [candidates.length, stats.openmeteo, stats.weatherapi_fallback, stats.cache_emergency, stats.neutral_fallback]
+      `insert into cron_run_stats (total_cities, openmeteo_count, weatherapi_fallback_count, cache_emergency_count, neutral_fallback_count, cities_with_errors)
+       values ($1, $2, $3, $4, $5, $6)`,
+      [candidates.length, stats.openmeteo, stats.weatherapi_fallback, stats.cache_emergency, stats.neutral_fallback, citiesWithErrors]
     );
 
     return NextResponse.json({
