@@ -22,8 +22,11 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 - Score recalibrado pra escala 1–10 com 5 níveis (Normal/Atenção/Moderado/Alto/Crítico), substituindo a escala anterior de 0–1 com 3 níveis
 - Desvio da média histórica (climatologia) exibido no DetailPanel — contextualiza a chuva 72h atual contra a média do mesmo período em anos anteriores (`lib/climatology.ts` + `/api/climatology`)
 - Dois monitors de GitHub Actions (health-monitor, quality-monitor), com labels próprias no GitHub pra triagem de issues automáticas
-- Migração completa da UI pra shadcn/ui (Button, Badge, Card, Input, Select, Tabs, ToggleGroup, Switch, Label, Popover, Separator, ScrollArea, Toast) — tema escuro via CSS variables em `:root`, componentes hand-authored (CLI `shadcn@latest` incompatível com os tokens já em uso)
-- Redesign completo de `/como-funciona` — hero + 7 seções numeradas (fontes de dados, cálculo do score, níveis de risco, previsão de 7 dias, relatos da comunidade, limitações honestas, instalação PWA) + CTA final, hierarquia tipográfica e espaçamento consistentes com o design system shadcn/ui
+- Migração completa da UI pra shadcn/ui (Button, Badge, Card, Input, Select, Tabs, ToggleGroup, Switch, Label, Popover, Separator, ScrollArea, Toast, Tooltip) — tema escuro via CSS variables em `:root`, componentes hand-authored (CLI `shadcn@latest` incompatível com os tokens já em uso)
+- Redesign completo de `/como-funciona` — hero + 7 seções (fontes de dados, cálculo do score, níveis de risco, previsão de 7 dias, relatos da comunidade, limitações honestas, instalação PWA) + CTA final, hierarquia tipográfica e espaçamento consistentes com o design system shadcn/ui
+- Coluna `cities_with_errors` em `cron_run_stats` (migração 043) — persiste um contador que antes só existia na resposta JSON do Cron B, dando visibilidade via SQL a cidades selecionadas e tentadas todo ciclo mas nunca de fato processadas
+- Verificação de bloat de tabela (`pg_stat_user_tables`, `n_dead_tup` > 50%) no monitor de saúde — achado depois do bloat de TOAST de `municipalities` (ver "Corrigido" abaixo) ter passado despercebido até um diagnóstico manual
+- Estudos documentados em `docs/studies/`: ecossistema de produtos climáticos planejados, variáveis hidrológicas candidatas (`soil_moisture` como maior impacto potencial), sistema japonês de alerta (JMA) como referência, e aprendizados de arquitetura de banco (bloat de TOAST, retenção, duplicatas)
 
 ### Alterado
 
@@ -32,6 +35,10 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 - `maxZoom` 18 nos dois modos de mapa
 - Cores de Atenção (`#ffe066`) e Moderado (`#d95f02`) com maior contraste
 - Archiving pro B2 rodando 2x/dia (era 1x), lock com TTL de 20min, índice único anti-duplicatas
+- Retenção de `risk_scores` no Supabase reduzida de 48h pra 24h (`ARCHIVE_CUTOFF_HOURS`, sincronizado entre `scripts/archive_to_b2.ts` e `app/api/history/route.ts`) — resposta a um episódio de banco perto do limite gratuito; gráfico de histórico do DetailPanel passa a mostrar 24h em vez de 48h, dado mais antigo continua disponível via B2
+- Monitor de banco (`monitor-database.yml`) substituído por `monitor-health.yml`, com escopo expandido de "só tamanho do banco" pra saúde operacional completa (backlog do archive, duplicatas, bloat, scores desatualizados, MERGE estagnado, TideCheck/weather obsoletos, relatos expirados)
+- LayerToggle (alternância de camada do mapa) reduzido a só ícone com tooltip (🌙/☀️), movido pra baixo do ícone de perfil; layout do canto superior direito do mapa reorganizado em duas linhas (relato+perfil / toggle+"Como funciona"), todas alinhadas à direita
+- Links "Voltar para o mapa" (6 páginas) trocados de seta em texto (`←`) pra ícone `ChevronLeft` do lucide-react
 
 ### Corrigido
 
@@ -39,6 +46,8 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 - 3 bugs de UI mobile: scroll do DetailPanel travado, z-index do dropdown de busca, banner de alerta muito alto (bottom-32)
 - "Sem bairro ainda" removido da legenda do mapa — texto não correspondia a nenhum estado real do dado
 - Limpeza emergencial do banco (Supabase acima de 135% do limite do plano)
+- Bloat de TOAST em `municipalities` (163MB reportados vs 3,2MB de dado real) — `VACUUM FULL` recuperou o espaço (163MB → 5,34MB); ver `docs/studies/arquitetura-banco.md`
+- Números de seção removidos de `/como-funciona` — não eram uma sequência que carregasse informação real pro leitor
 
 ### Segurança
 
