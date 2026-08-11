@@ -58,27 +58,13 @@ body {
   background: #0d1b2a;
 }
 
-/* Unifica visualmente 2 sistemas de posicionamento diferentes no canto
-   inferior direito: o Leaflet injeta zoom e atribuição via DOM próprio
-   (.leaflet-bottom.leaflet-right), fora da árvore React, enquanto "Como
-   funciona" e o LayerToggle são React (ver app/page.tsx). A ordem final,
-   de cima pra baixo, é: zoom (só desktop, >=640px -- ver MapContainer.tsx)
-   -> Como funciona -> LayerToggle -> atribuição, todos com o MESMO gap de
-   8px entre si -- por isso zoom e atribuição não podem ficar no mesmo
-   container flex (mesmo o Leaflet os tratando como irmãos nativos): um
-   fica ancorado ACIMA da dupla React, o outro ABAIXO, com offsets
-   calculados separadamente.
-
-   .leaflet-bottom.leaflet-right (zoom) empurrado pra cima da dupla React:
-   126px = 36px (bottom-9 do container React) + 36px (altura do
-   LayerToggle) + 8px (gap) + 38px (altura do pill "Como funciona" no
-   desktop) + 8px (gap final até o zoom). display:flex só normaliza como
-   os filhos desse container (hoje só o zoom, já que a atribuição foi
-   destacada abaixo) se comportam, sem depender do float/clear padrão do
-   Leaflet.
+/* Canto inferior direito -- correção de UI: "Como funciona" e o LayerToggle
+   saíram daqui (foram pra baixo do ProfileButton, canto superior direito,
+   ver app/page.tsx), então zoom e atribuição do Leaflet (únicos elementos
+   que ainda ficam neste canto) voltam a usar o empilhamento nativo do
+   Leaflet -- sem offset artificial pra abrir espaço pra React por baixo.
 */
 .leaflet-bottom.leaflet-right {
-  bottom: 126px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -89,18 +75,7 @@ body {
   margin: 0 !important;
 }
 
-/* A atribuição normalmente é filha do MESMO .leaflet-bottom.leaflet-right
-   acima, então herdaria o offset do zoom -- destacada aqui com
-   position:fixed (escapa do container do pai) pra ficar abaixo da dupla
-   React "Como funciona" + LayerToggle, não empilhada junto do zoom lá em
-   cima. bottom:11px (medido no navegador: LayerToggle termina a 36px do
-   fundo, atribuição tem ~17px de altura -- 36 - 17 - 8 de gap = 11) dá o
-   mesmo gap de 8px que já existe entre os outros 3 elementos.
-*/
 .leaflet-control-attribution {
-  position: fixed;
-  right: 16px;
-  bottom: 11px;
   margin: 0 !important;
   border-radius: 8px !important;
 }
