@@ -83,6 +83,68 @@ inflado era 100% bloat de TOAST. VACUUM FULL resolveu.
 - Chamado uma vez por carregamento, só em zoom < 10
 - Score e geometria retornados juntos — separar seria over-engineering
 
+## archived_at em risk_scores (migração 045)
+
+### Problema que resolveu
+O archive relia o backlog inteiro do banco a cada execução
+para verificar o que já estava no B2 (proteção contra
+sobrescrever lotes parciais). Com 284.830 linhas presas,
+isso gerava ~57MB de egress por execução × 60x/mês =
+~3.4GB/mês só do archive — contribuição significativa
+para o egress de 20GB/mês identificado em agosto/2026.
+
+### Solução
+Coluna `archived_at timestamptz DEFAULT NULL` em risk_scores.
+
+Fluxo anterior:
+1. SELECT todas as linhas > 24h (relê tudo)
+2. Verifica existência no B2 (leitura-antes-de-gravar)
+3. Upload para B2
+4. DELETE do banco
+
+Fluxo atual:
+1. SELECT linhas > 24h WHERE archived_at IS NULL (lê só novas)
+2. Lê arquivo existente do B2 (merge — mantém lotes anteriores)
+3. Upload para B2
+4. UPDATE archived_at = NOW()
+5. DELETE WHERE archived_at IS NOT NULL (passo separado,
+   deleteArchivedRiskScores — resiliente a falha no meio)
+
+### Por que manter readFromB2
+O archive processa em lotes de 50.000 por estado.
+Sem ler o que já está no B2, cada lote sobrescreveria
+o arquivo do dia, perdendo execuções anteriores —
+bug já documentado e corrigido antes desta mudança.
+O ganho de egress vem da seleção WHERE archived_at IS NULL
+(o Postgres nunca reseleciona uma linha já arquivada),
+não da remoção da verificação no B2.
+
+### Índice parcial
+```sql
+CREATE INDEX risk_scores_not_archived_idx
+ON risk_scores (calculated_at)
+WHERE archived_at IS NULL;
+```
+Garante que a seleção seja eficiente mesmo com
+milhões de linhas já arquivadas acumuladas.
+
+## merge_cache far — deleção direta (sem archive)
+
+### Decisão
+merge_cache WHERE is_near_neighborhood = false não é
+arquivado no B2. Motivo: células longe de qualquer bairro
+nunca entram no cálculo de score e não têm valor histórico.
+
+Tentativa de arquivar resultava em 0 bytes no B2 por razão
+não determinada (runs reportavam sucesso sem arquivar de fato
+— 94.261 linhas de um único dia sem nenhum byte no arquivo
+correspondente, enquanto near do mesmo período tinha
+cobertura completa).
+
+Solução: deleção direta por corte de retenção (> 1 dia),
+sem tentar B2 — documentada no código (deleteFarMergeCache,
+scripts/archive_to_b2.ts) como decisão intencional.
+
 ## Tabela de migrações
 
 | Migração | O que faz |
@@ -92,3 +154,5 @@ inflado era 100% bloat de TOAST. VACUUM FULL resolveu.
 | 041 | Políticas RLS de negação explícita em 4 tabelas |
 | 042 | Escala de score 1-10, 5 níveis |
 | 043 | cities_with_errors em cron_run_stats |
+| 044 | soil_moisture em weather_cache e risk_scores |
+| 045 | archived_at em risk_scores + índice parcial |
