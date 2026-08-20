@@ -60,21 +60,21 @@ const LEVELS = [
   },
 ] as const;
 
-// Pesos batem com VARIABLES de VariableCard.tsx (arquivo removido nesta
-// revisão -- era usado só nesta página, ver relatório da sessão).
+// Pesos batem com SCORE_WEIGHTS_BY_REGION de lib/scoreConfig.ts -- ajustados
+// em 2026-08-19 pra abrir espaço pro soil_moisture (umidade do solo).
 const VARIABLES = [
-  { icon: "🌧️", label: "Pico de chuva (3h)", weight: 25 },
-  { icon: "🌧️", label: "Chuva última hora", weight: 20 },
-  { icon: "🌧️", label: "Chuva 72h", weight: 20 },
-  { icon: "⛰️", label: "Terreno", weight: 15 },
-  { icon: "🏞️", label: "Proximidade hídrica", weight: 12 },
+  { icon: "🌧️", label: "Pico de chuva (3h)", weight: 22 },
+  { icon: "🌧️", label: "Chuva última hora", weight: 15 },
+  { icon: "🌧️", label: "Chuva 72h", weight: 16 },
+  { icon: "⛰️", label: "Terreno", weight: 14 },
+  { icon: "🌱", label: "Umidade do solo", weight: 14 },
+  { icon: "🏞️", label: "Proximidade hídrica", weight: 11 },
   { icon: "🌊", label: "Maré", weight: 8 },
 ];
 
 const AUTO_ALERTS = [
   "Mais de 50mm de chuva na última hora",
   "Maré acima de 80% combinada com chuva em zona costeira",
-  "Mais de 100mm acumulados em 72h e qualquer chuva nova",
 ];
 
 const SOURCE_STATUS_COLOR = { active: "#2a9d72", rollout: "#f0a500" } as const;
@@ -96,7 +96,7 @@ const SOURCES = [
     icon: "🌡️",
     name: "Open-Meteo",
     org: "Open-Meteo",
-    description: "Vento, umidade, pressão e chuva horária",
+    description: "Vento, umidade, pressão, chuva horária e umidade do solo",
     status: "active" as const,
   },
   {
@@ -260,7 +260,7 @@ export default function ComoFuncionaPage() {
       <section className="mx-auto max-w-5xl px-6 py-16">
         <SectionIntro
           title="Como calculamos o risco"
-          description="Seis variáveis são combinadas em um score de 1 a 10. Cada uma tem um peso diferente — quanto mais relevante para o risco de alagamento, maior o peso."
+          description="Sete variáveis são combinadas em um score de 1 a 10. Cada uma tem um peso diferente — quanto mais relevante para o risco de alagamento, maior o peso."
         />
 
         <div className="flex flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:gap-4">

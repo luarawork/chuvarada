@@ -21,6 +21,7 @@ function weather(overrides: Partial<NormalizedWeather> = {}): NormalizedWeather 
     humidity: 50,
     pressure: 1013,
     pressure_trend: "stable",
+    soil_moisture: 0,
     ...overrides,
   };
 }
@@ -40,13 +41,13 @@ describe("calculateScore", () => {
   );
 
   it(
-    "dado chuva extrema em rain_peak_3h/rain_1h/rain_72h com maré alta, " +
+    "dado chuva extrema em rain_peak_3h/rain_1h/rain_72h com maré alta e solo saturado, " +
       "quando o score é calculado, " +
       "então o nível deve ser crítico e o score deve superar o limiar de crítico (8,0, escala 1-10)",
     () => {
       const result = calculateScore(
         { terrain_slope: 0.1, hydro_proximity: 0.9, is_coastal: false },
-        weather({ rain_peak_3h: 30, rain_1h: 50, rain_72h: 100 }),
+        weather({ rain_peak_3h: 30, rain_1h: 50, rain_72h: 100, soil_moisture: 1 }),
         0.9
       );
       expect(result.level).toBe("critical");
@@ -66,23 +67,24 @@ describe("calculateScore", () => {
   );
 
   it(
-    "dado rain_72h acima de 100mm mas rain_1h de ruído de sensor (< 1mm) -- Regra 3, " +
+    "dado rain_72h acima de 100mm e rain_1h acima de 1mm (antiga Regra 3, removida em 2026-08-19), " +
       "quando o score é calculado, " +
-      "então auto_critical NÃO deve disparar, mesmo com solo saturado",
+      "então auto_critical NÃO deve disparar por esse motivo -- soil_moisture substitui essa heurística indireta " +
+      "por um dado real de saturação do solo",
     () => {
-      const result = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_1h: 0.05, rain_72h: 110 }), null);
+      const result = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_1h: 2, rain_72h: 110, soil_moisture: 0 }), null);
       expect(result.auto_critical).toBe(false);
     }
   );
 
   it(
-    "dado rain_72h acima de 100mm e rain_1h acima de 1mm (Regra 3), " +
+    "dado o mesmo clima/terreno/hidrografia calculado com solo seco vs solo saturado, " +
       "quando o score é calculado, " +
-      "então auto_critical deve disparar com motivo de solo saturado",
+      "então o score com solo mais úmido deve ser maior -- soil_moisture pondera o cálculo",
     () => {
-      const result = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_1h: 2, rain_72h: 110 }), null);
-      expect(result.auto_critical).toBe(true);
-      expect(result.auto_critical_reason).toContain("saturado");
+      const dry = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 40, soil_moisture: 0 }), null);
+      const saturated = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 40, soil_moisture: 1 }), null);
+      expect(saturated.score).toBeGreaterThan(dry.score);
     }
   );
 
@@ -124,8 +126,12 @@ describe("calculateScore", () => {
       "quando o score é calculado, " +
       "então o resultado deve ser diferente -- o peso da maré é redistribuído entre as demais variáveis, não descartado",
     () => {
-      const withoutTide = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 60 }), null);
-      const withTide = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 60 }), 0);
+      // rain_72h=90 (não 60) -- com os pesos pós-soil_moisture (rescala de
+      // 2026-08-19), 60mm fazia os dois cenários colidirem no piso de 1
+      // (score bruto < 0.1 em ambos), tornando o teste um falso-positivo por
+      // teto em vez de testar a redistribuição de fato.
+      const withoutTide = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 90 }), null);
+      const withTide = calculateScore(NEUTRAL_NEIGHBORHOOD, weather({ rain_72h: 90 }), 0);
       expect(withoutTide.score).not.toBe(withTide.score);
     }
   );

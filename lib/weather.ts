@@ -127,6 +127,10 @@ interface OpenMeteoResponse {
     relative_humidity_2m: number[];
     surface_pressure: number[];
     precipitation_probability: number[];
+    soil_moisture_0_to_7cm: number[];
+    soil_moisture_7_to_28cm: number[];
+    soil_moisture_28_to_100cm: number[];
+    soil_moisture_100_to_255cm: number[];
   };
 }
 
@@ -304,7 +308,8 @@ async function fetchOpenMeteo(lat: number, lng: number): Promise<OpenMeteoRespon
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}` +
     `&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,surface_pressure` +
-    `&hourly=temperature_2m,precipitation,weather_code,wind_speed_10m,relative_humidity_2m,surface_pressure,precipitation_probability` +
+    `&hourly=temperature_2m,precipitation,weather_code,wind_speed_10m,relative_humidity_2m,surface_pressure,precipitation_probability,` +
+    `soil_moisture_0_to_7cm,soil_moisture_7_to_28cm,soil_moisture_28_to_100cm,soil_moisture_100_to_255cm` +
     `&past_days=3&forecast_days=2&timezone=UTC`;
 
   // Backoff reduzido de 6 tentativas/62s de espera total (2s,4s,8s,16s,32s)
@@ -361,6 +366,40 @@ function peakPrecipitation(data: OpenMeteoResponse, nowMs: number, hoursBack: nu
   return peak;
 }
 
+// soil_moisture_0_to_7cm/7_to_28cm/28_to_100cm/100_to_255cm só existem no
+// bloco &hourly= do Open-Meteo (sem equivalente em &current=) -- acha o
+// índice horário mais recente que já passou (mesmo padrão de nowMs usado
+// por sumPrecipitation/peakPrecipitation) e combina as 4 profundidades num
+// índice único 0-1, ponderando mais a camada superficial (reage mais rápido
+// à chuva recente) e menos as profundas (mudam devagar, mais indicativas de
+// saturação de longo prazo). Open-Meteo retorna m³/m³ (tipicamente 0 a
+// ~0.5-0.6 mesmo em solo saturado) -- 0.5 como teto de normalização é
+// conservador o bastante pra não estourar 1.0 em solos reais.
+const SOIL_MOISTURE_DEPTH_WEIGHTS = [0.4, 0.3, 0.2, 0.1] as const;
+const SOIL_MOISTURE_NORMALIZATION_CEILING = 0.5;
+
+function soilMoistureIndex(data: OpenMeteoResponse, nowMs: number): number {
+  let idx = -1;
+  for (let i = 0; i < data.hourly.time.length; i++) {
+    const t = Date.parse(`${data.hourly.time[i]}Z`);
+    if (t <= nowMs) idx = i;
+    else break;
+  }
+  if (idx === -1) return 0.5;
+
+  const depths = [
+    data.hourly.soil_moisture_0_to_7cm[idx],
+    data.hourly.soil_moisture_7_to_28cm[idx],
+    data.hourly.soil_moisture_28_to_100cm[idx],
+    data.hourly.soil_moisture_100_to_255cm[idx],
+  ];
+  const weighted = depths.reduce(
+    (sum, value, i) => sum + (value ?? 0) * SOIL_MOISTURE_DEPTH_WEIGHTS[i],
+    0
+  );
+  return Math.min(1, weighted / SOIL_MOISTURE_NORMALIZATION_CEILING);
+}
+
 function weatherFromCache(cached: WeatherCache): NormalizedWeather {
   return {
     rain_1h: cached.rain_1h,
@@ -374,6 +413,7 @@ function weatherFromCache(cached: WeatherCache): NormalizedWeather {
     humidity: cached.humidity,
     pressure: cached.pressure,
     pressure_trend: pressureTrend(cached.pressure, null),
+    soil_moisture: cached.soil_moisture,
   };
 }
 
@@ -497,6 +537,7 @@ export async function getWeatherFromCacheOnly(
     humidity: 50,
     pressure: 1013,
     pressure_trend: "stable",
+    soil_moisture: 0.5,
   };
 }
 
@@ -585,6 +626,7 @@ export async function getWeatherForPoint(
         humidity: data.current.relative_humidity_2m,
         pressure: data.current.surface_pressure,
         pressure_trend: pressureTrend(data.current.surface_pressure, cached?.pressure ?? null),
+        soil_moisture: soilMoistureIndex(data, nowMs),
       };
     } catch (openMeteoErr) {
       console.warn(
@@ -626,6 +668,11 @@ export async function getWeatherForPoint(
         humidity: reading.humidity,
         pressure: reading.pressure,
         pressure_trend: pressureTrend(reading.pressure, cached?.pressure ?? null),
+        // WeatherAPI.com não expõe soil_moisture -- reaproveita o valor em
+        // cache (mesma cidade/célula) se houver, senão neutro. Camada 2 já é
+        // reserva de emergência (Open-Meteo esgotada); perder granularidade
+        // aqui é aceitável, diferente de nunca ter o dado.
+        soil_moisture: cached?.soil_moisture ?? 0.5,
       };
       console.info(`[weather] WeatherAPI.com usado como fallback (camada 2) pra ${cityId}`);
     } catch (weatherApiErr) {
@@ -691,6 +738,7 @@ export async function getWeatherForPoint(
     humidity: 50,
     pressure: 1013,
     pressure_trend: "stable",
+    soil_moisture: 0.5,
   };
 }
 
@@ -724,8 +772,8 @@ export async function saveWeatherCache(
 ): Promise<void> {
   const db = getDb();
   await db.query(
-    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source, weather_source, wind_speed, wind_direction, humidity, pressure)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+    `insert into weather_cache (city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source, weather_source, wind_speed, wind_direction, humidity, pressure, soil_moisture)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
     [
       cityId,
       lat,
@@ -740,6 +788,7 @@ export async function saveWeatherCache(
       data.wind_direction,
       data.humidity,
       data.pressure,
+      data.soil_moisture,
     ]
   );
 }
@@ -748,7 +797,7 @@ async function getCachedWeather(cityId: string, lat: number, lng: number): Promi
   const db = getDb();
   const { rows } = await db.query(
     `select id, city_id, lat, lng, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
-            weather_source, wind_speed, wind_direction, humidity, pressure, fetched_at
+            weather_source, wind_speed, wind_direction, humidity, pressure, soil_moisture, fetched_at
      from weather_cache where city_id = $1 and lat = $2 and lng = $3 order by fetched_at desc limit 1`,
     [cityId, lat, lng]
   );

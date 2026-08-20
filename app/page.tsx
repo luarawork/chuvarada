@@ -575,6 +575,7 @@ export default function HomePage() {
                   humidity: previewScore.humidity,
                   pressure: previewScore.pressure,
                   pressure_trend: "stable",
+                  soil_moisture: previewScore.soil_moisture,
                 }
               : null
           }

@@ -24,16 +24,24 @@ export interface ScoreWeights {
   rain_1h: number;
   rain_72h: number;
   terrain_slope: number;
+  soil_moisture: number;
   hydro_proximity: number;
   tide_level: number;
 }
 
+// Pesos redistribuídos em 2026-08-19 pra abrir espaço pra soil_moisture
+// (umidade do solo, Open-Meteo) -- reduzidos proporcionalmente mais das
+// variáveis de chuva de curto prazo (rain_1h/rain_72h) e menos das
+// estruturais (terrain_slope), já que soil_moisture é conceitualmente mais
+// próxima de "quanta chuva nova o solo ainda absorve" do que de terreno/
+// hidrografia. Ver docs/studies/variaveis-hidrologicas.md.
 const DEFAULT_WEIGHTS: ScoreWeights = {
-  rain_peak_3h: 0.25,
-  rain_1h: 0.2,
-  rain_72h: 0.2,
-  terrain_slope: 0.15,
-  hydro_proximity: 0.12,
+  rain_peak_3h: 0.22,
+  rain_1h: 0.15,
+  rain_72h: 0.16,
+  terrain_slope: 0.14,
+  soil_moisture: 0.14,
+  hydro_proximity: 0.11,
   tide_level: 0.08,
 };
 

@@ -65,6 +65,7 @@ export interface RiskScore {
   rain_peak_3h: number;
   rain_source: RainSource;
   terrain_slope: number;
+  soil_moisture: number;
   hydro_proximity: number;
   tide_level: number;
   wind_speed: number;
@@ -139,6 +140,7 @@ export interface WeatherCache {
   wind_direction: number;
   humidity: number;
   pressure: number;
+  soil_moisture: number;
   fetched_at: string;
 }
 
@@ -154,6 +156,7 @@ export interface NormalizedWeather {
   humidity: number;
   pressure: number;
   pressure_trend: PressureTrend;
+  soil_moisture: number;
 }
 
 export interface TideResult {
@@ -185,6 +188,7 @@ export interface ScoreBreakdown {
   rain_1h: number;
   rain_72h: number;
   terrain_slope: number;
+  soil_moisture: number;
   hydro_proximity: number;
   tide_level: number;
 }

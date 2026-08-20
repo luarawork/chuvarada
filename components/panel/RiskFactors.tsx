@@ -67,6 +67,12 @@ export function RiskFactors({ score, hasTideStation, centroid }: RiskFactorsProp
       normalized: Math.min(1, score.rain_1h / 50),
     },
     {
+      icon: "🌱",
+      label: "Umidade do solo",
+      valueLabel: `${(score.soil_moisture * 100).toFixed(0)}%`,
+      normalized: score.soil_moisture,
+    },
+    {
       icon: "⛰️",
       label: "Terreno",
       valueLabel: terrainLabel(score.terrain_slope),

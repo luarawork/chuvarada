@@ -29,7 +29,7 @@ const SELECT_COLUMNS = `
   n.terrain_slope, n.hydro_proximity, n.is_coastal, n.created_at,
   rs.id as score_id, rs.score, rs.level, rs.rain_1h, rs.rain_72h,
   rs.rain_intensity, rs.rain_peak_3h, rs.rain_source, rs.tide_level,
-  rs.wind_speed, rs.wind_direction, rs.humidity, rs.pressure,
+  rs.wind_speed, rs.wind_direction, rs.humidity, rs.pressure, rs.soil_moisture,
   rs.auto_critical, rs.auto_critical_reason, rs.calculated_at
 `;
 
@@ -141,6 +141,7 @@ function buildResponse(rows: any[]) {
       rain_peak_3h: r.rain_peak_3h,
       rain_source: r.rain_source,
       terrain_slope: r.terrain_slope,
+      soil_moisture: r.soil_moisture,
       hydro_proximity: r.hydro_proximity,
       tide_level: r.tide_level,
       wind_speed: r.wind_speed,

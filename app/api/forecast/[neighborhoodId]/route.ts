@@ -66,6 +66,10 @@ export async function GET(req: NextRequest, context: { params: Promise<{ neighbo
         humidity: 50,
         pressure: 1013,
         pressure_trend: "stable",
+        // Sem previsão de soil_moisture pra dias futuros (Open-Meteo só dá
+        // isso pro presente/passado recente) -- neutro, igual às outras
+        // variáveis fixas desta previsão (vento/umidade/pressão).
+        soil_moisture: 0.5,
       };
 
       // tideLastUpdated=null -- nunca deixa a Regra 2 (maré alta + chuva

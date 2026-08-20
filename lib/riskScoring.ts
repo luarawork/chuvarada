@@ -100,10 +100,10 @@ export async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLev
   const values: string[] = [];
   const params: unknown[] = [];
   rows.forEach(({ neighborhood, weather, result }, idx) => {
-    const base = idx * 17;
+    const base = idx * 18;
     values.push(
       `($${base + 1},$${base + 2},$${base + 3},$${base + 4},$${base + 5},$${base + 6},$${base + 7},` +
-        `$${base + 8},$${base + 9},$${base + 10},$${base + 11},$${base + 12},$${base + 13},$${base + 14},$${base + 15},$${base + 16},$${base + 17})`
+        `$${base + 8},$${base + 9},$${base + 10},$${base + 11},$${base + 12},$${base + 13},$${base + 14},$${base + 15},$${base + 16},$${base + 17},$${base + 18})`
     );
     params.push(
       neighborhood.id,
@@ -115,6 +115,7 @@ export async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLev
       weather.rain_peak_3h,
       weather.rain_source,
       neighborhood.terrain_slope,
+      weather.soil_moisture,
       neighborhood.hydro_proximity,
       tideLevel,
       weather.wind_speed,
@@ -133,7 +134,7 @@ export async function insertRiskScoresBatch(db: Pool, rows: ScoredRow[], tideLev
   await db.query(
     `insert into risk_scores (
        neighborhood_id, score, level, rain_1h, rain_72h, rain_intensity, rain_peak_3h, rain_source,
-       terrain_slope, hydro_proximity, tide_level, wind_speed, wind_direction,
+       terrain_slope, soil_moisture, hydro_proximity, tide_level, wind_speed, wind_direction,
        humidity, pressure, auto_critical, auto_critical_reason
      ) values ${values.join(", ")}
      on conflict (neighborhood_id, (date_trunc('hour', calculated_at at time zone 'utc'))) do nothing`,

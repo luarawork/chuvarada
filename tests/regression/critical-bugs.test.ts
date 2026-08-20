@@ -33,6 +33,7 @@ function weather(overrides: Partial<NormalizedWeather> = {}): NormalizedWeather 
     humidity: 50,
     pressure: 1013,
     pressure_trend: "stable",
+    soil_moisture: 0,
     ...overrides,
   };
 }
@@ -49,6 +50,7 @@ function riskScore(overrides: Partial<RiskScore> = {}): RiskScore {
     rain_peak_3h: 0,
     rain_source: "openmeteo",
     terrain_slope: 0.5,
+    soil_moisture: 0.5,
     hydro_proximity: 0.5,
     tide_level: 0.5,
     wind_speed: 0,
