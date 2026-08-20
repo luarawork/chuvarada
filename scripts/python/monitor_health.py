@@ -30,10 +30,15 @@ elif size_mb > ALERT_MB:
 # 1.2 risk_scores com linhas > 24h (archive não drenando) -- corte reduzido
 # de 48h pra 24h em 10/08/2026 junto com ARCHIVE_CUTOFF_HOURS
 # (scripts/archive_to_b2.ts) e app/api/history/route.ts.
+# archived_at IS NULL (migração 045, 19/08/2026): linha já marcada como
+# arquivada já tem backup garantido no B2, só falta o DELETE (que roda logo
+# em seguida no mesmo archive, ver deleteArchivedRiskScores) -- contar essas
+# como "backlog não drenado" gerava falso positivo.
 cur.execute("""
     SELECT COUNT(*), MIN(calculated_at)
     FROM risk_scores
     WHERE calculated_at < NOW() - INTERVAL '24 hours'
+    AND archived_at IS NULL
 """)
 old_scores, oldest = cur.fetchone()
 if old_scores and old_scores > 10000:
