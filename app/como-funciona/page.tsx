@@ -124,9 +124,9 @@ const SOURCES = [
     icon: "🌊",
     name: "TideCheck",
     org: "UHSLC / FES2022",
-    description: "Nível de maré real — 32 de 115 cidades costeiras já cobertas, as demais usam valor neutro",
+    description: "Nível de maré real — 113 de 115 cidades costeiras já cobertas, faltam só 2",
     status: "rollout" as const,
-    statusLabel: "Em rollout",
+    statusLabel: "Praticamente completo",
   },
 ];
 
@@ -136,8 +136,8 @@ const LIMITATIONS = [
     text: "Bueiros, galerias pluviais e a capacidade de escoamento de cada rua não existem como dado público estruturado no Brasil. Usamos hidrografia natural (rios e córregos) como aproximação.",
   },
   {
-    title: "Maré ainda em rollout",
-    text: "O serviço de tábua de marés do CPTEC está degradado desde 2018. Já substituímos por dado real via TideCheck, mas o rollout ainda está em andamento — 32 das 115 cidades costeiras já têm estação atribuída.",
+    title: "Maré — rollout praticamente completo",
+    text: "O serviço de tábua de marés do CPTEC está degradado desde 2018. Já substituímos por dado real via TideCheck — 113 das 115 cidades costeiras já têm estação atribuída, faltam só 2.",
   },
   {
     title: "Eventos muito localizados",
