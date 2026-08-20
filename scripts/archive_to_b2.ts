@@ -281,13 +281,17 @@ async function createDailySnapshot(db: Pool): Promise<void> {
 
 // Retenção em 2 níveis (ver migração 034_merge_cache_retention.sql): célula
 // perto de bairro (lida de verdade pelo score, ver lib/merge.ts) guarda 4
-// dias; o resto do bbox nacional (grade retangular que nunca é lida por
-// nenhum bairro real) guarda só 1 (reduzido de 7/3 em 26/07/2026 -- o banco
-// bateu 502MB de novo com a retenção original, ver scripts/maintenance.sql).
-// is_near_neighborhood default é `false` pra qualquer linha gravada antes
-// dessa migração/antes do fetch_merge_cptec.py passar a marcar a coluna --
-// tratada aqui como "far" (retenção mais curta), um default conservador
-// razoável pra dado ainda não classificado.
+// dias e É arquivada no B2 antes de apagar. O resto do bbox nacional ("far",
+// grade retangular que nunca é lida por nenhum bairro real) NÃO é mais
+// arquivado -- achado em 19/08/2026: o volume de far (~265 mil linhas/dia,
+// bem maior que o de near) nunca chegou a ter backup real no B2 apesar do
+// código tentar (mesma query, mesmo loop) -- 94.261 linhas de far de um
+// único dia (18/08) com 0 bytes no arquivo B2 correspondente, enquanto near
+// do mesmo período tinha cobertura completa. Sem diagnóstico definitivo do
+// motivo (não é falha reportada -- os runs terminam com "sucesso"), mas dado
+// que far não tem valor pro score (só near entra em merge_cache_cells/
+// lib/merge.ts), decisão: parar de tentar arquivar far e só deletar
+// diretamente pelo corte de retenção -- ver deleteFarMergeCache abaixo.
 const MERGE_CACHE_NEAR_RETENTION_DAYS = 4;
 const MERGE_CACHE_FAR_RETENTION_DAYS = 1;
 
@@ -307,11 +311,12 @@ async function archiveMergeCache(db: Pool): Promise<void> {
     // source ficam de fora do arquivo histórico (a maioria das células vem do
     // MERGE DAILY, que só publica 1x/dia -- data_hour carrega pouca
     // granularidade real pra essa fatia).
+    // Só near (ver comentário de MERGE_CACHE_FAR_RETENTION_DAYS acima) -- far
+    // é limpo direto por deleteFarMergeCache, sem passar pelo B2.
     const { rows } = await db.query(
       `select id, grid_lat, grid_lng, rain_72h, rain_peak_3h, data_date, is_near_neighborhood, fetched_at
        from merge_cache
-       where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
-          or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')
+       where is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days'
        limit ${MERGE_CACHE_BATCH_SIZE}`
     );
     if (rows.length === 0) break;
@@ -358,13 +363,39 @@ async function archiveMergeCache(db: Pool): Promise<void> {
 
   const { rows: remainingRows } = await db.query<{ count: string }>(
     `select count(*) as count from merge_cache
-     where (is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days')
-        or (is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days')`
+     where is_near_neighborhood = true and fetched_at < now() - interval '${MERGE_CACHE_NEAR_RETENTION_DAYS} days'`
   );
   const remaining = Number(remainingRows[0].count);
-  console.log(`[archive] merge_cache restantes acima da retenção: ${remaining}`);
+  console.log(`[archive] merge_cache (near) restantes acima da retenção: ${remaining}`);
   if (remaining > 10_000) {
-    console.warn(`[archive] ATENÇÃO -- merge_cache: backlog não zerado (${remaining} linhas ainda acima do corte).`);
+    console.warn(`[archive] ATENÇÃO -- merge_cache (near): backlog não zerado (${remaining} linhas ainda acima do corte).`);
+  }
+}
+
+// far não tem backup no B2 (ver comentário de MERGE_CACHE_FAR_RETENTION_DAYS
+// acima) -- deleta direto pelo corte de retenção, sem upload nem leitura
+// prévia. Perda de dado aceita conscientemente: célula longe de qualquer
+// bairro não entra no cálculo de score nenhuma vez (só merge_cache_cells,
+// que só marca near, é lido por lib/merge.ts).
+async function deleteFarMergeCache(db: Pool): Promise<void> {
+  const BATCH = 5_000;
+  let deleted = 0;
+  while (true) {
+    const { rowCount } = await db.query(
+      `delete from merge_cache where id in (
+         select id from merge_cache
+         where is_near_neighborhood = false and fetched_at < now() - interval '${MERGE_CACHE_FAR_RETENTION_DAYS} days'
+         limit ${BATCH}
+       )`
+    );
+    if (!rowCount) break;
+    deleted += rowCount;
+    if (rowCount < BATCH) break;
+  }
+  if (deleted > 0) {
+    console.log(`merge_cache (far): ${deleted} linhas deletadas sem backup (dado sem valor pro score).`);
+  } else {
+    console.log("merge_cache (far): nada pra deletar.");
   }
 }
 
@@ -490,6 +521,7 @@ async function main() {
     await archiveRiskScores(db);
     await deleteArchivedRiskScores(db);
     await archiveMergeCache(db);
+    await deleteFarMergeCache(db);
     await archiveWeatherCache(db);
     await archiveCronStats(db);
     await cleanB2OldFiles();
