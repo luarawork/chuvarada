@@ -51,6 +51,7 @@ interface RiskScoreRow {
   rain_72h: number;
   rain_peak_3h: number;
   tide_level: number;
+  soil_moisture: number;
   auto_critical: boolean;
   auto_critical_reason: string | null;
   rain_source: string;
@@ -78,6 +79,17 @@ function getDb(): Pool {
 // por estado.
 const RISK_SCORES_BATCH_SIZE = 50_000;
 
+// Migração 045 (19/08/2026) -- archived_at desacopla "já subi pro B2" de
+// "já apaguei do Supabase". Antes, o único jeito de saber se uma linha já
+// tinha sido arquivada era reler o arquivo do B2 inteiro (readFromB2) e
+// comparar ids -- toda vez que o backlog não drenava de uma execução pra
+// outra (aconteceu de verdade: 284.830 linhas presas em 18/08, quase o dobro
+// do estimado), a próxima rodada reselecionava e reprocessava o MESMO
+// backlog do zero. Agora a query já exclui o que foi marcado (archived_at is
+// null), então o Postgres nunca reseleciona uma linha já arquivada -- a
+// leitura do B2 continua existindo (linha abaixo), mas só pra juntar com o
+// que já está no arquivo do dia (uma leva de 50.000 raramente é o dia
+// inteiro), não mais pra descobrir "isso já foi arquivado?".
 async function archiveRiskScores(db: Pool): Promise<void> {
   for (const state of STATES) {
     let totalArchived = 0;
@@ -85,7 +97,7 @@ async function archiveRiskScores(db: Pool): Promise<void> {
     while (true) {
       const { rows } = await db.query<RiskScoreRow>(
         `select rs.id, rs.score, rs.level, rs.rain_1h, rs.rain_72h, rs.rain_peak_3h,
-                rs.tide_level, rs.auto_critical, rs.auto_critical_reason, rs.rain_source,
+                rs.tide_level, rs.soil_moisture, rs.auto_critical, rs.auto_critical_reason, rs.rain_source,
                 rs.calculated_at, rs.neighborhood_id,
                 n.name as neighborhood_name, n.name_source, n.centroid_lat, n.centroid_lng,
                 c.name as city_name, c.state
@@ -93,7 +105,9 @@ async function archiveRiskScores(db: Pool): Promise<void> {
          join neighborhoods n on n.id = rs.neighborhood_id
          join cities c on c.id = n.city_id
          where rs.calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'
+           and rs.archived_at is null
            and c.state = $1
+         order by rs.calculated_at asc
          limit ${RISK_SCORES_BATCH_SIZE}`,
         [state]
       );
@@ -111,26 +125,26 @@ async function archiveRiskScores(db: Pool): Promise<void> {
       }
 
       for (const [date, scores] of Array.from(byDate)) {
-        // Leitura antes de gravar -- igual archiveMergeCache/archiveWeatherCache
-        // abaixo. Sem isso, uma segunda passada no mesmo dia (necessária agora
-        // que não há mais teto fixo -- um estado com backlog grande drena em
-        // várias iterações do while) sobrescrevia o arquivo do dia inteiro,
-        // perdendo os lotes já arquivados por iterações/execuções anteriores.
-        // Dedup por id como proteção extra: se uma execução for reprocessada
-        // depois de já ter arquivado mas falhado antes de deletar do Supabase,
-        // o mesmo id não entra duplicado no arquivo.
+        // archived_at garante que essa linha nunca foi selecionada antes --
+        // não precisa mais dedup por id, só juntar com o que já está no
+        // arquivo do dia (ainda necessário: uma leva de 50.000 raramente
+        // cobre o dia inteiro, e execuções sucessivas escrevem no mesmo
+        // arquivo ao longo do dia).
         const key = getRiskScoresKey(date, state);
         const existing = await readFromB2<RiskScoreRow[]>(key);
-        const existingIds = new Set((existing ?? []).map((s) => s.id));
-        const newScores = scores.filter((s) => !existingIds.has(s.id));
-        await saveToB2(key, [...(existing ?? []), ...newScores]);
-        console.log(`Arquivados ${newScores.length} scores novos de ${state} -- ${date} (lote com ${scores.length})`);
+        await saveToB2(key, [...(existing ?? []), ...scores]);
+        console.log(`Arquivados ${scores.length} scores novos de ${state} -- ${date} (lote com ${scores.length})`);
       }
 
+      // Marca como arquivado em vez de deletar na hora -- deletar de verdade
+      // fica pra deleteArchivedRiskScores() logo abaixo, depois que TODO
+      // estado já passou pelo upload. Resiliente a falha no meio: se o
+      // processo cair aqui, a linha já marcada não é reselecionada (where
+      // archived_at is null já exclui) nem reenviada de novo pro B2.
       const ids = rows.map((r) => r.id);
       const BATCH = 500;
       for (let i = 0; i < ids.length; i += BATCH) {
-        await db.query(`delete from risk_scores where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
+        await db.query(`update risk_scores set archived_at = now() where id = any($1::uuid[])`, [ids.slice(i, i + BATCH)]);
       }
 
       totalArchived += rows.length;
@@ -142,18 +156,49 @@ async function archiveRiskScores(db: Pool): Promise<void> {
     }
 
     if (totalArchived > 0) {
-      console.log(`${state}: ${totalArchived} scores arquivados no total no B2 e removidos do Supabase.`);
+      console.log(`${state}: ${totalArchived} scores arquivados no total no B2 e marcados como archived_at.`);
     }
   }
 
   const { rows: remainingRows } = await db.query<{ count: string }>(
-    `select count(*) as count from risk_scores where calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'`
+    `select count(*) as count from risk_scores where calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours' and archived_at is null`
   );
   const remaining = Number(remainingRows[0].count);
-  console.log(`[archive] risk_scores restantes acima de ${ARCHIVE_CUTOFF_HOURS}h: ${remaining}`);
+  console.log(`[archive] risk_scores restantes acima de ${ARCHIVE_CUTOFF_HOURS}h ainda não arquivados: ${remaining}`);
   if (remaining > 10_000) {
-    console.warn(`[archive] ATENÇÃO -- risk_scores: backlog não zerado (${remaining} linhas ainda acima do corte).`);
+    console.warn(`[archive] ATENÇÃO -- risk_scores: backlog de arquivamento não zerado (${remaining} linhas ainda acima do corte).`);
   }
+}
+
+// Separado de archiveRiskScores de propósito -- se o processo cair entre o
+// upload/marcação e a exclusão, a próxima execução não perde nem reprocessa
+// nada, só retoma dessa etapa (archived_at já está gravado, a query de
+// seleção acima já ignora essas linhas).
+async function deleteArchivedRiskScores(db: Pool): Promise<void> {
+  const { rows: countRows } = await db.query<{ count: string }>(
+    `select count(*) as count from risk_scores where archived_at is not null and calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'`
+  );
+  const toDelete = Number(countRows[0].count);
+  if (toDelete === 0) {
+    console.log("risk_scores: nada arquivado pendente de exclusão.");
+    return;
+  }
+
+  const BATCH = 5_000;
+  let deleted = 0;
+  while (true) {
+    const { rowCount } = await db.query(
+      `delete from risk_scores where id in (
+         select id from risk_scores
+         where archived_at is not null and calculated_at < now() - interval '${ARCHIVE_CUTOFF_HOURS} hours'
+         limit ${BATCH}
+       )`
+    );
+    if (!rowCount) break;
+    deleted += rowCount;
+    if (rowCount < BATCH) break;
+  }
+  console.log(`risk_scores: ${deleted} linhas já arquivadas removidas do Supabase.`);
 }
 
 async function createDailySnapshot(db: Pool): Promise<void> {
@@ -443,6 +488,7 @@ async function main() {
   const db = getDb();
   try {
     await archiveRiskScores(db);
+    await deleteArchivedRiskScores(db);
     await archiveMergeCache(db);
     await archiveWeatherCache(db);
     await archiveCronStats(db);
