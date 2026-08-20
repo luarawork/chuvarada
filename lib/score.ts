@@ -16,6 +16,7 @@ function weightsWithoutTide(weights: ScoreWeights): Omit<ScoreWeights, "tide_lev
     rain_1h: weights.rain_1h / remaining,
     rain_72h: weights.rain_72h / remaining,
     terrain_slope: weights.terrain_slope / remaining,
+    soil_moisture: weights.soil_moisture / remaining,
     hydro_proximity: weights.hydro_proximity / remaining,
   };
 }
@@ -68,6 +69,7 @@ export function calculateScore(
     rain_1h: normalizeLinear(weather.rain_1h, 25, 50),
     rain_72h: normalizeLinear(weather.rain_72h, 50, 100),
     terrain_slope: neighborhood.terrain_slope,
+    soil_moisture: weather.soil_moisture,
     hydro_proximity: neighborhood.hydro_proximity,
     tide_level: tideLevel ?? 0,
   };
@@ -77,6 +79,7 @@ export function calculateScore(
     breakdown.rain_1h * weights.rain_1h +
     breakdown.rain_72h * weights.rain_72h +
     breakdown.terrain_slope * weights.terrain_slope +
+    breakdown.soil_moisture * weights.soil_moisture +
     breakdown.hydro_proximity * weights.hydro_proximity;
 
   if (hasTide) score += breakdown.tide_level * regionWeights.tide_level;
@@ -90,9 +93,6 @@ export function calculateScore(
   } else if (hasTide && tideLevel > 0.8 && weather.rain_3h > 20 && neighborhood.is_coastal && isTideDataRecent(tideLastUpdated)) {
     autoCritical = true;
     autoCriticalReason = "Maré alta com chuva em zona costeira";
-  } else if (weather.rain_72h > 100 && weather.rain_1h > 1) {
-    autoCritical = true;
-    autoCriticalReason = "Solo saturado com nova precipitação";
   }
 
   // Rescala 2026-08-09: o composto acima é calculado em 0-1 (pesos somam
