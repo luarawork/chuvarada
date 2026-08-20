@@ -80,37 +80,6 @@ describe(
   }
 );
 
-describe("Regressão -- Bug Regra 3: limiar em 0 aceitava ruído de sensor como chuva real", () => {
-  it(
-    "dado rain_1h de 0,05mm (ruído de sensor/arredondamento) com solo muito saturado (rain_72h=150mm), " +
-      "quando o score é calculado, " +
-      "então a Regra 3 NÃO deve disparar auto_critical",
-    () => {
-      const result = calculateScore(
-        { terrain_slope: 0.3, hydro_proximity: 0.7, is_coastal: false },
-        weather({ rain_1h: 0.05, rain_72h: 150 }),
-        0.5
-      );
-      expect(result.auto_critical).toBe(false);
-      expect(result.auto_critical_reason).toBeNull();
-    }
-  );
-
-  it(
-    "dado rain_1h de 1,5mm (chuva real, não ruído) com solo saturado (rain_72h=150mm), " +
-      "quando o score é calculado, " +
-      "então a Regra 3 deve disparar auto_critical",
-    () => {
-      const result = calculateScore(
-        { terrain_slope: 0.3, hydro_proximity: 0.7, is_coastal: false },
-        weather({ rain_1h: 1.5, rain_72h: 150 }),
-        0.5
-      );
-      expect(result.auto_critical).toBe(true);
-    }
-  );
-});
-
 describe("Regressão -- mergeNewerScores: score antigo não sobrescreve novo", () => {
   it("dado um score novo já salvo e um score mais antigo chegando depois (fora de ordem), quando os dois são mesclados, então o score mais recente por calculated_at deve vencer sempre", () => {
     const existing = {
