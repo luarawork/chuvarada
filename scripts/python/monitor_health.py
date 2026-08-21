@@ -27,9 +27,12 @@ if size_mb > LIMIT_MB:
 elif size_mb > ALERT_MB:
     warnings.append(f"🟡 Banco em {size_mb:.1f}MB — próximo do limite ({LIMIT_MB}MB)")
 
-# 1.2 risk_scores com linhas > 24h (archive não drenando) -- corte reduzido
-# de 48h pra 24h em 10/08/2026 junto com ARCHIVE_CUTOFF_HOURS
-# (scripts/archive_to_b2.ts) e app/api/history/route.ts.
+# 1.2 risk_scores com linhas > 48h (archive não drenando) -- limiar elevado
+# de 24h pra 48h em 21/08/2026: archive roda 2x/dia (02h e 14h UTC), então o
+# backlog legítimo entre execuções nunca passa de ~36h (verificado em
+# 21/08/2026: ~228 mil linhas de backlog normal, só 7,5h após a última
+# execução, geravam falso positivo com o limiar de 24h). 48h dá margem
+# segura acima do pior caso real.
 # archived_at IS NULL (migração 045, 19/08/2026): linha já marcada como
 # arquivada já tem backup garantido no B2, só falta o DELETE (que roda logo
 # em seguida no mesmo archive, ver deleteArchivedRiskScores) -- contar essas
@@ -37,17 +40,29 @@ elif size_mb > ALERT_MB:
 cur.execute("""
     SELECT COUNT(*), MIN(calculated_at)
     FROM risk_scores
-    WHERE calculated_at < NOW() - INTERVAL '24 hours'
+    WHERE calculated_at < NOW() - INTERVAL '48 hours'
     AND archived_at IS NULL
 """)
 old_scores, oldest = cur.fetchone()
+
+cur.execute("""
+    SELECT COUNT(*)
+    FROM risk_scores
+    WHERE calculated_at < NOW() - INTERVAL '36 hours'
+    AND archived_at IS NULL
+""")
+old_scores_36h = cur.fetchone()[0]
+
 if old_scores and old_scores > 10000:
     issues.append(
-        f"🔴 {old_scores:,} linhas de risk_scores com >24h no banco "
-        f"(mais antiga: {oldest}). Archive não está drenando."
+        f"🔴 {old_scores:,} linhas de risk_scores com >48h sem arquivar "
+        f"(mais antiga: {oldest}). Archive pode não estar drenando — "
+        f"com execuções 2x/dia, backlog legítimo nunca passa de ~36h."
     )
-elif old_scores and old_scores > 0:
-    warnings.append(f"🟡 {old_scores:,} linhas de risk_scores com >24h (backlog pequeno)")
+elif old_scores_36h and old_scores_36h > 0:
+    warnings.append(
+        f"🟡 {old_scores_36h:,} linhas de risk_scores com >36h sem arquivar"
+    )
 
 # 1.3 Duplicatas em risk_scores (últimas 24h)
 cur.execute("""
