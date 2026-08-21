@@ -204,18 +204,22 @@ elif stale_merge > 50000:  # >2x o normal -- avisar
         f"Acima de 50k pode indicar falha no CPTEC."
     )
 
-# 3.2 merge_cache com linhas > 4 dias (retenção violada)
+# 3.2 merge_cache com linhas > 5 dias (retenção violada) -- limiar elevado
+# de 4 pra 5 dias em 21/08/2026: archive roda 2x/dia, então o backlog
+# legítimo de merge_cache near nunca passa de ~12h além do corte de
+# retenção de 4 dias (MERGE_CACHE_NEAR_RETENTION_DAYS em archive_to_b2.ts).
+# 5 dias dá margem segura sem gerar falso positivo crônico.
 cur.execute("""
     SELECT COUNT(*)
     FROM merge_cache
-    WHERE fetched_at < NOW() - INTERVAL '4 days'
+    WHERE fetched_at < NOW() - INTERVAL '5 days'
     AND is_near_neighborhood = true
 """)
 old_merge = cur.fetchone()[0]
 if old_merge > 0:
     issues.append(
-        f"🔴 {old_merge:,} linhas de merge_cache próximo com >4 dias. "
-        f"Retenção violada."
+        f"🔴 {old_merge:,} linhas de merge_cache próximo com >5 dias "
+        f"(retenção alvo: 4 dias). Archive pode não estar drenando."
     )
 
 # ─── 4. WEATHER CACHE ────────────────────────────────────────────
