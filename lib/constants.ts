@@ -110,9 +110,17 @@ export const LEVEL_TEXT_CLASS: Record<RiskLevel, string> = {
 // tiles.basemaps.cartocdn.com/vector/carto.streets/v1/tiles.json em
 // ambas) -- não há razão pra Voyager suportar um nível a mais que
 // dark_all, os dois têm o mesmo teto real. maxZoom: 18 pras duas.
+// Key da CartoDB (client ID de basemap, ver .env.local) -- sem ela os
+// tiles carregam com uma marca d'água "API KEY REQUIRED" sobreposta.
+const CARTO_API_KEY = process.env.NEXT_PUBLIC_CARTO_API_KEY;
+const cartoTileUrl = (path: string) =>
+  `https://{s}.basemaps.cartocdn.com/${path}/{z}/{x}/{y}{r}.png${
+    CARTO_API_KEY ? `?key=${CARTO_API_KEY}` : ""
+  }`;
+
 export const TILE_LAYERS = {
   default: {
-    url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    url: cartoTileUrl("dark_all"),
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Escuro",
@@ -120,7 +128,7 @@ export const TILE_LAYERS = {
     maxZoom: 18,
   },
   street: {
-    url: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    url: cartoTileUrl("rastertiles/voyager"),
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     label: "Modo Claro",
