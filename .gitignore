@@ -110,6 +110,14 @@ next-env.d.ts
 # o script de novo (não é dado bruto nem faz parte do pipeline versionado).
 /dados-brutos/cities_export.csv
 
+# Geopackages de setores censitários (Censo 2022) baixados um estado por
+# vez por scripts/python/recalculate_district_centroids.py -- até 186MB
+# cada, deletados após processar, recriáveis via download do IBGE.
+/dados-brutos/tmp_gpkg/
+/dados-brutos/district_centroids_checkpoint.csv
+/dados-brutos/district_centroids_new.csv
+/dados-brutos/district_centroids_run.log
+
 # SRTM Centro-Oeste + Norte (expansão nacional, 22/07/2026) -- mesmo motivo
 # das seções acima: passam do limite de 100MB do GitHub. AM/PA/MT/GO/MS/RO/TO
 # precisaram de quadrantes (splitGrid, ver scripts/download_srtm_states.js)
