@@ -31,6 +31,7 @@ Uso:
 import argparse
 import os
 import re
+import time
 from urllib.parse import urlparse
 
 import geopandas as gpd
@@ -165,7 +166,22 @@ def main():
         f"de um checkpoint salvo anteriormente (default salvo em {CHECKPOINT_PATH}). Uso: recuperar "
         f"de uma falha na fase de UPDATE sem recalcular tudo de novo.",
     )
+    parser.add_argument(
+        "--ids-file",
+        metavar="PATH",
+        default=None,
+        help="Arquivo com IDs de neighborhoods para reprocessar (um UUID por linha) -- restringe o "
+        "escopo a esse subconjunto em vez de todos os bairros ativos (ou de --states). Usado pro "
+        "reprocessamento pontual pós-correção de centroide de distritos (28/08/2026).",
+    )
     args = parser.parse_args()
+
+    # Escopo parcial (--ids-file) usa um checkpoint com nome próprio pra não
+    # colidir/misturar com um checkpoint de rodada nacional completa.
+    checkpoint_path = CHECKPOINT_PATH
+    if args.ids_file and not args.from_checkpoint:
+        base, ext = os.path.splitext(CHECKPOINT_PATH)
+        checkpoint_path = f"{base}_partial{ext}"
 
     if args.from_checkpoint:
         neighborhoods = pd.read_csv(args.from_checkpoint)
@@ -180,12 +196,47 @@ def main():
         conn.close()
         print(f"Bairros carregados: {len(neighborhoods)}" + (f" (estados: {args.states})" if args.states else " (Brasil inteiro)"))
 
+        if args.ids_file:
+            with open(args.ids_file) as f:
+                ids_filter = set(line.strip() for line in f if line.strip())
+            total_antes = len(neighborhoods)
+            neighborhoods = neighborhoods[neighborhoods["id"].astype(str).isin(ids_filter)].copy()
+            print(f"[escopo] Filtrando {total_antes} → {len(neighborhoods)} bairros (arquivo: {args.ids_file})")
+            faltando = ids_filter - set(neighborhoods["id"].astype(str))
+            if faltando:
+                print(f"[escopo] AVISO: {len(faltando)} IDs do arquivo não bateram com nenhum bairro carregado "
+                      f"(ex: {list(faltando)[:5]})")
+
         hydro_gdf = load_hydro_with_strahler()
 
+        total = len(neighborhoods)
+        print(f"\n[progresso] Iniciando cálculo geoespacial pra {total} bairros...", flush=True)
+        start_time = time.time()
+        last_progress = start_time
+        PROGRESS_INTERVAL = 60
+
         novos = []
-        for _, n in neighborhoods.iterrows():
+        for i, (_, n) in enumerate(neighborhoods.iterrows()):
             centroid = Point(n["centroid_lng"], n["centroid_lat"])
             novos.append(compute_hydro_proximity_weighted(centroid, hydro_gdf))
+
+            now = time.time()
+            if now - last_progress >= PROGRESS_INTERVAL:
+                elapsed = now - start_time
+                processed = i + 1
+                pct = processed / total * 100 if total > 0 else 0
+                rate = processed / elapsed if elapsed > 0 else 0
+                remaining = (total - processed) / rate if rate > 0 else 0
+                print(
+                    f"⏱️  Progresso: {processed}/{total} ({pct:.1f}%) | "
+                    f"Velocidade: {rate:.1f} bairros/s | "
+                    f"Tempo restante: ~{remaining/60:.0f}min",
+                    flush=True,
+                )
+                last_progress = now
+        elapsed_total = time.time() - start_time
+        print(f"[progresso] Cálculo geoespacial concluído em {elapsed_total/60:.1f}min", flush=True)
+
         neighborhoods["hydro_proximity_novo"] = novos
         neighborhoods["diferenca"] = neighborhoods["hydro_proximity_novo"] - neighborhoods["hydro_proximity_atual"]
 
@@ -193,9 +244,9 @@ def main():
         # falhar (conexão morta, timeout, etc.), o cálculo geoespacial (a
         # parte lenta, pode levar horas) não precisa rodar de novo: basta
         # `--from-checkpoint` nesse arquivo.
-        os.makedirs(os.path.dirname(CHECKPOINT_PATH), exist_ok=True)
-        neighborhoods.to_csv(CHECKPOINT_PATH, index=False)
-        print(f"\nCheckpoint salvo em {CHECKPOINT_PATH} ({len(neighborhoods)} bairros) -- "
+        os.makedirs(os.path.dirname(checkpoint_path), exist_ok=True)
+        neighborhoods.to_csv(checkpoint_path, index=False)
+        print(f"\nCheckpoint salvo em {checkpoint_path} ({len(neighborhoods)} bairros) -- "
               f"recuperável via --from-checkpoint se o UPDATE falhar.")
 
         print("\nComparação hydro_proximity -- atual vs ponderado por Strahler:")
