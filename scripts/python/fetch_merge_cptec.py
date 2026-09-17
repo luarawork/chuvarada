@@ -220,12 +220,44 @@ def collect_hourly_grids(bbox, max_files: int = 3):
     return found
 
 
+DAILY_FALLBACK_MAX_LOOKBACK_DAYS = 7  # janela total do fallback, incluindo os DAILY_LOOKBACK_DAYS já tentados
+
+
+def collect_daily_grids_fallback(bbox):
+    """Último recurso quando collect_daily_grids não achou NENHUM arquivo
+    dentro da janela normal (DAILY_LOOKBACK_DAYS) -- em vez de abortar sem
+    gravar nada, procura mais fundo (até DAILY_FALLBACK_MAX_LOOKBACK_DAYS) por
+    um único arquivo utilizável. rain_72h fica degradado (soma de 1 dia em
+    vez de até 3), mas um score calculado com dado levemente desatualizado é
+    melhor que nenhum score -- achado em 17/09/2026, ver docs/reports/."""
+    today = datetime.now(timezone.utc).date()
+    for i in range(DAILY_LOOKBACK_DAYS, DAILY_FALLBACK_MAX_LOOKBACK_DAYS):
+        d = today - timedelta(days=i)
+        url = daily_url(d)
+        content = fetch_grib2(url, MIN_DAILY_GRIB2_BYTES)
+        if content is None:
+            print(f"[DAILY][fallback] {d.isoformat()}: indisponível ({url})")
+            continue
+        print(f"[DAILY][fallback] {d.isoformat()}: OK ({len(content)} bytes) -- usando como único arquivo (rain_72h degradado)")
+        return [(d, content)]
+    return []
+
+
 def build_cache_rows(bbox):
     daily_files = collect_daily_grids(bbox, max_files=3)
     hourly_files = collect_hourly_grids(bbox, max_files=3)
 
     if not daily_files:
-        raise SystemExit("Nenhum arquivo DAILY disponível nos últimos dias — abortando sem gravar nada.")
+        print(
+            f"[AVISO] Nenhum arquivo DAILY nos últimos {DAILY_LOOKBACK_DAYS} dias. "
+            f"[FALLBACK] Tentando arquivo mais recente disponível (até {DAILY_FALLBACK_MAX_LOOKBACK_DAYS} dias atrás)..."
+        )
+        daily_files = collect_daily_grids_fallback(bbox)
+
+    if not daily_files:
+        raise SystemExit(
+            f"Nenhum arquivo DAILY disponível nos últimos {DAILY_FALLBACK_MAX_LOOKBACK_DAYS} dias — abortando sem gravar nada."
+        )
 
     lats, lngs = canonical_grid(bbox)
 
