@@ -8,6 +8,28 @@ import psycopg2
 import requests
 from datetime import datetime, timezone
 
+
+def get_existing_health_issue(github_token: str, repo: str) -> dict | None:
+    """Busca issue aberta com label health-monitor -- evita criar uma issue
+    nova a cada execução (achado em 17/09/2026: 21 issues idênticas
+    acumuladas em 21 dias corridos, nunca fechadas, ver docs/reports/)."""
+    response = requests.get(
+        f"https://api.github.com/repos/{repo}/issues",
+        headers={
+            "Authorization": f"Bearer {github_token}",
+            "Accept": "application/vnd.github+json",
+        },
+        params={
+            "state": "open",
+            "labels": "health-monitor",
+            "per_page": 1,
+        },
+    )
+    response.raise_for_status()
+    found = response.json()
+    return found[0] if found else None
+
+
 conn = psycopg2.connect(os.environ['SUPABASE_CONNECTION_STRING'])
 cur = conn.cursor()
 
@@ -311,9 +333,20 @@ for issue in issues:
 for warning in warnings:
     print(f"  {warning}")
 
-# Abrir issue no GitHub se houver problemas críticos
+# Issue única por ciclo de problema: busca uma issue aberta com label
+# health-monitor, comenta nela se já existir, cria só se não existir, e
+# fecha automaticamente quando os problemas críticos somem -- em vez de
+# criar uma issue nova a cada execução (era o comportamento antigo, ver
+# comentário na função get_existing_health_issue acima).
+github_headers = {
+    "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+    "Accept": "application/vnd.github+json",
+}
+github_repo = os.environ['GITHUB_REPOSITORY']
+existing = get_existing_health_issue(os.environ['GITHUB_TOKEN'], github_repo)
+
 if total_issues > 0:
-    title = f"[Health Monitor] {total_issues} problema(s) crítico(s) — {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
+    title = "[Health Monitor] Problemas críticos detectados"
     body = "## Problemas críticos encontrados\n\n"
     body += "\n".join(f"- {issue}" for issue in issues)
     if warnings:
@@ -321,25 +354,54 @@ if total_issues > 0:
         body += "\n".join(f"- {warning}" for warning in warnings)
     body += f"\n\n---\n*Gerado automaticamente em {datetime.now(timezone.utc).isoformat()}*"
 
-    response = requests.post(
-        f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues",
-        headers={
-            "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
-            "Accept": "application/vnd.github+json",
-        },
-        json={
-            "title": title,
-            "body": body,
-            "labels": ["health-monitor", "bug"],
-        }
-    )
-
-    if response.status_code == 201:
-        print(f"Issue aberta: {response.json()['html_url']}")
+    if existing:
+        response = requests.post(
+            f"https://api.github.com/repos/{github_repo}/issues/{existing['number']}/comments",
+            headers=github_headers,
+            json={"body": body},
+        )
+        if response.status_code == 201:
+            print(f"Comentário adicionado na issue #{existing['number']}")
+        else:
+            print(f"Erro ao comentar na issue #{existing['number']}: {response.status_code} {response.text}")
+            exit(1)
     else:
-        print(f"Erro ao abrir issue: {response.status_code} {response.text}")
-        exit(1)
+        response = requests.post(
+            f"https://api.github.com/repos/{github_repo}/issues",
+            headers=github_headers,
+            json={
+                "title": title,
+                "body": body,
+                "labels": ["health-monitor", "bug"],
+            },
+        )
+        if response.status_code == 201:
+            print(f"Issue aberta: {response.json()['html_url']}")
+        else:
+            print(f"Erro ao abrir issue: {response.status_code} {response.text}")
+            exit(1)
 
     exit(1)  # falhar o workflow se há problemas críticos
+
+elif existing:
+    # Sem problemas críticos agora, mas havia uma issue aberta -- fecha
+    # automaticamente em vez de deixar pendurada esperando alguém notar.
+    close_response = requests.patch(
+        f"https://api.github.com/repos/{github_repo}/issues/{existing['number']}",
+        headers=github_headers,
+        json={"state": "closed"},
+    )
+    if close_response.status_code == 200:
+        requests.post(
+            f"https://api.github.com/repos/{github_repo}/issues/{existing['number']}/comments",
+            headers=github_headers,
+            json={
+                "body": "✅ Problemas resolvidos — fechando automaticamente.\n\n"
+                f"*{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}*"
+            },
+        )
+        print(f"Issue #{existing['number']} fechada automaticamente")
+    else:
+        print(f"Erro ao fechar issue #{existing['number']}: {close_response.status_code} {close_response.text}")
 
 print("✅ Tudo saudável")
