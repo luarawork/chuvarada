@@ -146,6 +146,14 @@ for table, dead, live, pct, last_vac in bloat_tables:
 # juntando neighborhoods+risk_scores por linha, é caro demais em escala
 # nacional. city_risk_summary já tem 1 linha por cidade com last_updated,
 # reduzindo a checagem a uma tabela pequena.
+# Limiar de 2h pra 6h em 17/09/2026: investigação real (GitHub Actions run
+# history de merge-and-scores-update.yml) mostrou que o cron de scores roda
+# a cada ~5-6h na prática, não a cada 1h como o "0 * * * *" declarado
+# sugere -- o scheduler do GitHub atrasa/descarta triggers sob carga (esse
+# repo tem vários workflows agendados competindo). Com limiar de 2h, o
+# alerta disparava quase todo dia mesmo com o cron funcionando dentro do
+# padrão real dele -- 21 issues idênticas em 21 dias corridos, ver
+# docs/reports/. 6h dá margem acima da cadência real observada.
 cur.execute("""
     SELECT COUNT(*)
     FROM cities c
@@ -153,17 +161,17 @@ cur.execute("""
     AND NOT EXISTS (
         SELECT 1 FROM city_risk_summary crs
         WHERE crs.city_id = c.id
-        AND crs.last_updated > NOW() - INTERVAL '2 hours'
+        AND crs.last_updated > NOW() - INTERVAL '6 hours'
     )
 """)
 stale_cities = cur.fetchone()[0]
 if stale_cities > 100:
     issues.append(
-        f"🔴 {stale_cities} cidades com score desatualizado (>2h). "
-        f"Possível falha no Cron A."
+        f"🔴 {stale_cities} cidades com score desatualizado (>6h). "
+        f"Verificar GitHub Actions — cadência real do scheduler é ~5-6h."
     )
 elif stale_cities > 0:
-    warnings.append(f"🟡 {stale_cities} cidades com score desatualizado (>2h)")
+    warnings.append(f"🟡 {stale_cities} cidades com score desatualizado (>6h)")
 
 # 2.2 Score vs level inconsistentes -- LATERAL em vez de DISTINCT ON global.
 # Testado localmente: DISTINCT ON (neighborhood_id) * FROM risk_scores
@@ -261,7 +269,7 @@ stale_weather = cur.fetchone()[0]
 if stale_weather > 500:
     issues.append(
         f"🔴 {stale_weather} cidades sem weather_cache atualizado (>32h). "
-        f"Cron B pode estar falhando."
+        f"Weather cache pode estar desatualizado — verificar GitHub Actions."
     )
 elif stale_weather > 100:
     warnings.append(f"🟡 {stale_weather} cidades sem weather_cache atualizado (>32h)")
