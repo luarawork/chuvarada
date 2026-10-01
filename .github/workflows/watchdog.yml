@@ -1,0 +1,53 @@
+name: Watchdog — Cron A Fallback
+
+# Dispara merge-and-scores-update.yml manualmente quando city_risk_summary
+# fica sem atualizar por mais de 6h -- mesmo limiar calibrado em
+# monitor_health.py (17/09/2026), já que a cadência real do scheduler do
+# GitHub pra esse workflow é ~5-6h, não a 1h declarada. Rede de segurança
+# pro caso raro de o scheduler atrasar MUITO além disso (ou de uma falha
+# real em update_merge bloquear update_scores por um ciclo inteiro).
+on:
+  schedule:
+    - cron: "0 */2 * * *" # a cada 2h
+  workflow_dispatch:
+
+permissions:
+  actions: write # necessário pra disparar outro workflow via API com GITHUB_TOKEN
+
+jobs:
+  check-and-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar última execução do Cron A
+        id: check
+        env:
+          SUPABASE_CONNECTION_STRING: ${{ secrets.SUPABASE_CONNECTION_STRING }}
+        run: |
+          LAST_UPDATE=$(psql "$SUPABASE_CONNECTION_STRING" -t -c \
+            "SELECT MAX(last_updated) FROM city_risk_summary;" | xargs)
+
+          echo "Última atualização: $LAST_UPDATE"
+
+          # xargs aqui tira os espaços/quebra de linha que psql -t deixa --
+          # sem isso o valor não é um número JSON válido pro fromJson() do
+          # step seguinte.
+          HOURS_AGO=$(psql "$SUPABASE_CONNECTION_STRING" -t -c \
+            "SELECT EXTRACT(EPOCH FROM (NOW() - MAX(last_updated)))/3600
+             FROM city_risk_summary;" | xargs)
+
+          echo "Horas desde última atualização: $HOURS_AGO"
+          echo "hours_ago=$HOURS_AGO" >> "$GITHUB_OUTPUT"
+
+      - name: Disparar Cron A se desatualizado
+        if: ${{ fromJson(steps.check.outputs.hours_ago) > 6 }}
+        run: |
+          echo "⚠️ Scores desatualizados há mais de 6h — disparando Cron A"
+          curl -sf -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/merge-and-scores-update.yml/dispatches \
+            -d '{"ref":"main"}'
+
+      - name: Tudo OK
+        if: ${{ fromJson(steps.check.outputs.hours_ago) <= 6 }}
+        run: echo "✅ Scores atualizados há ${{ steps.check.outputs.hours_ago }}h — nenhuma ação necessária"
